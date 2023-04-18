@@ -47,6 +47,12 @@ const companySchema = new Schema({
   ],
   jobs: [{ type: Schema.Types.ObjectId, ref: "Job" }],
   admins: [{ type: Schema.Types.ObjectId, ref: "User" }],
+  profPic: {
+    type: String,
+  },
+  bannerPic: {
+    type: String,
+  },
 });
 
 const Company = model("Company", companySchema);
