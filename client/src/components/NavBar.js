@@ -36,10 +36,10 @@ export default function NavBar() {
                 </Link>
               </li>
               <li>
-                <Link>Settings</Link>
+                <Link to="#">Settings</Link>
               </li>
               <li>
-                <Link>Logout</Link>
+                <Link to="#">Logout</Link>
               </li>
             </ul>
           </div>
