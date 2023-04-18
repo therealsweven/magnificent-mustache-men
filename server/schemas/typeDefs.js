@@ -17,6 +17,8 @@ const typeDefs = gql`
     posts: [String]
     connections: [String]
     groups: [String]
+    profPic: String
+    bannerPic: String
   }
 
   type Company {
@@ -37,6 +39,8 @@ const typeDefs = gql`
     posts: [String]
     jobs: [String]
     admins: [String]
+    profPic: String
+    bannerPic: String
   }
 
   type Job {
@@ -75,6 +79,8 @@ const typeDefs = gql`
     members: [String]
     posts: [String]
     joinQuestion: String
+    profPic: String
+    bannerPic: String
   }
 
   type EducationalInstitution {
@@ -86,6 +92,8 @@ const typeDefs = gql`
     foundedYear: Int
     studentBody: Int
     website: String
+    image: String
+    bannerPic: String
   }
 
   type Reaction {
