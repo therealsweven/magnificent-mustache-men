@@ -1,0 +1,818 @@
+[
+  {
+    "reactionName": "Slightly smiling face",
+    "icon": "&#x1F642"
+  },
+  {
+    "reactionName": "Smiling face",
+    "icon": "&#x1F600"
+  },
+  {
+    "reactionName": "Smiling face with big eyes",
+    "icon": "&#x1F603"
+  },
+  {
+    "reactionName": "Smiling face with smiling eyes",
+    "icon": "&#x1F604"
+  },
+  {
+    "reactionName": "Beaming face with smiling eyes",
+    "icon": "&#x1F601"
+  },
+  {
+    "reactionName": "Smiling face with tears",
+    "icon": "&#x1F605"
+  },
+  {
+    "reactionName": "Grinning face",
+    "icon": "&#x1F606"
+  },
+  {
+    "reactionName": "Rolling on the floor laughing",
+    "icon": "&#x1F923"
+  },
+  {
+    "reactionName": "Lauging with tears",
+    "icon": "&#x1F602"
+  },
+  {
+    "reactionName": "Upside down face",
+    "icon": "&#x1F643"
+  },
+  {
+    "reactionName": "Winking face",
+    "icon": "&#x1F609"
+  },
+  {
+    "reactionName": "Smiling face with smiling eyes",
+    "icon": "&#x1F60A"
+  },
+  {
+    "reactionName": "Smiling face with halo",
+    "icon": "&#x1F607"
+  },
+  {
+    "reactionName": "Smiling face with sunglasses",
+    "icon": "&#x1F60E"
+  },
+  {
+    "reactionName": "Nerdy face",
+    "icon": "&#x1F913"
+  },
+  {
+    "reactionName": "Face with monocle",
+    "icon": "&#x1F9D0"
+  },
+  {
+    "reactionName": "Partying face",
+    "icon": "&#x1F973"
+  },
+  {
+    "reactionName": "Smiling face with hearts",
+    "icon": "&#x1F970"
+  },
+  {
+    "reactionName": "Smiling face with heart eyes",
+    "icon": "&#x1F60D"
+  },
+  {
+    "reactionName": "Star-struck",
+    "icon": "&#x1F60D"
+  },
+  {
+    "reactionName": "Face blowing kiss",
+    "icon": "&#x1F618"
+  },
+  {
+    "reactionName": "Kissing face",
+    "icon": "&#x1F617"
+  },
+  {
+    "reactionName": "Smiling face",
+    "icon": "&#x263A"
+  },
+  {
+    "reactionName": "Kissing face with closed eyes",
+    "icon": "&#x1F61A"
+  },
+  {
+    "reactionName": "Kissng face with smiling eyes",
+    "icon": "&#x1F619"
+  },
+  {
+    "reactionName": "Smiling face with tears",
+    "icon": "&#x1F972"
+  },
+  {
+    "reactionName": "Yummy face",
+    "icon": "&#x1F60B"
+  },
+  {
+    "reactionName": "Face with tongue",
+    "icon": "&#x1F61B"
+  },
+  {
+    "reactionName": "WInking face with tongue",
+    "icon": "&#x1F61C"
+  },
+  {
+    "reactionName": "Zany face",
+    "icon": "&#x1F92A"
+  },
+  {
+    "reactionName": "Squinting face with tongue",
+    "icon": "&#x1F61D"
+  },
+  {
+    "reactionName": "Money face with money tongue",
+    "icon": "&#x1F911"
+  },
+  {
+    "reactionName": "Hugs",
+    "icon": "&#x1F917"
+  },
+  {
+    "reactionName": "Face with hand in mouth",
+    "icon": "&#x1F92D"
+  },
+  {
+    "reactionName": "Shushing face",
+    "icon": "&#x1F92B"
+  },
+  {
+    "reactionName": "Thinking face",
+    "icon": "&#x1F914"
+  },
+  {
+    "reactionName": "Neutral face",
+    "icon": "&#x1F610"
+  },
+  {
+    "reactionName": "Zipped mouth",
+    "icon": "&#x1F910"
+  },
+  {
+    "reactionName": "Face with raised eyebrow",
+    "icon": "&#x1F928"
+  },
+  {
+    "reactionName": "Expressionless face",
+    "icon": "&#x1F611"
+  },
+  {
+    "reactionName": "Face with no mouth",
+    "icon": "&#x1F636"
+  },
+  {
+    "reactionName": "Smirking face",
+    "icon": "&#x1F60F"
+  },
+  {
+    "reactionName": "Unamused face",
+    "icon": "&#x1F612"
+  },
+  {
+    "reactionName": "Face with rolling eyes",
+    "icon": "&#x1F644"
+  },
+  {
+    "reactionName": "Grimacing face",
+    "icon": "&#x1F62C"
+  },
+  {
+    "reactionName": "Lying face",
+    "icon": "&#x1F925"
+  },
+  {
+    "reactionName": "Sleepy face",
+    "icon": "&#x1F62A"
+  },
+  {
+    "reactionName": "Sleeping face",
+    "icon": "&#x1F634"
+  },
+  {
+    "reactionName": "Relieved face",
+    "icon": "&#x1F60C"
+  },
+  {
+    "reactionName": "Pensive face",
+    "icon": "&#x1F614"
+  },
+  {
+    "reactionName": "Drooling face",
+    "icon": "&#x1F924"
+  },
+  {
+    "reactionName": "Face with mask",
+    "icon": "&#x1F637"
+  },
+  {
+    "reactionName": "Face with thermometer",
+    "icon": "&#x1F912"
+  },
+  {
+    "reactionName": "Face with bandage",
+    "icon": "&#x1F915"
+  },
+  {
+    "reactionName": "Nauseous face",
+    "icon": "&#x1F922"
+  },
+  {
+    "reactionName": "Vomiting face",
+    "icon": "&#x1F92E"
+  },
+  {
+    "reactionName": "Sneezing face",
+    "icon": "&#x1F927"
+  },
+  {
+    "reactionName": "Hot face",
+    "icon": "&#x1F975"
+  },
+  {
+    "reactionName": "Cold face",
+    "icon": "&#x1F976"
+  },
+  {
+    "reactionName": "Woozy face",
+    "icon": "&#x1F974"
+  },
+  {
+    "reactionName": "Face with crossed-out eyes",
+    "icon": "&#x1F635"
+  },
+  {
+    "reactionName": "Face with exploding head",
+    "icon": "&#x1F92F"
+  },
+  {
+    "reactionName": "Confused face",
+    "icon": "&#x1F615"
+  },
+  {
+    "reactionName": "Worried face",
+    "icon": "&#x1F61F"
+  },
+  {
+    "reactionName": "Slightly frowning face",
+    "icon": "&#x1F641"
+  },
+  {
+    "reactionName": "Frowning face",
+    "icon": "&#x2639"
+  },
+  {
+    "reactionName": "Face with open mouth",
+    "icon": "&#x1F62E"
+  },
+  {
+    "reactionName": "Hushed face",
+    "icon": "&#x1F62F"
+  },
+  {
+    "reactionName": "Astonished face",
+    "icon": "&#x1F632"
+  },
+  {
+    "reactionName": "Flushed face",
+    "icon": "&#x1F633"
+  },
+  {
+    "reactionName": "Begging face",
+    "icon": "&#x1F97A"
+  },
+  {
+    "reactionName": "Frowning face with open mouth",
+    "icon": "&#x1F626"
+  },
+  {
+    "reactionName": "Angushed face",
+    "icon": "&#x1F627"
+  },
+  {
+    "reactionName": "Fearful face",
+    "icon": "&#x1F628"
+  },
+  {
+    "reactionName": "Anxious face with sweat",
+    "icon": "&#x1F630"
+  },
+  {
+    "reactionName": "Sad but relieved face",
+    "icon": "&#x1F625"
+  },
+  {
+    "reactionName": "Crying face",
+    "icon": "&#x1F622"
+  },
+  {
+    "reactionName": "Loudly crying face",
+    "icon": "&#x1F62D"
+  },
+  {
+    "reactionName": "Screaming face",
+    "icon": "&#x1F631"
+  },
+  {
+    "reactionName": "Confounded face",
+    "icon": "&#x1F616"
+  },
+  {
+    "reactionName": "Persevering face",
+    "icon": "&#x1F623"
+  },
+  {
+    "reactionName": "Disappointed face",
+    "icon": "&#x1F61E"
+  },
+  {
+    "reactionName": "Downcast face with sweat",
+    "icon": "&#x1F613"
+  },
+  {
+    "reactionName": "Weary face",
+    "icon": "&#x1F629"
+  },
+  {
+    "reactionName": "Tired face",
+    "icon": "&#x1F62B"
+  },
+  {
+    "reactionName": "Yawning face",
+    "icon": "&#x1F971"
+  },
+  {
+    "reactionName": "Face with steam",
+    "icon": "&#x1F624"
+  },
+  {
+    "reactionName": "Pouting face",
+    "icon": "&#x1F621"
+  },
+  {
+    "reactionName": "Angry face",
+    "icon": "&#x1F620"
+  },
+  {
+    "reactionName": "Face with symbols on mouth",
+    "icon": "&#x1F92C"
+  },
+  {
+    "reactionName": "Smiling face with horns",
+    "icon": "&#x1F608"
+  },
+  {
+    "reactionName": "Angry face with horns",
+    "icon": "&#x1F47F"
+  },
+  {
+    "reactionName": "Skull",
+    "icon": "&#x1F480"
+  },
+  {
+    "reactionName": "Skull and cross-bone",
+    "icon": "&#x2620"
+  },
+  {
+    "reactionName": "Pile of poo",
+    "icon": "&#x1F4A9"
+  },
+  {
+    "reactionName": "Clown",
+    "icon": "&#x1F921"
+  },
+  {
+    "reactionName": "Ogre",
+    "icon": "&#x1F479"
+  },
+  {
+    "reactionName": "Goblin",
+    "icon": "&#x1F47A"
+  },
+  {
+    "reactionName": "Ghost",
+    "icon": "&#x1F47B"
+  },
+  {
+    "reactionName": "Alien",
+    "icon": "&#x1F47D"
+  },
+  {
+    "reactionName": "Alien monster",
+    "icon": "&#x1F47E"
+  },
+  {
+    "reactionName": "Robot",
+    "icon": "&#x1F916"
+  },
+  {
+    "reactionName": "Grinnig cat",
+    "icon": "&#x1F63A"
+  },
+  {
+    "reactionName": "Grinning cat with smiling eyes",
+    "icon": "&#x1F638"
+  },
+  {
+    "reactionName": "Grinning cat with tears",
+    "icon": "&#x1F639"
+  },
+  {
+    "reactionName": "Smiling cat with heart eyes",
+    "icon": "&#x1F63B"
+  },
+  {
+    "reactionName": "Cat with wry smile",
+    "icon": "&#x1F63C"
+  },
+  {
+    "reactionName": "Kissing cat",
+    "icon": "&#x1F63D"
+  },
+  {
+    "reactionName": "Weary cat",
+    "icon": "&#x1F640"
+  },
+  {
+    "reactionName": "Crying cat",
+    "icon": "&#x1F63F"
+  },
+  {
+    "reactionName": "Pouting cat",
+    "icon": "&#x1F63E"
+  },
+  {
+    "reactionName": "See no evil monkey",
+    "icon": "&#x1F648"
+  },
+  {
+    "reactionName": "Hear no evil monkey",
+    "icon": "&#x1F649"
+  },
+  {
+    "reactionName": "Speak no evil monkey",
+    "icon": "&#x1F64A"
+  },
+  {
+    "reactionName": "Kiss",
+    "icon": "&#x1F48B"
+  },
+  {
+    "reactionName": "Love letter",
+    "icon": "&#x1F48C"
+  },
+  {
+    "reactionName": "Heart with arrow",
+    "icon": "&#x1F498"
+  },
+  {
+    "reactionName": "Heart with ribbon",
+    "icon": "&#x1F49D"
+  },
+  {
+    "reactionName": "Sparking heart",
+    "icon": "&#x1F496"
+  },
+  {
+    "reactionName": "Growing heart",
+    "icon": "&#x1F497"
+  },
+  {
+    "reactionName": "Beating heart",
+    "icon": "&#x1F493"
+  },
+  {
+    "reactionName": "Revolving heart",
+    "icon": "&#x1F49E"
+  },
+  {
+    "reactionName": "Two hearts",
+    "icon": "&#x1F495"
+  },
+  {
+    "reactionName": "Heart decoration",
+    "icon": "&#x1F49F"
+  },
+  {
+    "reactionName": "Heart exclamation",
+    "icon": "&#x2763"
+  },
+  {
+    "reactionName": "Broken heart",
+    "icon": "&#x1F494"
+  },
+  {
+    "reactionName": "Heart on fire",
+    "icon": "&#x2764"
+  },
+  {
+    "reactionName": "Mending heart",
+    "icon": "&#x2764"
+  },
+  {
+    "reactionName": "Red heart",
+    "icon": "&#x2764"
+  },
+  {
+    "reactionName": "Orange heart",
+    "icon": "&#x1F9E1"
+  },
+  {
+    "reactionName": "Yellow heart",
+    "icon": "&#x1F49B"
+  },
+  {
+    "reactionName": "Green heart",
+    "icon": "&#x1F49A"
+  },
+  {
+    "reactionName": "Blue heart",
+    "icon": "&#x1F499"
+  },
+  {
+    "reactionName": "Purple heart",
+    "icon": "&#x1F49C"
+  },
+  {
+    "reactionName": "Brown heart",
+    "icon": "&#x1F90E"
+  },
+  {
+    "reactionName": "Black heart",
+    "icon": "&#x1F5A4"
+  },
+  {
+    "reactionName": "White heart",
+    "icon": "&#x1F90D"
+  },
+  {
+    "reactionName": "Hundred(correct)",
+    "icon": "&#x1F4AF"
+  },
+  {
+    "reactionName": "Anger",
+    "icon": "&#x1F4A2"
+  },
+  {
+    "reactionName": "Collision",
+    "icon": "&#x1F4A5"
+  },
+  {
+    "reactionName": "Dizzy",
+    "icon": "&#x1F4AB"
+  },
+  {
+    "reactionName": "Sweat droplets",
+    "icon": "&#x1F4A6"
+  },
+  {
+    "reactionName": "Dashing away",
+    "icon": "&#x1F4A8"
+  },
+  {
+    "reactionName": "Hole",
+    "icon": "&#x1F573"
+  },
+  {
+    "reactionName": "Bomb",
+    "icon": "&#x1F4A3"
+  },
+  {
+    "reactionName": "Message baloon",
+    "icon": "&#x1F4AC"
+  },
+  {
+    "reactionName": "Eye in speech bubble",
+    "icon": "&#x1F441"
+  },
+  {
+    "reactionName": "Left speech bubble",
+    "icon": "&#x1F5E8"
+  },
+  {
+    "reactionName": "Anger bubble",
+    "icon": "&#x1F5EF"
+  },
+  {
+    "reactionName": "Thought baloon",
+    "icon": "&#x1F4AD"
+  },
+  {
+    "reactionName": "zzz",
+    "icon": "&#x1F4A4"
+  },
+  {
+    "reactionName": "Waving hand",
+    "icon": "&#x1F44B"
+  },
+  {
+    "reactionName": "Raised back of hand",
+    "icon": "&#x1F91A"
+  },
+  {
+    "reactionName": "Hands with splayed finger",
+    "icon": "&#x1F590"
+  },
+  {
+    "reactionName": "Raised hand",
+    "icon": "&#x270B"
+  },
+  {
+    "reactionName": "Vulcan salute",
+    "icon": "&#x1F596"
+  },
+  {
+    "reactionName": "Ok",
+    "icon": "&#x1F44C"
+  },
+  {
+    "reactionName": "Pinched fingers",
+    "icon": "&#x1F90C"
+  },
+  {
+    "reactionName": "Pinched hand",
+    "icon": "&#x1F90F"
+  },
+  {
+    "reactionName": "Victory hand",
+    "icon": "&#x270C"
+  },
+  {
+    "reactionName": "Crossed fingers",
+    "icon": "&#x1F91E"
+  },
+  {
+    "reactionName": "Love you",
+    "icon": "&#x1F91F"
+  },
+  {
+    "reactionName": "Horn sign",
+    "icon": "&#x1F918"
+  },
+  {
+    "reactionName": "Call me hand",
+    "icon": "&#x1F919"
+  },
+  {
+    "reactionName": "Index finger pointing left",
+    "icon": "&#x1F448"
+  },
+  {
+    "reactionName": "Index finger pointing right",
+    "icon": "&#x1F449"
+  },
+  {
+    "reactionName": "Index finger pointing up",
+    "icon": "&#x1F446"
+  },
+  {
+    "reactionName": "Index finger pointing down",
+    "icon": "&#x1F447"
+  },
+  {
+    "reactionName": "Middle finger",
+    "icon": "&#x1F595"
+  },
+  {
+    "reactionName": "Forehand Index finger pointing up",
+    "icon": "&#x261D"
+  },
+  {
+    "reactionName": "Index finger pointing at viewer",
+    "icon": "&#x1FAF5"
+  },
+  {
+    "reactionName": "Thumbs up",
+    "icon": "&#x1F44D"
+  },
+  {
+    "reactionName": "Thumbs down",
+    "icon": "&#x1F44E"
+  },
+  {
+    "reactionName": "Raised fist",
+    "icon": "&#x270A"
+  },
+  {
+    "reactionName": "Fist",
+    "icon": "&#x1F44A"
+  },
+  {
+    "reactionName": "Left facing fist",
+    "icon": "&#x1F91B"
+  },
+  {
+    "reactionName": "Right facing fist",
+    "icon": "&#x1F91C"
+  },
+  {
+    "reactionName": "Clapping hands",
+    "icon": "&#x1F44F"
+  },
+  {
+    "reactionName": "Raised hands",
+    "icon": "&#x1F64C"
+  },
+  {
+    "reactionName": "Open hands",
+    "icon": "&#x1F450"
+  },
+  {
+    "reactionName": "Palms together hands",
+    "icon": "&#x1F932"
+  },
+  {
+    "reactionName": "Handshake",
+    "icon": "&#x1F91D"
+  },
+  {
+    "reactionName": "Praying hands",
+    "icon": "&#x1F64F"
+  },
+  {
+    "reactionName": "Writing hands",
+    "icon": "&#x270D"
+  },
+  {
+    "reactionName": "Nail polish",
+    "icon": "&#x1F485"
+  },
+  {
+    "reactionName": "Selfie hand",
+    "icon": "&#x1F933"
+  },
+  {
+    "reactionName": "Flexed biceps",
+    "icon": "&#x1F4AA"
+  },
+  {
+    "reactionName": "Mechanical arm",
+    "icon": "&#x1F9BE"
+  },
+  {
+    "reactionName": "Leg",
+    "icon": "&#x1F9B5"
+  },
+  {
+    "reactionName": "Mechanical leg",
+    "icon": "&#x1F9BF"
+  },
+  {
+    "reactionName": "Foot",
+    "icon": "&#x1F9B6"
+  },
+  {
+    "reactionName": "Ear",
+    "icon": "&#x1F442"
+  },
+  {
+    "reactionName": "Ear with earing aid",
+    "icon": "&#x1F9BB"
+  },
+  {
+    "reactionName": "Nose",
+    "icon": "&#x1F443"
+  },
+  {
+    "reactionName": "Brain",
+    "icon": "&#x1F9E0"
+  },
+  {
+    "reactionName": "Footprint",
+    "icon": "&#x1F463"
+  },
+  {
+    "reactionName": "Mechanical heart",
+    "icon": "&#x1FAC0"
+  },
+  {
+    "reactionName": "Lungs",
+    "icon": "&#x1FAC1"
+  },
+  {
+    "reactionName": "Tooth",
+    "icon": "&#x1F9B7"
+  },
+  {
+    "reactionName": "Bone",
+    "icon": "&#x1F9B7"
+  },
+  {
+    "reactionName": "Eyes",
+    "icon": "&#x1F440"
+  },
+  {
+    "reactionName": "Eye",
+    "icon": "&#x1F441"
+  },
+  {
+    "reactionName": "Nose",
+    "icon": "&#x1F445"
+  },
+  {
+    "reactionName": "Mouth",
+    "icon": "&#x1F444"
+  }
+]

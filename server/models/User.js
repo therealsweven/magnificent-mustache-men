@@ -1,8 +1,88 @@
 const { Schema, model } = require("mongoose");
 const bcrypt = require("bcrypt");
 
+const experienceSchema = new Schema({
+  company: {
+    type: String,
+    required: true,
+    ref: "Company",
+  },
+  title: {
+    type: String,
+    required: true,
+  },
+  jobDescription: {
+    type: String,
+    required: true,
+  },
+  skills: [{ type: Schema.Types.ObjectId, ref: "Skill" }],
+  startMonth: {
+    type: String,
+    required: true,
+  },
+  startYear: {
+    type: Number,
+    required: true,
+  },
+  current: {
+    type: Boolean,
+    requred: true,
+  },
+  endMonth: {
+    type: String,
+    required: true,
+  },
+  endYear: {
+    type: Number,
+    required: true,
+  },
+});
+
+const educationSchema = new Schema({
+  school: {
+    type: Schema.Types.ObjectId,
+    ref: "EducationalInstitution",
+    required: true,
+  },
+  fieldOfStudy: {
+    type: String,
+    required: true,
+  },
+  certificateType: {
+    type: String,
+    required: true,
+  },
+  skills: [{ type: Schema.Types.ObjectId, ref: "Skill" }],
+  startMonth: {
+    type: String,
+    required: true,
+  },
+  startYear: {
+    type: Number,
+    required: true,
+  },
+  current: {
+    type: Boolean,
+    requred: true,
+  },
+  endMonth: {
+    type: String,
+    required: true,
+  },
+  endYear: {
+    type: Number,
+    required: true,
+  },
+});
+
 const userSchema = new Schema({
-  name: {
+  firstName: {
+    type: String,
+    required: true,
+    unique: true,
+    trim: true,
+  },
+  lastName: {
     type: String,
     required: true,
     unique: true,
@@ -19,10 +99,30 @@ const userSchema = new Schema({
     required: true,
     minlength: 5,
   },
+  city: {
+    type: String,
+    required: true,
+  },
+  state: {
+    type: String,
+  },
+  country: {
+    type: String,
+  },
+  education: [educationSchema],
+  experience: [experienceSchema],
+  skills: [{ type: String, ref: "Skill" }],
+  website: { type: String },
+  // resumeDoc: {
+
+  // },
+  posts: [{ type: Schema.Types.ObjectId, ref: "Post" }],
+  connections: [{ type: Schema.Types.ObjectId, ref: "User" }],
+  groups: [{ type: Schema.Types.ObjectId, ref: "Group" }],
 });
 
 // set up pre-save middleware to create password
-profileSchema.pre("save", async function (next) {
+userSchema.pre("save", async function (next) {
   if (this.isNew || this.isModified("password")) {
     const saltRounds = 10;
     this.password = await bcrypt.hash(this.password, saltRounds);
@@ -32,7 +132,7 @@ profileSchema.pre("save", async function (next) {
 });
 
 // compare the incoming password with the hashed password
-profileSchema.methods.isCorrectPassword = async function (password) {
+userSchema.methods.isCorrectPassword = async function (password) {
   return bcrypt.compare(password, this.password);
 };
 

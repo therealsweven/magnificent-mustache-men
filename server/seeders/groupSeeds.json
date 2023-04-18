@@ -1,0 +1,26 @@
+[
+  {
+    "name": "Coders With More Than 10 Toes",
+    "private": false
+  },
+  {
+    "name": "React Tips",
+    "private": false
+  },
+  {
+    "name": "Wannabe Programmers Unite",
+    "private": false
+  },
+  {
+    "name": "Jr Dev Network",
+    "private": false
+  },
+  {
+    "name": "Coders with Pet Chickens",
+    "private": true
+  },
+  {
+    "name": "Star Wars Nerds Unite",
+    "private": true
+  }
+]
