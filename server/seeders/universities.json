@@ -3141,7 +3141,8 @@
     "name": "University of Colorado Boulder",
     "city": "Boulder",
     "state": "CO",
-    "website": "www.colorado.edu/"
+    "website": "www.colorado.edu/",
+    "image": "https://upload.wikimedia.org/wikipedia/en/thumb/d/d3/Colorado_Buffaloes_logo.svg/1920px-Colorado_Buffaloes_logo.svg.png"
   },
   {
     "name": "Colorado Christian University",
@@ -3189,7 +3190,8 @@
     "name": "Colorado State University-Fort Collins",
     "city": "Fort Collins",
     "state": "CO",
-    "website": "colostate.edu/"
+    "website": "colostate.edu/",
+    "image": "https://brand.colostate.edu/wp-content/uploads/sites/47/2019/02/CSU-Signature-C-357-617.png"
   },
   {
     "name": "Colorado Technical University-Colorado Springs",
@@ -3231,7 +3233,8 @@
     "name": "University of Denver",
     "city": "Denver",
     "state": "CO",
-    "website": "www.du.edu/"
+    "website": "www.du.edu/",
+    "image": "https://www.logo-designer.co/storage/2012/08/UNIVERSITY-OF-DENVER-LOGO-DESIGN1.jpg"
   },
   {
     "name": "Emily Griffith Technical College",
@@ -3357,7 +3360,8 @@
     "name": "Colorado State University Pueblo",
     "city": "Pueblo",
     "state": "CO",
-    "website": "https://www.csupueblo.edu/"
+    "website": "https://www.csupueblo.edu/",
+    "image": "https://brand.colostate.edu/wp-content/uploads/sites/47/2019/02/CSU-Signature-C-357-617.png"
   },
   {
     "name": "Pickens Technical College",
@@ -19323,7 +19327,8 @@
     "name": "Texas A & M University-Corpus Christi",
     "city": "Corpus Christi",
     "state": "TX",
-    "website": "https://www.tamucc.edu/"
+    "website": "https://www.tamucc.edu/",
+    "image": "https://1000logos.net/wp-content/uploads/2022/07/Texas-AM-University-Logo.png"
   },
   {
     "name": "Paul Mitchell the School-Dallas",
@@ -19383,7 +19388,8 @@
     "name": "Texas A & M University-Commerce",
     "city": "Commerce",
     "state": "TX",
-    "website": "www.tamuc.edu/"
+    "website": "www.tamuc.edu/",
+    "image": "https://1000logos.net/wp-content/uploads/2022/07/Texas-AM-University-Logo.png"
   },
   {
     "name": "Dallas College",
@@ -19593,7 +19599,8 @@
     "name": "Texas A & M International University",
     "city": "Laredo",
     "state": "TX",
-    "website": "www.tamiu.edu/"
+    "website": "www.tamiu.edu/",
+    "image": "https://1000logos.net/wp-content/uploads/2022/07/Texas-AM-University-Logo.png"
   },
   {
     "name": "Lee College",
@@ -19989,13 +19996,15 @@
     "name": "Texas A & M University-Kingsville",
     "city": "Kingsville",
     "state": "TX",
-    "website": "https://www.tamuk.edu/"
+    "website": "https://www.tamuk.edu/",
+    "image": "https://1000logos.net/wp-content/uploads/2022/07/Texas-AM-University-Logo.png"
   },
   {
     "name": "Texas A & M University-College Station",
     "city": "College Station",
     "state": "TX",
-    "website": "https://www.tamu.edu/"
+    "website": "https://www.tamu.edu/",
+    "image": "https://1000logos.net/wp-content/uploads/2022/07/Texas-AM-University-Logo.png"
   },
   {
     "name": "Texas A & M University-System Office",
@@ -31203,7 +31212,8 @@
     "name": "Texas A&M University-San Antonio",
     "city": "San Antonio",
     "state": "TX",
-    "website": "www.tamusa.edu/"
+    "website": "www.tamusa.edu/",
+    "image": "https://1000logos.net/wp-content/uploads/2022/07/Texas-AM-University-Logo.png"
   },
   {
     "name": "Fortis Institute",
@@ -32583,7 +32593,8 @@
     "name": "Colorado State University-Global Campus",
     "city": "Aurora",
     "state": "CO",
-    "website": "https://csuglobal.edu/"
+    "website": "https://csuglobal.edu/",
+    "image": "https://brand.colostate.edu/wp-content/uploads/sites/47/2019/02/CSU-Signature-C-357-617.png"
   },
   {
     "name": "Paul Mitchell the School-Overland Park",
@@ -33483,7 +33494,8 @@
     "name": "Texas A&M University-Central Texas",
     "city": "Killeen",
     "state": "TX",
-    "website": "tamuct.edu/"
+    "website": "tamuct.edu/",
+    "image": "https://1000logos.net/wp-content/uploads/2022/07/Texas-AM-University-Logo.png"
   },
   {
     "name": "Central Georgia Technical College",

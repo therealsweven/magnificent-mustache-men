@@ -119,6 +119,12 @@ const userSchema = new Schema({
   posts: [{ type: Schema.Types.ObjectId, ref: "Post" }],
   connections: [{ type: Schema.Types.ObjectId, ref: "User" }],
   groups: [{ type: Schema.Types.ObjectId, ref: "Group" }],
+  profPic: {
+    type: String,
+  },
+  bannerPic: {
+    type: String,
+  },
 });
 
 // set up pre-save middleware to create password

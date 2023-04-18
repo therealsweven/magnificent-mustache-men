@@ -13,6 +13,12 @@ const educationalInstitutionSchema = new Schema({
   website: {
     type: String,
   },
+  image: {
+    type: String,
+  },
+  bannerPic: {
+    type: String,
+  },
 });
 
 const EducationalInstitution = model(
