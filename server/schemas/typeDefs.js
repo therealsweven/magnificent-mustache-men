@@ -70,9 +70,11 @@ const typeDefs = gql`
   type Group {
     _id: ID!
     name: String
-    prive: Boolean
+    admins: [String]
+    private: Boolean
     members: [String]
     posts: [String]
+    joinQuestion: String
   }
 
   type EducationalInstitution {

@@ -6,7 +6,8 @@
     "password": "password",
     "city": "Denver",
     "state": "CO",
-    "country": "United States"
+    "country": "United States",
+    "website": "www.bestwebsiteever.com"
   },
   {
     "firstName": "Kevin",
@@ -15,7 +16,8 @@
     "password": "password",
     "city": "Dallas",
     "state": "TX",
-    "country": "United States"
+    "country": "United States",
+    "website": "www.bestwebsiteever.com"
   },
   {
     "firstName": "Amiko",
@@ -24,7 +26,8 @@
     "password": "password",
     "city": "Cheyenne",
     "state": "WY",
-    "country": "United States"
+    "country": "United States",
+    "website": "www.bestwebsiteever.com"
   },
   {
     "firstName": "Chewbacca",
@@ -33,7 +36,8 @@
     "password": "password",
     "city": "Deathstar",
     "state": "MI",
-    "country": "United States"
+    "country": "United States",
+    "website": "www.bestwebsiteever.com"
   },
   {
     "firstName": "Han",
@@ -42,7 +46,8 @@
     "password": "password",
     "city": "idk",
     "state": "KS",
-    "country": "United States"
+    "country": "United States",
+    "website": "www.bestwebsiteever.com"
   },
   {
     "firstName": "Chuck",
@@ -51,7 +56,8 @@
     "password": "password",
     "city": "New York",
     "state": "NY",
-    "country": "United States"
+    "country": "United States",
+    "website": "www.bestwebsiteever.com"
   },
   {
     "firstName": "Chuck",
@@ -60,6 +66,7 @@
     "password": "password",
     "city": "Honolulu",
     "state": "HI",
-    "country": "United States"
+    "country": "United States",
+    "website": "www.bestwebsiteever.com"
   }
 ]
