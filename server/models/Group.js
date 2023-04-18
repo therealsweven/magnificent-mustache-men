@@ -11,6 +11,12 @@ const groupSchema = new Schema({
   members: [{ type: Schema.Types.ObjectId, ref: "User" }],
   posts: [{ type: Schema.Types.ObjectId, ref: "Post" }],
   joinQuestion: { type: String },
+  profPic: {
+    type: String,
+  },
+  bannerPic: {
+    type: String,
+  },
 });
 
 const Group = model("Group", groupSchema);
