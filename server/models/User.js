@@ -119,6 +119,7 @@ const userSchema = new Schema({
   posts: [{ type: Schema.Types.ObjectId, ref: "Post" }],
   connections: [{ type: Schema.Types.ObjectId, ref: "User" }],
   groups: [{ type: Schema.Types.ObjectId, ref: "Group" }],
+  entitiesFollowed: [{ type: Schema.Types.ObjectId, ref: "Entity" }],
   profPic: {
     type: String,
   },

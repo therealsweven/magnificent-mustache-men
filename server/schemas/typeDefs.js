@@ -12,13 +12,14 @@ const typeDefs = gql`
     country: String
     education: [String]
     experience: [String]
-    skills: [String]
+    skills: [Skill]
     website: String
-    posts: [String]
-    connections: [String]
-    groups: [String]
+    posts: [Post]
+    connections: [User]
+    groups: [Group]
     profPic: String
     bannerPic: String
+    entitiesFollowed: [Entity]
   }
 
   type Company {
@@ -36,28 +37,30 @@ const typeDefs = gql`
     specialties: String
     followers: [String]
     employees: [String]
-    posts: [String]
-    jobs: [String]
-    admins: [String]
+    posts: [Post]
+    jobs: [Job]
+    admins: [User]
     profPic: String
     bannerPic: String
   }
 
   type Job {
     _id: ID!
-    company: String
+    company: [Company]
     title: String
     responsibilities: String
     qualifications: String
     schedule: String
     salary: Int
     benefits: String
-    applicants: [String]
+    skills: [Skill]
+    applicants: [User]
   }
 
   type Post {
     _id: ID!
-    user: String
+    user: [User]
+    entity: [Entity]
     postBody: String
     reactions: [String]
     comments: [String]
@@ -65,8 +68,7 @@ const typeDefs = gql`
 
   type Comment {
     _id: ID!
-    post: String
-    user: String
+    entity: [Entity]
     commentBody: String
     reactions: [String]
   }
@@ -74,16 +76,16 @@ const typeDefs = gql`
   type Group {
     _id: ID!
     name: String
-    admins: [String]
+    admins: [User]
     private: Boolean
-    members: [String]
-    posts: [String]
+    members: [User]
+    posts: [Post]
     joinQuestion: String
-    profPic: String
+    profilePic: String
     bannerPic: String
   }
 
-  type EducationalInstitution {
+  type School {
     _id: ID!
     name: String
     city: String
@@ -92,8 +94,9 @@ const typeDefs = gql`
     foundedYear: Int
     studentBody: Int
     website: String
-    image: String
+    profPic: String
     bannerPic: String
+    posts: [Post]
   }
 
   type Reaction {
@@ -121,16 +124,21 @@ const typeDefs = gql`
     job(id: ID!): Job
     posts: [Post]
     post(id: ID!): Post
-    comments: [Comment]
-    comment(id: ID!): Comment
     groups: [Group]
     group(id: ID!): Group
-    educationalInstitutions: [EducationalInstitutions]
-    educationalinstitutions(id: ID!): EducationalInstitutions
+    schools: [School]
+    school(id: ID!): School
+    feed(id:ID!):Post
   }
 
   type Mutation {
-
+      createUser(firstName:String!, lastName:String!,email: String!,password: String!)
+      createSchool(name: String!, city: String!, state: String!, country: String! bio: String!, foundedYear: Number, studentBody: Number, Website: String, profPic: String, bannerPic: String)
+      createCompany(name: String!, hqCity: String!, hqState: String!, website: String, bio: String!, companySize: String, foundedYear: String)
+      createGroup
+      createSkill
+      createJob
+      createPost
   }
 `;
 

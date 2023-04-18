@@ -15,6 +15,12 @@ const jobSchema = new Schema({
       ref: "User",
     },
   ],
+  skills: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Skill",
+    },
+  ],
 });
 
 const Job = model("Job", jobSchema);

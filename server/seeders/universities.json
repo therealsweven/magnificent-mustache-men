@@ -3142,7 +3142,7 @@
     "city": "Boulder",
     "state": "CO",
     "website": "www.colorado.edu/",
-    "image": "https://upload.wikimedia.org/wikipedia/en/thumb/d/d3/Colorado_Buffaloes_logo.svg/1920px-Colorado_Buffaloes_logo.svg.png"
+    "profPic": "https://upload.wikimedia.org/wikipedia/en/thumb/d/d3/Colorado_Buffaloes_logo.svg/1920px-Colorado_Buffaloes_logo.svg.png"
   },
   {
     "name": "Colorado Christian University",
@@ -3191,7 +3191,7 @@
     "city": "Fort Collins",
     "state": "CO",
     "website": "colostate.edu/",
-    "image": "https://brand.colostate.edu/wp-content/uploads/sites/47/2019/02/CSU-Signature-C-357-617.png"
+    "profPic": "https://brand.colostate.edu/wp-content/uploads/sites/47/2019/02/CSU-Signature-C-357-617.png"
   },
   {
     "name": "Colorado Technical University-Colorado Springs",
@@ -3234,7 +3234,7 @@
     "city": "Denver",
     "state": "CO",
     "website": "www.du.edu/",
-    "image": "https://www.logo-designer.co/storage/2012/08/UNIVERSITY-OF-DENVER-LOGO-DESIGN1.jpg"
+    "profPic": "https://www.logo-designer.co/storage/2012/08/UNIVERSITY-OF-DENVER-LOGO-DESIGN1.jpg"
   },
   {
     "name": "Emily Griffith Technical College",
@@ -3361,7 +3361,7 @@
     "city": "Pueblo",
     "state": "CO",
     "website": "https://www.csupueblo.edu/",
-    "image": "https://brand.colostate.edu/wp-content/uploads/sites/47/2019/02/CSU-Signature-C-357-617.png"
+    "profPic": "https://brand.colostate.edu/wp-content/uploads/sites/47/2019/02/CSU-Signature-C-357-617.png"
   },
   {
     "name": "Pickens Technical College",
@@ -19328,7 +19328,7 @@
     "city": "Corpus Christi",
     "state": "TX",
     "website": "https://www.tamucc.edu/",
-    "image": "https://1000logos.net/wp-content/uploads/2022/07/Texas-AM-University-Logo.png"
+    "profPic": "https://1000logos.net/wp-content/uploads/2022/07/Texas-AM-University-Logo.png"
   },
   {
     "name": "Paul Mitchell the School-Dallas",
@@ -19389,7 +19389,7 @@
     "city": "Commerce",
     "state": "TX",
     "website": "www.tamuc.edu/",
-    "image": "https://1000logos.net/wp-content/uploads/2022/07/Texas-AM-University-Logo.png"
+    "profPic": "https://1000logos.net/wp-content/uploads/2022/07/Texas-AM-University-Logo.png"
   },
   {
     "name": "Dallas College",
@@ -19600,7 +19600,7 @@
     "city": "Laredo",
     "state": "TX",
     "website": "www.tamiu.edu/",
-    "image": "https://1000logos.net/wp-content/uploads/2022/07/Texas-AM-University-Logo.png"
+    "profPic": "https://1000logos.net/wp-content/uploads/2022/07/Texas-AM-University-Logo.png"
   },
   {
     "name": "Lee College",
@@ -19997,14 +19997,14 @@
     "city": "Kingsville",
     "state": "TX",
     "website": "https://www.tamuk.edu/",
-    "image": "https://1000logos.net/wp-content/uploads/2022/07/Texas-AM-University-Logo.png"
+    "profPic": "https://1000logos.net/wp-content/uploads/2022/07/Texas-AM-University-Logo.png"
   },
   {
     "name": "Texas A & M University-College Station",
     "city": "College Station",
     "state": "TX",
     "website": "https://www.tamu.edu/",
-    "image": "https://1000logos.net/wp-content/uploads/2022/07/Texas-AM-University-Logo.png"
+    "profPic": "https://1000logos.net/wp-content/uploads/2022/07/Texas-AM-University-Logo.png"
   },
   {
     "name": "Texas A & M University-System Office",
@@ -29943,7 +29943,7 @@
     "website": "daoisttraditions.edu/"
   },
   {
-    "name": "Total Image Beauty Academy",
+    "name": "Total profPic Beauty Academy",
     "city": "Union City",
     "state": "NJ",
     "website": "www.tiba.edu/"
@@ -31213,7 +31213,7 @@
     "city": "San Antonio",
     "state": "TX",
     "website": "www.tamusa.edu/",
-    "image": "https://1000logos.net/wp-content/uploads/2022/07/Texas-AM-University-Logo.png"
+    "profPic": "https://1000logos.net/wp-content/uploads/2022/07/Texas-AM-University-Logo.png"
   },
   {
     "name": "Fortis Institute",
@@ -32428,7 +32428,7 @@
     "website": "vogue.edu/"
   },
   {
-    "name": "Tomorrow's Image Barber And Beauty Academy of Virginia",
+    "name": "Tomorrow's profPic Barber And Beauty Academy of Virginia",
     "city": "Newport News",
     "state": "VA",
     "website": "www.tomorrowsimage.com/"
@@ -32594,7 +32594,7 @@
     "city": "Aurora",
     "state": "CO",
     "website": "https://csuglobal.edu/",
-    "image": "https://brand.colostate.edu/wp-content/uploads/sites/47/2019/02/CSU-Signature-C-357-617.png"
+    "profPic": "https://brand.colostate.edu/wp-content/uploads/sites/47/2019/02/CSU-Signature-C-357-617.png"
   },
   {
     "name": "Paul Mitchell the School-Overland Park",
@@ -33495,7 +33495,7 @@
     "city": "Killeen",
     "state": "TX",
     "website": "tamuct.edu/",
-    "image": "https://1000logos.net/wp-content/uploads/2022/07/Texas-AM-University-Logo.png"
+    "profPic": "https://1000logos.net/wp-content/uploads/2022/07/Texas-AM-University-Logo.png"
   },
   {
     "name": "Central Georgia Technical College",
@@ -34908,7 +34908,7 @@
     "website": "https://tri-statebarbercollege.com/"
   },
   {
-    "name": "Image Maker Beauty Institute",
+    "name": "profPic Maker Beauty Institute",
     "city": "Hendersonville",
     "state": "TN",
     "website": "www.imagemakerbeauty.com/"
