@@ -106,6 +106,23 @@ const typeDefs = gql`
 
   type Query {
     users: [User]!
+    user(id: ID!): User
+    companies: [Company]
+    company(id: ID!): Company
+    jobs: [Job]
+    job(id: ID!): Job
+    posts: [Post]
+    post(id: ID!): Post
+    comments: [Comment]
+    comment(id: ID!): Comment
+    groups: [Group]
+    group(id: ID!): Group
+    educationalInstitutions: [EducationalInstitutions]
+    educationalinstitutions(id: ID!): EducationalInstitutions
+  }
+
+  type Mutation {
+
   }
 `;
 
