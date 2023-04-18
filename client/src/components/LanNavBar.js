@@ -1,14 +1,14 @@
 import { Link } from "react-router-dom";
 import logo from "./images/logo.png";
 
-export default function NavBar() {
+export default function LanNavBar() {
   return (
     <>
       <div className="navbar bg-base-300">
         <div className="flex-1">
-          <img className=" mx-3 rounded h-11 " src={logo} />
+          <img className=" mx-3 rounded h-11" src={logo} />
           <Link
-            to="#"
+            to="/signup"
             className="btn btn-ghost normal-case text-xl font-titilliumWeb"
           >
             enCoded
