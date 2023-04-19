@@ -3,6 +3,7 @@ const { gql } = require("apollo-server-express");
 // Queries/typeDefs/Updates for experienceSchema and educationSchema from User.js required?
 // ^^^^^^^^what about locationSchema from Company.js
 // Updates for all three have been setup in the typeDef mutations
+// Do we need ids for each of three schemas listed above in order to update?
 
 const typeDefs = gql`
   type User {
@@ -78,6 +79,25 @@ const typeDefs = gql`
     reactions: [String]
   }
 
+  type Location {
+    city: String
+    state: String
+    size: String
+    phone: String
+  }
+
+  type CommentReaction {
+    _id: ID!
+    entity: Entity
+    reactionId: Reaction
+  }
+
+  type PostReaction {
+    _id: ID!
+    entity: Entity
+    reactionId: Reaction
+  }
+
   type Group {
     _id: ID!
     name: String
@@ -146,16 +166,33 @@ const typeDefs = gql`
   }
 
   type Mutation {
+    createLocation(
+      city: String!
+      state: String!
+      size: String
+      phone: String
+    ): Company
+    createEducation(
+      school: String!
+      fieldOfStudy: String!
+      certificateType: String
+      skills: [String]
+      startMonth: String
+      startYear: Int
+      current: Boolean
+      endMonth: String
+      endYear: Int
+    ): User
     createExperience(
       company: String!
       title: String!
       jobDescription: String
       skills: [String]
       startMonth: String
-      startYear: Number
+      startYear: Int
       current: Boolean
       endMonth: String
-      endYear: Number
+      endYear: Int
     ): User
     createUser(
       firstName: String!
@@ -164,6 +201,7 @@ const typeDefs = gql`
       password: String!
     ): User
     updateUser(
+      id: ID!
       firstName: String
       lastName: String
       email: String
@@ -227,6 +265,7 @@ const typeDefs = gql`
     createPost(user: String!, entity: String!, postBody: String!): Post
     userLogin(email: String, username: String, password: String!): Auth
     updateCompany(
+      id: ID!
       name: String
       industry: String
       hqCity: String
@@ -235,7 +274,7 @@ const typeDefs = gql`
       tagline: String
       bio: String
       companySize: String
-      foundedYear: Number
+      foundedYear: Int
       specialties: String
       followers: [String]
       employees: [String]
@@ -253,12 +292,13 @@ const typeDefs = gql`
       phone: String
     ): Company
     updateSchool(
+      id: ID!
       name: String
       city: String
       state: String
       bio: String
-      foundedYear: Number
-      studentBody: Number
+      foundedYear: Int
+      studentBody: Int
       website: String
       profPic: String
       bannerPic: String
@@ -266,6 +306,7 @@ const typeDefs = gql`
       entitiesFollowed: [String]
     ): School
     updatePost(
+      id: ID!
       user: String
       entity: String
       postBody: String
@@ -274,12 +315,14 @@ const typeDefs = gql`
     ): Post
     updateCommentReaction(entity: String, reactionId: String): Post
     updateComment(
+      id: ID!
       entity: String
       commentBody: String
       reactions: [String]
     ): Post
     updatePostReaction(entity: String, reactionId: String): Post
     updateGroup(
+      id: ID!
       name: String
       admins: [String]
       private: Boolean
@@ -290,6 +333,7 @@ const typeDefs = gql`
       bannerPic: String
     ): Group
     updateJob(
+      id: ID!
       company: String
       title: String
       responsibilities: String
@@ -306,10 +350,10 @@ const typeDefs = gql`
       jobDescription: String
       skills: [String]
       startMonth: String
-      startYear: Number
+      startYear: Int
       current: Boolean
       endMonth: String
-      endYear: Number
+      endYear: Int
     ): User
     updateEducation(
       school: String
@@ -317,11 +361,21 @@ const typeDefs = gql`
       certificateType: String
       skills: [String]
       startMonth: String
-      startYear: Number
+      startYear: Int
       current: Boolean
       endMonth: String
-      endYear: Number
+      endYear: Int
     ): User
+    removeUser: User
+    removeGroup: Group
+    removeComment(comment: String!): Post
+    removePost: Post
+    removeCompany: Company
+    removeJob: Job
+    removeSchool: School
+    removeReaction: Reaction
+    removeSkill: Skill
+    removeEntity: Entity
   }
 `;
 
