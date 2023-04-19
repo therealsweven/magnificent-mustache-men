@@ -1,5 +1,10 @@
 const { gql } = require("apollo-server-express");
 
+// Queries/typeDefs/Updates for experienceSchema and educationSchema from User.js required?
+// ^^^^^^^^what about locationSchema from Company.js
+// Updates for all three have been setup in the typeDef mutations
+// Do we need ids for each of three schemas listed above in order to update?
+
 const typeDefs = gql`
   type User {
     _id: ID!
@@ -74,6 +79,25 @@ const typeDefs = gql`
     reactions: [String]
   }
 
+  type Location {
+    city: String
+    state: String
+    size: String
+    phone: String
+  }
+
+  type CommentReaction {
+    _id: ID!
+    entity: Entity
+    reactionId: Reaction
+  }
+
+  type PostReaction {
+    _id: ID!
+    entity: Entity
+    reactionId: Reaction
+  }
+
   type Group {
     _id: ID!
     name: String
@@ -142,6 +166,34 @@ const typeDefs = gql`
   }
 
   type Mutation {
+    createLocation(
+      city: String!
+      state: String!
+      size: String
+      phone: String
+    ): Company
+    createEducation(
+      school: String!
+      fieldOfStudy: String!
+      certificateType: String
+      skills: [String]
+      startMonth: String
+      startYear: Int
+      current: Boolean
+      endMonth: String
+      endYear: Int
+    ): User
+    createExperience(
+      company: String!
+      title: String!
+      jobDescription: String
+      skills: [String]
+      startMonth: String
+      startYear: Int
+      current: Boolean
+      endMonth: String
+      endYear: Int
+    ): User
     createUser(
       firstName: String!
       lastName: String!
@@ -149,6 +201,7 @@ const typeDefs = gql`
       password: String!
     ): User
     updateUser(
+      id: ID!
       firstName: String
       lastName: String
       email: String
@@ -211,6 +264,118 @@ const typeDefs = gql`
     ): Job
     createPost(user: String!, entity: String!, postBody: String!): Post
     userLogin(email: String, username: String, password: String!): Auth
+    updateCompany(
+      id: ID!
+      name: String
+      industry: String
+      hqCity: String
+      hqState: String
+      website: String
+      tagline: String
+      bio: String
+      companySize: String
+      foundedYear: Int
+      specialties: String
+      followers: [String]
+      employees: [String]
+      posts: [String]
+      jobs: [String]
+      admins: [String]
+      profPic: String
+      bannerPic: String
+      entitiesFollowed: [String]
+    ): Company
+    updateLocation(
+      city: String
+      state: String
+      size: String
+      phone: String
+    ): Company
+    updateSchool(
+      id: ID!
+      name: String
+      city: String
+      state: String
+      bio: String
+      foundedYear: Int
+      studentBody: Int
+      website: String
+      profPic: String
+      bannerPic: String
+      posts: [String]
+      entitiesFollowed: [String]
+    ): School
+    updatePost(
+      id: ID!
+      user: String
+      entity: String
+      postBody: String
+      reactions: [String]
+      comments: [String]
+    ): Post
+    updateCommentReaction(entity: String, reactionId: String): Post
+    updateComment(
+      id: ID!
+      entity: String
+      commentBody: String
+      reactions: [String]
+    ): Post
+    updatePostReaction(entity: String, reactionId: String): Post
+    updateGroup(
+      id: ID!
+      name: String
+      admins: [String]
+      private: Boolean
+      members: [String]
+      posts: [String]
+      joinQuestion: String
+      profPic: String
+      bannerPic: String
+    ): Group
+    updateJob(
+      id: ID!
+      company: String
+      title: String
+      responsibilities: String
+      qualifications: String
+      schedule: String
+      salary: String
+      benefits: String
+      applicants: [String]
+      skills: [String]
+    ): Job
+    updateExperience(
+      company: String
+      title: String
+      jobDescription: String
+      skills: [String]
+      startMonth: String
+      startYear: Int
+      current: Boolean
+      endMonth: String
+      endYear: Int
+    ): User
+    updateEducation(
+      school: String
+      fieldOfStudy: String
+      certificateType: String
+      skills: [String]
+      startMonth: String
+      startYear: Int
+      current: Boolean
+      endMonth: String
+      endYear: Int
+    ): User
+    removeUser: User
+    removeGroup: Group
+    removeComment(comment: String!): Post
+    removePost: Post
+    removeCompany: Company
+    removeJob: Job
+    removeSchool: School
+    removeReaction: Reaction
+    removeSkill: Skill
+    removeEntity: Entity
   }
 `;
 

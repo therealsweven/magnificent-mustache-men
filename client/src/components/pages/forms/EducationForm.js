@@ -1,16 +1,16 @@
 import React from "react";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import { useMutation } from "@apollo/client";
-import { CREATE_EXPERIENCE } from "../../../utils/mutations";
+import { CREATE_EDUCATION } from "../../../utils/mutations";
 import * as Yup from "yup";
 
-export default function ExperienceForm() {
-  const [createExperience] = useMutation(CREATE_EXPERIENCE);
+export default function EducationForm() {
+  const [createEducation] = useMutation(CREATE_EDUCATION);
 
   const initialValues = {
-    company: "",
-    title: "",
-    jobDescription: "",
+    school: "",
+    fieldOfStudy: "",
+    certificateType: "",
     skills: [],
     startMonth: "",
     startYear: "",
@@ -20,9 +20,9 @@ export default function ExperienceForm() {
   };
 
   const validationSchema = Yup.object().shape({
-    company: Yup.string().required("This is a required field"),
-    title: Yup.string().required("This is a required field"),
-    jobDescription: Yup.string().required("This is a required field"),
+    school: Yup.string().required("This is a required field"),
+    fieldOfStudy: Yup.string().required("This is a required field"),
+    certificateType: Yup.string().required("This is a required field"),
     startMonth: Yup.string().required("This is a required field"),
     startYear: Yup.number()
       .typeError("This must be a number")
@@ -44,12 +44,12 @@ export default function ExperienceForm() {
 
   const handleSubmit = async (values, { setSubmitting }) => {
     try {
-      await createExperience({
+      await createEducation({
         variables: {
           input: values,
         },
       });
-      console.log("experience recorded");
+      console.log("education recorded");
       setSubmitting(false);
     } catch (err) {
       console.error(err);
@@ -67,22 +67,41 @@ export default function ExperienceForm() {
       {({ values, isSubmitting }) => (
         <Form>
           <div className="form-control">
-            <label className="label" htmlFor="company">
-              <span className="label-text">Company</span>
+            <label className="label" htmlFor="school">
+              <span className="label-text">School</span>
+            </label>
+            <Field className="input input-bordered" type="text" name="school" />
+            <ErrorMessage name="school" component="div" className="error" />
+          </div>
+          <div className="form-control">
+            <label className="label" htmlFor="fieldOfStudy">
+              <span className="label-text">Field of Study</span>
             </label>
             <Field
               className="input input-bordered"
               type="text"
-              name="company"
+              name="fieldOfStudy"
             />
-            <ErrorMessage name="company" component="div" className="error" />
+            <ErrorMessage
+              name="fieldOfStudy"
+              component="div"
+              className="error"
+            />
           </div>
           <div className="form-control">
-            <label className="label" htmlFor="title">
-              <span className="label-text">Title</span>
+            <label className="label" htmlFor="certificateType">
+              <span className="label-text">Type of Certificate</span>
             </label>
-            <Field className="input input-bordered" type="text" name="title" />
-            <ErrorMessage name="title" component="div" className="error" />
+            <Field
+              className="input input-bordered"
+              type="text"
+              name="fieldofStudy"
+            />
+            <ErrorMessage
+              name="fieldofStudy"
+              component="div"
+              className="error"
+            />
           </div>
           <div className="form-control">
             <label className="label" htmlFor="startMonth">
