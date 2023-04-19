@@ -57,52 +57,89 @@ export default function SchoolForm() {
     >
       {({ isSubmitting }) => (
         <Form>
-          <div>
-            <label htmlFor="name">Name</label>
-            <Field type="text" name="name" />
+          <div className="form-control">
+            <label className="label" htmlFor="name">
+              <span className="label-text">Name</span>
+            </label>
+            <Field className="input input-bordered" type="text" name="name" />
             <ErrorMessage name="name" component="div" className="error" />
           </div>
-          <div>
-            <label htmlFor="city">City</label>
-            <Field type="text" name="city" />
+          <div className="form-control">
+            <label className="label" htmlFor="city">
+              <span className="label-text">City</span>
+            </label>
+            <Field className="input input-bordered" type="text" name="city" />
             <ErrorMessage name="city" component="div" className="error" />
           </div>
-          <div>
-            <label htmlFor="state">State</label>
-            <Field type="text" name="state" />
+          <div className="form-control">
+            <label className="label" htmlFor="state">
+              <span className="label-text">State</span>
+            </label>
+            <Field className="input input-bordered" type="text" name="state" />
             <ErrorMessage name="state" component="div" className="error" />
           </div>
-          <div>
-            <label htmlFor="bio">Bio</label>
-            <Field type="bio" as="textarea" name="bio" />
+          <div className="form-control">
+            <label className="label" htmlFor="bio">
+              <span className="label-text">Bio</span>
+            </label>
+            <Field
+              className="input input-bordered"
+              type="bio"
+              as="textarea"
+              name="bio"
+            />
             <ErrorMessage name="bio" component="div" className="error" />
           </div>
-          <div>
-            <label htmlFor="foundedYear">Founded Year</label>
-            <Field type="number" name="foundedYear" />
+          <div className="form-control">
+            <label className="label" htmlFor="foundedYear">
+              <span className="label-text">Founded Year</span>
+            </label>
+            <Field
+              className="input input-bordered"
+              type="number"
+              name="foundedYear"
+            />
             <ErrorMessage
               name="foundedYear"
               component="div"
               className="error"
             />
           </div>
-          <div>
-            <label htmlFor="studentBody">Student Body</label>
-            <Field type="number" name="studentBody" />
+          <div className="form-control">
+            <label className="label" htmlFor="studentBody">
+              <span className="label-text">Student Body</span>
+            </label>
+            <Field
+              className="input input-bordered"
+              type="number"
+              name="studentBody"
+            />
             <ErrorMessage
               name="studentBody"
               component="div"
               className="error"
             />
           </div>
-          <div>
-            <label htmlFor="website">Website</label>
-            <Field type="text" name="website" />
+          <div className="form-control">
+            <label className="label" htmlFor="website">
+              <span className="label-text">Website</span>
+            </label>
+            <Field
+              className="input input-bordered"
+              type="text"
+              name="website"
+            />
             <ErrorMessage name="website" component="div" className="error" />
           </div>
-          <button className="btn" type="submit" disabled={isSubmitting}>
-            Submit
-          </button>
+          <div className="form-control mt-6">
+            <button
+              className="btn btn-primary"
+              type="submit"
+              disabled={isSubmitting}
+            >
+              Submit
+            </button>
+          </div>
         </Form>
       )}
     </Formik>

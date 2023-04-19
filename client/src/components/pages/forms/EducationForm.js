@@ -66,59 +66,105 @@ export default function EducationForm() {
       {" "}
       {({ values, isSubmitting }) => (
         <Form>
-          <div>
-            <label htmlFor="school">School</label>
-            <Field type="text" name="school" />
+          <div className="form-control">
+            <label className="label" htmlFor="school">
+              <span className="label-text">School</span>
+            </label>
+            <Field className="input input-bordered" type="text" name="school" />
             <ErrorMessage name="school" component="div" className="error" />
           </div>
-          <div>
-            <label htmlFor="fieldOfStudy">Field of Study</label>
-            <Field type="text" name="fieldOfStudy" />
+          <div className="form-control">
+            <label className="label" htmlFor="fieldOfStudy">
+              <span className="label-text">Field of Study</span>
+            </label>
+            <Field
+              className="input input-bordered"
+              type="text"
+              name="fieldOfStudy"
+            />
             <ErrorMessage
               name="fieldOfStudy"
               component="div"
               className="error"
             />
           </div>
-          <div>
-            <label htmlFor="certificateType">Type of Certificate</label>
-            <Field type="text" name="fieldofStudy" />
+          <div className="form-control">
+            <label className="label" htmlFor="certificateType">
+              <span className="label-text">Type of Certificate</span>
+            </label>
+            <Field
+              className="input input-bordered"
+              type="text"
+              name="fieldofStudy"
+            />
             <ErrorMessage
               name="fieldofStudy"
               component="div"
               className="error"
             />
           </div>
-          <div>
-            <label htmlFor="startMonth">Start Month</label>
-            <Field type="text" name="startMonth" />
+          <div className="form-control">
+            <label className="label" htmlFor="startMonth">
+              <span className="label-text">Start Month</span>
+            </label>
+            <Field
+              className="input input-bordered"
+              type="text"
+              name="startMonth"
+            />
             <ErrorMessage name="startMonth" component="div" className="error" />
           </div>
-          <div>
-            <label htmlFor="startYear">Start Year</label>
-            <Field type="number" name="starYear" />
+          <div className="form-control">
+            <label className="label" htmlFor="startYear">
+              <span className="label-text">Start Year</span>
+            </label>
+            <Field
+              className="input input-bordered"
+              type="number"
+              name="starYear"
+            />
             <ErrorMessage name="starYear" component="div" className="error" />
           </div>
-          <div>
-            <label htmlFor="current">Current</label>
-            <Field type="checkbox" name="current" />
+          <div className="form-control">
+            <label className="label" htmlFor="current">
+              <span className="label-text">Current</span>
+            </label>
+            <Field
+              className="input input-bordered"
+              type="checkbox"
+              name="current"
+            />
             <ErrorMessage name="current" />
           </div>
 
           {values.current ? (
             <>
-              <div>
-                <label htmlFor="endMonth">End Month</label>
-                <Field type="text" name="endMonth" disabled />
+              <div className="form-control">
+                <label className="label" htmlFor="endMonth">
+                  <span className="label-text">End Month</span>
+                </label>
+                <Field
+                  className="input input-bordered"
+                  type="text"
+                  name="endMonth"
+                  disabled
+                />
                 <ErrorMessage
                   name="endMonth"
                   component="div"
                   className="error"
                 />
               </div>
-              <div>
-                <label htmlFor="endYear">End Year</label>
-                <Field type="number" name="endYear" disabled />
+              <div className="form-control">
+                <label className="label" htmlFor="endYear">
+                  <span className="label-text">End Year</span>
+                </label>
+                <Field
+                  className="input input-bordered"
+                  type="number"
+                  name="endYear"
+                  disabled
+                />
                 <ErrorMessage
                   name="endYear"
                   component="div"
@@ -128,18 +174,30 @@ export default function EducationForm() {
             </>
           ) : (
             <>
-              <div>
-                <label htmlFor="endMonth">End Month</label>
-                <Field type="text" name="endMonth" />
+              <div className="form-control">
+                <label className="label" htmlFor="endMonth">
+                  <span className="label-text">End Month</span>
+                </label>
+                <Field
+                  className="input input-bordered"
+                  type="text"
+                  name="endMonth"
+                />
                 <ErrorMessage
                   name="endMonth"
                   component="div"
                   className="error"
                 />
               </div>
-              <div>
-                <label htmlFor="endYear">End Year</label>
-                <Field type="number" name="endYear" />
+              <div className="form-control">
+                <label className="label" htmlFor="endYear">
+                  <span className="label-text">End Year</span>
+                </label>
+                <Field
+                  className="input input-bordered"
+                  type="number"
+                  name="endYear"
+                />
                 <ErrorMessage
                   name="endYear"
                   component="div"
@@ -149,9 +207,15 @@ export default function EducationForm() {
             </>
           )}
 
-          <button type="submit" disabled={isSubmitting}>
-            Subtmit
-          </button>
+          <div className="form-control mt-6">
+            <button
+              className="btn btn-primary"
+              type="submit"
+              disabled={isSubmitting}
+            >
+              Submit
+            </button>
+          </div>
         </Form>
       )}
     </Formik>

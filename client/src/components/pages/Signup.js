@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-
+import UserForm from "./forms/UserForm";
 import { useMutation } from "@apollo/client";
 
 import Auth from "../../utils/auth";
@@ -15,36 +15,7 @@ export default function Signup() {
     </div>
     <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
       <div className="card-body">
-      <div className="form-control">
-          
-          <label className="label">
-            <span className="label-text">First Name</span>
-          </label>
-          <input type="text" placeholder="first name" className="input input-bordered" />
-        </div>
-        <div className="form-control">
-          
-          <label className="label">
-            <span className="label-text">Last Name</span>
-          </label>
-          <input type="text" placeholder="last name" className="input input-bordered" />
-        </div>
-        <div className="form-control">
-          
-          <label className="label">
-            <span className="label-text">Email</span>
-          </label>
-          <input type="text" placeholder="email" className="input input-bordered" />
-        </div>
-        <div className="form-control">
-          <label className="label">
-            <span className="label-text">Password</span>
-          </label>
-          <input type="text" placeholder="password" className="input input-bordered" />
-        </div>
-        <div className="form-control mt-6">
-          <button className="btn btn-primary">Sign Up</button>
-        </div>
+<UserForm />
       </div>
     </div>
   </div>
