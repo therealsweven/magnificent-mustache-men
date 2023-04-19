@@ -60,8 +60,8 @@ const typeDefs = gql`
 
   type Post {
     _id: ID!
-    user: [User]
-    entity: [Entity]
+    user: User
+    entity: Entity
     postBody: String
     reactions: [String]
     comments: [String]
@@ -99,6 +99,7 @@ const typeDefs = gql`
     bannerPic: String
     posts: [Post]
     entitiesFollowed: [Entity]
+    admins: [User]
   }
 
   type Reaction {
@@ -126,17 +127,17 @@ const typeDefs = gql`
 
   type Query {
     users: [User]!
-    user(id: ID!): User
+    user(userId: ID!): User
     companies: [Company]
-    company(id: ID!): Company
+    company(companyId: ID!): Company
     jobs: [Job]
-    job(id: ID!): Job
+    job(jobId: ID!): Job
     posts: [Post]
-    post(id: ID!): Post
+    post(postId: ID!): Post
     groups: [Group]
-    group(id: ID!): Group
+    group(groupId: ID!): Group
     schools: [School]
-    school(id: ID!): School
+    school(schoolId: ID!): School
     feed(id: ID!): Post
   }
 
@@ -147,11 +148,29 @@ const typeDefs = gql`
       email: String!
       password: String!
     ): User
+    updateUser(
+      firstName: String
+      lastName: String
+      email: String
+      password: String
+      city: String
+      state: String
+      country: String
+      education: [String]
+      experience: [String]
+      skills: [String]
+      website: String
+      posts: [String]
+      connections: [String]
+      groups: [String]
+      profPic: String
+      bannerPic: String
+      entitiesFollowed: [String]
+    ): User
     createSchool(
       name: String!
       city: String!
       state: String!
-      country: String!
       bio: String
       foundedYear: Int
       studentBody: Int
@@ -161,6 +180,7 @@ const typeDefs = gql`
     ): School
     createCompany(
       name: String!
+      admins: [String]!
       hqCity: String!
       hqState: String!
       website: String
@@ -168,12 +188,32 @@ const typeDefs = gql`
       companySize: String
       foundedYear: String
     ): Company
+    createGroup(
+      name: String!
+      admins: [String]!
+      private: Boolean!
+      members: [String]
+      posts: [String]
+      joinQuestion: String
+      profilePic: String
+      bannerPic: String
+    ): Group
+    createSkill(skillName: String!): Skill
+    createJob(
+      company: String!
+      title: String!
+      responsibilities: String!
+      qualifications: String!
+      schedule: String!
+      salary: Int
+      benefits: String
+      skills: [String]
+    ): Job
+    createPost(user: String!, entity: String!, postBody: String!): Post
+    userLogin(email: String, username: String, password: String!): Auth
   }
 `;
 
 module.exports = typeDefs;
 
-// createGroup
-// createSkill
-// createJob
-// createPost
+// applyToJob
