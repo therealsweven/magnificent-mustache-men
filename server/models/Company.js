@@ -1,5 +1,4 @@
 const { Schema, model } = require("mongoose");
-const bcrypt = require("bcrypt");
 
 const locationSchema = new Schema({
   city: {
@@ -53,6 +52,7 @@ const companySchema = new Schema({
   bannerPic: {
     type: String,
   },
+  entitiesFollowed: [{ type: Schema.Types.ObjectId, ref: "Entity" }],
 });
 
 const Company = model("Company", companySchema);

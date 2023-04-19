@@ -1,9 +1,8 @@
 const { Schema, model } = require("mongoose");
-const bcrypt = require("bcrypt");
 
 const groupSchema = new Schema({
   name: { type: String, required: true },
-  admins: [{ type: String, ref: "user" }],
+  admins: [{ type: String, ref: "User" }],
   private: {
     type: Boolean,
     required: true,

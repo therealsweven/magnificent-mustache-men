@@ -1,5 +1,4 @@
 const { Schema, model } = require("mongoose");
-const bcrypt = require("bcrypt");
 
 const jobSchema = new Schema({
   company: { type: Schema.Types.ObjectId, ref: "Company" },
@@ -13,6 +12,12 @@ const jobSchema = new Schema({
     {
       type: Schema.Types.ObjectId,
       ref: "User",
+    },
+  ],
+  skills: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Skill",
     },
   ],
 });

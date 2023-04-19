@@ -1,7 +1,6 @@
 const { Schema, model } = require("mongoose");
-const bcrypt = require("bcrypt");
 
-const educationalInstitutionSchema = new Schema({
+const schoolSchema = new Schema({
   name: { type: String, required: true },
   city: { type: String, required: true },
   state: { type: String, required: true },
@@ -13,17 +12,21 @@ const educationalInstitutionSchema = new Schema({
   website: {
     type: String,
   },
-  image: {
+  profPic: {
     type: String,
   },
   bannerPic: {
     type: String,
   },
+  posts: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Post",
+    },
+  ],
+  entitiesFollowed: [{ type: Schema.Types.ObjectId, ref: "Entity" }],
 });
 
-const EducationalInstitution = model(
-  "EducationalInstitution",
-  educationalInstitutionSchema
-);
+const School = model("School", schoolSchema);
 
-module.exports = EducationalInstitution;
+module.exports = School;
