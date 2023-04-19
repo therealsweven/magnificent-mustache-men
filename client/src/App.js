@@ -12,8 +12,10 @@ import Home from "./components/pages/Home";
 import Signup from "./components/pages/Signup";
 import Login from "./components/pages/Login";
 import LanNavBar from "./components/LanNavBar";
+import Footer from "./components/footer";
 import Profile from "./components/pages/Profile";
 import UserForm from "./components/pages/forms/UserForm";
+import JobList from "./components/pages/jobList";
 const httpLink = createHttpLink({
   uri: "/graphql",
 });
@@ -48,7 +50,9 @@ function App() {
             <Route path="/signup" element={<Signup />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/user" element={<UserForm />} />
+            <Route path="/jobPost" element={<JobList />} />
           </Routes>
+          <Footer />
         </div>
       </Router>
     </ApolloProvider>
