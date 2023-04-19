@@ -1,5 +1,9 @@
 const { gql } = require("apollo-server-express");
 
+// Queries/typeDefs/Updates for experienceSchema and educationSchema from User.js required?
+// ^^^^^^^^what about locationSchema from Company.js
+// Updates for all three have been setup in the typeDef mutations
+
 const typeDefs = gql`
   type User {
     _id: ID!
@@ -142,6 +146,17 @@ const typeDefs = gql`
   }
 
   type Mutation {
+    createExperience(
+      company: String!
+      title: String!
+      jobDescription: String
+      skills: [String]
+      startMonth: String
+      startYear: Number
+      current: Boolean
+      endMonth: String
+      endYear: Number
+    ): User
     createUser(
       firstName: String!
       lastName: String!
@@ -211,6 +226,102 @@ const typeDefs = gql`
     ): Job
     createPost(user: String!, entity: String!, postBody: String!): Post
     userLogin(email: String, username: String, password: String!): Auth
+    updateCompany(
+      name: String
+      industry: String
+      hqCity: String
+      hqState: String
+      website: String
+      tagline: String
+      bio: String
+      companySize: String
+      foundedYear: Number
+      specialties: String
+      followers: [String]
+      employees: [String]
+      posts: [String]
+      jobs: [String]
+      admins: [String]
+      profPic: String
+      bannerPic: String
+      entitiesFollowed: [String]
+    ): Company
+    updateLocation(
+      city: String
+      state: String
+      size: String
+      phone: String
+    ): Company
+    updateSchool(
+      name: String
+      city: String
+      state: String
+      bio: String
+      foundedYear: Number
+      studentBody: Number
+      website: String
+      profPic: String
+      bannerPic: String
+      posts: [String]
+      entitiesFollowed: [String]
+    ): School
+    updatePost(
+      user: String
+      entity: String
+      postBody: String
+      reactions: [String]
+      comments: [String]
+    ): Post
+    updateCommentReaction(entity: String, reactionId: String): Post
+    updateComment(
+      entity: String
+      commentBody: String
+      reactions: [String]
+    ): Post
+    updatePostReaction(entity: String, reactionId: String): Post
+    updateGroup(
+      name: String
+      admins: [String]
+      private: Boolean
+      members: [String]
+      posts: [String]
+      joinQuestion: String
+      profPic: String
+      bannerPic: String
+    ): Group
+    updateJob(
+      company: String
+      title: String
+      responsibilities: String
+      qualifications: String
+      schedule: String
+      salary: String
+      benefits: String
+      applicants: [String]
+      skills: [String]
+    ): Job
+    updateExperience(
+      company: String
+      title: String
+      jobDescription: String
+      skills: [String]
+      startMonth: String
+      startYear: Number
+      current: Boolean
+      endMonth: String
+      endYear: Number
+    ): User
+    updateEducation(
+      school: String
+      fieldOfStudy: String
+      certificateType: String
+      skills: [String]
+      startMonth: String
+      startYear: Number
+      current: Boolean
+      endMonth: String
+      endYear: Number
+    ): User
   }
 `;
 
