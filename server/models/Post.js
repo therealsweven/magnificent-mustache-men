@@ -1,5 +1,4 @@
 const { Schema, model } = require("mongoose");
-const bcrypt = require("bcrypt");
 
 const commentReactionSchema = new Schema({
   entity: { type: Schema.Types.ObjectId, ref: "Entity" },

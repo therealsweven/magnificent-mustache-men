@@ -3,7 +3,7 @@ const bcrypt = require("bcrypt");
 
 const experienceSchema = new Schema({
   company: {
-    type: String,
+    type: Schema.Types.ObjectId,
     required: true,
     ref: "Company",
   },
@@ -41,7 +41,7 @@ const experienceSchema = new Schema({
 const educationSchema = new Schema({
   school: {
     type: Schema.Types.ObjectId,
-    ref: "EducationalInstitution",
+    ref: "School",
     required: true,
   },
   fieldOfStudy: {
@@ -79,13 +79,11 @@ const userSchema = new Schema({
   firstName: {
     type: String,
     required: true,
-    unique: true,
     trim: true,
   },
   lastName: {
     type: String,
     required: true,
-    unique: true,
     trim: true,
   },
   email: {
@@ -111,7 +109,7 @@ const userSchema = new Schema({
   },
   education: [educationSchema],
   experience: [experienceSchema],
-  skills: [{ type: String, ref: "Skill" }],
+  skills: [{ type: Schema.Types.ObjectId, ref: "Skill" }],
   website: { type: String },
   // resumeDoc: {
 
