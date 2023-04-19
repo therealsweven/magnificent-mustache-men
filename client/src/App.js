@@ -12,7 +12,8 @@ import Home from "./components/pages/Home";
 import Signup from "./components/pages/Signup";
 import Login from "./components/pages/Login";
 import LanNavBar from "./components/LanNavBar";
-
+import Profile from "./components/pages/Profile"
+import UserForm from "./components/pages/forms/UserForm";
 const httpLink = createHttpLink({
   uri: "/graphql",
 });
@@ -44,6 +45,8 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/user" element={<UserForm />} />
           </Routes>
         </div>
       </Router>
