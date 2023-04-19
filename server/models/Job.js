@@ -1,5 +1,4 @@
 const { Schema, model } = require("mongoose");
-const bcrypt = require("bcrypt");
 
 const jobSchema = new Schema({
   company: { type: Schema.Types.ObjectId, ref: "Company" },

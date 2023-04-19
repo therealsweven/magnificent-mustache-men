@@ -42,6 +42,7 @@ const typeDefs = gql`
     admins: [User]
     profPic: String
     bannerPic: String
+    entitiesFollowed: [Entity]
   }
 
   type Job {
@@ -97,6 +98,7 @@ const typeDefs = gql`
     profPic: String
     bannerPic: String
     posts: [Post]
+    entitiesFollowed: [Entity]
   }
 
   type Reaction {
@@ -108,6 +110,13 @@ const typeDefs = gql`
   type Skill {
     _id: ID!
     skillName: String
+  }
+
+  type Entity {
+    _id: ID!
+    user: User
+    school: School
+    company: Company
   }
 
   type Auth {
@@ -128,18 +137,43 @@ const typeDefs = gql`
     group(id: ID!): Group
     schools: [School]
     school(id: ID!): School
-    feed(id:ID!):Post
+    feed(id: ID!): Post
   }
 
   type Mutation {
-      createUser(firstName:String!, lastName:String!,email: String!,password: String!)
-      createSchool(name: String!, city: String!, state: String!, country: String! bio: String!, foundedYear: Number, studentBody: Number, Website: String, profPic: String, bannerPic: String)
-      createCompany(name: String!, hqCity: String!, hqState: String!, website: String, bio: String!, companySize: String, foundedYear: String)
-      createGroup
-      createSkill
-      createJob
-      createPost
+    createUser(
+      firstName: String!
+      lastName: String!
+      email: String!
+      password: String!
+    ): User
+    createSchool(
+      name: String!
+      city: String!
+      state: String!
+      country: String!
+      bio: String
+      foundedYear: Int
+      studentBody: Int
+      Website: String
+      profPic: String
+      bannerPic: String
+    ): School
+    createCompany(
+      name: String!
+      hqCity: String!
+      hqState: String!
+      website: String
+      bio: String!
+      companySize: String
+      foundedYear: String
+    ): Company
   }
 `;
 
 module.exports = typeDefs;
+
+// createGroup
+// createSkill
+// createJob
+// createPost

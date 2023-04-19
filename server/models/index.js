@@ -1,4 +1,3 @@
-const Entity = require("./Entity");
 const User = require("./User");
 const School = require("./School");
 const Company = require("./Company");
@@ -7,10 +6,11 @@ const Post = require("./Post");
 const Group = require("./Group");
 const Reaction = require("./Reaction");
 const Skill = require("./Skill");
+const Entity = require("./Entity");
 
 module.exports = {
-  Entity,
   User,
+  Entity,
   School,
   Company,
   Job,

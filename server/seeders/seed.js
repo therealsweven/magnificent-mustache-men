@@ -1,39 +1,82 @@
 const db = require("../config/connection");
 const {
+  Entity,
   User,
   Job,
   Post,
   Company,
-  Comment,
-  EducationalInstitution,
+  School,
   Group,
   Reaction,
   Skill,
 } = require("../models");
 const userSeeds = require("./userSeeds.json");
 const companySeeds = require("./companySeeds.json");
-const universitySeeds = require("./universities.json");
+const schoolSeeds = require("./schools.json");
 const skillSeeds = require("./skillSeeds.json");
 const reactionSeeds = require("./reactionSeeds.json");
 const groupSeeds = require("./groupSeeds.json");
 
 db.once("open", async () => {
   try {
-    await User.deleteMany({});
-    await User.create(userSeeds);
-    console.log("****USERS SEEDED****");
-
-    await Company.deleteMany({});
-    await Company.create(companySeeds);
-    console.log("****COMPANIES SEEDED****");
-
-    await EducationalInstitution.deleteMany({});
-    await EducationalInstitution.create(universitySeeds);
-    console.log("****UNIVERSITIES SEEDED****");
-
+    // ***** SKILLS ***** //
     await Skill.deleteMany({});
-    await Skill.create(skillSeeds);
+    const skills = await Skill.create(skillSeeds);
     console.log("****SKILLS SEEDED****");
+
+    // ***** ENTITY DELETE ***** //
+    await Entity.deleteMany({});
+
+    // ***** USERS ***** //
+    await User.deleteMany({});
+    //add skills;
+
+    userSeeds.map((user) => {
+      const userSkills = [];
+      const randomNums = Array.from({ length: skillSeeds.length }, () =>
+        Math.floor(Math.random() * skillSeeds.length)
+      );
+      for (i = 0; i < randomNums.length; i++) {
+        userSkills.push(skills[randomNums[i]]._id);
+        console.log(userSkills);
+      }
+      user.skills = userSkills;
+    });
+
+    const users = await User.create(userSeeds);
+    users.forEach((user) => {
+      Entity.create({ user: user._id });
+    });
+    console.log("****USERS AND ENTITIES FOR USER SEEDS SEEDED****");
+
+    // ***** COMPANIES *****
+    await Company.deleteMany({});
+
+    // add first user as admin for companies
+    companySeeds.forEach((company) => {
+      company.admins = [users[0]._id];
+    });
+
+    const companies = await Company.create(companySeeds);
+
+    // entities for companies
+    companies.forEach((company) => {
+      Entity.create({ company: company._id });
+    });
+    console.log("****COMPANIES AND ENTITIES SEEDED****");
+
+    // ***** SCHOOLS *****
+    await School.deleteMany({});
+    // add first user as admin for schools
+    schoolSeeds.forEach((school) => {
+      school.admins = [users[0]._id];
+    });
+    const schools = await School.create(schoolSeeds);
+    // add entities
+    schools.forEach((school) => {
+      Entity.create({ school: school._id });
+    });
+    console.log("****SCHOOLS AND ENTITIES SEEDED****");
 
     await Reaction.deleteMany({});
     await Reaction.create(reactionSeeds);

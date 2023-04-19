@@ -1,5 +1,4 @@
 const { Schema, model } = require("mongoose");
-const bcrypt = require("bcrypt");
 
 const groupSchema = new Schema({
   name: { type: String, required: true },
