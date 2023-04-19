@@ -49,47 +49,85 @@ export default function JobForm() {
     >
       {({ isSubmitting }) => (
         <Form>
-          <div>
-            <label htmlFor="title">Title</label>
-            <Field type="text" name="title" />
+          <div className="form-control">
+            <label className="label" htmlFor="title">
+              <span className="label-text">Title</span>
+            </label>
+            <Field className="input input-bordered" type="text" name="title" />
             <ErrorMessage name="title" component="div" className="error" />
           </div>
-          <div>
-            <label htmlFor="responsibilities">Responsibilities</label>
-            <Field type="text" name="responsibilities" />
+          <div className="form-control">
+            <label className="label" htmlFor="responsibilities">
+              <span className="label-text">Responsibilities</span>
+            </label>
+            <Field
+              className="input input-bordered"
+              type="text"
+              name="responsibilities"
+            />
             <ErrorMessage
               name="responsibilities"
               component="div"
               className="error"
             />
           </div>
-          <div>
-            <label htmlFor="qualifications">Qualifications</label>
-            <Field type="text" name="qualifications" />
+          <div className="form-control">
+            <label className="label" htmlFor="qualifications">
+              <span className="label-text">Qualifications</span>
+            </label>
+            <Field
+              className="input input-bordered"
+              type="text"
+              name="qualifications"
+            />
             <ErrorMessage
               name="qualifications"
               component="div"
               className="error"
             />
           </div>
-          <div>
-            <label htmlFor="schedule">Schedule</label>
-            <Field type="text" name="schedule" />
+          <div className="form-control">
+            <label className="label" htmlFor="schedule">
+              <span className="label-text">Schedule</span>
+            </label>
+            <Field
+              className="input input-bordered"
+              type="text"
+              name="schedule"
+            />
             <ErrorMessage name="schedule" component="div" className="error" />
           </div>
-          <div>
-            <label htmlFor="salary">Salary</label>
-            <Field type="number" name="salary" />
+          <div className="form-control">
+            <label className="label" htmlFor="salary">
+              <span className="label-text">Salary</span>
+            </label>
+            <Field
+              className="input input-bordered"
+              type="number"
+              name="salary"
+            />
             <ErrorMessage name="salary" component="div" className="error" />
           </div>
-          <div>
-            <label htmlFor="benefits">Benefits</label>
-            <Field type="text" name="benefits" />
+          <div className="form-control">
+            <label className="label" htmlFor="benefits">
+              <span className="label-text">Benefits</span>
+            </label>
+            <Field
+              className="input input-bordered"
+              type="text"
+              name="benefits"
+            />
             <ErrorMessage name="benefits" component="div" className="error" />
           </div>
-          <button className="btn" type="submit" disabled={isSubmitting}>
-            Submit
-          </button>
+          <div className="form-control mt-6">
+            <button
+              className="btn btn-primary"
+              type="submit"
+              disabled={isSubmitting}
+            >
+              Submit
+            </button>
+          </div>
         </Form>
       )}
     </Formik>

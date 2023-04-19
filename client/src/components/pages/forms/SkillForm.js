@@ -23,7 +23,7 @@ export default function SkillForm() {
         },
       });
       resetForm();
-      console.log("skiill created");
+      console.log("skill created");
     } catch (err) {
       console.error(err);
     }
@@ -38,15 +38,23 @@ export default function SkillForm() {
     >
       {({ isSubmitting }) => (
         <Form>
-          <div>
-            <label htmlFor="skill">Skill Name</label>
-            <Field type="text" name="skill" />
+          <div className="form-control">
+            <label className="label" htmlFor="skill">
+              <span className="label-text">Skill Name</span>
+            </label>
+            <Field className="input input-bordered" type="text" name="skill" />
             <ErrorMessage name="skill" component="div" className="error" />
           </div>
 
-          <button className="btn" type="submit" disabled={isSubmitting}>
-            Submit
-          </button>
+          <div className="form-control mt-6">
+            <button
+              className="btn btn-primary"
+              type="submit"
+              disabled={isSubmitting}
+            >
+              Submit
+            </button>
+          </div>
         </Form>
       )}
     </Formik>
