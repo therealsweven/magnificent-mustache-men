@@ -17,7 +17,7 @@ const postReactionSchema = new Schema({
 });
 
 const postSchema = new Schema({
-  user: { type: String, ref: "User", reqired: true },
+  user: { type: String, ref: "User", required: true },
   entity: { type: String, ref: "Entity", required: true },
   postBody: { type: String, required: true },
   reactions: [postReactionSchema],

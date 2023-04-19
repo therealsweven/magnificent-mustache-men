@@ -15,10 +15,10 @@ const { signToken } = require("../utils/auth");
 const resolvers = {
   Query: {
     users: async () => {
-      return User.find();
+      return await User.find();
     },
     user: async (parent, { userId }) => {
-      return User.findOne({ _id: userId }).populate([
+      return await User.findOne({ _id: userId }).populate([
         "skills",
         "groups",
         "connections",
@@ -27,16 +27,67 @@ const resolvers = {
       ]);
     },
     companies: async () => {
-      return Company.find();
+      return await Company.find();
     },
     company: async (parent, { companyId }) => {
-      return Company.find({ _id: companyId });
+      return await Company.findOne({ _id: companyId }).populate([
+        "locations",
+        "jobs",
+        "entitiesFollowed",
+        "posts",
+      ]);
     },
     schools: async () => {
-      return School.find();
+      return await School.find();
     },
     school: async (parent, { schoolId }) => {
-      return School.find({ _id: schoolId });
+      return await School.findOne({ _id: schoolId }).populate([
+        "name",
+        "city",
+        "state",
+        "bio",
+        "website",
+        "profPic",
+        "posts",
+      ]);
+    },
+    jobs: async () => {
+      return await Job.find();
+    },
+    job: async (parent, { jobId }) => {
+      return await Job.findOne({ _id: jobId }).populate([
+        "company",
+        "skills",
+        "title",
+        "qualifications",
+        "salary",
+        "responsibilities",
+        "benefits",
+        "schedule",
+      ]);
+    },
+    posts: async () => {
+      return await Post.find();
+    },
+    post: async (parent, { postId }) => {
+      return await Post.findOne({ _id: postId }).populate([
+        "comments",
+        "postBody",
+        "entity",
+        "reactions",
+      ]);
+    },
+    groups: async () => {
+      return await Group.find();
+    },
+    group: async (parent, { groupId }) => {
+      return await Group.findOne({ _id: groupId }).populate([
+        "name",
+        "admins",
+        "members",
+        "posts",
+        "profilePic",
+      ]);
     },
   },
 
@@ -77,6 +128,39 @@ const resolvers = {
       const group = await Company.create(groupInput);
       return group;
     },
+    // create new job
+    createJob: async (parent, jobInput) => {
+      const job = await Job.create(jobInput);
+      return job;
+    },
+    // create new post
+    createPost: async (parent, { postInput, activeProfile }, context) => {
+      postInput.user = [context.user._id];
+
+      postInput.entity = activeProfile.id;
+      postInput.entity = activeProfile.id;
+
+      postInput.user = [context.user._id];
+      postInput.school = [context.user._id];
+      postInput.company = [context.user.__id];
+      const post = await Post.create(postInput);
+      return post;
+    },
+    // create experience
+    createExperience: async (parent, expInput) => {
+      const experience = await Experience.create(expInput);
+      return experience;
+    },
+    // create education
+    createEducation: async (parent, educationInput) => {
+      const education = await Education.create(educationInput);
+      return education;
+    },
+    // create location
+    createLocation: async (parent, locationInput) => {
+      const location = await Location.create(locationInput);
+      return location;
+    },
     //login user
     userLogin: async (parent, { email, password }) => {
       const user = await User.findOne({ email });
@@ -96,6 +180,54 @@ const resolvers = {
       const token = signToken(user);
       return { token, user };
     },
+    updateUser: async (parent, { id, userInput }) => {
+      return await User.findOneAndUpdate(
+        { _id: id },
+        { userInput },
+        { new: true }
+      );
+    },
+    updateCompany: async (parent, { id, companyInput }) => {
+      return await Company.findOneAndUpdate(
+        { _id: id },
+        { companyInput },
+        { new: true }
+      );
+    },
+    updateLocation: async (parent, {}) => {},
+    updateSchool: async (parent, { id, schoolInput }) => {
+      return await School.findOneAndUpdate(
+        { _id: id },
+        { schoolInput },
+        { new: true }
+      );
+    },
+    updatePost: async (parent, { id, postInput }) => {
+      return await Post.findOneAndUpdate(
+        { _id: id },
+        { postInput },
+        { new: true }
+      );
+    },
+    updateCommentReaction: async (parent, {}) => {},
+    updateComment: async (parent, {}) => {},
+    updatePostReaction: async (parent, {}) => {},
+    updateGroup: async (parent, { id, groupInput }) => {
+      return await Group.findOneAndUpdate(
+        { _id: id },
+        { groupInput },
+        { new: true }
+      );
+    },
+    updateJob: async (parent, { id, jobInput }) => {
+      return await Job.findOneAndUpdate(
+        { _id: id },
+        { jobInput },
+        { new: true }
+      );
+    },
+    updateExperience: async (parent, {}) => {},
+    updateEducation: async (parent, {}) => {},
   },
 };
 
