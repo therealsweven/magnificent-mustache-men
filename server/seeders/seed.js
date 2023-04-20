@@ -16,6 +16,7 @@ const schoolSeeds = require("./schools.json");
 const skillSeeds = require("./skillSeeds.json");
 const reactionSeeds = require("./reactionSeeds.json");
 const groupSeeds = require("./groupSeeds.json");
+const jobSeeds = require("./jobsSeeds.json");
 
 db.once("open", async () => {
   try {
@@ -65,12 +66,17 @@ db.once("open", async () => {
     });
     console.log("****COMPANIES AND ENTITIES SEEDED****");
 
+    //******* JOBS ********/
+    await Job.deleteMany({});
+    await Job.create(jobSeeds);
+    console.log("**** JOB SEEDEDD ****");
+
     // ***** SCHOOLS *****
     await School.deleteMany({});
     // add first user as admin for schools
-    schoolSeeds.forEach((school) => {
-      school.admins = [users[0]._id];
-    });
+    for (i = 0; i < 3; i++) {
+      schoolSeeds[i].admins = [users[0]._id];
+    }
     const schools = await School.create(schoolSeeds);
     // add entities
     schools.forEach((school) => {

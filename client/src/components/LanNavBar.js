@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import logo from "./images/logo.png";
 import UserForm from "./pages/forms/UserForm";
 import LoginForm from "./pages/forms/LoginForm";
+import Auth from "../utils/auth"
 
 export default function LanNavBar() {
   return (

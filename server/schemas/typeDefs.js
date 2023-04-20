@@ -55,10 +55,11 @@ const typeDefs = gql`
     _id: ID!
     company: [Company]
     title: String
+    description: String
     responsibilities: String
     qualifications: String
     schedule: String
-    salary: Int
+    salary: String
     benefits: String
     skills: [Skill]
     applicants: [User]
@@ -184,6 +185,7 @@ const typeDefs = gql`
     job(jobId: ID!): Job
     feed: [Post]
     profiles: [Entity]
+    profilesByUser(userId: ID!): [Entity]
     post(postId: ID!): Post
     groups: [Group]
     group(groupId: ID!): Group
