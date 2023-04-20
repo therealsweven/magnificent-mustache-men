@@ -26,11 +26,18 @@ const httpLink = createHttpLink({
 const authLink = setContext((_, { headers }) => {
   // get the authentication token from local storage if it exists
   const token = localStorage.getItem("id_token");
+  const type = localStorage.getItem("profType");
+  const entity = localStorage.getItem("profEntity");
+
   // return the headers to the context so httpLink can read them
   return {
     headers: {
       ...headers,
       authorization: token ? `Bearer ${token}` : "",
+      activeProfile: {
+        type: type,
+        entity: entity,
+      },
     },
   };
 });

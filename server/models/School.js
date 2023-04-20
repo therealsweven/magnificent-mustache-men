@@ -1,6 +1,7 @@
 const { Schema, model } = require("mongoose");
 
 const schoolSchema = new Schema({
+  entityId: { type: Schema.Types.ObjectId, ref: "Entity" },
   name: { type: String, required: true },
   city: { type: String, required: true },
   state: { type: String, required: true },

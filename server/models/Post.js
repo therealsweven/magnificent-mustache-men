@@ -16,13 +16,18 @@ const postReactionSchema = new Schema({
   reactionId: { type: Schema.Types.ObjectId, ref: "Reaction" },
 });
 
-const postSchema = new Schema({
-  user: { type: String, ref: "User", required: true },
-  entity: { type: String, ref: "Entity", required: true },
-  postBody: { type: String, required: true },
-  reactions: [postReactionSchema],
-  comments: [commentSchema],
-});
+const postSchema = new Schema(
+  {
+    user: { type: Schema.Types.ObjectId, ref: "User", required: true },
+    entity: { type: Schema.Types.ObjectId, ref: "Entity", required: true },
+    postBody: { type: String, required: true },
+    reactions: [postReactionSchema],
+    comments: [commentSchema],
+  },
+  {
+    timestamps: true,
+  }
+);
 
 const Post = model("Post", postSchema);
 

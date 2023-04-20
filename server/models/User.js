@@ -76,6 +76,7 @@ const educationSchema = new Schema({
 });
 
 const userSchema = new Schema({
+  entityId: { type: Schema.Types.ObjectId, ref: "Entity" },
   firstName: {
     type: String,
     required: true,

@@ -8,6 +8,7 @@ const { gql } = require("apollo-server-express");
 const typeDefs = gql`
   type User {
     _id: ID!
+    entityId: ID
     firstName: String
     lastName: String
     email: String
@@ -29,6 +30,7 @@ const typeDefs = gql`
 
   type Company {
     _id: ID!
+    entityId: ID
     name: String
     industry: String
     hqCity: String
@@ -112,6 +114,7 @@ const typeDefs = gql`
 
   type School {
     _id: ID!
+    entityId: ID
     name: String
     city: String
     state: String
@@ -152,17 +155,18 @@ const typeDefs = gql`
   type Query {
     users: [User]!
     user(userId: ID!): User
+    me: User
     companies: [Company]
     company(companyId: ID!): Company
     jobs: [Job]
     job(jobId: ID!): Job
-    posts: [Post]
+    feed: [Post]
+    profiles: [Entity]
     post(postId: ID!): Post
     groups: [Group]
     group(groupId: ID!): Group
     schools: [School]
     school(schoolId: ID!): School
-    feed(id: ID!): Post
   }
 
   type Mutation {
@@ -263,6 +267,10 @@ const typeDefs = gql`
       skills: [String]
     ): Job
     createPost(user: String!, entity: String!, postBody: String!): Post
+    createPostReaction(entity: String!, reactionId: String!): Post
+    createComment(entity: String!, commentBody: String!): Post
+    createCommentReaction(entity: String!, reactionId: String!): Post
+
     userLogin(email: String, username: String, password: String!): Auth
     updateCompany(
       id: ID!
