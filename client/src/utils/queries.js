@@ -60,3 +60,4 @@ export const QUERY_JOBS = gql`
     }
   }
 `;
+

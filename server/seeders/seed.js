@@ -18,6 +18,7 @@ const reactionSeeds = require("./reactionSeeds.json");
 const groupSeeds = require("./groupSeeds.json");
 const jobSeeds = require("./jobsSeeds.json");
 
+
 db.once("open", async () => {
   try {
     // ***** SKILLS ***** //
@@ -49,6 +50,7 @@ db.once("open", async () => {
       Entity.create({ user: user._id });
     });
     console.log("****USERS AND ENTITIES FOR USER SEEDS SEEDED****");
+
 
     // ***** COMPANIES *****
     await Company.deleteMany({});
