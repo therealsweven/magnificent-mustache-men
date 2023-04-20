@@ -1,13 +1,16 @@
 import { Link } from "react-router-dom";
-import logo from "../images/Untitled design.png"
+import logo from "../images/Untitled design.png";
 
 export default function NavBar() {
   return (
     <>
       <div className="navbar bg-base-300">
         <div className="flex-1">
-            <img className=" mx-3 rounded h-11 " src={logo} />
-          <Link to="#" className="btn btn-ghost normal-case text-xl font-titilliumWeb">
+          <img className=" mx-3 rounded h-11 " src={logo} />
+          <Link
+            to="#"
+            className="btn btn-ghost normal-case text-xl font-titilliumWeb"
+          >
             enCoded
           </Link>
         </div>
@@ -34,6 +37,9 @@ export default function NavBar() {
                 <Link to="#" className="justify-between">
                   Profile
                 </Link>
+              </li>
+              <li>
+                <Link to="#">Settings</Link>
               </li>
               <li>
                 <Link to="#">Settings</Link>

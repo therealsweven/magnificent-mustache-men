@@ -4,6 +4,7 @@ const { AuthenticationError } = require("apollo-server-express");
 const { Entity } = require("../models");
 const { User } = require("../models");
 const { School } = require("../models");
+const { Post } = require("../models");
 const { Company } = require("../models");
 const { Job } = require("../models");
 const { Group } = require("../models");
@@ -19,6 +20,15 @@ const resolvers = {
     },
     user: async (parent, { userId }) => {
       return await User.findOne({ _id: userId }).populate([
+        "skills",
+        "groups",
+        "connections",
+        "education",
+        "experience",
+      ]);
+    },
+    me: async (parent, args, context) => {
+      return await User.findOne({ _id: context.user._id }).populate([
         "skills",
         "groups",
         "connections",
@@ -66,8 +76,48 @@ const resolvers = {
         "schedule",
       ]);
     },
-    posts: async () => {
-      return await Post.find();
+    feed: async (parent, args, context) => {
+      //user
+      if (context.activeProfile.type === "user") {
+        const user = await User.findOne({
+          entityId: context.activeProfile.entity,
+        }).populate("entitiesFollowed");
+        const entities = user.entitiesFollowed;
+
+        // company
+      } else if (context.activeProfile.type === "company") {
+        const company = await Company.findOne({
+          entityId: context.activeProfile.entity,
+        }).populate("entitiesFollowed");
+        const entities = company.entitiesFollowed;
+
+        // school
+      } else if (context.activeProfile.type === "school") {
+        const school = await School.findOne({
+          entityId: context.activeProfile.entity,
+        }).populate("entitiesFollowed");
+        const entities = school.entitiesFollowed;
+      }
+      const posts = await Post.find({ entity: entities });
+      const sortedPosts = posts.sort(function (a, b) {
+        let x = a.updatedAt;
+        let y = b.updatedAt;
+
+        if (x > y) {
+          return 1;
+        }
+        if (x < y) {
+          return -1;
+        }
+        return 0;
+      });
+      return sortedPosts;
+    },
+    profiles: async (parent, args, context) => {
+      const user = await User.findOne({ _id: context.user._id });
+      const companies = await Company.find({ admins: context.user._id });
+      const schools = await School.find({ admins: context.user._id });
+      return { user, companies, schools };
     },
     post: async (parent, { postId }) => {
       return await Post.findOne({ _id: postId }).populate([
@@ -125,7 +175,7 @@ const resolvers = {
     },
     // create new group
     createGroup: async (parent, groupInput) => {
-      const group = await Company.create(groupInput);
+      const group = await Group.create(groupInput);
       return group;
     },
     // create new job
@@ -134,33 +184,36 @@ const resolvers = {
       return job;
     },
     // create new post
-    createPost: async (parent, { postInput, activeProfile }, context) => {
-      postInput.user = [context.user._id];
+    createPost: async (parent, { postInput }, context) => {
+      postInput.entity = context.activeProfile.entity;
 
-      postInput.entity = activeProfile.id;
-      postInput.entity = activeProfile.id;
-
-      postInput.user = [context.user._id];
-      postInput.school = [context.user._id];
-      postInput.company = [context.user.__id];
       const post = await Post.create(postInput);
       return post;
     },
-    // create experience
-    createExperience: async (parent, expInput) => {
-      const experience = await Experience.create(expInput);
-      return experience;
-    },
-    // create education
-    createEducation: async (parent, educationInput) => {
-      const education = await Education.create(educationInput);
-      return education;
-    },
-    // create location
-    createLocation: async (parent, locationInput) => {
-      const location = await Location.create(locationInput);
-      return location;
-    },
+    // create post reaction
+    // createPostReaction: async (parent, reactionInput)=>{
+    //   Post.
+
+    // };
+    // creat comment
+
+    // create comment reaction
+
+    // // create experience
+    // createExperience: async (parent, expInput) => {
+    //   const experience = await Experience.create(expInput);
+    //   return experience;
+    // },
+    // // create education
+    // createEducation: async (parent, educationInput) => {
+    //   const education = await Education.create(educationInput);
+    //   return education;
+    // },
+    // // create location
+    // createLocation: async (parent, locationInput) => {
+    //   const location = await Location.create(locationInput);
+    //   return location;
+    // },
     //login user
     userLogin: async (parent, { email, password }) => {
       const user = await User.findOne({ email });
@@ -194,7 +247,7 @@ const resolvers = {
         { new: true }
       );
     },
-    updateLocation: async (parent, {}) => {},
+    // updateLocation: async (parent, {}) => {},
     updateSchool: async (parent, { id, schoolInput }) => {
       return await School.findOneAndUpdate(
         { _id: id },
@@ -209,9 +262,9 @@ const resolvers = {
         { new: true }
       );
     },
-    updateCommentReaction: async (parent, {}) => {},
-    updateComment: async (parent, {}) => {},
-    updatePostReaction: async (parent, {}) => {},
+    // updateCommentReaction: async (parent, {}) => {},
+    // updateComment: async (parent, {}) => {},
+    // updatePostReaction: async (parent, {}) => {},
     updateGroup: async (parent, { id, groupInput }) => {
       return await Group.findOneAndUpdate(
         { _id: id },

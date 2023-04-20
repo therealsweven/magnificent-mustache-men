@@ -19,6 +19,7 @@ const locationSchema = new Schema({
 });
 
 const companySchema = new Schema({
+  entityId: { type: Schema.Types.ObjectId, ref: "Entity" },
   name: {
     type: String,
     required: true,
