@@ -2,9 +2,44 @@ import { Link } from "react-router-dom";
 import React, { useState } from "react";
 import logo from "../components/images/Untitled design.png";
 import placeholder from "../components/images/portrait-philip-martin-unsplash.jpg";
-import Auth from "../utils/auth"
+import Auth from "../utils/auth";
+import { useQuery } from "@apollo/client";
+import { QUERY_PROFILES } from "../utils/queries";
 
 export default function NavBar() {
+  const { loading, data } = useQuery(QUERY_PROFILES);
+  const profiles = data?.profiles || {};
+  console.log(profiles, loading);
+  const profDisplay = [];
+  if (!loading) {
+    profiles.forEach((profile) => {
+      if (profile.user) {
+        const prof = {
+          type: "user",
+          entityId: profile._id,
+          name: profile.user.firstName + " " + profile.user.lastName,
+        };
+        profDisplay.push(prof);
+      } else if (profile.school) {
+        const prof = {
+          type: "school",
+          entityId: profile._id,
+          name: profile.school.name,
+        };
+        profDisplay.push(prof);
+      } else if (profile.company) {
+        const prof = {
+          type: "company",
+          entityId: profile._id,
+          name: profile.company.name,
+        };
+        profDisplay.push(prof);
+      }
+    });
+    console.log(profDisplay);
+  }
+  Auth.profileSwitch(type, entity);
+
   return (
     <>
       <div className="navbar bg-base-300">
@@ -36,7 +71,6 @@ export default function NavBar() {
               tabIndex={0}
               className="mt-3 p-2 shadow menu menu-compact dropdown-content bg-base-100 rounded-box w-52"
             >
-          
               <li>
                 <Link to="/profile">My Profile</Link>
               </li>
@@ -55,6 +89,7 @@ export default function NavBar() {
                         tabIndex={0}
                         className="btn btn-ghost btn-circle avatar"
                       >
+                        <p></p>
                         <div className="w-14 rounded-full">
                           {/* Profile images*/}
                           <img src={placeholder} />
@@ -85,9 +120,10 @@ export default function NavBar() {
                 <Link to="#">Settings</Link>
               </li>
               <li>
-                <Link to="/" onClick={() => Auth.logout()}>Logout</Link>
+                <Link to="/" onClick={() => Auth.logout()}>
+                  Logout
+                </Link>
               </li>
-     
             </ul>
           </div>
         </div>
