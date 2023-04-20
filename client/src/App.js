@@ -16,6 +16,7 @@ import Footer from "./components/footer";
 import Profile from "./components/pages/Profile";
 import UserForm from "./components/pages/forms/UserForm";
 import JobList from "./components/pages/jobList";
+import CompanyProfile from "./components/pages/CompanyProfile";
 const httpLink = createHttpLink({
   uri: "/graphql",
 });
@@ -58,6 +59,7 @@ function App() {
             <Route path="/profile" element={<Profile />} />
             <Route path="/user" element={<UserForm />} />
             <Route path="/jobPost" element={<JobList />} />
+            <Route path="/company" element={<CompanyProfile />} />
           </Routes>
           <Footer />
         </div>

@@ -5,7 +5,7 @@ export default function JobList() {
   //make sure to auto gen drawer with title to match drawer to proper posting
   return (
     <>
-      <div class="grid grid-rows-2 bg-slate-600 ">
+      <div className="grid grid-rows-2 bg-slate-600 ">
         <div className="card card-side bg-base-100 shadow-xl m-3">
           <figure>
             <img src={google} className="rounded-2xl h-40 px-2" />

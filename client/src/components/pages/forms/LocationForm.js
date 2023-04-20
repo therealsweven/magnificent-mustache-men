@@ -48,30 +48,48 @@ export default function LocationForm() {
     >
       {({ isSubmitting }) => (
         <Form>
-          <div>
-            <label htmlFor="city">City</label>
-            <Field type="text" name="city" />
+          <div className="form-control">
+            <label className="label" htmlFor="city">
+              <span className="label-text">City</span>
+            </label>
+            <Field className="input input-bordered" type="text" name="city" />
             <ErrorMessage name="city" component="div" className="error" />
           </div>
-          <div>
-            <label htmlFor="state">State</label>
-            <Field type="text" name="state" />
+          <div className="form-control">
+            <label className="label" htmlFor="state">
+              <span className="label-text">State</span>
+            </label>
+            <Field className="input input-bordered" type="text" name="state" />
             <ErrorMessage name="state" component="div" className="error" />
           </div>
-          <div>
-            <label htmlFor="size">Size</label>
-            <Field type="text" name="size" />
+          <div className="form-control">
+            <label className="label" htmlFor="size">
+              <span className="label-text">Size</span>
+            </label>
+            <Field className="input input-bordered" type="text" name="size" />
             <ErrorMessage name="size" component="div" className="error" />
           </div>
-          <div>
-            <label htmlFor="phone">Phone Number</label>
-            <Field type="number" name="phone" />
+          <div className="form-control">
+            <label className="label" htmlFor="phone">
+              <span className="label-text">Phone Number</span>
+            </label>
+            <Field
+              className="input input-bordered"
+              type="number"
+              name="phone"
+            />
             <ErrorMessage name="phone" component="div" className="error" />
           </div>
 
-          <button className="btn" type="submit" disabled={isSubmitting}>
-            Submit
-          </button>
+          <div className="form-control mt-6">
+            <button
+              className="btn btn-primary"
+              type="submit"
+              disabled={isSubmitting}
+            >
+              Submit
+            </button>
+          </div>
         </Form>
       )}
     </Formik>

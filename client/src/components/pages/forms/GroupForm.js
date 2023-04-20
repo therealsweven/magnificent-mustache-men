@@ -43,21 +43,35 @@ export default function GroupForm() {
     >
       {({ isSubmitting }) => (
         <Form>
-          <div>
-            <label htmlFor="name">Group Name</label>
-            <Field type="text" name="name" />
+          <div className="form-control">
+            <label className="label" htmlFor="name">
+              <span className="label-text">Group Name</span>
+            </label>
+            <Field className="input input-bordered" type="text" name="name" />
             <ErrorMessage name="name" component="div" className="error" />
           </div>
-          <div>
-            <label htmlFor="private"></label>
-            <Field type="checkbox" name="private" />
+          <div className="form-control">
+            <label className="label" htmlFor="private">
+              <span className="label-text">Private?</span>
+            </label>
+            <Field
+              className="input input-bordered"
+              type="checkbox"
+              name="private"
+            />
             <ErrorMessage name="private" component="div" className="error" />
           </div>
-          <div>
-            <label htmlFor="joinQuestion">
-              Create a statement to ask for users to join
+          <div className="form-control">
+            <label className="label" htmlFor="joinQuestion">
+              <span className="label-text">
+                Create a statement to ask for users to join
+              </span>
             </label>
-            <Field type="text" name="joinQuestion" />
+            <Field
+              className="input input-bordered"
+              type="text"
+              name="joinQuestion"
+            />
             <ErrorMessage
               name="joinQuestion"
               component="div"
@@ -65,9 +79,15 @@ export default function GroupForm() {
             />
           </div>
 
-          <button className="btn" type="submit" disabled={isSubmitting}>
-            Submit
-          </button>
+          <div className="form-control mt-6">
+            <button
+              className="btn btn-primary"
+              type="submit"
+              disabled={isSubmitting}
+            >
+              Submit
+            </button>
+          </div>
         </Form>
       )}
     </Formik>

@@ -1,12 +1,12 @@
 import React from "react";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import { useMutation } from "@apollo/client";
-import { LOGIN } from "../../../utils/mutations";
+import { USER_LOGIN } from "../../../utils/mutations";
 import Auth from "../../../utils/auth";
 import * as Yup from "yup";
 
 export default function LoginForm() {
-  const [login, { error, data }] = useMutation(LOGIN);
+  const [userLogin, { error, data }] = useMutation(USER_LOGIN);
 
   const validationSchema = Yup.object().shape({
     email: Yup.string()
@@ -22,14 +22,15 @@ export default function LoginForm() {
 
   const handleSubmit = async (values) => {
     try {
-      const { input } = await login({
+      const { data } = await userLogin({
         variables: {
           email: values.email,
           password: values.password,
         },
       });
-      console.log(data.login.user);
-      Auth.login(data.login.token);
+      console.log(data.userLogin.user);
+      Auth.login(data.userLogin.token);
+      console.log("login successful");
     } catch (err) {
       console.error(err);
     }
@@ -72,7 +73,7 @@ export default function LoginForm() {
               type="submit"
               disabled={isSubmitting}
             >
-              Submit
+              Log In
             </button>
           </div>
         </Form>

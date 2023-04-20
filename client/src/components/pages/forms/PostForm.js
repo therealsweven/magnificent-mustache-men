@@ -38,15 +38,28 @@ export default function PostForm() {
     >
       {({ isSubmitting }) => (
         <Form>
-          <div>
-            <label htmlFor="postBody">Post</label>
-            <Field type="text" as="textarea" name="postBody" />
+          <div className="form-control">
+            <label className="label" htmlFor="postBody">
+              <span className="label-text">Post</span>
+            </label>
+            <Field
+              className="input input-bordered"
+              type="text"
+              as="textarea"
+              name="postBody"
+            />
             <ErrorMessage name="postBody" component="div" className="error" />
           </div>
 
-          <button className="btn" type="submit" disabled={isSubmitting}>
-            Submit
-          </button>
+          <div className="form-control mt-6">
+            <button
+              className="btn btn-primary"
+              type="submit"
+              disabled={isSubmitting}
+            >
+              Submit
+            </button>
+          </div>
         </Form>
       )}
     </Formik>

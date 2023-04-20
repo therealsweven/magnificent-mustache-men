@@ -58,48 +58,89 @@ export default function CompanyForm() {
     >
       {({ isSubmitting }) => (
         <Form>
-          <div>
-            <label htmlFor="name">Name</label>
-            <Field type="text" name="name" />
+          <div className="form-control">
+            <label className="label" htmlFor="name">
+              <span className="label-text">Name</span>
+            </label>
+            <Field className="input input-bordered" type="text" name="name" />
             <ErrorMessage name="name" component="div" className="error" />
           </div>
-          <div>
-            <label htmlFor="industry">Industry</label>
-            <Field type="text" name="industry" />
+          <div className="form-control">
+            <label className="label" htmlFor="industry">
+              <span className="label-text">Industry</span>
+            </label>
+            <Field
+              className="input input-bordered"
+              type="text"
+              name="industry"
+            />
             <ErrorMessage name="industry" component="div" className="error" />
           </div>
-          <div>
-            <label htmlFor="hqCity">Headquarters City</label>
-            <Field type="text" name="hqCity" />
+          <div className="form-control">
+            <label className="label" htmlFor="hqCity">
+              <span className="label-text">Headquarters City</span>
+            </label>
+            <Field className="input input-bordered" type="text" name="hqCity" />
             <ErrorMessage name="hqCity" component="div" className="error" />
           </div>
-          <div>
-            <label htmlFor="hqState">Headquarters State</label>
-            <Field type="text" name="hqState" />
+          <div className="form-control">
+            <label className="label" htmlFor="hqState">
+              <span className="label-text">Headquarters State</span>
+            </label>
+            <Field
+              className="input input-bordered"
+              type="text"
+              name="hqState"
+            />
             <ErrorMessage name="hqState" component="div" className="error" />
           </div>
-          <div>
-            <label htmlFor="website">Website</label>
-            <Field type="text" name="website" />
+          <div className="form-control">
+            <label className="label" htmlFor="website">
+              <span className="label-text">Website</span>
+            </label>
+            <Field
+              className="input input-bordered"
+              type="text"
+              name="website"
+            />
             <ErrorMessage name="website" component="div" className="error" />
           </div>
-          <div>
-            <label htmlFor="bio">Bio</label>
-            <Field type="bio" as="textarea" name="bio" />
+          <div className="form-control">
+            <label className="label" htmlFor="bio">
+              <span className="label-text">Bio</span>
+            </label>
+            <Field
+              className="input input-bordered"
+              type="bio"
+              as="textarea"
+              name="bio"
+            />
             <ErrorMessage name="bio" component="div" className="error" />
           </div>
-          <div>
-            <label htmlFor="companySize">Company Size</label>
-            <Field type="text" name="companySize" />
+          <div className="form-control">
+            <label className="label" htmlFor="companySize">
+              <span className="label-text">Company Size</span>
+            </label>
+            <Field
+              className="input input-bordered"
+              type="text"
+              name="companySize"
+            />
             <ErrorMessage
               name="companySize"
               component="div"
               className="error"
             />
           </div>
-          <div>
-            <label htmlFor="foundedYear">Founded Year</label>
-            <Field type="number" name="foundedYear" />
+          <div className="form-control">
+            <label className="label" htmlFor="foundedYear">
+              <span className="label-text">Founded Year</span>
+            </label>
+            <Field
+              className="input input-bordered"
+              type="number"
+              name="foundedYear"
+            />
             <ErrorMessage
               name="foundedYear"
               component="div"
@@ -107,17 +148,29 @@ export default function CompanyForm() {
             />
           </div>
           <div>
-            <label htmlFor="specialties">Specialties</label>
-            <Field type="text" name="specialties" />
+            <label className="label" htmlFor="specialties">
+              <span className="label-text">Specialties</span>
+            </label>
+            <Field
+              className="input input-bordered"
+              type="text"
+              name="specialties"
+            />
             <ErrorMessage
               name="specialties"
               component="div"
               className="error"
             />
           </div>
-          <button className="btn" type="submit" disabled={isSubmitting}>
-            Submit
-          </button>
+          <div className="form-control mt-6">
+            <button
+              className="btn btn-primary"
+              type="submit"
+              disabled={isSubmitting}
+            >
+              Submit
+            </button>
+          </div>
         </Form>
       )}
     </Formik>

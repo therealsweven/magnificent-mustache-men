@@ -66,46 +66,86 @@ export default function ExperienceForm() {
       {" "}
       {({ values, isSubmitting }) => (
         <Form>
-          <div>
-            <label htmlFor="company">Company</label>
-            <Field type="text" name="company" />
+          <div className="form-control">
+            <label className="label" htmlFor="company">
+              <span className="label-text">Company</span>
+            </label>
+            <Field
+              className="input input-bordered"
+              type="text"
+              name="company"
+            />
             <ErrorMessage name="company" component="div" className="error" />
           </div>
-          <div>
-            <label htmlFor="title">Title</label>
-            <Field type="text" name="title" />
+          <div className="form-control">
+            <label className="label" htmlFor="title">
+              <span className="label-text">Title</span>
+            </label>
+            <Field className="input input-bordered" type="text" name="title" />
             <ErrorMessage name="title" component="div" className="error" />
           </div>
-          <div>
-            <label htmlFor="startMonth">Start Month</label>
-            <Field type="text" name="startMonth" />
+          <div className="form-control">
+            <label className="label" htmlFor="startMonth">
+              <span className="label-text">Start Month</span>
+            </label>
+            <Field
+              className="input input-bordered"
+              type="text"
+              name="startMonth"
+            />
             <ErrorMessage name="startMonth" component="div" className="error" />
           </div>
-          <div>
-            <label htmlFor="startYear">Start Year</label>
-            <Field type="number" name="starYear" />
+          <div className="form-control">
+            <label className="label" htmlFor="startYear">
+              <span className="label-text">Start Year</span>
+            </label>
+            <Field
+              className="input input-bordered"
+              type="number"
+              name="starYear"
+            />
             <ErrorMessage name="starYear" component="div" className="error" />
           </div>
-          <div>
-            <label htmlFor="current">Current</label>
-            <Field type="checkbox" name="current" />
+          <div className="form-control">
+            <label className="label" htmlFor="current">
+              <span className="label-text">Current</span>
+            </label>
+            <Field
+              className="input input-bordered"
+              type="checkbox"
+              name="current"
+            />
             <ErrorMessage name="current" />
           </div>
 
           {values.current ? (
             <>
-              <div>
-                <label htmlFor="endMonth">End Month</label>
-                <Field type="text" name="endMonth" disabled />
+              <div className="form-control">
+                <label className="label" htmlFor="endMonth">
+                  <span className="label-text">End Month</span>
+                </label>
+                <Field
+                  className="input input-bordered"
+                  type="text"
+                  name="endMonth"
+                  disabled
+                />
                 <ErrorMessage
                   name="endMonth"
                   component="div"
                   className="error"
                 />
               </div>
-              <div>
-                <label htmlFor="endYear">End Year</label>
-                <Field type="number" name="endYear" disabled />
+              <div className="form-control">
+                <label className="label" htmlFor="endYear">
+                  <span className="label-text">End Year</span>
+                </label>
+                <Field
+                  className="input input-bordered"
+                  type="number"
+                  name="endYear"
+                  disabled
+                />
                 <ErrorMessage
                   name="endYear"
                   component="div"
@@ -115,18 +155,30 @@ export default function ExperienceForm() {
             </>
           ) : (
             <>
-              <div>
-                <label htmlFor="endMonth">End Month</label>
-                <Field type="text" name="endMonth" />
+              <div className="form-control">
+                <label className="label" htmlFor="endMonth">
+                  <span className="label-text">End Month</span>
+                </label>
+                <Field
+                  className="input input-bordered"
+                  type="text"
+                  name="endMonth"
+                />
                 <ErrorMessage
                   name="endMonth"
                   component="div"
                   className="error"
                 />
               </div>
-              <div>
-                <label htmlFor="endYear">end Year</label>
-                <Field type="number" name="endYear" />
+              <div className="form-control">
+                <label className="label" htmlFor="endYear">
+                  <span className="label-text">End Year</span>
+                </label>
+                <Field
+                  className="input input-bordered"
+                  type="number"
+                  name="endYear"
+                />
                 <ErrorMessage
                   name="endYear"
                   component="div"
@@ -136,9 +188,15 @@ export default function ExperienceForm() {
             </>
           )}
 
-          <button type="submit" disabled={isSubmitting}>
-            Subtmit
-          </button>
+          <div className="form-control mt-6">
+            <button
+              className="btn btn-primary"
+              type="submit"
+              disabled={isSubmitting}
+            >
+              Submit
+            </button>
+          </div>
         </Form>
       )}
     </Formik>

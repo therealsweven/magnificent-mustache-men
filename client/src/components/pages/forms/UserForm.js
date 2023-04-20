@@ -63,7 +63,7 @@ export default function UserForm() {
           </div>
           <div className="form-control">
             <label className="label" htmlFor="lastName">
-              Last Name
+              <span className="label-text">Last Name</span>
             </label>
             <Field
               className="input input-bordered"
@@ -74,14 +74,14 @@ export default function UserForm() {
           </div>
           <div className="form-control">
             <label className="label" htmlFor="email">
-              Email
+              <span className="label-text">Email</span>
             </label>
             <Field className="input input-bordered" type="email" name="email" />
             <ErrorMessage name="email" component="div" className="error" />
           </div>
           <div className="form-control">
             <label className="label" htmlFor="password">
-              Password
+              <span className="label-text">Password</span>
             </label>
             <Field
               className="input input-bordered"
@@ -91,9 +91,13 @@ export default function UserForm() {
             <ErrorMessage name="password" component="div" className="error" />
           </div>
           <div className="form-control mt-6">
-          <button className="btn btn-primary" type="submit" disabled={isSubmitting}>
-          Sign Up
-          </button>
+            <button
+              className="btn btn-primary"
+              type="submit"
+              disabled={isSubmitting}
+            >
+              Sign Up
+            </button>
           </div>
         </Form>
       )}
