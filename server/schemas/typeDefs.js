@@ -413,10 +413,10 @@ const typeDefs = gql`
     removeReaction(reactionId: ID!): Reaction
     removePostReaction(postId: ID!, reactionId: ID!): Post
     removeSkill(skillId: ID!, userId: ID!): Skill
-    removeEntity(userId: ID!, entityId: ID!): Entity
+    removeEntity(entityId: ID!): Entity
     removeFriend(userId: ID!, friendId: ID!): User
     unfollowEntity(entityId: ID!, userId: ID!): User
-    leaveGroup(userId: ID!, groupID: ID!): Group
+    leaveGroup(userId: ID!, groupId: ID!): Group
   }
 `;
 
