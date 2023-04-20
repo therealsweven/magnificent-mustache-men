@@ -418,6 +418,9 @@ const typeDefs = gql`
     removeSkill(skillId: ID!, userId: ID!): Skill
     removeEntity(entityId: ID!): Entity
     removeFriend(userId: ID!, friendId: ID!): User
+    removeLocation(locationId: ID!): Company
+    removeEducation(educationId: ID!): User
+    removeExperience(experienceId: ID!): User
     unfollowEntity(entityId: ID!, userId: ID!): User
     leaveGroup(userId: ID!, groupId: ID!): Group
   }
