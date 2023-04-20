@@ -117,7 +117,14 @@ const resolvers = {
       const user = await User.findOne({ _id: context.user._id });
       const companies = await Company.find({ admins: context.user._id });
       const schools = await School.find({ admins: context.user._id });
-      return { user, companies, schools };
+      const profs = [await Entity.find({ user: user._id })].populate("user");
+      profs
+        .push(await Entity.find({ companies: { $in: companies } }))
+        .populate("company");
+      profs
+        .push(await Entity.find({ school: { $in: schools } }))
+        .populate("school");
+      return { profs };
     },
     post: async (parent, { postId }) => {
       return await Post.findOne({ _id: postId }).populate([
@@ -172,11 +179,6 @@ const resolvers = {
     // create new skill
     createSkill: async (parent, skillName) => {
       return await Skill.create(skillName);
-    },
-    // create new group
-    createGroup: async (parent, groupInput) => {
-      const group = await Group.create(groupInput);
-      return group;
     },
     // create new job
     createJob: async (parent, jobInput) => {

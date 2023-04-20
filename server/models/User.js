@@ -75,56 +75,61 @@ const educationSchema = new Schema({
   },
 });
 
-const userSchema = new Schema({
-  entityId: { type: Schema.Types.ObjectId, ref: "Entity" },
-  firstName: {
-    type: String,
-    required: true,
-    trim: true,
-  },
-  lastName: {
-    type: String,
-    required: true,
-    trim: true,
-  },
-  email: {
-    type: String,
-    required: true,
-    unique: true,
-    match: [/.+@.+\..+/, "Must match an email address!"],
-  },
-  password: {
-    type: String,
-    required: true,
-    minlength: 5,
-  },
-  city: {
-    type: String,
-  },
-  state: {
-    type: String,
-  },
-  country: {
-    type: String,
-  },
-  education: [educationSchema],
-  experience: [experienceSchema],
-  skills: [{ type: Schema.Types.ObjectId, ref: "Skill" }],
-  website: { type: String },
-  // resumeDoc: {
+const userSchema = new Schema(
+  {
+    entityId: { type: Schema.Types.ObjectId, ref: "Entity" },
+    firstName: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+    lastName: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+    email: {
+      type: String,
+      required: true,
+      unique: true,
+      match: [/.+@.+\..+/, "Must match an email address!"],
+    },
+    password: {
+      type: String,
+      required: true,
+      minlength: 5,
+    },
+    city: {
+      type: String,
+    },
+    state: {
+      type: String,
+    },
+    country: {
+      type: String,
+    },
+    education: [educationSchema],
+    experience: [experienceSchema],
+    skills: [{ type: Schema.Types.ObjectId, ref: "Skill" }],
+    website: { type: String },
+    // resumeDoc: {
 
-  // },
-  posts: [{ type: Schema.Types.ObjectId, ref: "Post" }],
-  connections: [{ type: Schema.Types.ObjectId, ref: "User" }],
-  groups: [{ type: Schema.Types.ObjectId, ref: "Group" }],
-  entitiesFollowed: [{ type: Schema.Types.ObjectId, ref: "Entity" }],
-  profPic: {
-    type: String,
+    // },
+    posts: [{ type: Schema.Types.ObjectId, ref: "Post" }],
+    connections: [{ type: Schema.Types.ObjectId, ref: "User" }],
+    groups: [{ type: Schema.Types.ObjectId, ref: "Group" }],
+    entitiesFollowed: [{ type: Schema.Types.ObjectId, ref: "Entity" }],
+    profPic: {
+      type: String,
+    },
+    bannerPic: {
+      type: String,
+    },
   },
-  bannerPic: {
-    type: String,
-  },
-});
+  {
+    timestamps: true,
+  }
+);
 
 // set up pre-save middleware to create password
 userSchema.pre("save", async function (next) {
