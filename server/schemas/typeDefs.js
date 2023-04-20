@@ -1,9 +1,8 @@
 const { gql } = require("apollo-server-express");
 
-// Queries/typeDefs/Updates for experienceSchema and educationSchema from User.js required?
-// ^^^^^^^^what about locationSchema from Company.js
-// Updates for all three have been setup in the typeDef mutations
-// Do we need ids for each of three schemas listed above in order to update?
+// go back and look at queries for education and experience - not necessary or is?
+// unfollowEntity should reference Entity or User model?
+// removeEntity should reference Entity model...?
 
 const typeDefs = gql`
   type User {
@@ -99,6 +98,29 @@ const typeDefs = gql`
     _id: ID!
     entity: Entity
     reactionId: Reaction
+  }
+
+  type Experience {
+    company: String
+    title: String
+    jobDescription: String
+    skills: [Skill]
+    startYear: Int
+    current: Boolean
+    endMonth: String
+    endYear: Int
+  }
+
+  type Education {
+    school: School
+    fieldOfStudy: String
+    certificateType: String
+    skills: [Skill]
+    startMonth: String
+    startYear: Int
+    current: Boolean
+    endMonth: String
+    endYear: Int
   }
 
   type Group {
@@ -247,6 +269,9 @@ const typeDefs = gql`
       companySize: String
       foundedYear: String
     ): Company
+    addFriend(userId: String!, friendId: String!): User
+    followEntity(userId: String!, entityId: String!): User
+    joinGroup(userId: String!, groupID: String!): Group
     createGroup(
       name: String!
       admins: [String]!
@@ -272,7 +297,6 @@ const typeDefs = gql`
     createPostReaction(entity: String!, reactionId: String!): Post
     createComment(entity: String!, commentBody: String!): Post
     createCommentReaction(entity: String!, reactionId: String!): Post
-
     userLogin(email: String, username: String, password: String!): Auth
     updateCompany(
       id: ID!
@@ -378,14 +402,19 @@ const typeDefs = gql`
     ): User
     removeUser: User
     removeGroup: Group
-    removeComment(comment: String!): Post
-    removePost: Post
+    removeComment(postId: ID!, commentId: ID!): Post
+    removeCommentReaction(commentId: ID!, reactionId: ID!): Post
+    removePost(postId: ID!): Post
     removeCompany: Company
     removeJob: Job
     removeSchool: School
-    removeReaction: Reaction
-    removeSkill: Skill
-    removeEntity: Entity
+    removeReaction(reactionId: ID!): Reaction
+    removePostReaction(postId: ID!, reactionId: ID!): Post
+    removeSkill(skillId: ID!, userId: ID!): Skill
+    removeEntity(entityId: ID!): Entity
+    removeFriend(userId: ID!, friendId: ID!): User
+    unfollowEntity(entityId: ID!, userId: ID!): User
+    leaveGroup(userId: ID!, groupId: ID!): Group
   }
 `;
 

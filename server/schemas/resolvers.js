@@ -216,27 +216,96 @@ const resolvers = {
       return post;
     },
     // create post reaction
-    // createPostReaction: async (parent, reactionInput)=>{
-    //   Post.
+    createPostReaction: async (parent, { postReactionInput }, context) => {
+      postReactionInput.entity = context.activeProfile.entity;
 
-    // };
-    // creat comment
+      const postReaction = await Post.create(postReacionInput);
+      return postReaction;
+    },
+    //create add friend
+    addFriend: async (parent, { userId, friendId }, context) => {
+      if (context.user) {
+        return User.findOneAndUpdate(
+          { _id: userId },
+          {
+            $addToSet: {
+              friends: { friendId, friendAuthor: context.user._id },
+            },
+          },
+          {
+            new: true,
+            runValidators: true,
+          }
+        );
+      }
+      throw new AuthenticationError("You need to be logged in");
+    },
+    //  create followEntity
+    followEntity: async (parent, { userId, entityId }, context) => {
+      if (context.user) {
+        return User.findOneAndUpdate(
+          { _id: userId },
+          {
+            $addToSet: {
+              entitiesFollowed: { entityId, entityCreator: context.user._id },
+            },
+          },
+          {
+            new: true,
+            runValidators: true,
+          }
+        );
+      }
+      throw new AuthenticationError("You need to be logged in");
+    },
+    // joinGroup
+    joinGroup: async (parent, { userid, groupId }, context) => {
+      if (context.user) {
+        return Group.findOneAndUpdate(
+          { _id: groupId },
+          {
+            $addToSet: {
+              members: { userId, memberAuthor: context.user._id },
+            },
+          },
+          {
+            new: true,
+            runValidators: true,
+          }
+        );
+      }
+      throw new AuthenticationError("You need to be logged in");
+    },
+
+    // create comment
 
     // create comment reaction
 
+    // createCommentReaction: async (
+    //   parent,
+    //   { commentReactionInput },
+    //   context
+    // ) => {
+    //   commentReactionInput.entity = context.activeProfile.entity;
+
+    //   const commentReaction = await Post.create(commentReactionInput);
+    //   return commentReaction;
+    // },
+
     // // create experience
+
     // createExperience: async (parent, expInput) => {
-    //   const experience = await Experience.create(expInput);
+    //   const experience = await User.create(expInput);
     //   return experience;
     // },
     // // create education
     // createEducation: async (parent, educationInput) => {
-    //   const education = await Education.create(educationInput);
+    //   const education = await User.create(educationInput);
     //   return education;
     // },
     // // create location
     // createLocation: async (parent, locationInput) => {
-    //   const location = await Location.create(locationInput);
+    //   const location = await Company.create(locationInput);
     //   return location;
     // },
     //login user
@@ -306,6 +375,189 @@ const resolvers = {
     },
     updateExperience: async (parent, {}) => {},
     updateEducation: async (parent, {}) => {},
+    removeUser: async (parent, args, context) => {
+      if (context.user) {
+        return User.findOneAndDelete({ _id: context.user._id });
+      }
+      throw new AuthenticationError("You need to be logged in!");
+    },
+    removeGroup: async (parent, args, context) => {
+      if (context.user) {
+        return Group.findOneAndDelete({ _id: context.user._id });
+      }
+      throw new AuthenticationError("Only an Admin can remove a group!");
+    },
+    removeCompany: async (parent, args, context) => {
+      if (context.user) {
+        return Company.findOneAndDelete({ _id: context.user._id });
+      }
+      throw new AuthenticationError("Only an Admin can remove a Company");
+    },
+    removeJob: async (parent, args, context) => {
+      if (context.user) {
+        return Job.findOneAndDelete({ _id: context.user._id });
+      }
+      throw new AuthenticationError("Only a Company can remove a Job");
+    },
+    removeSchool: async (parent, args, context) => {
+      if (context.user) {
+        return School.findOneAndDelete({ _id: context.user._id });
+      }
+      throw new AuthenticationError("Only and admin can remove a School");
+    },
+    removeReaction: async (parent, { reactionId }, context) => {
+      if (context.user) {
+        const reaction = await Reaction.findOneAndDelete({
+          _id: reactionId,
+          reactionAuthor: context.user._id,
+        });
+
+        await User.findOneAndUpdate(
+          { _id: context.user._id },
+          { $pull: { reactions: reaction._id } }
+        );
+        return reaction;
+      }
+      throw new AuthenticationError("You need to be logged in!");
+    },
+    removePostReaction: async (parent, { postId, reactionId }, context) => {
+      if (context.user) {
+        return Post.findOneAndUpdate(
+          { _id: postId },
+          {
+            $pull: {
+              reactions: {
+                _id: reactionId,
+                reactionAuthor: context.user._id,
+              },
+            },
+          },
+          { new: true }
+        );
+      }
+      throw new AuthenticationErrror("You need to be logged in!");
+    },
+    removeComment: async (parent, { postId, commentId }, context) => {
+      if (context.user) {
+        return Post.findOneAndDelete(
+          { _id: postId },
+          {
+            $pull: {
+              comments: {
+                _id: commentId,
+                commentAuthor: context.user._id,
+              },
+            },
+          },
+          { new: true }
+        );
+      }
+      throw new AuthenticationError("You need to be logged in!");
+    },
+    // removeCommentReaction: async (
+    //   parent,
+    //   { postId, commentId, reactionId },
+    //   context
+    // ) => {},
+    removePost: async (parent, { postId }, context) => {
+      if (context.user) {
+        const post = await Post.findOneAndDelete({
+          _id: postId,
+          postAuthor: context.user._id,
+        });
+
+        await User.findOneAndUpdate(
+          { _id: context.user._id },
+          { $pull: { posts: post._id } }
+        );
+        return post;
+      }
+      throw new AuthenticationError("You need to be logged in");
+    },
+    removeSkill: async (parent, { skillId, userId }, context) => {
+      if (context.user) {
+        return Skill.findOneAndUpdate(
+          { _id: userId },
+          {
+            $pull: {
+              skills: {
+                _id: skillId,
+                skillCreator: context.user._id,
+              },
+            },
+          },
+          { new: true }
+        );
+      }
+      throw new AuthenticationError("You need to be logged in");
+    },
+    removeEntity: async (parent, { userId, entityId }, context) => {
+      if (context.user) {
+        const entity = await Entity.findOneAndDelete({
+          _id: entityId,
+          entityAuthor: context.user._id,
+        });
+
+        await User.findOneAndUpdate(
+          { _id: context.user._id },
+          { $pull: { entities: entity._id } }
+        );
+
+        return entity;
+      }
+      throw new AuthenticationError("You need to be logged in!");
+    },
+    removeFriend: async (parent, { userId, friendId }, context) => {
+      if (context.user) {
+        return User.findOneAndUpdate(
+          { _id: userId },
+          {
+            $pull: {
+              friends: {
+                _id: friendId,
+                friendCreator: context.user._id,
+              },
+            },
+          },
+          { new: true }
+        );
+      }
+      throw new AuthenticationError("You need to be logged in");
+    },
+    unfollowEntity: async (parent, { entityId, userId }, context) => {
+      if (context.user) {
+        return User.findOneAndUpdate(
+          { _id: userId },
+          {
+            $pull: {
+              entities: {
+                _id: entityId,
+                entityCreator: context.user._id,
+              },
+            },
+          },
+          { new: true }
+        );
+      }
+      throw new AuthenticationError("You need to be logged in!");
+    },
+    leaveGroup: async (parent, { userId, groupId }, context) => {
+      if (context.user) {
+        return User.findOneAndUpdate(
+          { _id: userId },
+          {
+            $pull: {
+              groups: {
+                _id: groupId,
+                groupCreator: context.user._id,
+              },
+            },
+          },
+          { new: true }
+        );
+      }
+      throw new AuthenticationError("You need to be logged in!");
+    },
   },
 };
 
