@@ -269,20 +269,20 @@ const typeDefs = gql`
       companySize: String
       foundedYear: String
     ): Company
-    addFriend(userId: String!, friendId: String!): User
-    followEntity(userId: String!, entityId: String!): User
+    addFriend(friendId: String!): User
+    followEntity(followerId: String!, followeeId: String!): User
     joinGroup(userId: String!, groupID: String!): Group
     createGroup(
       name: String!
       admins: [String]!
       private: Boolean!
-      members: [String]
       posts: [String]
       joinQuestion: String
       profilePic: String
       bannerPic: String
     ): Group
     createSkill(skillName: String!): Skill
+    addSkill(skillId: String!): User
     createJob(
       company: String!
       title: String!

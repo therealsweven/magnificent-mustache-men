@@ -4,7 +4,7 @@ const { AuthenticationError } = require("apollo-server-express");
 const { Entity } = require("../models");
 const { User } = require("../models");
 const { School } = require("../models");
-const { Post } = require("../models");
+const { Post, Comment } = require("../models/Post");
 const { Company } = require("../models");
 const { Job } = require("../models");
 const { Group } = require("../models");
@@ -25,6 +25,7 @@ const resolvers = {
         "connections",
         "education",
         "experience",
+        "posts",
       ]);
     },
     me: async (parent, args, context) => {
@@ -199,23 +200,64 @@ const resolvers = {
       const group = await Group.create(groupInput);
       return group;
     },
-    // create new skill
+    // create new skill in skills collection
     createSkill: async (parent, skillName) => {
       return await Skill.create(skillName);
     },
+    // add skill to user
+    addSkill: async (parent, args, context) => {
+      return await User.findOneAndUpdate(
+        { _id: context.user._id },
+        { $push: { skills: args.skillId } }
+      );
+    },
     // create new job
-    createJob: async (parent, jobInput) => {
+    createJob: async (parent, jobInput, context) => {
+      const entity = await Entity.findOne({
+        _id: context.activeProfile.entity,
+      });
+      jobInput.company = entity.company;
       const job = await Job.create(jobInput);
+      await Company.findOneAndUpdate(
+        { _id: entity.company },
+        { $push: { jobs: job._id } }
+      );
       return job;
     },
     // create new post
     createPost: async (parent, postInput, context) => {
-      console.log(postInput);
       postInput.user = context.user._id;
       postInput.entity = context.activeProfile.entity;
-      console.log(postInput);
       const post = await Post.create(postInput);
+
+      const entity = await Entity.findOne({ _id: post.entity });
+      // add post to user, company, or school that posted it for querying later
+      if (entity.user) {
+        await User.findOneAndUpdate(
+          { _id: entity.user },
+          { $push: { posts: post._id } }
+        );
+      } else if (entity.school) {
+        await School.findOneAndUpdate(
+          { _id: entity.school },
+          { $push: { posts: post._id } }
+        );
+      } else if (entity.company) {
+        await Company.findOneAndUpdate(
+          { _id: entity.company },
+          { $push: { posts: post._id } }
+        );
+      }
+
       return post;
+    },
+    createComment: async (parent, args, context) => {
+      args.entity = context.activeProfile.entity;
+      const comment = await Comment.create(args);
+      await Post.findOneAndUpdate(
+        { _id: args.postId },
+        { $push: { comments: comment._id } }
+      );
     },
     // create post reaction
     createPostReaction: async (parent, { postReactionInput }, context) => {
