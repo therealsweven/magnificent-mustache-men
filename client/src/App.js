@@ -19,6 +19,7 @@ import Profile from "./components/pages/Profile";
 import UserForm from "./components/pages/forms/UserForm";
 import JobList from "./components/pages/jobList";
 import CompanyProfile from "./components/pages/CompanyProfile";
+import PostForm from "./components/pages/forms/PostForm";
 
 const httpLink = createHttpLink({
   uri: "/graphql",
@@ -29,16 +30,14 @@ const authLink = setContext((_, { headers }) => {
   const token = localStorage.getItem("id_token");
   const type = localStorage.getItem("profType");
   const entity = localStorage.getItem("profEntity");
-
+  console.log(type, entity);
   // return the headers to the context so httpLink can read them
   return {
     headers: {
       ...headers,
       authorization: token ? `Bearer ${token}` : "",
-      activeProfile: {
-        type: type,
-        entity: entity,
-      },
+      activeProfileType: type,
+      activeProfileEntity: entity,
     },
   };
 });
@@ -52,7 +51,7 @@ function App() {
   return (
     <ApolloProvider client={client}>
       <Router>
-        { Auth.loggedIn() ? <NavBar /> : <LanNavBar /> }
+        {Auth.loggedIn() ? <NavBar /> : <LanNavBar />}
         <div>
           <Routes>
             <Route path="/" element={<Home />} />
@@ -63,6 +62,7 @@ function App() {
             <Route path="/user" element={<UserForm />} />
             <Route path="/jobPost" element={<JobList />} />
             <Route path="/company" element={<CompanyProfile />} />
+            <Route path="/test" element={<PostForm />} />
           </Routes>
           <Footer />
         </div>

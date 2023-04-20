@@ -209,17 +209,27 @@ const resolvers = {
       return job;
     },
     // create new post
-    createPost: async (parent, { postInput }, context) => {
+    createPost: async (parent, postInput, context) => {
+      console.log(postInput);
+      postInput.user = context.user._id;
       postInput.entity = context.activeProfile.entity;
-
+      console.log(postInput);
       const post = await Post.create(postInput);
       return post;
     },
     // create post reaction
     createPostReaction: async (parent, { postReactionInput }, context) => {
-      postReactionInput.entity = context.activeProfile.entity;
-
-      const postReaction = await Post.create(postReacionInput);
+      const postReaction = await Post.findOneAndUpdate(
+        { _id: postReactionInput.postID },
+        {
+          reactions: {
+            $addToSet: {
+              entity: context.activeProfile.entity,
+              reactionId: postReactionInput.reactionID,
+            },
+          },
+        }
+      );
       return postReaction;
     },
     //create add friend
@@ -316,22 +326,23 @@ const resolvers = {
     // },
     //login user
     userLogin: async (parent, { email, password }) => {
-      const user = await User.findOne({ email });
+      const userData = await User.findOne({ email });
 
-      if (!user) {
+      if (!userData) {
         throw new AuthenticationError(
           "No user account with that information found!"
         );
       }
 
-      const correctPw = await user.isCorrectPassword(password);
+      const correctPw = await userData.isCorrectPassword(password);
 
       if (!correctPw) {
         throw new AuthenticationError("Incorrect password!");
       }
-
-      const token = signToken(user);
-      return { token, user };
+      const entity = await Entity.find({ user: { $eq: userData._id } });
+      const entityId = entity[0]._id;
+      const token = signToken(userData);
+      return { token, userData, entityId };
     },
     //update user
     updateUser: async (parent, { id, userInput }) => {

@@ -296,10 +296,10 @@ const typeDefs = gql`
       benefits: String
       skills: [String]
     ): Job
-    createPost(user: String!, entity: String!, postBody: String!): Post
-    createPostReaction(entity: String!, reactionId: String!): Post
-    createComment(entityId: ID!, commentBody: String!): Post
-    createCommentReaction(entity: String!, reactionId: String!): Post
+    createPost(postBody: String!): Post
+    createPostReaction(postId: String!, reactionId: String!): Post
+    createComment(postId: String!, commentBody: String!): Post
+    createCommentReaction(postId: String!, reactionId: String!): Post
     userLogin(email: String, username: String, password: String!): Auth
     updateCompany(
       id: ID!
