@@ -5,7 +5,7 @@
     "description": "For more than 30 years, ECI Software Solutions has been providing industry-specific, cloud-based business management software and services to small and medium-sized businesses. With divisions focused on manufacturing, wholesale/retail distribution, building and construction, and field service, ECI's solutions integrate into every aspect of a customers' business to help them level the playing field, run day-to-day operations more efficiently, and free them up to focus on what matters most. Its how business gets done.",
     "responsibilities": "Be located in USA or Canada Eligible for Canadian/American employment Have 1+ years working with a commercial React codebase",
     "qualifications": "We are looking for someone with commercial React experience, an understanding of functional programming and software design principles like single responsibility. We are looking for someone to take ownership in the transition from a legacy , who doesn't shy away from complex problems and doesn't say there is no way to do anything.",
-    "salary": 100,
+    "salary": 90,
     "benefits": "You have a tech job, what more could you want?",
     "skills": ["Javascript", "HTML", "Node.js", "SQL"],
     "schedule": "monday"
@@ -13,10 +13,32 @@
   {
     "company": "64416a64187e017aa9550105",
     "title": "Front End Web Developer",
-    "description": "As a Software Engineer, you will join our engineering team in building a fleet of simple tools to help parents stop procrastinating and start tackling their long term financial to-do lists. You are self-motivated, can wear many hats, and are excited to ship code that both solves challenging business problems and brings joy to our customers.",
+    "description": "As a Front End Engineer, you will join our engineering team in building a fleet of simple tools to help parents stop procrastinating and start tackling their long term financial to-do lists. You are self-motivated, can wear many hats, and are excited to ship code that both solves challenging business problems and brings joy to our customers.",
+    "responsibilities": "Be located in USA or Canada Eligible for Canadian/American employment Have 1+ years working with a commercial React codebase",
+    "qualifications": "We are looking for someone with commercial React experience, an understanding of functional programming and software design principles like single responsibility. We are looking for someone to take ownership in the transition from a legacy , who doesn't shy away from complex problems and doesn't say there is no way to do anything.",
+    "salary": 120,
+    "benefits": "You have a tech job, what more could you want?",
+    "skills": ["Javascript", "HTML", "Node.js"],
+    "schedule": "monday"
+  },
+  {
+    "company": "64416a64187e017aa9550105",
+    "title": "Back End Web Developer",
+    "description": "As a Back Engineer, you will join our engineering team in building a fleet of simple tools to help parents stop procrastinating and start tackling their long term financial to-do lists. You are self-motivated, can wear many hats, and are excited to ship code that both solves challenging business problems and brings joy to our customers.",
     "responsibilities": "Be located in USA or Canada Eligible for Canadian/American employment Have 1+ years working with a commercial React codebase",
     "qualifications": "We are looking for someone with commercial React experience, an understanding of functional programming and software design principles like single responsibility. We are looking for someone to take ownership in the transition from a legacy , who doesn't shy away from complex problems and doesn't say there is no way to do anything.",
     "salary": 100,
+    "benefits": "You have a tech job, what more could you want?",
+    "skills": ["Javascript", "HTML", "Node.js"],
+    "schedule": "monday"
+  },
+  {
+    "company": "64416a64187e017aa9550105",
+    "title": "Jr SoftWare Developer",
+    "description": "As a Software Engineer, you will join our engineering team in building a fleet of simple tools to help parents stop procrastinating and start tackling their long term financial to-do lists. You are self-motivated, can wear many hats, and are excited to ship code that both solves challenging business problems and brings joy to our customers.",
+    "responsibilities": "Be located in USA or Canada Eligible for Canadian/American employment Have 1+ years working with a commercial React codebase",
+    "qualifications": "We are looking for someone with commercial React experience, an understanding of functional programming and software design principles like single responsibility. We are looking for someone to take ownership in the transition from a legacy , who doesn't shy away from complex problems and doesn't say there is no way to do anything.",
+    "salary": 80,
     "benefits": "You have a tech job, what more could you want?",
     "skills": ["Javascript", "HTML", "Node.js"],
     "schedule": "monday"

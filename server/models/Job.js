@@ -4,6 +4,7 @@ const jobSchema = new Schema(
   {
     company: { type: Schema.Types.ObjectId, ref: "Company" },
     title: { type: String, required: true },
+    description: { type: String, required: true },
     responsibilities: { type: String, required: true },
     qualifications: { type: String, required: true },
     schedule: { type: String, required: true },
