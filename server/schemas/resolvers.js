@@ -259,7 +259,7 @@ const resolvers = {
       throw new AuthenticationError("You need to be logged in");
     },
     // joinGroup
-    joinGroup: async (parent, { userid, groupId }, context) => {
+    joinGroup: async (parent, { userId, groupId }, context) => {
       if (context.user) {
         return Group.findOneAndUpdate(
           { _id: groupId },
@@ -406,7 +406,7 @@ const resolvers = {
       );
     },
     // update company location
-    updateLocation: async (parent, { id, locatinInput }) => {
+    updateLocation: async (parent, { id, locationInput }) => {
       return await Company.findOneAndUpdate(
         { _id: id },
         { locationInput },
