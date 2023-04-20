@@ -60,13 +60,15 @@ export const QUERY_PROFILES = gql`
 export const QUERY_JOBS = gql`
   query allJobs {
     jobs {
-        _id
-        title
-        responsibilities
-        qualifications
-        salary
-        benefits
-        skills
+      _id
+      title
+      responsibilities
+      qualifications
+      salary
+      benefits
+      skills {
+        skillName
+      }
     }
   }
 `

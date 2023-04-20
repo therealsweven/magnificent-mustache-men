@@ -4,6 +4,13 @@ import google from "../images/image8-2.jpg";
 
 export default function JobList() {
   //make sure to auto gen drawer with title to match drawer to proper posting
+  const {loading,data} = useQuery(QUERY_JOBS)
+  const jobs = data?.jobs || []
+
+  if (!jobs.length){
+    return <h3>No Jobs posted yet</h3>
+  }
+  
   return (
     <>
       <div className="grid grid-rows-2 bg-slate-600 ">
