@@ -26,6 +26,7 @@ const schoolSchema = new Schema({
     },
   ],
   entitiesFollowed: [{ type: Schema.Types.ObjectId, ref: "Entity" }],
+  admins: [{ type: Schema.Types.ObjectId, ref: "User" }],
 });
 
 const School = model("School", schoolSchema);
