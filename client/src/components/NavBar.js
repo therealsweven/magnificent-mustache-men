@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import React, { useState } from "react";
 import logo from "../components/images/Untitled design.png";
 import placeholder from "../components/images/portrait-philip-martin-unsplash.jpg";
+import Auth from "../utils/auth"
 
 export default function NavBar() {
   return (
@@ -10,7 +11,7 @@ export default function NavBar() {
         <div className="flex-1">
           <img className=" mx-3 rounded h-11 " src={logo} />
           <Link
-            to="#"
+            to="/profile"
             className="btn btn-ghost normal-case text-xl font-titilliumWeb"
           >
             enCoded
@@ -35,14 +36,18 @@ export default function NavBar() {
               tabIndex={0}
               className="mt-3 p-2 shadow menu menu-compact dropdown-content bg-base-100 rounded-box w-52"
             >
+          
+              <li>
+                <Link to="/profile">My Profile</Link>
+              </li>
               <li>
                 <div className="dropdown dropdown-left">
-                  <label tabIndex={1} className="">
+                  <label tabIndex={0} className="">
                     Switch Profiles
                   </label>
                   {}
                   <ul
-                    tabIndex={1}
+                    tabIndex={0}
                     className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52"
                   >
                     <li>
@@ -71,11 +76,18 @@ export default function NavBar() {
                 </div>
               </li>
               <li>
+                <Link to="/company">Companies</Link>
+              </li>
+              <li>
+                <Link to="/jobPost">Jobs</Link>
+              </li>
+              <li>
                 <Link to="#">Settings</Link>
               </li>
               <li>
-                <Link to="#">Logout</Link>
+                <Link to="/" onClick={() => Auth.logout()}>Logout</Link>
               </li>
+     
             </ul>
           </div>
         </div>
