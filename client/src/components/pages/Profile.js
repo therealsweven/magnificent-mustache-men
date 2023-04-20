@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import portrait from "../images/portrait-philip-martin-unsplash.jpg";
-import background from "../images/bghome-alesia-kazantcev-unsplash.jpg"
+import background from "../images/bghome-alesia-kazantcev-unsplash.jpg";
 // import { Navigate, useParams } from 'react-router-dom';
-import { useQuery } from '@apollo/client';
-import {  QUERY_ME } from '../../utils/queries';
+import { useQuery } from "@apollo/client";
+import { QUERY_ME, QUERY_PROFILES } from "../../utils/queries";
 
 // import Auth from '../utils/auth';
 
@@ -14,14 +14,41 @@ export default function Profile() {
   const [activeTab, setActiveTab] = useState("News");
   const handleTabClick = (tabName) => {
     setActiveTab(tabName);
-};
-  
-  const { loading, data } = useQuery(
-    QUERY_ME)
-const profile = data?.me || data?.profile || {} 
+  };
+  const { loading, data } = useQuery(QUERY_PROFILES);
+  const profiles = data?.profiles || {};
+  console.log(profiles, loading);
+  const profDisplay = [];
+  if (!loading) {
+    profiles.forEach((profile) => {
+      if (profile.user) {
+        const prof = {
+          type: "user",
+          entityId: profile._id,
+          name: profile.user.firstName + " " + profile.user.lastName,
+        };
+        profDisplay.push(prof);
+      } else if (profile.school) {
+        const prof = {
+          type: "school",
+          entityId: profile._id,
+          name: profile.school.name,
+        };
+        profDisplay.push(prof);
+      } else if (profile.company) {
+        const prof = {
+          type: "company",
+          entityId: profile._id,
+          name: profile.company.name,
+        };
+        profDisplay.push(prof);
+      }
+    });
+    console.log(profDisplay);
+  }
 
 
-return (
+  return (
     <div className="container mx-auto grid-cols-3 bg-base-100">
       <div className="container mx-auto rounded-lg">
         <div className="h-15 bg-base-200 rounded-lg">
@@ -32,20 +59,20 @@ return (
             />
             <div className="mx-auto">
               <h1 className="text-2xl text-right font-bold mx-auto">
-                {profile.firstName} {profile.lastName}
+                {/* {profile.firstName} {profile.lastName} */}
               </h1>
               <h1 className="text-xl text-right font-bold mx-auto">
-                {profile.city} {profile.state} {profile.country}
+                {/* {profile.city} {profile.state} {profile.country} */}
               </h1>
             </div>
             <div className="container mx-auto rounded-lg">
               <h1 className="text-5xl text-center font-bold mx-auto py-10">
-                {profile.email}  {profile.education} {profile.experience} {profile.website}{profile._id}{profile.entityId}
+
               </h1>
             </div>
           </div>
         </div>
-        <div class="container flex flex-row content-center bg-base-200 rounded-lg">
+        <div className="container flex flex-row content-center bg-base-200 rounded-lg">
           <div className="box w-32 m-10 text-left">
             <div className="m-2">
               <h1 className="text-2xl font-bold mx-auto">Skills</h1>
@@ -74,7 +101,9 @@ return (
               </ul>
             </div>
             <div className="m-2">
-              <h1 className="text-2xl font-bold mx-auto text-left">Communities</h1>
+              <h1 className="text-2xl font-bold mx-auto text-left">
+                Communities
+              </h1>
               <ul>
                 <li>
                   <div className="badge badge-secondary">leadership</div>
@@ -101,18 +130,22 @@ return (
             </div>
           </div>
 
-          <div classname="container flex flex-col m-5">
+          <div className="container flex flex-col m-5">
             <div className="container h-72 rounded bg-base-200 m-5">
               <h1 className="text-xl text-center font-bold mx-auto py-6">
                 About Me
               </h1>
-              <p className="text-center font-bold"> 
+              <p className="text-center font-bold">
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed
-                voluptas ratione magni accusantium, adipisci vero.Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed
-                voluptas ratione magni accusantium, adipisci vero.Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed
-                voluptas ratione magni accusantium, adipisci vero.Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed
-                voluptas ratione magni accusantium, adipisci vero.Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed
-                voluptas ratione magni accusantium, adipisci vero.
+                voluptas ratione magni accusantium, adipisci vero.Lorem ipsum
+                dolor sit amet consectetur adipisicing elit. Sed voluptas
+                ratione magni accusantium, adipisci vero.Lorem ipsum dolor sit
+                amet consectetur adipisicing elit. Sed voluptas ratione magni
+                accusantium, adipisci vero.Lorem ipsum dolor sit amet
+                consectetur adipisicing elit. Sed voluptas ratione magni
+                accusantium, adipisci vero.Lorem ipsum dolor sit amet
+                consectetur adipisicing elit. Sed voluptas ratione magni
+                accusantium, adipisci vero.
               </p>
             </div>
             <div className="container h-72 rounded bg-base-200  m-5">
@@ -125,7 +158,7 @@ return (
               </p>
             </div>
           </div>
-          
+
           <div className="box w-32 m-10 text-right bg-base-200 ">
             <div className="m-2">
               <h1 className="text-2xl font-bold mx-auto">Experience</h1>
@@ -190,13 +223,37 @@ return (
         <div className="container flex flex-col rounded ">
           <div className="container rounded">
             <div className="tabs tabs-boxed mx-auto">
-            <a className={activeTab === "Communities" ? "tab tab-active" : "tab"} onClick={() => handleTabClick("Communities")}>Communities</a>
+              <a
+                className={
+                  activeTab === "Communities" ? "tab tab-active" : "tab"
+                }
+                onClick={() => handleTabClick("Communities")}
+              >
+                Communities
+              </a>
 
-            <a className={activeTab === "News" ? "tab tab-active" : "tab"} onClick={() => handleTabClick("News")}>News</a>
+              <a
+                className={activeTab === "News" ? "tab tab-active" : "tab"}
+                onClick={() => handleTabClick("News")}
+              >
+                News
+              </a>
 
-            <a className={activeTab === "Jobs" ? "tab tab-active" : "tab"} onClick={() => handleTabClick("Jobs")}>Jobs</a>
+              <a
+                className={activeTab === "Jobs" ? "tab tab-active" : "tab"}
+                onClick={() => handleTabClick("Jobs")}
+              >
+                Jobs
+              </a>
             </div>
-            <div id="Communities" className={activeTab === "Communities" ? "rounded bg-base-200 h-72" : "hidden"}>
+            <div
+              id="Communities"
+              className={
+                activeTab === "Communities"
+                  ? "rounded bg-base-200 h-72"
+                  : "hidden"
+              }
+            >
               <h1 className="text-xl text-center font-bold mx-auto">
                 COMMUNITIES:
               </h1>
@@ -205,19 +262,25 @@ return (
                 voluptas ratione magni accusantium, adipisci vero.
               </p>
             </div>
-            <div id="News" className={activeTab === "News" ? "rounded bg-base-200 h-72" : "hidden"}>
-              <h1 className="text-xl text-center font-bold mx-auto">
-                NEWS:
-              </h1>
+            <div
+              id="News"
+              className={
+                activeTab === "News" ? "rounded bg-base-200 h-72" : "hidden"
+              }
+            >
+              <h1 className="text-xl text-center font-bold mx-auto">NEWS:</h1>
               <p className="text-center font-bold">
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed
                 voluptas ratione magni accusantium, adipisci vero.
               </p>
             </div>
-            <div id="Jobs" className={activeTab === "Jobs" ? "rounded bg-base-200 h-72" : "hidden"}>
-              <h1 className="text-xl text-center font-bold mx-auto">
-                JOBS:
-              </h1>
+            <div
+              id="Jobs"
+              className={
+                activeTab === "Jobs" ? "rounded bg-base-200 h-72" : "hidden"
+              }
+            >
+              <h1 className="text-xl text-center font-bold mx-auto">JOBS:</h1>
               <p className="text-center font-bold">
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed
                 voluptas ratione magni accusantium, adipisci vero.
@@ -244,9 +307,7 @@ return (
           </div>
         </div>
       </div>
-      <div className="container mx-auto rounded">
-        03
-      </div>
+      <div className="container mx-auto rounded">03</div>
     </div>
   );
 }

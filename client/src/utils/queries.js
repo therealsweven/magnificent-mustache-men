@@ -49,6 +49,7 @@ export const QUERY_JOBS = gql`
     jobs {
       _id
       title
+      description
       responsibilities
       qualifications
       salary
