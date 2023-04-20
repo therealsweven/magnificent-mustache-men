@@ -191,8 +191,6 @@ const typeDefs = gql`
     group(groupId: ID!): Group
     schools: [School]
     school(schoolId: ID!): School
-    experience(experienceId: ID!): User
-    education(educationId: ID!): User
   }
 
   type Mutation {
