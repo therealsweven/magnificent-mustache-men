@@ -3,6 +3,8 @@ import { Formik, Field, Form, ErrorMessage } from "formik";
 import { useMutation } from "@apollo/client";
 import { CREATE_COMPANY } from "../../../utils/mutations";
 import * as Yup from "yup";
+import industries from "../../../utils/industries.json";
+import states from "../../../utils/statearray.json";
 
 export default function CompanyForm() {
   const [createCompany] = useMutation(CREATE_COMPANY);
@@ -63,6 +65,7 @@ export default function CompanyForm() {
               <span className="label-text">Name</span>
             </label>
             <Field className="input input-bordered" type="text" name="name" />
+
             <ErrorMessage name="name" component="div" className="error" />
           </div>
           <div className="form-control">
@@ -71,9 +74,17 @@ export default function CompanyForm() {
             </label>
             <Field
               className="input input-bordered"
+              as="select"
               type="text"
               name="industry"
-            />
+            >
+              <option value="">Select an Industry</option>
+              {industries.map((industry) => (
+                <option key={industry.name} value={industry.name}>
+                  {industry.name}
+                </option>
+              ))}
+            </Field>
             <ErrorMessage name="industry" component="div" className="error" />
           </div>
           <div className="form-control">
@@ -87,11 +98,14 @@ export default function CompanyForm() {
             <label className="label" htmlFor="hqState">
               <span className="label-text">Headquarters State</span>
             </label>
-            <Field
-              className="input input-bordered"
-              type="text"
-              name="hqState"
-            />
+            <Field className="input input-bordered" as="select" type="text" name="hqState">
+              <option value="">Select an State</option>
+              {states.map((state) => (
+                <option key={state.name} value={state.name}>
+                  {state.name}
+                </option>
+              ))}
+            </Field>
             <ErrorMessage name="hqState" component="div" className="error" />
           </div>
           <div className="form-control">
