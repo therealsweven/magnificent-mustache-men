@@ -1,20 +1,35 @@
 const { Schema, model } = require("mongoose");
 
-const commentReactionSchema = new Schema({
-  entity: { type: Schema.Types.ObjectId, ref: "Entity" },
-  reactionId: { type: Schema.Types.ObjectId, ref: "Reaction" },
-});
+const commentReactionSchema = new Schema(
+  {
+    entity: { type: Schema.Types.ObjectId, ref: "Entity" },
+    reactionId: { type: Schema.Types.ObjectId, ref: "Reaction" },
+  },
+  {
+    timestamps: true,
+  }
+);
 
-const commentSchema = new Schema({
-  entity: { type: Schema.Types.ObjectId, ref: "Entity" },
-  commentBody: { type: String, required: true },
-  reactions: [commentReactionSchema],
-});
+const commentSchema = new Schema(
+  {
+    entity: { type: Schema.Types.ObjectId, ref: "Entity" },
+    commentBody: { type: String, required: true },
+    reactions: [commentReactionSchema],
+  },
+  {
+    timestamps: true,
+  }
+);
 
-const postReactionSchema = new Schema({
-  entity: { type: Schema.Types.ObjectId, ref: "Entity" },
-  reactionId: { type: Schema.Types.ObjectId, ref: "Reaction" },
-});
+const postReactionSchema = new Schema(
+  {
+    entity: { type: Schema.Types.ObjectId, ref: "Entity" },
+    reactionId: { type: Schema.Types.ObjectId, ref: "Reaction" },
+  },
+  {
+    timestamps: true,
+  }
+);
 
 const postSchema = new Schema(
   {
