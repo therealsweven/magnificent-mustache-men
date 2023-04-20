@@ -278,6 +278,12 @@ const resolvers = {
     },
 
     // create comment
+    createComment: async (parent, { commentInput }, context) => {
+      commentInput.entity = context.activeProfile.entity;
+
+      const comment = await Post.create(commentInput);
+      return comment;
+    },
 
     // create comment reaction
 
@@ -327,6 +333,7 @@ const resolvers = {
       const token = signToken(user);
       return { token, user };
     },
+    //update user
     updateUser: async (parent, { id, userInput }) => {
       return await User.findOneAndUpdate(
         { _id: id },
@@ -334,6 +341,7 @@ const resolvers = {
         { new: true }
       );
     },
+    //update company
     updateCompany: async (parent, { id, companyInput }) => {
       return await Company.findOneAndUpdate(
         { _id: id },
@@ -341,7 +349,7 @@ const resolvers = {
         { new: true }
       );
     },
-    // updateLocation: async (parent, {}) => {},
+    // update school
     updateSchool: async (parent, { id, schoolInput }) => {
       return await School.findOneAndUpdate(
         { _id: id },
@@ -349,6 +357,7 @@ const resolvers = {
         { new: true }
       );
     },
+    // update post
     updatePost: async (parent, { id, postInput }) => {
       return await Post.findOneAndUpdate(
         { _id: id },
@@ -356,9 +365,31 @@ const resolvers = {
         { new: true }
       );
     },
-    // updateCommentReaction: async (parent, {}) => {},
-    // updateComment: async (parent, {}) => {},
-    // updatePostReaction: async (parent, {}) => {},
+    // update comment reaction
+    updateCommentReaction: async (parent, { comReactionId, reactionInput }) => {
+      return await Post.findOneAndUpdate(
+        { _id: comReactionId },
+        { reactionInput },
+        { new: true }
+      );
+    },
+    // update comment
+    updateComment: async (parent, { commentId, commentInput }) => {
+      return await Post.findOneAndUpdate(
+        { _id: commentId },
+        { commentInput },
+        { new: true }
+      );
+    },
+    // update post reaction
+    updatePostReaction: async (parent, { postReactionId, reactionInput }) => {
+      return await Post.findOneAndUpdate(
+        { _id: postReactionId },
+        { reactionInput },
+        { new: true }
+      );
+    },
+    // update group
     updateGroup: async (parent, { id, groupInput }) => {
       return await Group.findOneAndUpdate(
         { _id: id },
@@ -366,6 +397,7 @@ const resolvers = {
         { new: true }
       );
     },
+    // update job listing
     updateJob: async (parent, { id, jobInput }) => {
       return await Job.findOneAndUpdate(
         { _id: id },
@@ -373,8 +405,30 @@ const resolvers = {
         { new: true }
       );
     },
-    updateExperience: async (parent, {}) => {},
-    updateEducation: async (parent, {}) => {},
+    // update company location
+    updateLocation: async (parent, { id, locatinInput }) => {
+      return await Company.findOneAndUpdate(
+        { _id: id },
+        { locationInput },
+        { new: true }
+      );
+    },
+    // update user work experience
+    updateExperience: async (parent, { id, experienceInput }) => {
+      return await User.findOneAndUpdate(
+        { _id: id },
+        { experienceInput },
+        { new: true }
+      );
+    },
+    // update user education info
+    updateEducation: async (parent, { id, educationInput }) => {
+      return await User.findOneAndUpdate(
+        { _id: id },
+        { educationInput },
+        { new: true }
+      );
+    },
     removeUser: async (parent, args, context) => {
       if (context.user) {
         return User.findOneAndDelete({ _id: context.user._id });

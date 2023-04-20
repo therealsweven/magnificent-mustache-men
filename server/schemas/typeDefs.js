@@ -82,6 +82,7 @@ const typeDefs = gql`
   }
 
   type Location {
+    _id: ID!
     city: String
     state: String
     size: String
@@ -101,6 +102,7 @@ const typeDefs = gql`
   }
 
   type Experience {
+    _id: ID!
     company: String
     title: String
     jobDescription: String
@@ -112,6 +114,7 @@ const typeDefs = gql`
   }
 
   type Education {
+    _id: ID!
     school: School
     fieldOfStudy: String
     certificateType: String
@@ -295,7 +298,7 @@ const typeDefs = gql`
     ): Job
     createPost(user: String!, entity: String!, postBody: String!): Post
     createPostReaction(entity: String!, reactionId: String!): Post
-    createComment(entity: String!, commentBody: String!): Post
+    createComment(entityId: ID!, commentBody: String!): Post
     createCommentReaction(entity: String!, reactionId: String!): Post
     userLogin(email: String, username: String, password: String!): Auth
     updateCompany(
@@ -320,6 +323,7 @@ const typeDefs = gql`
       entitiesFollowed: [String]
     ): Company
     updateLocation(
+      id: ID!
       city: String
       state: String
       size: String
@@ -347,14 +351,13 @@ const typeDefs = gql`
       reactions: [String]
       comments: [String]
     ): Post
-    updateCommentReaction(entity: String, reactionId: String): Post
+    updateCommentReaction(comReactionId: ID!, reaction: String): Post
     updateComment(
-      id: ID!
-      entity: String
+      commentId: ID!
       commentBody: String
       reactions: [String]
     ): Post
-    updatePostReaction(entity: String, reactionId: String): Post
+    updatePostReaction(postReactionId: ID!, reaction: String): Post
     updateGroup(
       id: ID!
       name: String
@@ -379,6 +382,7 @@ const typeDefs = gql`
       skills: [String]
     ): Job
     updateExperience(
+      id: ID!
       company: String
       title: String
       jobDescription: String
@@ -390,6 +394,7 @@ const typeDefs = gql`
       endYear: Int
     ): User
     updateEducation(
+      id: ID!
       school: String
       fieldOfStudy: String
       certificateType: String
