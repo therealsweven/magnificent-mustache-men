@@ -82,7 +82,6 @@ export default function JobList() {
                             Benefits
                           </h2>
                           <li>{job.benefits}</li>
-                          <li>Put in a good word with the Robots</li>
                         </ul>
                       </div>
                       <button className="btn btn-md btn-primary">
