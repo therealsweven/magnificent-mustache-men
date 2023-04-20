@@ -41,27 +41,57 @@ const CREATE_POST = gql`
   mutation createPost($postBody: String!) {
     createPost(postBody: $postBody) {
       _id
-      user
-      entity
       postBody
+      entity {
+        company {
+          name
+        }
+        school {
+          name
+        }
+        user {
+          firstName
+          lastName
+        }
+      }
     }
   }
 `;
 
 const CREATE_COMPANY = gql`
-mutation createCompany($name: String!, $industry: String!, $hqCity: String!, $hqState: String! $website: String $bio: String! $companySize: Number!, $foundedYear: Number, $specialties: String  ) {
-  createCompany(name: $name, industry: $industry, hqCity: $hqCity, hqState: $hqState, website: $website, bio: $bio, companySize: $companySize, foundedYear: $foundedyear, specialties: $specialties) {
-    _id
-    name
-    industry
-    hqCity
-    hqState
-    website
-    tagline
-    bio
-    companySize
-    foundedYear
-    specialties
-}
-}
+  mutation createCompany(
+    $name: String!
+    $industry: String!
+    $hqCity: String!
+    $hqState: String!
+    $website: String
+    $bio: String!
+    $companySize: Number!
+    $foundedYear: Number
+    $specialties: String
+  ) {
+    createCompany(
+      name: $name
+      industry: $industry
+      hqCity: $hqCity
+      hqState: $hqState
+      website: $website
+      bio: $bio
+      companySize: $companySize
+      foundedYear: $foundedyear
+      specialties: $specialties
+    ) {
+      _id
+      name
+      industry
+      hqCity
+      hqState
+      website
+      tagline
+      bio
+      companySize
+      foundedYear
+      specialties
+    }
+  }
 `;
