@@ -5,7 +5,7 @@ import { CREATE_POST } from "../../../utils/mutations";
 import * as Yup from "yup";
 
 export default function PostForm() {
-  const [createUser] = useMutation(CREATE_POST);
+  const [createPost] = useMutation(CREATE_POST);
 
   const initialValues = {
     postBody: "",

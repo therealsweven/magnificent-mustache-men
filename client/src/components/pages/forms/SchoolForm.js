@@ -75,7 +75,14 @@ export default function SchoolForm() {
             <label className="label" htmlFor="state">
               <span className="label-text">State</span>
             </label>
-            <Field className="input input-bordered" type="text" name="state" />
+            <Field className="input input-bordered" as="select" type="text" name="state">
+            <option value="">Select an State</option>
+              {states.map((state) => (
+                <option key={state.name} value={state.name}>
+                  {state.name}
+                </option>
+              ))}
+            </Field>
             <ErrorMessage name="state" component="div" className="error" />
           </div>
           <div className="form-control">
