@@ -162,6 +162,7 @@ const typeDefs = gql`
     job(jobId: ID!): Job
     feed: [Post]
     profiles: [Entity]
+    profilesByUser(userId: ID!): [Entity]
     post(postId: ID!): Post
     groups: [Group]
     group(groupId: ID!): Group

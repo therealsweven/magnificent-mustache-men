@@ -115,17 +115,40 @@ const resolvers = {
     },
     profiles: async (parent, args, context) => {
       const user = await User.findOne({ _id: context.user._id });
-      const companies = await Company.find({ admins: context.user._id });
-      const schools = await School.find({ admins: context.user._id });
-      const profs = [await Entity.find({ user: user._id })].populate("user");
-      profs
-        .push(await Entity.find({ companies: { $in: companies } }))
-        .populate("company");
-      profs
-        .push(await Entity.find({ school: { $in: schools } }))
-        .populate("school");
-      return { profs };
+      const companies = await Company.find({
+        admins: { $in: context.user._id },
+      });
+      const schools = await School.find({ admins: { $in: context.user._id } });
+      const userProfs = await Entity.find({ user: user._id }).populate("user");
+      const companyIds = companies.map((company) => company._id);
+      const companyProfs = await Entity.find({
+        company: { $in: companyIds },
+      }).populate("company");
+      const schoolIds = schools.map((school) => school._id);
+      const schoolProfs = await Entity.find({
+        school: { $in: schoolIds },
+      }).populate("school");
+      const profs = userProfs.concat(companyProfs).concat(schoolProfs);
+
+      return profs;
     },
+    // profilesByUser: async (parent, { userId }) => {
+    //   const user = await User.findOne({ _id: userId });
+    //   const companies = await Company.find({ admins: { $in: userId } });
+    //   const schools = await School.find({ admins: { $in: userId } });
+    //   const userProfs = await Entity.find({ user: user._id }).populate("user");
+    //   const companyIds = companies.map((company) => company._id);
+    //   const companyProfs = await Entity.find({
+    //     company: { $in: companyIds },
+    //   }).populate("company");
+    //   const schoolIds = schools.map((school) => school._id);
+    //   const schoolProfs = await Entity.find({
+    //     school: { $in: schoolIds },
+    //   }).populate("school");
+    //   const profs = userProfs.concat(companyProfs).concat(schoolProfs);
+
+    //   return profs;
+    // },
     post: async (parent, { postId }) => {
       return await Post.findOne({ _id: postId }).populate([
         "comments",
