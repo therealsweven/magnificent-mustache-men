@@ -1,5 +1,7 @@
 import { Link } from "react-router-dom";
-import logo from "../images/Untitled design.png";
+import React, { useState } from "react";
+import logo from "../components/images/Untitled design.png";
+import placeholder from "../components/images/portrait-philip-martin-unsplash.jpg";
 
 export default function NavBar() {
   return (
@@ -26,7 +28,7 @@ export default function NavBar() {
             <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
               <div className="w-10 rounded-full">
                 {/* Profile images*/}
-                <img src="" />
+                <img src={placeholder} />
               </div>
             </label>
             <ul
@@ -34,12 +36,39 @@ export default function NavBar() {
               className="mt-3 p-2 shadow menu menu-compact dropdown-content bg-base-100 rounded-box w-52"
             >
               <li>
-                <Link to="#" className="justify-between">
-                  Profile
-                </Link>
-              </li>
-              <li>
-                <Link to="#">Settings</Link>
+                <div className="dropdown dropdown-left">
+                  <label tabIndex={1} className="">
+                    Switch Profiles
+                  </label>
+                  {}
+                  <ul
+                    tabIndex={1}
+                    className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52"
+                  >
+                    <li>
+                      <label
+                        tabIndex={0}
+                        className="btn btn-ghost btn-circle avatar"
+                      >
+                        <div className="w-14 rounded-full">
+                          {/* Profile images*/}
+                          <img src={placeholder} />
+                        </div>
+                      </label>
+                    </li>
+                    <li>
+                      <label
+                        tabIndex={0}
+                        className="btn btn-ghost btn-circle avatar"
+                      >
+                        <div className="w-14 rounded-full">
+                          {/* Profile images*/}
+                          <img src={placeholder} />
+                        </div>
+                      </label>
+                    </li>
+                  </ul>
+                </div>
               </li>
               <li>
                 <Link to="#">Settings</Link>
