@@ -56,10 +56,11 @@ const typeDefs = gql`
     _id: ID!
     company: [Company]
     title: String
+    description: String
     responsibilities: String
     qualifications: String
     schedule: String
-    salary: Int
+    salary: String
     benefits: String
     skills: [Skill]
     applicants: [User]
