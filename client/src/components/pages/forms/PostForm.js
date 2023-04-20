@@ -17,6 +17,7 @@ export default function PostForm() {
 
   const handleSubmit = async (values, { resetForm, setSubmitting }) => {
     try {
+      console.log(values.postBody);
       await createPost({
         variables: {
           postBody: values.postBody,
