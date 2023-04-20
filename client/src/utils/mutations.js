@@ -95,3 +95,11 @@ const CREATE_COMPANY = gql`
     }
   }
 `;
+
+const CREATE_SCHOOL = gql``;
+
+const CREATE_JOB = gql``;
+
+const CREATE_GROUP = gql``;
+
+const CREATE_SKILL = gql``;
