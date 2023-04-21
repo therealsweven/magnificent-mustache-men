@@ -69,9 +69,21 @@ db.once("open", async () => {
     console.log("****COMPANIES AND ENTITIES SEEDED****");
 
     //******* JOBS ********/
+    console.log("**** JOB SEEDEDD ****");
+    jobSeeds.map((job) => {
+      const jobSkills = [];
+      const randomNums = Array.from({ length: skillSeeds.length }, () =>
+        Math.floor(Math.random() * skillSeeds.length)
+      );
+      for (i = 0; i < randomNums.length / 10; i++) {
+        jobSkills.push(skills[randomNums[i]]._id);
+        console.log("job skills");
+        console.log(jobSkills);
+      }
+      job.skills = jobSkills;
+    });
     await Job.deleteMany({});
     await Job.create(jobSeeds);
-    console.log("**** JOB SEEDEDD ****");
 
     // ***** SCHOOLS *****
     await School.deleteMany({});
