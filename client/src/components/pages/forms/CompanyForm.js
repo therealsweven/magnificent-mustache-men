@@ -88,7 +88,7 @@ export default function CompanyForm() {
               name="industry"
             >
               <option value="">Select an Industry</option>
-              {industries.map((industry) => (
+              {industries[0].map((industry) => (
                 <option key={industry.name} value={industry.name.toString()}>
                   {industry.name}
                 </option>

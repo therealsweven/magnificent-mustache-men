@@ -101,6 +101,7 @@ const typeDefs = gql`
   }
 
   type Experience {
+    _id: ID!
     company: Company
     title: String
     jobDescription: String
@@ -113,6 +114,7 @@ const typeDefs = gql`
   }
 
   type Education {
+    _id: ID!
     school: School
     fieldOfStudy: String
     certificateType: String
