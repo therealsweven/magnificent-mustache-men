@@ -28,6 +28,7 @@ import EducationForm from "./components/pages/forms/EducationForm";
 import ExperienceForm from "./components/pages/forms/ExperienceForm"
 import GroupForm from "./components/pages/forms/GroupForm";
 import JobForm from "./components/pages/forms/JobForm"
+import SchoolForm from "./components/pages/forms/SchoolForm"
 
 import PostForm from "./components/pages/forms/PostForm"
 import SkillForm from "./components/pages/forms/SkillForm"
