@@ -15,8 +15,8 @@ const typeDefs = gql`
     city: String
     state: String
     country: String
-    education: [String]
-    experience: [String]
+    education: [Education]
+    experience: [Experience]
     skills: [Skill]
     website: String
     posts: [Post]
@@ -70,15 +70,15 @@ const typeDefs = gql`
     user: User
     entity: Entity
     postBody: String
-    reactions: [String]
-    comments: [String]
+    reactions: [PostReaction]
+    comments: [Comment]
   }
 
   type Comment {
     _id: ID!
     entity: [Entity]
     commentBody: String
-    reactions: [String]
+    reactions: [CommentReaction]
   }
 
   type Location {
@@ -101,11 +101,12 @@ const typeDefs = gql`
   }
 
   type Experience {
-    company: String
+    company: Company
     title: String
     jobDescription: String
     skills: [Skill]
     startYear: Int
+    startMonth: String
     current: Boolean
     endMonth: String
     endYear: Int
@@ -287,6 +288,7 @@ const typeDefs = gql`
       title: String!
       responsibilities: String!
       qualifications: String!
+      description: String!
       schedule: String
       salary: Int
       benefits: String
@@ -295,7 +297,7 @@ const typeDefs = gql`
     createPost(postBody: String!): Post
     createPostReaction(postId: String!, reactionId: String!): Post
     createComment(postId: String!, commentBody: String!): Post
-    createCommentReaction(postId: String!, reactionId: String!): Post
+    createCommentReaction(postId: String!, reactionId: String!): Comment
     userLogin(email: String, username: String, password: String!): Auth
     updateCompany(
       id: ID!

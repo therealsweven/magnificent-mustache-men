@@ -11,6 +11,10 @@ export {
   CREATE_JOB,
   CREATE_SKILL,
   ADD_SKILL,
+  CREATE_EXPERIENCE,
+  CREATE_EDUCATION,
+  CREATE_POST_REACTION,
+  CREATE_COMMENT_REACTION,
 };
 
 const CREATE_USER = gql`
@@ -174,7 +178,7 @@ const CREATE_GROUP = gql`
     }
   }
 `;
-
+//create skill in skills collection
 const CREATE_SKILL = gql`
   mutation CreateSkill($skillName: String!) {
     createSkill(skillName: $skillName) {
@@ -183,7 +187,7 @@ const CREATE_SKILL = gql`
     }
   }
 `;
-
+// add skill to user
 const ADD_SKILL = gql`
   mutation AddSkill($skillId: String!) {
     addSkill(skillId: $skillId) {
@@ -212,6 +216,158 @@ const CREATE_COMMENT = gql`
       }
       entity {
         _id
+      }
+    }
+  }
+`;
+
+const CREATE_EXPERIENCE = gql`
+  mutation CreateExperience(
+    $company: String!
+    $title: String!
+    $jobDescription: String
+    $skills: [String]
+    $startMonth: String
+    $startYear: Int
+    $current: Boolean
+    $endMonth: String
+    $endYear: Int
+  ) {
+    createExperience(
+      company: $company
+      title: $title
+      jobDescription: $jobDescription
+      skills: $skills
+      startMonth: $startMonth
+      startYear: $startYear
+      current: $current
+      endMonth: $endMonth
+      endYear: $endYear
+    ) {
+      _id
+      firstName
+      lastName
+      experience {
+        company {
+          name
+          profPic
+        }
+        title
+        jobDescription
+        skills {
+          _id
+          skillName
+        }
+        startMonth
+        startYear
+        current
+        endMonth
+        endYear
+      }
+    }
+  }
+`;
+
+const CREATE_EDUCATION = gql`
+  mutation CreateEducation(
+    $school: String!
+    $fieldOfStudy: String!
+    $certificateType: String!
+    $startMonth: String!
+    $startYear: Int!
+    $current: Boolean!
+    $skills: [String]
+    $endMonth: String
+    $endYear: Int
+  ) {
+    createEducation(
+      school: $school
+      fieldOfStudy: $fieldOfStudy
+      certificateType: $certificateType
+      startMonth: $startMonth
+      startYear: $startYear
+      current: $current
+      skills: $skills
+      endMonth: $endMonth
+      endYear: $endYear
+    ) {
+      _id
+      firstName
+      lastName
+      education {
+        school {
+          _id
+          name
+          profPic
+        }
+        certificateType
+        fieldOfStudy
+        startMonth
+        startYear
+        current
+        endMonth
+        endYear
+        skills {
+          _id
+          skillName
+        }
+      }
+    }
+  }
+`;
+
+const CREATE_POST_REACTION = gql`
+  mutation CreatePostReaction($postId: String!, $reactionId: String!) {
+    createPostReaction(postId: $postId, reactionId: $reactionId) {
+      _id
+      reactions {
+        _id
+        reactionId {
+          _id
+          icon
+          reactionName
+        }
+        entity {
+          _id
+          company {
+            name
+          }
+          school {
+            name
+          }
+          user {
+            firstName
+            lastName
+          }
+        }
+      }
+    }
+  }
+`;
+const CREATE_COMMENT_REACTION = gql`
+  mutation CreateCommentReaction($postId: String!, $reactionId: String!) {
+    createCommentReaction(postId: $postId, reactionId: $reactionId) {
+      _id
+      reactions {
+        reactionId {
+          icon
+          reactionName
+        }
+        entity {
+          company {
+            _id
+            name
+          }
+          school {
+            _id
+            name
+          }
+          user {
+            _id
+            firstName
+            lastName
+          }
+        }
       }
     }
   }

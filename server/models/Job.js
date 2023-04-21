@@ -18,7 +18,7 @@ const jobSchema = new Schema(
     ],
     skills: [
       {
-        type: String,
+        type: Schema.Types.ObjectId,
         trim: true,
       },
     ],

@@ -14,7 +14,7 @@ const commentSchema = new Schema(
   {
     entity: { type: Schema.Types.ObjectId, ref: "Entity" },
     commentBody: { type: String, required: true },
-    reactions: [commentReactionSchema],
+    reactions: { type: Schema.Types.ObjectId, ref: "CommentReaction" },
   },
   {
     timestamps: true,
@@ -36,8 +36,8 @@ const postSchema = new Schema(
     user: { type: Schema.Types.ObjectId, ref: "User", required: true },
     entity: { type: Schema.Types.ObjectId, ref: "Entity", required: true },
     postBody: { type: String, required: true },
-    reactions: [postReactionSchema],
-    comments: [commentSchema],
+    reactions: [{ type: Schema.Types.ObjectId, ref: "PostReaction" }],
+    comments: [{ type: Schema.Types.ObjectId, ref: "Comment" }],
   },
   {
     timestamps: true,
@@ -45,9 +45,11 @@ const postSchema = new Schema(
 );
 
 const Post = model("Post", postSchema);
+const PostReaction = model("PostReaction", postReactionSchema);
 const Comment = model("Comment", commentSchema);
+const CommentReaction = model("CommentReaction", commentReactionSchema);
 
-module.exports = { Post, Comment };
+module.exports = { Post, Comment, PostReaction, CommentReaction };
 
 //User -- posts
 //  Company
