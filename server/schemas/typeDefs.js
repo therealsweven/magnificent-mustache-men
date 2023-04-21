@@ -262,7 +262,6 @@ const typeDefs = gql`
     ): School
     createCompany(
       name: String!
-      admins: [String]!
       hqCity: String!
       hqState: String!
       website: String
@@ -275,7 +274,6 @@ const typeDefs = gql`
     joinGroup(userId: String!, groupID: String!): Group
     createGroup(
       name: String!
-      admins: [String]
       private: Boolean!
       posts: [String]
       joinQuestion: String
@@ -285,11 +283,10 @@ const typeDefs = gql`
     createSkill(skillName: String!): Skill
     addSkill(skillId: String!): User
     createJob(
-      company: String!
       title: String!
       responsibilities: String!
       qualifications: String!
-      schedule: String!
+      schedule: String
       salary: Int
       benefits: String
       skills: [String]
