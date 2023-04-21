@@ -1,26 +1,37 @@
 import { gql } from "@apollo/client";
 
-// export const QUERY_USERS = gql`
-
-// `;
 export const QUERY_ME = gql`
-  query Me {
-    me {
-      _id
-      entityId
+query Me {
+  me {
+    _id
+    entityId
+    firstName
+    lastName
+    email
+    password
+    city
+    state
+    country
+    experience
+    education
+    website
+    profPic
+    bannerPic
+    connections {
       firstName
       lastName
-      email
-      password
-      city
-      state
-      country
-      education
-      experience
-      website
-      profPic
+    }
+    groups {
+      name
+    }
+    posts {
+    postBody
+    }
+    skills {
+      skillName
     }
   }
+}
 `;
 
 export const QUERY_PROFILES = gql`
@@ -87,15 +98,64 @@ export const QUERY_FEED = gql`
   }
 `;
 
-const SEARCH_QUERY = gql`
-  query SearchQuery($query: String!) {
-    search(query: $query) {
-      id
-      title
-      description
-      imageUrl
-      firstname
-      lastname
+export const QUERY_USER = gql`
+  query User($userId: ID!) {
+    user(userId: $userId) {
+      _id
+      firstName
+      lastName
+      city
+      state
+      country
+      website
+      email
+      education
+      experience
+      entitiesFollowed {
+        _id
+        company {
+          _id
+          name
+          profPic
+        }
+        school {
+          _id
+          name
+          profPic
+        }
+      }
+      skills {
+        _id
+        skillName
+      }
+      profPic
+      bannerPic
+      connections {
+        _id
+        firstName
+        lastName
+        profPic
+      }
+      groups {
+        _id
+        name
+        profilePic
+      }
+      posts {
+        _id
+        postBody
+        reactions
+        comments
+      }
+    }
+  }
+`;
+
+export const QUERY_SKILLS = gql`
+  query Skills {
+    skills {
+      _id
+      skillName
     }
   }
 `;

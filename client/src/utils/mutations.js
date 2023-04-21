@@ -8,6 +8,9 @@ export {
   CREATE_COMMENT,
   CREATE_GROUP,
   CREATE_SCHOOL,
+  CREATE_JOB,
+  CREATE_SKILL,
+  ADD_SKILL,
 };
 
 const CREATE_USER = gql`
@@ -53,8 +56,8 @@ const CREATE_COMPANY = gql`
     $hqState: String!
     $website: String
     $bio: String!
-    $companySize: Number!
-    $foundedYear: Number
+    $companySize: String!
+    $foundedYear: String
     $specialties: String
   ) {
     createCompany(
@@ -84,12 +87,30 @@ const CREATE_COMPANY = gql`
 `;
 
 const CREATE_SCHOOL = gql`
-  mutation CreateSchool($name: String!, $city: String!, $state: String!) {
-    createSchool(name: $name, city: $city, state: $state) {
+  mutation CreateSchool(
+    $name: String!
+    $city: String!
+    $state: String!
+    $bio: String
+    $foundedYear: Int
+    $studentBody: Int
+    $website: String
+    $profPic: String
+    $bannerPic: String
+  ) {
+    createSchool(
+      name: $name
+      city: $city
+      state: $state
+      bio: $bio
+      foundedYear: $foundedYear
+      studentBody: $studentBody
+      website: $website
+      profPic: $profPic
+      bannerPic: $bannerPic
+    ) {
       _id
       name
-      city
-      state
     }
   }
 `;
@@ -154,9 +175,28 @@ const CREATE_GROUP = gql`
   }
 `;
 
-// const CREATE_SKILL = gql``;
+const CREATE_SKILL = gql`
+  mutation CreateSkill($skillName: String!) {
+    createSkill(skillName: $skillName) {
+      _id
+      skillName
+    }
+  }
+`;
 
-// const ADD_SKILL = gql``;
+const ADD_SKILL = gql`
+  mutation AddSkill($skillId: String!) {
+    addSkill(skillId: $skillId) {
+      _id
+      firstName
+      lastName
+      skills {
+        _id
+        skillName
+      }
+    }
+  }
+`;
 
 // const CREATE_POST_REACTION = gql``;
 
