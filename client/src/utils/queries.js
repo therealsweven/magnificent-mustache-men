@@ -270,3 +270,12 @@ export const SEARCH_QUERY = gql`
     }
   }
 `;
+
+export const QUERY_SCHOOL = gql`
+query Schools {
+  schools {
+    _id
+    name
+  }
+}
+`
