@@ -732,51 +732,51 @@ const resolvers = {
       }
       throw new AuthenticationError("You need to be logged in!");
     },
-    removeLocation: async (parent, { locationId }, context) => {
-      if (context.user) {
-        const location = await Company.findOneAndDelete({
-          _id: locationId,
-          locationCreator: context.company._id,
-        });
+    // removeLocation: async (parent, args, context) => {
+    //   if (context.user) {
+    //     const location = await Company.findOneAndDelete({
+    //       _id: args.locationId,
+    //       locationCreator: context.user._id,
+    //     });
 
-        await Company.findOneAndUpdate(
-          { _id: context.company._id },
-          { $pull: { locations: location._id } }
-        );
-        return location;
-      }
-      throw new AuthenticationError("You need to be logged in");
-    },
-    removeEducation: async (parent, { educationId }, context) => {
-      if (context.user) {
-        const education = await User.findOneAndDelete({
-          _id: educationId,
-          educationCreator: context.user._id,
-        });
+    //     await Company.findOneAndUpdate(
+    //       { _id: context.user._id },
+    //       { $pull: { locations: location._id } }
+    //     );
+    //     return location;
+    //   }
+    //   throw new AuthenticationError("You need to be logged in");
+    // },
+    // removeEducation: async (parent, args, context) => {
+    //   if (context.user) {
+    //     const education = await User.findOneAndDelete({
+    //       _id: args.educationId,
+    //       educationCreator: context.user._id,
+    //     });
 
-        await User.findOneAndUpdate(
-          { _id: context.user._id },
-          { $pull: { educations: education._id } }
-        );
-        return education;
-      }
-      throw new AuthenticationError("You need to be logged in");
-    },
-    removeExperience: async (parent, { experienceId }, context) => {
-      if (context.user) {
-        const experience = await User.findOneAndDelete({
-          _id: experienceId,
-          experienceCreator: context.user._id,
-        });
+    //     await User.findOneAndUpdate(
+    //       { _id: context.user._id },
+    //       { $pull: { educations: education._id } }
+    //     );
+    //     return education;
+    //   }
+    //   throw new AuthenticationError("You need to be logged in");
+    // },
+    // removeExperience: async (parent, { experienceId }, context) => {
+    //   if (context.user) {
+    //     const experience = await User.findOneAndDelete({
+    //       _id: experienceId,
+    //       experienceCreator: context.user._id,
+    //     });
 
-        await User.findOneAndUpdate(
-          { _id: context.user._id },
-          { $pull: { experiences: experience._id } }
-        );
-        return experience;
-      }
-      throw new AuthenticationError("You need to be logged in");
-    },
+    //     await User.findOneAndUpdate(
+    //       { _id: context.user._id },
+    //       { $pull: { experiences: experience._id } }
+    //     );
+    //     return experience;
+    //   }
+    //   throw new AuthenticationError("You need to be logged in");
+    // },
   },
 };
 

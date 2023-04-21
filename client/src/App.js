@@ -21,8 +21,7 @@ import Profile from "./components/pages/Profile";
 import JobList from "./components/pages/jobList";
 import CompanyProfile from "./components/pages/CompanyProfile";
 // forms
-import SchoolForm from "./components/pages/forms/SchoolForm"
-
+import SchoolForm from "./components/pages/forms/SchoolForm";
 
 const httpLink = createHttpLink({
   uri: "/graphql",
