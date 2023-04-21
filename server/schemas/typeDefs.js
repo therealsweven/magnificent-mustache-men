@@ -176,11 +176,6 @@ const typeDefs = gql`
     user: User
   }
 
-  type Item {
-    id: ID!
-    name: String!
-    description: String
-  }
 
   type Query {
     users: [User]!
