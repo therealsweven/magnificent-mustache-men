@@ -3,7 +3,7 @@ const { Schema, model } = require("mongoose");
 const locationSchema = new Schema({
   city: {
     type: String,
-    requred: true,
+    required: true,
   },
   state: {
     type: String,

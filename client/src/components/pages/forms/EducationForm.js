@@ -11,7 +11,6 @@ export default function EducationForm() {
     school: "",
     fieldOfStudy: "",
     certificateType: "",
-    skills: [],
     startMonth: "",
     startYear: "",
     current: false,
@@ -31,26 +30,26 @@ export default function EducationForm() {
     endMonth: Yup.string().when("current", {
       is: false,
       then: Yup.string().required("This is a required field"),
-      otherwise: Yup.string().notRequired,
+      otherwise: Yup.string(),
     }),
     endYear: Yup.number().when("current", {
       is: false,
       then: Yup.number()
         .typeError("This must be a number")
         .required("This is a required field"),
-      otherwise: Yup.number().notRequired(),
+      otherwise: Yup.number(),
     }),
   });
 
-  const handleSubmit = async (values, { setSubmitting }) => {
+  const handleSubmit = async (values, { resetForm, setSubmitting }) => {
     try {
       await createEducation({
         variables: {
           input: values,
         },
       });
+      resetForm();
       console.log("education recorded");
-      setSubmitting(false);
     } catch (err) {
       console.error(err);
       setSubmitting(false);
@@ -60,10 +59,9 @@ export default function EducationForm() {
   return (
     <Formik
       initialValues={initialValues}
-      onSubmit={handleSubmit}
       validationSchema={validationSchema}
+      onSubmit={handleSubmit}
     >
-      {" "}
       {({ values, isSubmitting }) => (
         <Form>
           <div className="form-control">
@@ -95,10 +93,10 @@ export default function EducationForm() {
             <Field
               className="input input-bordered"
               type="text"
-              name="fieldofStudy"
+              name="certificateType"
             />
             <ErrorMessage
-              name="fieldofStudy"
+              name="certificateType"
               component="div"
               className="error"
             />
@@ -121,9 +119,9 @@ export default function EducationForm() {
             <Field
               className="input input-bordered"
               type="number"
-              name="starYear"
+              name="startYear"
             />
-            <ErrorMessage name="starYear" component="div" className="error" />
+            <ErrorMessage name="startYear" component="div" className="error" />
           </div>
           <div className="form-control">
             <label className="label" htmlFor="current">
