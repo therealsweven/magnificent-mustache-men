@@ -192,3 +192,13 @@ export const QUERY_SINGLE_COMPANY = gql`
     }
   }
 `;
+
+export const SEARCH_QUERY = gql`
+  query Query($query: String!) {
+    search(query: $query) {
+      jobs {
+        title
+      }
+    }
+  }
+`;
