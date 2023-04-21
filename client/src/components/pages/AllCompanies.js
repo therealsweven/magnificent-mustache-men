@@ -1,5 +1,6 @@
 import { useQuery } from "@apollo/client";
 import { QUERY_COMPANIES } from "../../utils/queries";
+import { Link } from "react-router-dom";
 
 export default function AllCompanies() {
   const { loading, data } = useQuery(QUERY_COMPANIES);
@@ -33,6 +34,13 @@ export default function AllCompanies() {
                       {company.hqState}, {company.hqCity}
                     </p>
                     <p>Year Founded: {company.foundedYear}</p>
+                    <Link
+                      className="btn btn-active btn-ghost my-3 shadow-xl"
+                      to={`/companyProfile/${company._id}`}
+                    >
+                      {" "}
+                      Explore More{" "}
+                    </Link>
                   </div>
                 </div>
               </div>

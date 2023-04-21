@@ -65,6 +65,7 @@ function App() {
             <Route path="/profile" element={<Profile />} />
             <Route path="/jobPost" element={<JobList />} />
             <Route path="/company" element={<AllCompanies />} />
+            <Route path="/companyProfile/:companyId" element={<CompanyProfile />} />
             <Route path="/test" element={<SchoolForm />} />
           </Routes>
           <Footer />

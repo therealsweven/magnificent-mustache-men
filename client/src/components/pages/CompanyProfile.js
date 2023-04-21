@@ -1,40 +1,61 @@
-import {} from "@apollo/client";
-import google from "../images/image8-2.jpg";
-import philip from "../images/portrait-philip-martin-unsplash.jpg";
-import Sundar from "../images/download.jpg";
-import { Link } from "react-router-dom";
+import { Navigate, useParams } from "react-router-dom";
+import { useQuery } from "@apollo/client";
+import { Link } from 'react-router-dom';
+import { QUERY_SINGLE_COMPANY, QUERY_ME } from "../../utils/queries";
+
+import Auth from '../../utils/auth';
 
 export default function CompanyProfile() {
+  const { companyId } = useParams();
+
+  const { loading, data } = useQuery(
+    companyId ? QUERY_SINGLE_COMPANY : QUERY_ME,
+    {
+      variables: { companyId: companyId },
+    }
+  );
+
+const company = data?.me || data?.company || {};
+
+if(Auth.loggedIn() && Auth.getProfile().data._id === companyId){
+  return <Navigate to="/me" />
+}
+
+if (loading){
+  return <div>Loading...</div>
+}
+
+if(!company?.name){
+  return(
+    <h4> Please Login to edit your company profile!</h4>
+  )
+}
+
   return (
     <>
       {/* Header */}
       <div className="container-Header m-5 ">
         <div className="grid grid-cols-8 gird-rows-1 justify-items-center">
           <div className="col-span-4 row-span-1 bg-slate-700 rounded ml-10 ">
-            <h1 className="Name font-bold text-white text-5xl m-4">Google</h1>
+            <h1 className="Name font-bold text-white text-5xl m-4">{company.name}</h1>
             <p className="About text-xl m-5 pl-4">
-              A problem isn't truly solved until it's solved for all. Googlers
-              build products that help create opportunities for everyone,
-              whether down the street or across the globe. Bring your insight,
-              imagination and a healthy disregard for the impossible. Bring
-              everything that makes you unique. Together, we can build for
-              everyone.
+              {company.bio}
             </p>
           </div>
           <div className="col-span-1 row-span-1 bg-slate-700 rounded ml-40">
             <img
-              src={google}
+              src="https://placehold.co/200x200"
               className="float-right m-5 max-w-xs max-h-72 rounded-lg shadow-2xl"
             />
           </div>
           <div className="col-span-3 row-span-1 bg-slate-700 ml-44 rounded">
             <h2 className="font-bold text-white text-3xl my-2 px-4">Info</h2>
             <ul>
-              <li className="px-4 m-3">Location: Mountain View, CA</li>
-              <li className="px-4 m-3">Size: 3000-5000 Employees</li>
-              <li className="px-4 m-3">Founded: 1998</li>
+              <li className="px-4 m-3">Location: {company.hqState}, {company.hqCity}</li>
+              <li className="px-4 m-3">Size: {company.companySize}</li>
+              <li className="px-4 m-3">Founded: {company.foundedYear}</li>
               <li className="px-4 m-3">
-                <a href="https://www.careers.google.com">Website</a>
+                <a href={company.website}>{company.website}</a>
               </li>
             </ul>
           </div>
@@ -113,7 +134,7 @@ export default function CompanyProfile() {
                 <div className="avatar">
                   <div className="w-12 my-2 rounded-full">
                     <Link to="#">
-                      <img src={philip} className="overlow-hidden" />
+                      <img src="#" className="overlow-hidden" />
                     </Link>
                   </div>
                   <h4 className="Name text-xl text-white self-center px-3">
@@ -125,7 +146,7 @@ export default function CompanyProfile() {
                 <div className="avatar">
                   <div className="w-12 my-2 rounded-full">
                     <Link to="#">
-                      <img src={Sundar} className="overlow-hidden" />
+                      <img src="#" className="overlow-hidden" />
                     </Link>
                   </div>
                   <h4 className="Name text-xl text-white self-center px-3">

@@ -230,6 +230,7 @@ export const QUERY_SKILLS = gql`
 export const QUERY_COMPANIES = gql`
   query Companies {
     companies {
+      _id
       bio
       name
       website
