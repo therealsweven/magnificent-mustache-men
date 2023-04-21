@@ -7,6 +7,7 @@ export {
   CREATE_COMPANY,
   CREATE_COMMENT,
   CREATE_GROUP,
+  CREATE_SCHOOL,
 };
 
 const CREATE_USER = gql`
@@ -82,7 +83,16 @@ const CREATE_COMPANY = gql`
   }
 `;
 
-// const CREATE_SCHOOL = gql``;
+const CREATE_SCHOOL = gql`
+  mutation CreateSchool($name: String!, $city: String!, $state: String!) {
+    createSchool(name: $name, city: $city, state: $state) {
+      _id
+      name
+      city
+      state
+    }
+  }
+`;
 
 const CREATE_POST = gql`
   mutation createPost($postBody: String!) {
@@ -105,7 +115,34 @@ const CREATE_POST = gql`
   }
 `;
 
-// const CREATE_JOB = gql``;
+const CREATE_JOB = gql`
+  mutation CreateJob(
+    $title: String!
+    $responsibilities: String!
+    $qualifications: String!
+    $schedule: String
+    $salary: Int
+    $benefits: String
+    $skills: [String]
+  ) {
+    createJob(
+      title: $title
+      responsibilities: $responsibilities
+      qualifications: $qualifications
+      schedule: $schedule
+      salary: $salary
+      benefits: $benefits
+      skills: $skills
+    ) {
+      _id
+      company {
+        _id
+        name
+      }
+      title
+    }
+  }
+`;
 
 const CREATE_GROUP = gql`
   mutation CreateGroup($name: String!, $private: Boolean!) {
