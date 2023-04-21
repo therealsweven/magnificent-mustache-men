@@ -7,7 +7,6 @@
     "qualifications": "We are looking for someone with commercial React experience, an understanding of functional programming and software design principles like single responsibility. We are looking for someone to take ownership in the transition from a legacy , who doesn't shy away from complex problems and doesn't say there is no way to do anything.",
     "salary": 90,
     "benefits": "You have a tech job, what more could you want?",
-    "skills": ["Javascript", "HTML", "Node.js", "SQL"],
     "schedule": "monday"
   },
   {
@@ -18,7 +17,6 @@
     "qualifications": "We are looking for someone with commercial React experience, an understanding of functional programming and software design principles like single responsibility. We are looking for someone to take ownership in the transition from a legacy , who doesn't shy away from complex problems and doesn't say there is no way to do anything.",
     "salary": 120,
     "benefits": "You have a tech job, what more could you want?",
-    "skills": ["Javascript", "HTML", "Node.js"],
     "schedule": "monday"
   },
   {
@@ -29,7 +27,6 @@
     "qualifications": "We are looking for someone with commercial React experience, an understanding of functional programming and software design principles like single responsibility. We are looking for someone to take ownership in the transition from a legacy , who doesn't shy away from complex problems and doesn't say there is no way to do anything.",
     "salary": 100,
     "benefits": "You have a tech job, what more could you want?",
-    "skills": ["Javascript", "HTML", "Node.js"],
     "schedule": "monday"
   },
   {
@@ -40,7 +37,6 @@
     "qualifications": "We are looking for someone with commercial React experience, an understanding of functional programming and software design principles like single responsibility. We are looking for someone to take ownership in the transition from a legacy , who doesn't shy away from complex problems and doesn't say there is no way to do anything.",
     "salary": 80,
     "benefits": "You have a tech job, what more could you want?",
-    "skills": ["Javascript", "HTML", "Node.js"],
     "schedule": "monday"
   }
 ]
