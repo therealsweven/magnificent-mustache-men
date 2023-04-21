@@ -168,6 +168,27 @@ export const QUERY_COMPANIES = gql`
       website
       foundedYear
       companySize
+      industry
+      employees
+      hqCity
+      hqState
+    }
+  }
+`;
+
+export const QUERY_SINGLE_COMPANY = gql`
+  query Query($companyId: ID!) {
+    company(companyId: $companyId) {
+      bio
+      companySize
+      hqCity
+      hqState
+      profPic
+      foundedYear
+      name
+      industry
+      website
+      bannerPic
     }
   }
 `;
