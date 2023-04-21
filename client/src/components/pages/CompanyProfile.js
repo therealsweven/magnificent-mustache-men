@@ -2,6 +2,7 @@ import { Navigate, useParams } from "react-router-dom";
 import { useQuery } from "@apollo/client";
 import { Link } from 'react-router-dom';
 import { QUERY_SINGLE_COMPANY, QUERY_ME } from "../../utils/queries";
+import PostForm from "./forms/PostForm";
 
 import Auth from '../../utils/auth';
 
@@ -69,33 +70,7 @@ if(!company?.name){
             <h2 className="jobPosts font-bold text-white text-4xl m-4">
               Current Job Openings
             </h2>
-            <div className="card-body bg-cyan-900 rounded w-full p-4 my-2">
-              <h2 className="card-title text-white">
-                Full-Stack Web Developer
-              </h2>
-              <p className="text-white">
-                We need someone who is good at things and stuff for web
-                Development.
-              </p>
-              <div className="badges justify-content align-items">
-                <span className="badge">JavaScript</span>
-                <span className="badge">React</span>
-                <span className="badge">C++</span>
-                <span className="badge">Java</span>
-                <span className="badge">Go</span>
-                <span className="badge">Junior</span>
-              </div>
-
-              <div className="card-actions justify-end">
-                <label
-                  htmlFor="modal-1"
-                  className="drawer-button btn btn-primary"
-                >
-                  Read More
-                </label>
-                <button className="btn btn-primary">One Click Apply</button>
-              </div>
-            </div>
+            
             <div className="card-body bg-cyan-900 rounded w-full p-4 my-2">
               <h2 className="card-title text-white">
                 Full-Stack Web Developer
