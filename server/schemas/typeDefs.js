@@ -176,6 +176,10 @@ const typeDefs = gql`
     user: User
   }
 
+  type SearchResult {
+    jobs: [Job!]!
+  }
+
   type Query {
     users: [User]!
     user(userId: ID!): User
@@ -194,6 +198,7 @@ const typeDefs = gql`
     schools: [School]
     school(schoolId: ID!): School
     skills: [Skill]
+    search(query: String!): SearchResult!
   }
 
   type Mutation {

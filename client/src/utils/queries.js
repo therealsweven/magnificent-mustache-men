@@ -226,3 +226,47 @@ export const QUERY_SKILLS = gql`
     }
   }
 `;
+
+export const QUERY_COMPANIES = gql`
+  query Companies {
+    companies {
+      _id
+      bio
+      name
+      website
+      foundedYear
+      companySize
+      industry
+      employees
+      hqCity
+      hqState
+    }
+  }
+`;
+
+export const QUERY_SINGLE_COMPANY = gql`
+  query Query($companyId: ID!) {
+    company(companyId: $companyId) {
+      bio
+      companySize
+      hqCity
+      hqState
+      profPic
+      foundedYear
+      name
+      industry
+      website
+      bannerPic
+    }
+  }
+`;
+
+export const SEARCH_QUERY = gql`
+  query Query($query: String!) {
+    search(query: $query) {
+      jobs {
+        title
+      }
+    }
+  }
+`;
