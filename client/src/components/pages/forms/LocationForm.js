@@ -4,6 +4,8 @@ import { useMutation } from "@apollo/client";
 import { CREATE_LOCATION } from "../../../utils/mutations";
 import * as Yup from "yup";
 
+const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/
+
 export default function LocationForm() {
   const [createLocation] = useMutation(CREATE_LOCATION);
 
@@ -18,7 +20,7 @@ export default function LocationForm() {
     city: Yup.string().required("This field is required"),
     state: Yup.string().required("This field is required"),
     size: Yup.string().required("This field is required"),
-    phone: Yup.phone("US", "Please enter a valid phone number").required(
+    phone: Yup.string().matches(phoneRegExp, "Please enter a valid phone number").required(
       "This is a required field"
     ),
   });

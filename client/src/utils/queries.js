@@ -1,38 +1,105 @@
 import { gql } from "@apollo/client";
 
 export const QUERY_ME = gql`
-  query Me {
-    me {
-      _id
-      entityId
-      firstName
-      lastName
-      email
-      password
-      city
-      state
-      country
-      experience
-      education
-      website
-      profPic
-      bannerPic
-      connections {
-        firstName
-        lastName
-      }
-      groups {
+query Me {
+  me {
+    _id
+    entityId
+    firstName
+    lastName
+    email
+    password
+    city
+    state
+    country
+    education {
+      school {
+        _id
         name
       }
-      posts {
-        postBody
-      }
+      fieldOfStudy
+      certificateType
       skills {
         skillName
+        _id
       }
+      startMonth
+      startYear
+      current
+      endMonth
+      endYear
+    }
+    experience {
+      company {
+        name
+        _id
+      }
+      title
+      jobDescription
+      skills {
+        _id
+        skillName
+      }
+      startYear
+      startMonth
+      current
+      endMonth
+      endYear
+    }
+    skills {
+      _id
+      skillName
+    }
+    website
+    posts {
+      _id
+      user {
+        firstName
+        lastName
+        _id
+      }
+      reactions {
+        _id
+        reactionId {
+          reactionName
+          _id
+          icon
+        }
+      }
+      comments {
+        _id
+        commentBody
+        reactions {
+          _id
+          reactionId {
+            icon
+            _id
+            reactionName
+          }
+        }
+      }
+      postBody
+    }
+    connections {
+      _id
+      firstName
+      lastName
+    }
+    groups {
+      _id
+      name
+      private
+      joinQuestion
+      profilePic
+      bannerPic
+    }
+    profPic
+    bannerPic
+    entitiesFollowed {
+      _id
     }
   }
-`;
+}`
 
 export const QUERY_PROFILES = gql`
   query Profiles {

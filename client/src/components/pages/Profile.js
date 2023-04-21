@@ -62,17 +62,17 @@ export default function Profile() {
           </div>
         </div>
         <div className="container flex flex-row content-center bg-base-200 rounded-lg">
-          <div className="box w-64 m-10 text-left">
+          <div className="box m-10 text-left">
             <div className="m-2">
               <h1 className="text-2xl font-bold mx-auto">Skills</h1>
               <ul>
                 {profile.skills ? (
                   profile.skills.map((skill) => (
-                    <li>
-                      <div className="badge" key={skill._id}>
+                    
+                      <div className="btn btn-outline" key={skill._id}>
                         {skill.skillName}
                       </div>
-                    </li>
+                    
                   ))
                 ) : (
                   <button className="btn btn-success">add skills</button>
@@ -131,7 +131,7 @@ export default function Profile() {
           <div className="box w-32 m-10 text-right bg-base-200 ">
             <div className="m-2">
               <h1 className="text-2xl font-bold mx-auto">Experience</h1>
-              {profile.education ? (
+              {profile.experience.company ? (
                 <ul>
                   <li>
                     <div className="badge badge-primary">
@@ -188,7 +188,7 @@ export default function Profile() {
             <div className="m-2">
               <h1 className="text-2xl font-bold mx-auto">Education</h1>
 
-              {profile.education ? (
+              {profile.education.school ? (
                 <ul>
                   <li>
                     <div className="badge badge-secondary">

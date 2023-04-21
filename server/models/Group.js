@@ -3,7 +3,7 @@ const { Schema, model } = require("mongoose");
 const groupSchema = new Schema(
   {
     name: { type: String, required: true },
-    admins: [{ type: String, ref: "User" }],
+    admins: [{ type: Schema.Types.ObjectId, ref: "User" }],
     private: {
       type: Boolean,
       required: true,
