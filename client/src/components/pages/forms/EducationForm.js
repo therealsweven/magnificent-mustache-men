@@ -29,15 +29,15 @@ export default function EducationForm() {
     current: Yup.boolean().required("This is a required field"),
     endMonth: Yup.string().when("current", {
       is: false,
-      then: Yup.string().required("This is a required field"),
-      otherwise: Yup.string(),
+      then: ()=> Yup.string().required("This is a required field"),
+      otherwise: ()=> Yup.string(),
     }),
     endYear: Yup.number().when("current", {
       is: false,
-      then: Yup.number()
+      then: ()=> Yup.number()
         .typeError("This must be a number")
         .required("This is a required field"),
-      otherwise: Yup.number(),
+      otherwise: ()=> Yup.number(),
     }),
   });
 
@@ -134,7 +134,6 @@ export default function EducationForm() {
             />
             <ErrorMessage name="current" />
           </div>
-
           {values.current ? (
             <>
               <div className="form-control">
@@ -204,7 +203,6 @@ export default function EducationForm() {
               </div>
             </>
           )}
-
           <div className="form-control mt-6">
             <button
               className="btn btn-primary"

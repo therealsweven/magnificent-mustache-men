@@ -11,7 +11,6 @@ export default function ExperienceForm() {
     company: "",
     title: "",
     jobDescription: "",
-    skills: [],
     startMonth: "",
     startYear: "",
     current: false,
@@ -30,27 +29,36 @@ export default function ExperienceForm() {
     current: Yup.boolean().required("This is a required field"),
     endMonth: Yup.string().when("current", {
       is: false,
-      then: Yup.string().required("This is a required field"),
-      otherwise: Yup.string().notRequired,
+      then: () => Yup.string().required("This is a required field"),
+      otherwise: () => Yup.string().notRequired(),
     }),
     endYear: Yup.number().when("current", {
       is: false,
-      then: Yup.number()
-        .typeError("This must be a number")
-        .required("This is a required field"),
-      otherwise: Yup.number().notRequired(),
+      then: () =>
+        Yup.number()
+          .typeError("This must be a number")
+          .required("This is a required field"),
+      otherwise: () => Yup.number().notRequired(),
     }),
   });
 
-  const handleSubmit = async (values, { setSubmitting }) => {
+  const handleSubmit = async (values, { resetForm, setSubmitting }) => {
     try {
+      console.log(values);
       await createExperience({
         variables: {
-          input: values,
+          company: values.company,
+          title: values.title,
+          jobDescription: values.jobDescription,
+          startMonth: values.startMonth,
+          startYear: values.startYear,
+          current: values.current,
+          endMonth: values.endMonth,
+          endYear: values.endYear,
         },
       });
       console.log("experience recorded");
-      setSubmitting(false);
+      resetForm();
     } catch (err) {
       console.error(err);
       setSubmitting(false);
@@ -84,6 +92,21 @@ export default function ExperienceForm() {
             <ErrorMessage name="title" component="div" className="error" />
           </div>
           <div className="form-control">
+            <label className="label" htmlFor="title">
+              <span className="label-text">Job Description</span>
+            </label>
+            <Field
+              className="input input-bordered"
+              type="text"
+              name="jobDescription"
+            />
+            <ErrorMessage
+              name="jobDescription"
+              component="div"
+              className="error"
+            />
+          </div>
+          <div className="form-control">
             <label className="label" htmlFor="startMonth">
               <span className="label-text">Start Month</span>
             </label>
@@ -101,9 +124,9 @@ export default function ExperienceForm() {
             <Field
               className="input input-bordered"
               type="number"
-              name="starYear"
+              name="startYear"
             />
-            <ErrorMessage name="starYear" component="div" className="error" />
+            <ErrorMessage name="startYear" component="div" className="error" />
           </div>
           <div className="form-control">
             <label className="label" htmlFor="current">
