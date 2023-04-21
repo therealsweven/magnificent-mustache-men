@@ -1,22 +1,37 @@
 import { gql } from "@apollo/client";
+
 export const QUERY_ME = gql`
-  query Me {
-    me {
-      _id
-      entityId
+query Me {
+  me {
+    _id
+    entityId
+    firstName
+    lastName
+    email
+    password
+    city
+    state
+    country
+    experience
+    education
+    website
+    profPic
+    bannerPic
+    connections {
       firstName
       lastName
-      email
-      password
-      city
-      state
-      country
-      education
-      experience
-      website
-      profPic
+    }
+    groups {
+      name
+    }
+    posts {
+    postBody
+    }
+    skills {
+      skillName
     }
   }
+}
 `;
 
 export const QUERY_PROFILES = gql`

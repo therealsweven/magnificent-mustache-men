@@ -7,7 +7,9 @@ import {
 } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+
 import Auth from "./utils/auth";
+// pages
 import Home from "./components/pages/Home";
 import Signup from "./components/pages/Signup";
 import Login from "./components/pages/Login";
@@ -16,10 +18,11 @@ import NavBar from "./components/NavBar";
 import UserFeed from "./components/pages/UserFeed";
 import Footer from "./components/footer";
 import Profile from "./components/pages/Profile";
-import UserForm from "./components/pages/forms/UserForm";
 import JobList from "./components/pages/jobList";
 import CompanyProfile from "./components/pages/CompanyProfile";
-import PostForm from "./components/pages/forms/PostForm";
+// forms
+import SchoolForm from "./components/pages/forms/SchoolForm"
+
 
 const httpLink = createHttpLink({
   uri: "/graphql",
@@ -59,10 +62,9 @@ function App() {
             <Route path="/feed" element={<UserFeed />} />
             <Route path="/signup" element={<Signup />} />
             <Route path="/profile" element={<Profile />} />
-            <Route path="/user" element={<UserForm />} />
             <Route path="/jobPost" element={<JobList />} />
             <Route path="/company" element={<CompanyProfile />} />
-            <Route path="/test" element={<PostForm />} />
+            <Route path="/test" element={<SchoolForm />} />
           </Routes>
           <Footer />
         </div>

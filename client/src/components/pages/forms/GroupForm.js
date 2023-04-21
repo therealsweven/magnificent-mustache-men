@@ -5,7 +5,7 @@ import { CREATE_GROUP } from "../../../utils/mutations";
 import * as Yup from "yup";
 
 export default function GroupForm() {
-  const [createUser] = useMutation(CREATE_GROUP);
+  const [createGroup] = useMutation(CREATE_GROUP);
 
   const initialValues = {
     name: "",
@@ -21,7 +21,7 @@ export default function GroupForm() {
 
   const handleSubmit = async (values, { resetForm, setSubmitting }) => {
     try {
-      await createUser({
+      await createGroup({
         variables: {
           name: values.name,
           private: values.private,
