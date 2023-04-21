@@ -25,14 +25,14 @@ class AuthService {
 
   login(idToken) {
     localStorage.setItem("id_token", idToken);
-    //window.location.assign("/profile");
-    window.location.reload();
+    window.location.assign("/profile");
+    //window.location.reload();
   }
 
   logout() {
     localStorage.removeItem("id_token");
-    //window.location.assign("/");
-    window.location.reload();
+    window.location.assign("/");
+    //window.location.reload();
   }
   profileSwitch(type, entity) {
     localStorage.setItem("profType", type);
