@@ -12,14 +12,14 @@ export default function SkillForm() {
   };
 
   const validationSchema = Yup.object().shape({
-    postBody: Yup.string().required("This field is required"),
+    skillName: Yup.string().required("This field is required"),
   });
 
   const handleSubmit = async (values, { resetForm, setSubmitting }) => {
     try {
       await createSkill({
         variables: {
-          postBody: values.skillName,
+          skillName: values.skillName,
         },
       });
       resetForm();
@@ -39,11 +39,11 @@ export default function SkillForm() {
       {({ isSubmitting }) => (
         <Form>
           <div className="form-control">
-            <label className="label" htmlFor="skill">
+            <label className="label" htmlFor="skillName">
               <span className="label-text">Skill Name</span>
             </label>
-            <Field className="input input-bordered" type="text" name="skill" />
-            <ErrorMessage name="skill" component="div" className="error" />
+            <Field className="input input-bordered" type="text" name="skillName" />
+            <ErrorMessage name="skillName" component="div" className="error" />
           </div>
 
           <div className="form-control mt-6">
