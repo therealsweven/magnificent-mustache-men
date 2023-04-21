@@ -1,7 +1,7 @@
 import React from "react";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import { useMutation } from "@apollo/client";
-import { CREATE_COMPANY } from "../../../utils/mutations";
+import { CREATE_COMPANY } from "../../../utils/mutations"
 import * as Yup from "yup";
 import industries from "../../../utils/industries.json";
 import states from "../../../utils/statearray.json";
@@ -39,9 +39,18 @@ export default function CompanyForm() {
 
   const handleSubmit = async (values, { resetForm, setSubmitting }) => {
     try {
+      console.log(values);
       await createCompany({
         variables: {
-          input: values,
+          name: values.name,
+          industry: values.industry,
+          hqCity: values.hqCity,
+          hqState: values.hqState,
+          website: values.website,
+          bio: values.bio,
+          companySize: values.companySize,
+          foundedYear:  parseInt(values.foundedYear),
+          specialties: values.specialties,
         },
       });
       resetForm();
@@ -80,13 +89,14 @@ export default function CompanyForm() {
             >
               <option value="">Select an Industry</option>
               {industries.map((industry) => (
-                <option key={industry.name} value={industry.name}>
+                <option key={industry.name} value={industry.name.toString()}>
                   {industry.name}
                 </option>
               ))}
             </Field>
             <ErrorMessage name="industry" component="div" className="error" />
           </div>
+          
           <div className="form-control">
             <label className="label" htmlFor="hqCity">
               <span className="label-text">Headquarters City</span>
@@ -101,7 +111,7 @@ export default function CompanyForm() {
             <Field className="input input-bordered" as="select" type="text" name="hqState">
               <option value="">Select an State</option>
               {states.map((state) => (
-                <option key={state.name} value={state.name}>
+                <option key={state.name} value={state.name.toString()}>
                   {state.name}
                 </option>
               ))}
@@ -125,7 +135,7 @@ export default function CompanyForm() {
             </label>
             <Field
               className="input input-bordered"
-              type="bio"
+              type="text"
               as="textarea"
               name="bio"
             />

@@ -266,12 +266,14 @@ const typeDefs = gql`
     ): School
     createCompany(
       name: String!
+      industry: String
       hqCity: String!
       hqState: String!
-      website: String
+      website: String!
       bio: String!
-      companySize: String
-      foundedYear: String
+      companySize: String!
+      foundedYear: Int!
+      specialities: String
     ): Company
     addConnection(connectionId: String!): User
     followEntity(entityId: String!): User
