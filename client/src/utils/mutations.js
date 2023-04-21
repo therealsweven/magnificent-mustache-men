@@ -58,10 +58,10 @@ const CREATE_COMPANY = gql`
     $industry: String!
     $hqCity: String!
     $hqState: String!
-    $website: String
+    $website: String!
     $bio: String!
     $companySize: String!
-    $foundedYear: String
+    $foundedYear: Int!
     $specialties: String
   ) {
     createCompany(
@@ -72,7 +72,7 @@ const CREATE_COMPANY = gql`
       website: $website
       bio: $bio
       companySize: $companySize
-      foundedYear: $foundedyear
+      foundedYear: $foundedYear
       specialties: $specialties
     ) {
       _id
@@ -81,7 +81,6 @@ const CREATE_COMPANY = gql`
       hqCity
       hqState
       website
-      tagline
       bio
       companySize
       foundedYear
@@ -91,7 +90,7 @@ const CREATE_COMPANY = gql`
 `;
 
 const CREATE_SCHOOL = gql`
-  mutation CreateSchool(
+  mutation createSchool(
     $name: String!
     $city: String!
     $state: String!

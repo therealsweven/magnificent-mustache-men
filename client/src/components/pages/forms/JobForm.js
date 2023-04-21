@@ -9,6 +9,7 @@ export default function JobForm() {
 
   const initialValues = {
     title: "",
+    description: "",
     responsibilities: "",
     qualifications: "",
     schedule: "",
@@ -16,9 +17,10 @@ export default function JobForm() {
     benefits: "",
   };
 
-  const validationSchema = Yup.object.shape({
+  const validationSchema = Yup.object().shape({
     title: Yup.string().required("This field is required"),
     responsibilities: Yup.string().required("This field is required"),
+    description: Yup.string().required("This field is required"),
     qualifications: Yup.string().required("This field is required"),
     schedule: Yup.string().required("This field is required"),
     salary: Yup.number()
@@ -27,19 +29,26 @@ export default function JobForm() {
     benefits: Yup.string().required("This field is required"),
   });
 
-  const handleSubmit = async (values, { setSubmitting }) => {
+  const handleSubmit = async (values, { resetForm, setSubmitting }) => {
     try {
+      console.log(values);
       await createJob({
         variables: {
-          input: values,
+          title: values.title,
+          description: values.description,
+          responsibilities: values.responsibilities,
+          qualifications: values.qualifications,
+          schedule: values.schedule,
+          salary: values.salary,
+          benefits: values.benefits,
         },
       });
+      resetForm();
       console.log("job posted");
-      setSubmitting(false);
     } catch (err) {
       console.error(err);
-      setSubmitting(false);
     }
+    setSubmitting(false);
   };
   return (
     <Formik
@@ -55,6 +64,21 @@ export default function JobForm() {
             </label>
             <Field className="input input-bordered" type="text" name="title" />
             <ErrorMessage name="title" component="div" className="error" />
+          </div>
+          <div className="form-control">
+            <label className="label" htmlFor="description">
+              <span className="label-text">Description</span>
+            </label>
+            <Field
+              className="input input-bordered"
+              type="text"
+              name="description"
+            />
+            <ErrorMessage
+              name="description"
+              component="div"
+              className="error"
+            />
           </div>
           <div className="form-control">
             <label className="label" htmlFor="responsibilities">

@@ -11,7 +11,7 @@ export default function NavBar() {
   const profiles = data?.profiles || {};
   console.log(profiles, loading);
   const profDisplay = [];
-  if (!loading) {
+  if (!loading && profiles.length) {
     profiles.forEach((profile) => {
       if (profile.user) {
         const prof = {
