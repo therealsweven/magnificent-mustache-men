@@ -22,6 +22,7 @@ import JobList from "./components/pages/jobList";
 import CompanyProfile from "./components/pages/CompanyProfile";
 import AllCompanies from "./components/pages/AllCompanies";
 import AllUsers from "./components/pages/AllUsers";
+import UsersProfile from "./components/pages/usersProfile";
 // forms
 import CompanyForm from "./components/pages/forms/CompanyForm";
 import EducationForm from "./components/pages/forms/EducationForm";
@@ -70,10 +71,14 @@ function App() {
             <Route path="/feed" element={<UserFeed />} />
             <Route path="/signup" element={<Signup />} />
             <Route path="/profile" element={<Profile />} />
-            <Route path="/profiles/" element={<AllUsers />} />
+            <Route path="/profiles" element={<AllUsers />} />
+            <Route path="/profiles/:profileId" element={<UsersProfile />} />
             <Route path="/jobPost" element={<JobList />} />
             <Route path="/company" element={<AllCompanies />} />
-            <Route path="/companyProfile/:companyId" element={<CompanyProfile />} />
+            <Route
+              path="/companyProfile/:companyId"
+              element={<CompanyProfile />}
+            />
             <Route path="/test" element={<SchoolForm />} />
             <Route path="/company" element={<CompanyProfile />} />
             <Route path="/test" element={<CompanyForm />} />

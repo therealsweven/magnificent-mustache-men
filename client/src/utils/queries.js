@@ -177,8 +177,7 @@ export const QUERY_USER = gql`
       country
       website
       email
-      education
-      experience
+
       entitiesFollowed {
         _id
         company {
@@ -212,8 +211,6 @@ export const QUERY_USER = gql`
       posts {
         _id
         postBody
-        reactions
-        comments
       }
     }
   }
