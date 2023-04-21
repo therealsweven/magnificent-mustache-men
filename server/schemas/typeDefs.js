@@ -192,6 +192,7 @@ const typeDefs = gql`
     group(groupId: ID!): Group
     schools: [School]
     school(schoolId: ID!): School
+    skills: [Skill]
   }
 
   type Mutation {
@@ -204,11 +205,11 @@ const typeDefs = gql`
     createEducation(
       school: String!
       fieldOfStudy: String!
-      certificateType: String
+      certificateType: String!
       skills: [String]
-      startMonth: String
-      startYear: Int
-      current: Boolean
+      startMonth: String!
+      startYear: Int!
+      current: Boolean!
       endMonth: String
       endYear: Int
     ): User
@@ -256,7 +257,7 @@ const typeDefs = gql`
       bio: String
       foundedYear: Int
       studentBody: Int
-      Website: String
+      website: String
       profPic: String
       bannerPic: String
     ): School
@@ -269,9 +270,9 @@ const typeDefs = gql`
       companySize: String
       foundedYear: String
     ): Company
-    addFriend(friendId: String!): User
-    followEntity(followerId: String!, followeeId: String!): User
-    joinGroup(userId: String!, groupID: String!): Group
+    addConnection(connectionId: String!): User
+    followEntity(entityId: String!): User
+    joinGroup(groupID: String!): User
     createGroup(
       name: String!
       private: Boolean!
@@ -410,7 +411,7 @@ const typeDefs = gql`
     removePostReaction(postId: ID!, reactionId: ID!): Post
     removeSkill(skillId: ID!, userId: ID!): Skill
     removeEntity(entityId: ID!): Entity
-    removeFriend(userId: ID!, friendId: ID!): User
+    removeConnection(connectionId: ID!): User
     unfollowEntity(entityId: ID!, userId: ID!): User
     leaveGroup(userId: ID!, groupId: ID!): Group
   }

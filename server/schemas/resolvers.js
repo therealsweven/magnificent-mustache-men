@@ -15,6 +15,9 @@ const { signToken } = require("../utils/auth");
 
 const resolvers = {
   Query: {
+    skills: async () => {
+      return await Skill.find();
+    },
     users: async () => {
       return await User.find();
     },
@@ -228,7 +231,7 @@ const resolvers = {
       return user;
     },
     // create a new school
-    createSchool: async (parent, schoolInput) => {
+    createSchool: async (parent, schoolInput, context) => {
       schoolInput.admins = [context.user._id];
       const school = await School.create(schoolInput);
       await Entity.create({ school: school._id });
@@ -303,6 +306,7 @@ const resolvers = {
 
       return post;
     },
+    // create new comment
     createComment: async (parent, args, context) => {
       args.entity = context.activeProfile.entity;
       const comment = await Comment.create(args);
@@ -312,14 +316,14 @@ const resolvers = {
       );
     },
     // create post reaction
-    createPostReaction: async (parent, { postReactionInput }, context) => {
+    createPostReaction: async (parent, args, context) => {
       const postReaction = await Post.findOneAndUpdate(
-        { _id: postReactionInput.postID },
+        { _id: args.postId },
         {
           reactions: {
-            $addToSet: {
+            $push: {
               entity: context.activeProfile.entity,
-              reactionId: postReactionInput.reactionID,
+              reactionId: args.reactionId,
             },
           },
         }
@@ -327,60 +331,72 @@ const resolvers = {
       return postReaction;
     },
     //create add friend
-    addFriend: async (parent, friendId, context) => {
+    addConnection: async (parent, args, context) => {
       if (context.user._id) {
-        return User.findOneAndUpdate(
-          { _id: userId },
+        await User.findOneAndUpdate(
+          { _id: friendId },
+          { $push: { connections: args._id } }
+        );
+        return await User.findOneAndUpdate(
+          { _id: context.user._id },
           {
-            $addToSet: {
-              friends: { friendId, friendAuthor: context.user._id },
+            $push: {
+              connections: context.user._id,
             },
           },
           {
             new: true,
-            runValidators: true,
           }
         );
       }
       throw new AuthenticationError("You need to be logged in");
     },
-    //  create followEntity
-    followEntity: async (parent, { userId, entityId }, context) => {
+    //  create followEntity need entityId
+    followEntity: async (parent, args, context) => {
       if (context.user) {
-        return User.findOneAndUpdate(
-          { _id: userId },
+        //add entity to user entitiesFollowed
+        return await User.findOneAndUpdate(
+          { _id: context.user._id },
           {
-            $addToSet: {
-              entitiesFollowed: { entityId, entityCreator: context.user._id },
+            $push: {
+              entitiesFollowed: args.entityId,
             },
           },
           {
             new: true,
-            runValidators: true,
           }
         );
       }
       throw new AuthenticationError("You need to be logged in");
     },
-    // joinGroup
-    joinGroup: async (parent, { userid, groupId }, context) => {
+    // joinGroup need groupId
+    joinGroup: async (parent, args, context) => {
       if (context.user) {
-        return Group.findOneAndUpdate(
-          { _id: groupId },
+        //add to group
+        await Group.findOneAndUpdate(
+          { _id: args.groupId },
           {
-            $addToSet: {
-              members: { userId, memberAuthor: context.user._id },
+            $push: {
+              members: context.user._id,
             },
           },
           {
             new: true,
-            runValidators: true,
+          }
+        );
+        // add group to user groups array
+        return await User.findOneAndUpdate(
+          { _id: context.user._id },
+          {
+            $push: {
+              groups: args.groupId,
+            },
           }
         );
       }
       throw new AuthenticationError("You need to be logged in");
     },
-
+    //login need email and password
     userLogin: async (parent, { email, password }) => {
       const userData = await User.findOne({ email });
 
@@ -580,16 +596,21 @@ const resolvers = {
       }
       throw new AuthenticationError("You need to be logged in!");
     },
-    removeFriend: async (parent, { userId, friendId }, context) => {
+    removeConnection: async (parent, args, context) => {
       if (context.user) {
-        return User.findOneAndUpdate(
-          { _id: userId },
+        await User.findOneAndUpdate(
+          { _id: args.connectionId },
           {
             $pull: {
-              friends: {
-                _id: friendId,
-                friendCreator: context.user._id,
-              },
+              connections: context.user._id,
+            },
+          }
+        );
+        return await User.findOneAndUpdate(
+          { _id: context.user._id },
+          {
+            $pull: {
+              connections: args.connectionId,
             },
           },
           { new: true }
@@ -597,16 +618,13 @@ const resolvers = {
       }
       throw new AuthenticationError("You need to be logged in");
     },
-    unfollowEntity: async (parent, { entityId, userId }, context) => {
+    unfollowEntity: async (parent, entityId, context) => {
       if (context.user) {
         return User.findOneAndUpdate(
-          { _id: userId },
+          { _id: context.user._id },
           {
             $pull: {
-              entities: {
-                _id: entityId,
-                entityCreator: context.user._id,
-              },
+              entitiesFolled: context.user._id,
             },
           },
           { new: true }

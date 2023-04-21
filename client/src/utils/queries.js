@@ -1,8 +1,4 @@
 import { gql } from "@apollo/client";
-
-// export const QUERY_USERS = gql`
-
-// `;
 export const QUERY_ME = gql`
   query Me {
     me {
@@ -83,6 +79,68 @@ export const QUERY_FEED = gql`
       }
       postBody
       reactions
+    }
+  }
+`;
+
+export const QUERY_USER = gql`
+  query User($userId: ID!) {
+    user(userId: $userId) {
+      _id
+      firstName
+      lastName
+      city
+      state
+      country
+      website
+      email
+      education
+      experience
+      entitiesFollowed {
+        _id
+        company {
+          _id
+          name
+          profPic
+        }
+        school {
+          _id
+          name
+          profPic
+        }
+      }
+      skills {
+        _id
+        skillName
+      }
+      profPic
+      bannerPic
+      connections {
+        _id
+        firstName
+        lastName
+        profPic
+      }
+      groups {
+        _id
+        name
+        profilePic
+      }
+      posts {
+        _id
+        postBody
+        reactions
+        comments
+      }
+    }
+  }
+`;
+
+export const QUERY_SKILLS = gql`
+  query Skills {
+    skills {
+      _id
+      skillName
     }
   }
 `;
