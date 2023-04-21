@@ -3,9 +3,10 @@ import { Formik, Field, Form, ErrorMessage } from "formik";
 import { useMutation } from "@apollo/client";
 import { CREATE_SCHOOL } from "../../../utils/mutations";
 import * as Yup from "yup";
+import states from "../../../utils/statearray.json"
 
 export default function SchoolForm() {
-  const [createCompany] = useMutation(CREATE_SCHOOL);
+  const [createSchool] = useMutation(CREATE_SCHOOL);
 
   const initialValues = {
     name: "",
@@ -36,9 +37,16 @@ export default function SchoolForm() {
 
   const handleSubmit = async (values, { resetForm, setSubmitting }) => {
     try {
+      console.log(values)
       await createSchool({
         variables: {
-          input: values,
+          name: values.name,
+          city: values.city,
+          state: values.state,
+          bio: values.bio,
+          foundedYear: values.foundedYear,
+          studentBody: values.studentBody,
+          website: values.website
         },
       });
       resetForm();
