@@ -2,9 +2,14 @@ const { AuthenticationError } = require("apollo-server-express");
 //const { Entity, User, School, Company, Job, Post, Group, Reaction, Skill } =
 //  require("../models").default;
 const { Entity } = require("../models");
-const { User } = require("../models");
+const { User, Experience, Education } = require("../models/User");
 const { School } = require("../models");
-const { Post, Comment } = require("../models/Post");
+const {
+  Post,
+  Comment,
+  PostReaction,
+  CommentReaction,
+} = require("../models/Post");
 const { Company } = require("../models");
 const { Job } = require("../models");
 const { Group } = require("../models");
@@ -266,6 +271,23 @@ const resolvers = {
         { $push: { skills: args.skillId } }
       );
     },
+    // create new work experience
+    createExperience: async (parent, args, context) => {
+      const experience = await Experience.create(args);
+      await User.findOneAndUpdate(
+        { _id: context.user._id },
+        { $push: { experience: experience._id } }
+      );
+    },
+    // create new work experience
+    createEducation: async (parent, args, context) => {
+      const education = await Education.create(args);
+      await User.findOneAndUpdate(
+        { _id: context.user._id },
+        { $push: { education: education._id } }
+      );
+    },
+
     // create new job
     createJob: async (parent, jobInput, context) => {
       const entity = await Entity.findOne({
@@ -317,18 +339,31 @@ const resolvers = {
     },
     // create post reaction
     createPostReaction: async (parent, args, context) => {
-      const postReaction = await Post.findOneAndUpdate(
+      args.entity = context.activeProfile.entity;
+      const postReaction = PostReaction.create(args);
+      const post = await Post.findOneAndUpdate(
         { _id: args.postId },
         {
           reactions: {
-            $push: {
-              entity: context.activeProfile.entity,
-              reactionId: args.reactionId,
-            },
+            $push: postReaction._id,
           },
         }
       );
-      return postReaction;
+      return post;
+    },
+    // create post reaction
+    createCommentReaction: async (parent, args, context) => {
+      args.entity = context.activeProfile.entity;
+      const commentReaction = CommentReaction.create(args);
+      const comment = await Comment.findOneAndUpdate(
+        { _id: args.postId },
+        {
+          reactions: {
+            $push: commentReaction._id,
+          },
+        }
+      );
+      return comment;
     },
     //create add friend
     addConnection: async (parent, args, context) => {
