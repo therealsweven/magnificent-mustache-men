@@ -1,6 +1,4 @@
 const { AuthenticationError } = require("apollo-server-express");
-//const { Entity, User, School, Company, Job, Post, Group, Reaction, Skill } =
-//  require("../models").default;
 const { Entity } = require("../models");
 const { User, Experience, Education } = require("../models/User");
 const { School } = require("../models");
@@ -229,13 +227,13 @@ const resolvers = {
   },
 
   Mutation: {
-    // create a new user
+    // create a new user    - good
     createUser: async (parent, userInput) => {
       const user = await User.create(userInput);
       await Entity.create({ user: user._id });
       return user;
     },
-    // create a new school
+    // create a new school    - good
     createSchool: async (parent, schoolInput, context) => {
       schoolInput.admins = [context.user._id];
       const school = await School.create(schoolInput);
@@ -249,7 +247,7 @@ const resolvers = {
       await Entity.create({ company: company._id });
       return company;
     },
-    // create new group
+    // create new group       - good
     createGroup: async (parent, groupInput, context) => {
       groupInput.admins = [context.user._id];
       groupInput.members = [context.user._id];
@@ -287,7 +285,6 @@ const resolvers = {
         { $push: { education: education._id } }
       );
     },
-
     // create new job
     createJob: async (parent, jobInput, context) => {
       const entity = await Entity.findOne({
@@ -301,7 +298,7 @@ const resolvers = {
       );
       return job;
     },
-    // create new post
+    // create new post - good
     createPost: async (parent, postInput, context) => {
       postInput.user = context.user._id;
       postInput.entity = context.activeProfile.entity;
@@ -328,7 +325,7 @@ const resolvers = {
 
       return post;
     },
-    // create new comment
+    // create new comment - good
     createComment: async (parent, args, context) => {
       args.entity = context.activeProfile.entity;
       const comment = await Comment.create(args);
@@ -549,48 +546,31 @@ const resolvers = {
     },
     removeUser: async (parent, args, context) => {
       if (context.user) {
-        return User.findOneAndDelete({ _id: context.user._id });
+        const user = await User.findOne({ _id: context.user._id });
+        await Post.deleteMany({ entity: context.activeProfile.entity });
+        await Comment.deleteMany({ entity: context.activeProfile.entity });
+        await PostReaction.deleteMany({ entity: context.activeProfile.entity });
+        await CommentReaction.deleteMany({
+          entity: context.activeProfile.entity,
+        });
+        await User.findOneAndDelete({ _id: context.user._id });
+        return;
       }
       throw new AuthenticationError("You need to be logged in!");
     },
     removeGroup: async (parent, args, context) => {
-      if (context.user) {
-        return Group.findOneAndDelete({ _id: context.user._id });
-      }
-      throw new AuthenticationError("Only an Admin can remove a group!");
+      return await Group.findOneAndDelete({ _id: args.groupId });
     },
     removeCompany: async (parent, args, context) => {
-      if (context.user) {
-        return Company.findOneAndDelete({ _id: context.user._id });
-      }
-      throw new AuthenticationError("Only an Admin can remove a Company");
+      await Entity.findOneAndDelete({ company: args.companyId });
+      return await Company.findOneAndDelete({ _id: args.companyId });
     },
     removeJob: async (parent, args, context) => {
-      if (context.user) {
-        return Job.findOneAndDelete({ _id: context.user._id });
-      }
-      throw new AuthenticationError("Only a Company can remove a Job");
+      return await Job.findOneAndDelete({ _id: args.jobId });
     },
     removeSchool: async (parent, args, context) => {
-      if (context.user) {
-        return School.findOneAndDelete({ _id: context.user._id });
-      }
-      throw new AuthenticationError("Only and admin can remove a School");
-    },
-    removeReaction: async (parent, { reactionId }, context) => {
-      if (context.user) {
-        const reaction = await Reaction.findOneAndDelete({
-          _id: reactionId,
-          reactionAuthor: context.user._id,
-        });
-
-        await User.findOneAndUpdate(
-          { _id: context.user._id },
-          { $pull: { reactions: reaction._id } }
-        );
-        return reaction;
-      }
-      throw new AuthenticationError("You need to be logged in!");
+      await Entity.findOneAndDelete({ company: args.schoolId });
+      return await School.findOneAndDelete({ _id: args.schoolId });
     },
     removePostReaction: async (parent, { postId, reactionId }, context) => {
       if (context.user) {
@@ -646,6 +626,7 @@ const resolvers = {
       }
       throw new AuthenticationError("You need to be logged in");
     },
+    //remove skill from user
     removeSkill: async (parent, { skillId, userId }, context) => {
       if (context.user) {
         return Skill.findOneAndUpdate(
