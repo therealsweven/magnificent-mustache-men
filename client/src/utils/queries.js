@@ -86,3 +86,16 @@ export const QUERY_FEED = gql`
     }
   }
 `;
+
+const SEARCH_QUERY = gql`
+  query SearchQuery($query: String!) {
+    search(query: $query) {
+      id
+      title
+      description
+      imageUrl
+      firstname
+      lastname
+    }
+  }
+`;
