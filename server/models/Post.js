@@ -45,8 +45,9 @@ const postSchema = new Schema(
 );
 
 const Post = model("Post", postSchema);
+const Comment = model("Comment", commentSchema);
 
-module.exports = Post;
+module.exports = { Post, Comment };
 
 //User -- posts
 //  Company

@@ -4,7 +4,7 @@ const { AuthenticationError } = require("apollo-server-express");
 const { Entity } = require("../models");
 const { User } = require("../models");
 const { School } = require("../models");
-const { Post } = require("../models");
+const { Post, Comment } = require("../models/Post");
 const { Company } = require("../models");
 const { Job } = require("../models");
 const { Group } = require("../models");
@@ -25,6 +25,7 @@ const resolvers = {
         "connections",
         "education",
         "experience",
+        "posts",
       ]);
     },
     me: async (parent, args, context) => {
@@ -34,6 +35,7 @@ const resolvers = {
         "connections",
         "education",
         "experience",
+        "posts",
       ]);
     },
     companies: async () => {
@@ -78,27 +80,74 @@ const resolvers = {
     },
     feed: async (parent, args, context) => {
       //user
+      const entities = [];
       if (context.activeProfile.type === "user") {
         const user = await User.findOne({
           entityId: context.activeProfile.entity,
         }).populate("entitiesFollowed");
-        const entities = user.entitiesFollowed;
+        entities = user.entitiesFollowed;
 
         // company
       } else if (context.activeProfile.type === "company") {
         const company = await Company.findOne({
           entityId: context.activeProfile.entity,
         }).populate("entitiesFollowed");
-        const entities = company.entitiesFollowed;
+        entities = company.entitiesFollowed;
 
         // school
       } else if (context.activeProfile.type === "school") {
         const school = await School.findOne({
           entityId: context.activeProfile.entity,
         }).populate("entitiesFollowed");
-        const entities = school.entitiesFollowed;
+        entities = school.entitiesFollowed;
       }
-      const posts = await Post.find({ entity: entities });
+      const posts = await Post.find({ entity: { $in: entities } }).populate(
+        "reactions",
+        "comments"
+      );
+
+      const sortedPosts = posts.sort(function (a, b) {
+        let x = a.updatedAt;
+        let y = b.updatedAt;
+
+        if (x > y) {
+          return 1;
+        }
+        if (x < y) {
+          return -1;
+        }
+        return 0;
+      });
+      return sortedPosts;
+    },
+    feedTest: async (parent, args, context) => {
+      //user
+      const entities = [];
+      if (args.type === "user") {
+        const user = await User.findOne({
+          entityId: args.entity,
+        }).populate("entitiesFollowed");
+        entities = user.entitiesFollowed;
+
+        // company
+      } else if (args.type === "company") {
+        const company = await Company.findOne({
+          entityId: args.entity,
+        }).populate("entitiesFollowed");
+        entities = company.entitiesFollowed;
+
+        // school
+      } else if (args.type === "school") {
+        const school = await School.findOne({
+          entityId: args.entity,
+        }).populate("entitiesFollowed");
+        entities = school.entitiesFollowed;
+      }
+      const posts = await Post.find({ entity: { $in: entities } }).populate(
+        "reactions",
+        "comments"
+      );
+
       const sortedPosts = posts.sort(function (a, b) {
         let x = a.updatedAt;
         let y = b.updatedAt;
@@ -197,25 +246,70 @@ const resolvers = {
       groupInput.admins = [context.user._id];
       groupInput.members = [context.user._id];
       const group = await Group.create(groupInput);
+      await User.findOneAndUpdate(
+        { _id: context.user._id },
+        { $push: { groups: group._id } }
+      );
       return group;
     },
-    // create new skill
+    // create new skill in skills collection
     createSkill: async (parent, skillName) => {
       return await Skill.create(skillName);
     },
+    // add skill to user
+    addSkill: async (parent, args, context) => {
+      return await User.findOneAndUpdate(
+        { _id: context.user._id },
+        { $push: { skills: args.skillId } }
+      );
+    },
     // create new job
-    createJob: async (parent, jobInput) => {
+    createJob: async (parent, jobInput, context) => {
+      const entity = await Entity.findOne({
+        _id: context.activeProfile.entity,
+      });
+      jobInput.company = entity.company;
       const job = await Job.create(jobInput);
+      await Company.findOneAndUpdate(
+        { _id: entity.company },
+        { $push: { jobs: job._id } }
+      );
       return job;
     },
     // create new post
     createPost: async (parent, postInput, context) => {
-      console.log(postInput);
       postInput.user = context.user._id;
       postInput.entity = context.activeProfile.entity;
-      console.log(postInput);
       const post = await Post.create(postInput);
+
+      const entity = await Entity.findOne({ _id: post.entity });
+      // add post to user, company, or school that posted it for querying later
+      if (entity.user) {
+        await User.findOneAndUpdate(
+          { _id: entity.user },
+          { $push: { posts: post._id } }
+        );
+      } else if (entity.school) {
+        await School.findOneAndUpdate(
+          { _id: entity.school },
+          { $push: { posts: post._id } }
+        );
+      } else if (entity.company) {
+        await Company.findOneAndUpdate(
+          { _id: entity.company },
+          { $push: { posts: post._id } }
+        );
+      }
+
       return post;
+    },
+    createComment: async (parent, args, context) => {
+      args.entity = context.activeProfile.entity;
+      const comment = await Comment.create(args);
+      await Post.findOneAndUpdate(
+        { _id: args.postId },
+        { $push: { comments: comment._id } }
+      );
     },
     // create post reaction
     createPostReaction: async (parent, { postReactionInput }, context) => {
@@ -233,8 +327,8 @@ const resolvers = {
       return postReaction;
     },
     //create add friend
-    addFriend: async (parent, { userId, friendId }, context) => {
-      if (context.user) {
+    addFriend: async (parent, friendId, context) => {
+      if (context.user._id) {
         return User.findOneAndUpdate(
           { _id: userId },
           {
@@ -287,38 +381,6 @@ const resolvers = {
       throw new AuthenticationError("You need to be logged in");
     },
 
-    // create comment
-
-    // create comment reaction
-
-    // createCommentReaction: async (
-    //   parent,
-    //   { commentReactionInput },
-    //   context
-    // ) => {
-    //   commentReactionInput.entity = context.activeProfile.entity;
-
-    //   const commentReaction = await Post.create(commentReactionInput);
-    //   return commentReaction;
-    // },
-
-    // // create experience
-
-    // createExperience: async (parent, expInput) => {
-    //   const experience = await User.create(expInput);
-    //   return experience;
-    // },
-    // // create education
-    // createEducation: async (parent, educationInput) => {
-    //   const education = await User.create(educationInput);
-    //   return education;
-    // },
-    // // create location
-    // createLocation: async (parent, locationInput) => {
-    //   const location = await Company.create(locationInput);
-    //   return location;
-    // },
-    //login user
     userLogin: async (parent, { email, password }) => {
       const userData = await User.findOne({ email });
 

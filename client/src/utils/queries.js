@@ -61,3 +61,28 @@ export const QUERY_JOBS = gql`
   }
 `;
 
+export const QUERY_FEED = gql`
+  query Feed {
+    feed {
+      _id
+      entity {
+        _id
+        company {
+          _id
+          name
+        }
+        school {
+          _id
+          name
+        }
+        user {
+          _id
+          firstName
+          lastName
+        }
+      }
+      postBody
+      reactions
+    }
+  }
+`;
