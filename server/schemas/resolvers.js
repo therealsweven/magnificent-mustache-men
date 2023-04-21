@@ -35,6 +35,7 @@ const resolvers = {
         "connections",
         "education",
         "experience",
+        "posts",
       ]);
     },
     companies: async () => {
@@ -79,27 +80,74 @@ const resolvers = {
     },
     feed: async (parent, args, context) => {
       //user
+      const entities = [];
       if (context.activeProfile.type === "user") {
         const user = await User.findOne({
           entityId: context.activeProfile.entity,
         }).populate("entitiesFollowed");
-        const entities = user.entitiesFollowed;
+        entities = user.entitiesFollowed;
 
         // company
       } else if (context.activeProfile.type === "company") {
         const company = await Company.findOne({
           entityId: context.activeProfile.entity,
         }).populate("entitiesFollowed");
-        const entities = company.entitiesFollowed;
+        entities = company.entitiesFollowed;
 
         // school
       } else if (context.activeProfile.type === "school") {
         const school = await School.findOne({
           entityId: context.activeProfile.entity,
         }).populate("entitiesFollowed");
-        const entities = school.entitiesFollowed;
+        entities = school.entitiesFollowed;
       }
-      const posts = await Post.find({ entity: entities });
+      const posts = await Post.find({ entity: { $in: entities } }).populate(
+        "reactions",
+        "comments"
+      );
+
+      const sortedPosts = posts.sort(function (a, b) {
+        let x = a.updatedAt;
+        let y = b.updatedAt;
+
+        if (x > y) {
+          return 1;
+        }
+        if (x < y) {
+          return -1;
+        }
+        return 0;
+      });
+      return sortedPosts;
+    },
+    feedTest: async (parent, args, context) => {
+      //user
+      const entities = [];
+      if (args.type === "user") {
+        const user = await User.findOne({
+          entityId: args.entity,
+        }).populate("entitiesFollowed");
+        entities = user.entitiesFollowed;
+
+        // company
+      } else if (args.type === "company") {
+        const company = await Company.findOne({
+          entityId: args.entity,
+        }).populate("entitiesFollowed");
+        entities = company.entitiesFollowed;
+
+        // school
+      } else if (args.type === "school") {
+        const school = await School.findOne({
+          entityId: args.entity,
+        }).populate("entitiesFollowed");
+        entities = school.entitiesFollowed;
+      }
+      const posts = await Post.find({ entity: { $in: entities } }).populate(
+        "reactions",
+        "comments"
+      );
+
       const sortedPosts = posts.sort(function (a, b) {
         let x = a.updatedAt;
         let y = b.updatedAt;
@@ -198,6 +246,10 @@ const resolvers = {
       groupInput.admins = [context.user._id];
       groupInput.members = [context.user._id];
       const group = await Group.create(groupInput);
+      await User.findOneAndUpdate(
+        { _id: context.user._id },
+        { $push: { groups: group._id } }
+      );
       return group;
     },
     // create new skill in skills collection
@@ -275,8 +327,8 @@ const resolvers = {
       return postReaction;
     },
     //create add friend
-    addFriend: async (parent, { userId, friendId }, context) => {
-      if (context.user) {
+    addFriend: async (parent, friendId, context) => {
+      if (context.user._id) {
         return User.findOneAndUpdate(
           { _id: userId },
           {
@@ -329,38 +381,6 @@ const resolvers = {
       throw new AuthenticationError("You need to be logged in");
     },
 
-    // create comment
-
-    // create comment reaction
-
-    // createCommentReaction: async (
-    //   parent,
-    //   { commentReactionInput },
-    //   context
-    // ) => {
-    //   commentReactionInput.entity = context.activeProfile.entity;
-
-    //   const commentReaction = await Post.create(commentReactionInput);
-    //   return commentReaction;
-    // },
-
-    // // create experience
-
-    // createExperience: async (parent, expInput) => {
-    //   const experience = await User.create(expInput);
-    //   return experience;
-    // },
-    // // create education
-    // createEducation: async (parent, educationInput) => {
-    //   const education = await User.create(educationInput);
-    //   return education;
-    // },
-    // // create location
-    // createLocation: async (parent, locationInput) => {
-    //   const location = await Company.create(locationInput);
-    //   return location;
-    // },
-    //login user
     userLogin: async (parent, { email, password }) => {
       const userData = await User.findOne({ email });
 

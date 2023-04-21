@@ -1,11 +1,17 @@
 import React from "react";
 import { Formik, Field, Form, ErrorMessage } from "formik";
-import { useMutation } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import { CREATE_POST } from "../../../utils/mutations";
+import { QUERY_FEED } from "../../../utils/queries";
 import * as Yup from "yup";
 
 export default function PostForm() {
   const [createPost] = useMutation(CREATE_POST);
+  const { loading, data } = useQuery(QUERY_FEED);
+  const posts = data?.posts || {};
+  if (!loading) {
+    console.log(posts);
+  }
 
   const initialValues = {
     postBody: "",

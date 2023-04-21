@@ -184,6 +184,7 @@ const typeDefs = gql`
     jobs: [Job]
     job(jobId: ID!): Job
     feed: [Post]
+    feedTest(type: String!, entity: ID!): [Post]
     profiles: [Entity]
     profilesByUser(userId: ID!): [Entity]
     post(postId: ID!): Post
@@ -274,7 +275,7 @@ const typeDefs = gql`
     joinGroup(userId: String!, groupID: String!): Group
     createGroup(
       name: String!
-      admins: [String]!
+      admins: [String]
       private: Boolean!
       posts: [String]
       joinQuestion: String
