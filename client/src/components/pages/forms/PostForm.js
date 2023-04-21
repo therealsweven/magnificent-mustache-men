@@ -47,7 +47,7 @@ export default function PostForm() {
         <Form>
           <div className="form-control">
             <label className="label" htmlFor="postBody">
-              <span className="label-text">Post</span>
+              <span className="label-text text-3xl text-white">What You Have Been Up To</span>
             </label>
             <Field
               className="input input-bordered"

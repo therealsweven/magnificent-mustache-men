@@ -224,6 +224,11 @@ const resolvers = {
         "profilePic",
       ]);
     },
+    search: async (_, { query }, { dataSources }) => {
+      const jobs = await dataSources.productAPI.searchJobs(query);
+     
+      return { jobs };
+    },
   },
 
   Mutation: {
