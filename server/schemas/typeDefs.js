@@ -101,6 +101,7 @@ const typeDefs = gql`
   }
 
   type Experience {
+    _id: ID
     company: Company
     title: String
     jobDescription: String
@@ -113,6 +114,7 @@ const typeDefs = gql`
   }
 
   type Education {
+    _id: ID
     school: School
     fieldOfStudy: String
     certificateType: String
@@ -222,10 +224,22 @@ const typeDefs = gql`
     createExperience(
       company: String!
       title: String!
+      jobDescription: String!
+      skills: [String]
+      startMonth: String!
+      startYear: Int!
+      current: Boolean
+      endMonth: String
+      endYear: Int
+    ): User
+    createExperienceTest(
+      userId: ID!
+      company: String!
+      title: String!
       jobDescription: String
       skills: [String]
-      startMonth: String
-      startYear: Int
+      startMonth: String!
+      startYear: Int!
       current: Boolean
       endMonth: String
       endYear: Int
