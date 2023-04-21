@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import portrait from "../images/portrait-philip-martin-unsplash.jpg";
-import background from "../images/bghome-alesia-kazantcev-unsplash.jpg";
+import { Link } from "react-router-dom";
 // import { Navigate, useParams } from 'react-router-dom';
 import { useQuery } from "@apollo/client";
-import { QUERY_ME, QUERY_PROFILES } from "../../utils/queries";
-
+import { QUERY_ME } from "../../utils/queries";
+import CommentForm from "./forms/CommentForm";
 // import Auth from '../utils/auth';
 
 export default function Profile() {
@@ -15,39 +15,13 @@ export default function Profile() {
   const handleTabClick = (tabName) => {
     setActiveTab(tabName);
   };
-  const { loading, data } = useQuery(QUERY_PROFILES);
-  const profiles = data?.profiles || {};
-  console.log(profiles, loading);
-  const profDisplay = [];
-  if (!loading) {
-    profiles.forEach((profile) => {
-      if (profile.user) {
-        const prof = {
-          type: "user",
-          entityId: profile._id,
-          name: profile.user.firstName + " " + profile.user.lastName,
-        };
-        profDisplay.push(prof);
-      } else if (profile.school) {
-        const prof = {
-          type: "school",
-          entityId: profile._id,
-          name: profile.school.name,
-        };
-        profDisplay.push(prof);
-      } else if (profile.company) {
-        const prof = {
-          type: "company",
-          entityId: profile._id,
-          name: profile.company.name,
-        };
-        profDisplay.push(prof);
-      }
-    });
-    console.log(profDisplay);
+  const { loading, data } = useQuery(QUERY_ME);
+  const profile = data?.me || {};
+  console.log(data);
+
+  if (loading) {
+    return <h2>...loading</h2>;
   }
-
-
   return (
     <div className="container mx-auto grid-cols-3 bg-base-100">
       <div className="container mx-auto rounded-lg">
@@ -59,45 +33,50 @@ export default function Profile() {
             />
             <div className="mx-auto">
               <h1 className="text-2xl text-right font-bold mx-auto">
-                {/* {profile.firstName} {profile.lastName} */}
+                {profile.firstName} {profile.lastName}
               </h1>
               <h1 className="text-xl text-right font-bold mx-auto">
-                {/* {profile.city} {profile.state} {profile.country} */}
+                {profile.city && profile.state && profile.country ? (
+                  <>
+                    {profile.city} {profile.state}
+                  </>
+                ) : (
+                  <Link to="" className="btn btn-success">
+                    edit location
+                  </Link>
+                )}
+              </h1>
+              <h1 className="text-xl text-right font-bold mx-auto">
+                {profile.city && profile.state && profile.country ? (
+                  <>{profile.country}</>
+                ) : (
+                  <></>
+                )}
               </h1>
             </div>
             <div className="container mx-auto rounded-lg">
               <h1 className="text-5xl text-center font-bold mx-auto py-10">
-
+                Pants
               </h1>
             </div>
           </div>
         </div>
         <div className="container flex flex-row content-center bg-base-200 rounded-lg">
-          <div className="box w-32 m-10 text-left">
+          <div className="box w-64 m-10 text-left">
             <div className="m-2">
               <h1 className="text-2xl font-bold mx-auto">Skills</h1>
               <ul>
-                <li>
-                  <div className="badge badge-primary">javascript</div>
-                </li>
-                <li>
-                  <div className="badge badge-primary">leadership</div>
-                </li>
-                <li>
-                  <div className="badge badge-primary">css</div>
-                </li>
-                <li>
-                  <div className="badge badge-primary">rust</div>
-                </li>
-                <li>
-                  <div className="badge badge-primary">blender</div>
-                </li>
-                <li>
-                  <div className="badge badge-primary">mongodb</div>
-                </li>
-                <li>
-                  <div className="badge badge-primary">css</div>
-                </li>
+                {profile.skills ? (
+                  profile.skills.map((skill) => (
+                    <li>
+                      <div className="badge" key={skill._id}>
+                        {skill.skillName}
+                      </div>
+                    </li>
+                  ))
+                ) : (
+                  <button className="btn btn-success">add skills</button>
+                )}
               </ul>
             </div>
             <div className="m-2">
@@ -105,27 +84,17 @@ export default function Profile() {
                 Communities
               </h1>
               <ul>
-                <li>
-                  <div className="badge badge-secondary">leadership</div>
-                </li>
-                <li>
-                  <div className="badge badge-secondary">css</div>
-                </li>
-                <li>
-                  <div className="badge badge-secondary">javascript</div>
-                </li>
-                <li>
-                  <div className="badge badge-secondary">rust</div>
-                </li>
-                <li>
-                  <div className="badge badge-secondary">blender</div>
-                </li>
-                <li>
-                  <div className="badge badge-secondary">mongodb</div>
-                </li>
-                <li>
-                  <div className="badge badge-secondary">css</div>
-                </li>
+                {profile.groups ? (
+                  profile.groups.map((group) => (
+                    <li>
+                      <div className="badge" key={group._id}>
+                        {group.name}
+                      </div>
+                    </li>
+                  ))
+                ) : (
+                  <button className="btn btn-success">add groups</button>
+                )}
               </ul>
             </div>
           </div>
@@ -135,82 +104,126 @@ export default function Profile() {
               <h1 className="text-xl text-center font-bold mx-auto py-6">
                 About Me
               </h1>
-              <p className="text-center font-bold">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed
-                voluptas ratione magni accusantium, adipisci vero.Lorem ipsum
-                dolor sit amet consectetur adipisicing elit. Sed voluptas
-                ratione magni accusantium, adipisci vero.Lorem ipsum dolor sit
-                amet consectetur adipisicing elit. Sed voluptas ratione magni
-                accusantium, adipisci vero.Lorem ipsum dolor sit amet
-                consectetur adipisicing elit. Sed voluptas ratione magni
-                accusantium, adipisci vero.Lorem ipsum dolor sit amet
-                consectetur adipisicing elit. Sed voluptas ratione magni
-                accusantium, adipisci vero.
-              </p>
+              {profile.bio ? (
+                <p className="text-center font-bold">{profile.bio}</p>
+              ) : (
+                <button className="btn btn-success">edit bio</button>
+              )}
             </div>
             <div className="container h-72 rounded bg-base-200  m-5">
               <h1 className="text-xl text-center font-bold mx-auto py-6">
                 Posts
               </h1>
-              <p className="text-center font-bold">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed
-                voluptas ratione magni accusantium, adipisci vero.
-              </p>
+
+              {profile.posts ? (
+                profile.posts.map((post) => (
+                  <div className="text-center font-bold" key={post._id}>
+                    {post.postBody} {post._id}
+                    <CommentForm postId={post._id} />
+                  </div>
+                ))
+              ) : (
+                <button className="btn btn-success">add Posts</button>
+              )}
             </div>
           </div>
 
           <div className="box w-32 m-10 text-right bg-base-200 ">
             <div className="m-2">
               <h1 className="text-2xl font-bold mx-auto">Experience</h1>
-              <ul>
-                <li>
-                  <div className="badge badge-primary">javascript</div>
-                </li>
-                <li>
-                  <div className="badge badge-primary">leadership</div>
-                </li>
-                <li>
-                  <div className="badge badge-primary">css</div>
-                </li>
-                <li>
-                  <div className="badge badge-primary">rust</div>
-                </li>
-                <li>
-                  <div className="badge badge-primary">blender</div>
-                </li>
-                <li>
-                  <div className="badge badge-primary">mongodb</div>
-                </li>
-                <li>
-                  <div className="badge badge-primary">css</div>
-                </li>
-              </ul>
+              {profile.education ? (
+                <ul>
+                  <li>
+                    <div className="badge badge-primary">
+                      {profile.experience.company}
+                    </div>
+                  </li>
+                  <li>
+                    <div className="badge badge-primary">
+                      {profile.experience.title}
+                    </div>
+                  </li>
+                  <li>
+                    <div className="badge badge-primary">
+                      {profile.experience.jobDescription}
+                    </div>
+                  </li>
+                  <li>
+                    <div className="badge badge-primary">
+                      {profile.experience.startMonth}
+                    </div>
+                  </li>
+                  <li>
+                    <div className="badge badge-primary">
+                      {profile.experience.startYear}
+                    </div>
+                  </li>
+                  <li>
+                    <div className="badge badge-primary">
+                      {profile.experience.current}
+                    </div>
+                  </li>
+                  {profile.experience.current === true ? (
+                    <>
+                      {" "}
+                      <li>
+                        <div className="badge badge-primary">
+                          {profile.experience.endMonth}
+                        </div>
+                      </li>
+                      <li>
+                        <div className="badge badge-primary">
+                          {profile.experience.endYear}
+                        </div>
+                      </li>
+                    </>
+                  ) : (
+                    <></>
+                  )}
+                </ul>
+              ) : (
+                <button className="btn btn-success">add experience</button>
+              )}
             </div>
             <div className="m-2">
               <h1 className="text-2xl font-bold mx-auto">Education</h1>
-              <ul>
-                <li>
-                  <div className="badge badge-secondary">leadership</div>
-                </li>
-                <li>
-                  <div className="badge badge-secondary">css</div>
-                </li>
-                <li>
-                  <div className="badge badge-secondary">javascript</div>
-                </li>
-                <li>
-                  <div className="badge badge-secondary">rust</div>
-                </li>
-                <li>
-                  <div className="badge badge-secondary">blender</div>
-                </li>
-                <li>
-                  <div className="badge badge-secondary">mongodb</div>
-                </li>
-                <li>
-                  <div className="badge badge-secondary">css</div>
-                </li>
-              </ul>
+
+              {profile.education ? (
+                <ul>
+                  <li>
+                    <div className="badge badge-secondary">
+                      {profile.education.school}
+                    </div>
+                  </li>
+                  <li>
+                    <div className="badge badge-secondary">
+                      {profile.education.fieldOfStudy}
+                    </div>
+                  </li>
+                  <li>
+                    <div className="badge badge-secondary">
+                      {profile.education.certificateType}
+                    </div>
+                  </li>
+                  <li>
+                    <div className="badge badge-secondary">
+                      {profile.education.startMonth}
+                    </div>
+                  </li>
+                  <li>
+                    <div className="badge badge-secondary">
+                      {profile.education.startYear}
+                    </div>
+                  </li>
+                  <li>
+                    <div className="badge badge-secondary">
+                      {profile.education.current}
+                    </div>
+                  </li>
+                </ul>
+              ) : (
+                <button className="btn btn-success">add Education</button>
+              )}
             </div>
           </div>
         </div>

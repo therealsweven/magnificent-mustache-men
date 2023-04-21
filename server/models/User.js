@@ -108,8 +108,8 @@ const userSchema = new Schema(
     country: {
       type: String,
     },
-    education: [educationSchema],
-    experience: [experienceSchema],
+    education: [{ type: Schema.Types.ObjectId, ref: "Education" }],
+    experience: [{ type: Schema.Types.ObjectId, ref: "Experience" }],
     skills: [{ type: Schema.Types.ObjectId, ref: "Skill" }],
     website: { type: String },
     // resumeDoc: {
@@ -147,5 +147,7 @@ userSchema.methods.isCorrectPassword = async function (password) {
 };
 
 const User = model("User", userSchema);
+const Experience = model("Experience", experienceSchema);
+const Education = model("Education", educationSchema);
 
-module.exports = User;
+module.exports = { User, Experience, Education };

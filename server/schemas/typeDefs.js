@@ -15,8 +15,8 @@ const typeDefs = gql`
     city: String
     state: String
     country: String
-    education: [String]
-    experience: [String]
+    education: [Education]
+    experience: [Experience]
     skills: [Skill]
     website: String
     posts: [Post]
@@ -70,15 +70,15 @@ const typeDefs = gql`
     user: User
     entity: Entity
     postBody: String
-    reactions: [String]
-    comments: [String]
+    reactions: [PostReaction]
+    comments: [Comment]
   }
 
   type Comment {
     _id: ID!
     entity: [Entity]
     commentBody: String
-    reactions: [String]
+    reactions: [CommentReaction]
   }
 
   type Location {
@@ -102,12 +102,12 @@ const typeDefs = gql`
   }
 
   type Experience {
-    _id: ID!
-    company: String
+    company: Company
     title: String
     jobDescription: String
     skills: [Skill]
     startYear: Int
+    startMonth: String
     current: Boolean
     endMonth: String
     endYear: Int
@@ -187,6 +187,7 @@ const typeDefs = gql`
     jobs: [Job]
     job(jobId: ID!): Job
     feed: [Post]
+    feedTest(type: String!, entity: ID!): [Post]
     profiles: [Entity]
     profilesByUser(userId: ID!): [Entity]
     post(postId: ID!): Post
@@ -194,6 +195,7 @@ const typeDefs = gql`
     group(groupId: ID!): Group
     schools: [School]
     school(schoolId: ID!): School
+    skills: [Skill]
   }
 
   type Mutation {
@@ -206,11 +208,11 @@ const typeDefs = gql`
     createEducation(
       school: String!
       fieldOfStudy: String!
-      certificateType: String
+      certificateType: String!
       skills: [String]
-      startMonth: String
-      startYear: Int
-      current: Boolean
+      startMonth: String!
+      startYear: Int!
+      current: Boolean!
       endMonth: String
       endYear: Int
     ): User
@@ -258,13 +260,12 @@ const typeDefs = gql`
       bio: String
       foundedYear: Int
       studentBody: Int
-      Website: String
+      website: String
       profPic: String
       bannerPic: String
     ): School
     createCompany(
       name: String!
-      admins: [String]!
       hqCity: String!
       hqState: String!
       website: String
@@ -272,26 +273,25 @@ const typeDefs = gql`
       companySize: String
       foundedYear: String
     ): Company
-    addFriend(userId: String!, friendId: String!): User
-    followEntity(userId: String!, entityId: String!): User
-    joinGroup(userId: String!, groupID: String!): Group
+    addConnection(connectionId: String!): User
+    followEntity(entityId: String!): User
+    joinGroup(groupID: String!): User
     createGroup(
       name: String!
-      admins: [String]!
       private: Boolean!
-      members: [String]
       posts: [String]
       joinQuestion: String
       profilePic: String
       bannerPic: String
     ): Group
     createSkill(skillName: String!): Skill
+    addSkill(skillId: String!): User
     createJob(
-      company: String!
       title: String!
       responsibilities: String!
       qualifications: String!
-      schedule: String!
+      description: String!
+      schedule: String
       salary: Int
       benefits: String
       skills: [String]
@@ -299,7 +299,7 @@ const typeDefs = gql`
     createPost(postBody: String!): Post
     createPostReaction(postId: String!, reactionId: String!): Post
     createComment(postId: String!, commentBody: String!): Post
-    createCommentReaction(postId: String!, reactionId: String!): Post
+    createCommentReaction(postId: String!, reactionId: String!): Comment
     userLogin(email: String, username: String, password: String!): Auth
     updateCompany(
       id: ID!
@@ -417,10 +417,7 @@ const typeDefs = gql`
     removePostReaction(postId: ID!, reactionId: ID!): Post
     removeSkill(skillId: ID!, userId: ID!): Skill
     removeEntity(entityId: ID!): Entity
-    removeFriend(userId: ID!, friendId: ID!): User
-    removeLocation(locationId: ID!): Company
-    removeEducation(educationId: ID!): User
-    removeExperience(experienceId: ID!): User
+    removeConnection(connectionId: ID!): User
     unfollowEntity(entityId: ID!, userId: ID!): User
     leaveGroup(userId: ID!, groupId: ID!): Group
   }

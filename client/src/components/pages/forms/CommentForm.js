@@ -1,36 +1,34 @@
 import React from "react";
 import { Formik, Field, Form, ErrorMessage } from "formik";
-import { useMutation, useQuery } from "@apollo/client";
-import { CREATE_POST } from "../../../utils/mutations";
-import { QUERY_FEED } from "../../../utils/queries";
+import { useMutation } from "@apollo/client";
+import { CREATE_COMMENT } from "../../../utils/mutations";
 import * as Yup from "yup";
 
-export default function PostForm() {
-  const [createPost] = useMutation(CREATE_POST);
-  const { loading, data } = useQuery(QUERY_FEED);
-  const posts = data?.posts || {};
-  if (!loading) {
-    console.log(posts);
-  }
+export default function CommentForm({ postId }) {
+  const [createComment] = useMutation(CREATE_COMMENT);
 
   const initialValues = {
-    postBody: "",
+    commentBody: "",
   };
 
   const validationSchema = Yup.object().shape({
-    postBody: Yup.string().required("This field is required"),
+    commentBody: Yup.string().required("This field is required"),
   });
 
   const handleSubmit = async (values, { resetForm, setSubmitting }) => {
     try {
-      console.log(values.postBody);
-      await createPost({
+      console.log(values.commentBody);
+      console.log(postId);
+      await createComment({
         variables: {
-          postBody: values.postBody,
+          postId: postId,
+          commentBody: values.commentBody,
         },
+
       });
+      
       resetForm();
-      console.log("post created");
+      console.log("comment posted");
     } catch (err) {
       console.error(err);
     }
@@ -46,16 +44,16 @@ export default function PostForm() {
       {({ isSubmitting }) => (
         <Form>
           <div className="form-control">
-            <label className="label" htmlFor="postBody">
-              <span className="label-text">Post</span>
+            <label className="label" htmlFor="commentBody">
+              <span className="label-text">Comment</span>
             </label>
             <Field
               className="input input-bordered"
               type="text"
               as="textarea"
-              name="postBody"
+              name="commentBody"
             />
-            <ErrorMessage name="postBody" component="div" className="error" />
+            <ErrorMessage name="commentBody" component="div" className="error" />
           </div>
 
           <div className="form-control mt-6">

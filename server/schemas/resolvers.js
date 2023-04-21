@@ -2,9 +2,14 @@ const { AuthenticationError } = require("apollo-server-express");
 //const { Entity, User, School, Company, Job, Post, Group, Reaction, Skill } =
 //  require("../models").default;
 const { Entity } = require("../models");
-const { User } = require("../models");
+const { User, Experience, Education } = require("../models/User");
 const { School } = require("../models");
-const { Post } = require("../models");
+const {
+  Post,
+  Comment,
+  PostReaction,
+  CommentReaction,
+} = require("../models/Post");
 const { Company } = require("../models");
 const { Job } = require("../models");
 const { Group } = require("../models");
@@ -15,6 +20,9 @@ const { signToken } = require("../utils/auth");
 
 const resolvers = {
   Query: {
+    skills: async () => {
+      return await Skill.find();
+    },
     users: async () => {
       return await User.find();
     },
@@ -25,6 +33,7 @@ const resolvers = {
         "connections",
         "education",
         "experience",
+        "posts",
       ]);
     },
     me: async (parent, args, context) => {
@@ -34,6 +43,7 @@ const resolvers = {
         "connections",
         "education",
         "experience",
+        "posts",
       ]);
     },
     companies: async () => {
@@ -78,27 +88,74 @@ const resolvers = {
     },
     feed: async (parent, args, context) => {
       //user
+      const entities = [];
       if (context.activeProfile.type === "user") {
         const user = await User.findOne({
           entityId: context.activeProfile.entity,
         }).populate("entitiesFollowed");
-        const entities = user.entitiesFollowed;
+        entities = user.entitiesFollowed;
 
         // company
       } else if (context.activeProfile.type === "company") {
         const company = await Company.findOne({
           entityId: context.activeProfile.entity,
         }).populate("entitiesFollowed");
-        const entities = company.entitiesFollowed;
+        entities = company.entitiesFollowed;
 
         // school
       } else if (context.activeProfile.type === "school") {
         const school = await School.findOne({
           entityId: context.activeProfile.entity,
         }).populate("entitiesFollowed");
-        const entities = school.entitiesFollowed;
+        entities = school.entitiesFollowed;
       }
-      const posts = await Post.find({ entity: entities });
+      const posts = await Post.find({ entity: { $in: entities } }).populate(
+        "reactions",
+        "comments"
+      );
+
+      const sortedPosts = posts.sort(function (a, b) {
+        let x = a.updatedAt;
+        let y = b.updatedAt;
+
+        if (x > y) {
+          return 1;
+        }
+        if (x < y) {
+          return -1;
+        }
+        return 0;
+      });
+      return sortedPosts;
+    },
+    feedTest: async (parent, args, context) => {
+      //user
+      const entities = [];
+      if (args.type === "user") {
+        const user = await User.findOne({
+          entityId: args.entity,
+        }).populate("entitiesFollowed");
+        entities = user.entitiesFollowed;
+
+        // company
+      } else if (args.type === "company") {
+        const company = await Company.findOne({
+          entityId: args.entity,
+        }).populate("entitiesFollowed");
+        entities = company.entitiesFollowed;
+
+        // school
+      } else if (args.type === "school") {
+        const school = await School.findOne({
+          entityId: args.entity,
+        }).populate("entitiesFollowed");
+        entities = school.entitiesFollowed;
+      }
+      const posts = await Post.find({ entity: { $in: entities } }).populate(
+        "reactions",
+        "comments"
+      );
+
       const sortedPosts = posts.sort(function (a, b) {
         let x = a.updatedAt;
         let y = b.updatedAt;
@@ -179,7 +236,7 @@ const resolvers = {
       return user;
     },
     // create a new school
-    createSchool: async (parent, schoolInput) => {
+    createSchool: async (parent, schoolInput, context) => {
       schoolInput.admins = [context.user._id];
       const school = await School.create(schoolInput);
       await Entity.create({ school: school._id });
@@ -197,134 +254,184 @@ const resolvers = {
       groupInput.admins = [context.user._id];
       groupInput.members = [context.user._id];
       const group = await Group.create(groupInput);
+      await User.findOneAndUpdate(
+        { _id: context.user._id },
+        { $push: { groups: group._id } }
+      );
       return group;
     },
-    // create new skill
+    // create new skill in skills collection
     createSkill: async (parent, skillName) => {
       return await Skill.create(skillName);
     },
+    // add skill to user
+    addSkill: async (parent, args, context) => {
+      return await User.findOneAndUpdate(
+        { _id: context.user._id },
+        { $push: { skills: args.skillId } }
+      );
+    },
+    // create new work experience
+    createExperience: async (parent, args, context) => {
+      const experience = await Experience.create(args);
+      await User.findOneAndUpdate(
+        { _id: context.user._id },
+        { $push: { experience: experience._id } }
+      );
+    },
+    // create new work experience
+    createEducation: async (parent, args, context) => {
+      const education = await Education.create(args);
+      await User.findOneAndUpdate(
+        { _id: context.user._id },
+        { $push: { education: education._id } }
+      );
+    },
+
     // create new job
-    createJob: async (parent, jobInput) => {
+    createJob: async (parent, jobInput, context) => {
+      const entity = await Entity.findOne({
+        _id: context.activeProfile.entity,
+      });
+      jobInput.company = entity.company;
       const job = await Job.create(jobInput);
+      await Company.findOneAndUpdate(
+        { _id: entity.company },
+        { $push: { jobs: job._id } }
+      );
       return job;
     },
     // create new post
     createPost: async (parent, postInput, context) => {
-      console.log(postInput);
       postInput.user = context.user._id;
       postInput.entity = context.activeProfile.entity;
-      console.log(postInput);
       const post = await Post.create(postInput);
+
+      const entity = await Entity.findOne({ _id: post.entity });
+      // add post to user, company, or school that posted it for querying later
+      if (entity.user) {
+        await User.findOneAndUpdate(
+          { _id: entity.user },
+          { $push: { posts: post._id } }
+        );
+      } else if (entity.school) {
+        await School.findOneAndUpdate(
+          { _id: entity.school },
+          { $push: { posts: post._id } }
+        );
+      } else if (entity.company) {
+        await Company.findOneAndUpdate(
+          { _id: entity.company },
+          { $push: { posts: post._id } }
+        );
+      }
+
       return post;
     },
+    // create new comment
+    createComment: async (parent, args, context) => {
+      args.entity = context.activeProfile.entity;
+      const comment = await Comment.create(args);
+      await Post.findOneAndUpdate(
+        { _id: args.postId },
+        { $push: { comments: comment._id } }
+      );
+    },
     // create post reaction
-    createPostReaction: async (parent, { postReactionInput }, context) => {
-      const postReaction = await Post.findOneAndUpdate(
-        { _id: postReactionInput.postID },
+    createPostReaction: async (parent, args, context) => {
+      args.entity = context.activeProfile.entity;
+      const postReaction = PostReaction.create(args);
+      const post = await Post.findOneAndUpdate(
+        { _id: args.postId },
         {
           reactions: {
-            $addToSet: {
-              entity: context.activeProfile.entity,
-              reactionId: postReactionInput.reactionID,
-            },
+            $push: postReaction._id,
           },
         }
       );
-      return postReaction;
+      return post;
     },
-    //create add friend
-    addFriend: async (parent, { userId, friendId }, context) => {
-      if (context.user) {
-        return User.findOneAndUpdate(
-          { _id: userId },
-          {
-            $addToSet: {
-              friends: { friendId, friendAuthor: context.user._id },
-            },
+    // create post reaction
+    createCommentReaction: async (parent, args, context) => {
+      args.entity = context.activeProfile.entity;
+      const commentReaction = CommentReaction.create(args);
+      const comment = await Comment.findOneAndUpdate(
+        { _id: args.postId },
+        {
+          reactions: {
+            $push: commentReaction._id,
           },
-          {
-            new: true,
-            runValidators: true,
-          }
-        );
-      }
-      throw new AuthenticationError("You need to be logged in");
-    },
-    //  create followEntity
-    followEntity: async (parent, { userId, entityId }, context) => {
-      if (context.user) {
-        return User.findOneAndUpdate(
-          { _id: userId },
-          {
-            $addToSet: {
-              entitiesFollowed: { entityId, entityCreator: context.user._id },
-            },
-          },
-          {
-            new: true,
-            runValidators: true,
-          }
-        );
-      }
-      throw new AuthenticationError("You need to be logged in");
-    },
-    // joinGroup
-    joinGroup: async (parent, { userId, groupId }, context) => {
-      if (context.user) {
-        return Group.findOneAndUpdate(
-          { _id: groupId },
-          {
-            $addToSet: {
-              members: { userId, memberAuthor: context.user._id },
-            },
-          },
-          {
-            new: true,
-            runValidators: true,
-          }
-        );
-      }
-      throw new AuthenticationError("You need to be logged in");
-    },
-
-    // create comment
-    createComment: async (parent, { commentInput }, context) => {
-      commentInput.entity = context.activeProfile.entity;
-
-      const comment = await Post.create(commentInput);
+        }
+      );
       return comment;
     },
-
-    // create comment reaction
-
-    // createCommentReaction: async (
-    //   parent,
-    //   { commentReactionInput },
-    //   context
-    // ) => {
-    //   commentReactionInput.entity = context.activeProfile.entity;
-
-    //   const commentReaction = await Post.create(commentReactionInput);
-    //   return commentReaction;
-    // },
-
-    // // create experience
-
-    // createExperience: async (parent, expInput) => {
-    //   const experience = await User.create(expInput);
-    //   return experience;
-    // },
-    // // create education
-    // createEducation: async (parent, educationInput) => {
-    //   const education = await User.create(educationInput);
-    //   return education;
-    // },
-    // // create location
-    // createLocation: async (parent, locationInput) => {
-    //   const location = await Company.create(locationInput);
-    //   return location;
-    // },
-    //login user
+    //create add friend
+    addConnection: async (parent, args, context) => {
+      if (context.user._id) {
+        await User.findOneAndUpdate(
+          { _id: friendId },
+          { $push: { connections: args._id } }
+        );
+        return await User.findOneAndUpdate(
+          { _id: context.user._id },
+          {
+            $push: {
+              connections: context.user._id,
+            },
+          },
+          {
+            new: true,
+          }
+        );
+      }
+      throw new AuthenticationError("You need to be logged in");
+    },
+    //  create followEntity need entityId
+    followEntity: async (parent, args, context) => {
+      if (context.user) {
+        //add entity to user entitiesFollowed
+        return await User.findOneAndUpdate(
+          { _id: context.user._id },
+          {
+            $push: {
+              entitiesFollowed: args.entityId,
+            },
+          },
+          {
+            new: true,
+          }
+        );
+      }
+      throw new AuthenticationError("You need to be logged in");
+    },
+    // joinGroup need groupId
+    joinGroup: async (parent, args, context) => {
+      if (context.user) {
+        //add to group
+        await Group.findOneAndUpdate(
+          { _id: args.groupId },
+          {
+            $push: {
+              members: context.user._id,
+            },
+          },
+          {
+            new: true,
+          }
+        );
+        // add group to user groups array
+        return await User.findOneAndUpdate(
+          { _id: context.user._id },
+          {
+            $push: {
+              groups: args.groupId,
+            },
+          }
+        );
+      }
+      throw new AuthenticationError("You need to be logged in");
+    },
+    //login need email and password
     userLogin: async (parent, { email, password }) => {
       const userData = await User.findOne({ email });
 
@@ -572,16 +679,21 @@ const resolvers = {
       }
       throw new AuthenticationError("You need to be logged in!");
     },
-    removeFriend: async (parent, { userId, friendId }, context) => {
+    removeConnection: async (parent, args, context) => {
       if (context.user) {
-        return User.findOneAndUpdate(
-          { _id: userId },
+        await User.findOneAndUpdate(
+          { _id: args.connectionId },
           {
             $pull: {
-              friends: {
-                _id: friendId,
-                friendCreator: context.user._id,
-              },
+              connections: context.user._id,
+            },
+          }
+        );
+        return await User.findOneAndUpdate(
+          { _id: context.user._id },
+          {
+            $pull: {
+              connections: args.connectionId,
             },
           },
           { new: true }
@@ -589,16 +701,13 @@ const resolvers = {
       }
       throw new AuthenticationError("You need to be logged in");
     },
-    unfollowEntity: async (parent, { entityId, userId }, context) => {
+    unfollowEntity: async (parent, entityId, context) => {
       if (context.user) {
         return User.findOneAndUpdate(
-          { _id: userId },
+          { _id: context.user._id },
           {
             $pull: {
-              entities: {
-                _id: entityId,
-                entityCreator: context.user._id,
-              },
+              entitiesFolled: context.user._id,
             },
           },
           { new: true }
