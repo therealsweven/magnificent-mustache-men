@@ -20,6 +20,7 @@ import Footer from "./components/footer";
 import Profile from "./components/pages/Profile";
 import JobList from "./components/pages/jobList";
 import CompanyProfile from "./components/pages/CompanyProfile";
+import AllCompanies from "./components/pages/AllCompanies";
 // forms
 import SchoolForm from "./components/pages/forms/SchoolForm"
 
@@ -63,7 +64,7 @@ function App() {
             <Route path="/signup" element={<Signup />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/jobPost" element={<JobList />} />
-            <Route path="/company" element={<CompanyProfile />} />
+            <Route path="/company" element={<AllCompanies />} />
             <Route path="/test" element={<SchoolForm />} />
           </Routes>
           <Footer />

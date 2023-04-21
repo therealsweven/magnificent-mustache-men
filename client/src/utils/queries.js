@@ -1,37 +1,37 @@
 import { gql } from "@apollo/client";
 
 export const QUERY_ME = gql`
-query Me {
-  me {
-    _id
-    entityId
-    firstName
-    lastName
-    email
-    password
-    city
-    state
-    country
-    experience
-    education
-    website
-    profPic
-    bannerPic
-    connections {
+  query Me {
+    me {
+      _id
+      entityId
       firstName
       lastName
-    }
-    groups {
-      name
-    }
-    posts {
-    postBody
-    }
-    skills {
-      skillName
+      email
+      password
+      city
+      state
+      country
+      experience
+      education
+      website
+      profPic
+      bannerPic
+      connections {
+        firstName
+        lastName
+      }
+      groups {
+        name
+      }
+      posts {
+        postBody
+      }
+      skills {
+        skillName
+      }
     }
   }
-}
 `;
 
 export const QUERY_PROFILES = gql`
@@ -156,6 +156,18 @@ export const QUERY_SKILLS = gql`
     skills {
       _id
       skillName
+    }
+  }
+`;
+
+export const QUERY_COMPANIES = gql`
+  query Companies {
+    companies {
+      bio
+      name
+      website
+      foundedYear
+      companySize
     }
   }
 `;

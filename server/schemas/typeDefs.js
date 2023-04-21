@@ -176,6 +176,11 @@ const typeDefs = gql`
     user: User
   }
 
+  input JobInputFilter {
+    id: ID
+    title: String
+  }
+
 
   type Query {
     users: [User]!
@@ -195,6 +200,7 @@ const typeDefs = gql`
     schools: [School]
     school(schoolId: ID!): School
     skills: [Skill]
+    jobSearch(input: JobInputFilter): [Job]
   }
 
   type Mutation {
