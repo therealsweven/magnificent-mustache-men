@@ -30,8 +30,10 @@ import ExperienceForm from "./components/pages/forms/ExperienceForm";
 import GroupForm from "./components/pages/forms/GroupForm";
 import JobForm from "./components/pages/forms/JobForm";
 import SchoolForm from "./components/pages/forms/SchoolForm";
+
 import PostForm from "./components/pages/forms/PostForm";
 import SkillForm from "./components/pages/forms/SkillForm";
+import LocationForm from "./components/pages/forms/LocationForm";
 
 const httpLink = createHttpLink({
   uri: "/graphql",
@@ -87,6 +89,7 @@ function App() {
             <Route path="/test4" element={<ExperienceForm />} />
             <Route path="/test5" element={<SkillForm />} />
             <Route path="/test6" element={<JobForm />} />
+            <Route path="/test7" element={<LocationForm />} />
           </Routes>
           <Footer />
         </div>

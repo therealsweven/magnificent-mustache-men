@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { useQuery } from "@apollo/client";
 import { QUERY_ME } from "../../utils/queries";
 import CommentForm from "./forms/CommentForm";
+import PostForm from "./forms/PostForm";
 // import Auth from '../utils/auth';
 
 export default function Profile() {
@@ -68,11 +69,9 @@ export default function Profile() {
               <ul>
                 {profile.skills ? (
                   profile.skills.map((skill) => (
-                    
-                      <div className="btn btn-outline" key={skill._id}>
-                        {skill.skillName}
-                      </div>
-                    
+                    <div className="btn btn-outline" key={skill._id}>
+                      {skill.skillName}
+                    </div>
                   ))
                 ) : (
                   <button className="btn btn-success">add skills</button>

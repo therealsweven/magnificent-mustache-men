@@ -29,7 +29,7 @@ const companySchema = new Schema({
   industry: { type: String },
   hqCity: { type: String, required: true },
   hqState: { type: String, required: true },
-  locations: [locationSchema],
+  locations: [{ type: Schema.Types.ObjectId, ref: "Location" }],
   website: { type: String, required: true },
   tagline: { type: String },
   bio: { type: String, required: true },
@@ -56,5 +56,6 @@ const companySchema = new Schema({
 });
 
 const Company = model("Company", companySchema);
+const Location = model("Location", locationSchema);
 
-module.exports = Company;
+module.exports = { Location, Company };
