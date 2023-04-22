@@ -1,47 +1,33 @@
-
 import { useState } from "react";
-import { Navigate, useParams } from 'react-router-dom';
-import { useQuery, } from '@apollo/client';
-import { Link } from 'react-router-dom';
-import {QUERY_USER, QUERY_ME} from '../../utils/queries'
+import { Navigate, useParams } from "react-router-dom";
+import { useQuery } from "@apollo/client";
+import { Link } from "react-router-dom";
+import { QUERY_USER, QUERY_ME } from "../../utils/queries";
 import CommentForm from "./forms/CommentForm";
 
-import Auth from '../../utils/auth'
-
+import Auth from "../../utils/auth";
 
 export default function Profile() {
-    const [activeTab, setActiveTab] = useState("News");
-    const handleTabClick = (tabName) => {
-      setActiveTab(tabName);
-    };
+  const [activeTab, setActiveTab] = useState("News");
+  const handleTabClick = (tabName) => {
+    setActiveTab(tabName);
+  };
 
-const {profileId} = useParams();
+  const { profileId } = useParams();
 
-const {loading, data} = useQuery(
-  profileId ? QUERY_USER : QUERY_ME,
-  {
-    variables:{profileId: profileId}
-  }
-);
+  const { loading, data } = useQuery(profileId ? QUERY_USER : QUERY_ME, {
+    variables: { profileId: profileId },
+  });
 
-const profile = data?.me || data?.profile || {}
+  const profile = data?.me || data?.profile || {};
 
-  if(Auth.loggedIn() && Auth.getProfile().data._id === profileId) {
-    return <Navigate to="/profile" />
-  }
+  console.log(`profile ${profile}`);
 
   if (loading) {
-    return <div>Loading...</div>
+    return <div>Loading...</div>;
   }
 
-  if(!profile?.firstName){
-    return (
-      <h4>LOG IN PLEASE!!</h4>
-    )
-  }
-
-
-return (
+  return (
     <div className="container mx-auto grid-cols-3 bg-base-100">
       <div className="container mx-auto rounded-lg">
         <div className="h-15 bg-base-200 rounded-lg">
@@ -51,14 +37,10 @@ return (
               className="float-right m-5 max-w-xs max-h-72 rounded-lg shadow-2xl"
             />
             <div className="mx-auto">
-              <h1 className="text-2xl text-right font-bold mx-auto">
-              
-              </h1>
+              <h1 className="text-2xl text-right font-bold mx-auto"></h1>
               <h1 className="text-xl text-right font-bold mx-auto">
                 {profile.city && profile.state && profile.country ? (
-                  <>
-                   
-                  </>
+                  <></>
                 ) : (
                   <Link to="" className="btn btn-success">
                     edit location
@@ -87,11 +69,9 @@ return (
               <ul>
                 {profile.skills ? (
                   profile.skills.map((skill) => (
-                    
-                      <div className="btn btn-outline" key={skill._id}>
-                        {skill.skillName}
-                      </div>
-                    
+                    <div className="btn btn-outline" key={skill._id}>
+                      {skill.skillName}
+                    </div>
                   ))
                 ) : (
                   <button className="btn btn-success">add skills</button>
@@ -207,36 +187,36 @@ return (
             <div className="m-2">
               <h1 className="text-2xl font-bold mx-auto">Education</h1>
 
-              {profile.education.school ? (
+              {profile ? (
                 <ul>
                   <li>
                     <div className="badge badge-secondary">
-                      {profile.education.school}
+                      {profile.education}
                     </div>
                   </li>
                   <li>
                     <div className="badge badge-secondary">
-                      {profile.education.fieldOfStudy}
+                      {profile.education}
                     </div>
                   </li>
                   <li>
                     <div className="badge badge-secondary">
-                      {profile.education.certificateType}
+                      {profile.education}
                     </div>
                   </li>
                   <li>
                     <div className="badge badge-secondary">
-                      {profile.education.startMonth}
+                      {profile.education}
                     </div>
                   </li>
                   <li>
                     <div className="badge badge-secondary">
-                      {profile.education.startYear}
+                      {profile.education}
                     </div>
                   </li>
                   <li>
                     <div className="badge badge-secondary">
-                      {profile.education.current}
+                      {profile.education}
                     </div>
                   </li>
                 </ul>

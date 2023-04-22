@@ -235,7 +235,6 @@ export const QUERY_COMPANIES = gql`
       foundedYear
       companySize
       industry
-      employees
       hqCity
       hqState
     }
