@@ -1,13 +1,13 @@
 import { Navigate, useParams } from "react-router-dom";
-import { useQuery } from "@apollo/client";
+import { useQuery, useMutation } from "@apollo/client";
 import { Link } from "react-router-dom";
 import { QUERY_SINGLE_COMPANY, QUERY_ME } from "../../utils/queries";
-
-
+import { FOLLOW_ENTITY } from "../../utils/mutations";
 import Auth from "../../utils/auth";
 
 export default function CompanyProfile() {
   const { companyId } = useParams();
+  const [followEntity] = useMutation(FOLLOW_ENTITY);
 
   const { loading, data } = useQuery(
     companyId ? QUERY_SINGLE_COMPANY : QUERY_ME,
@@ -31,24 +31,37 @@ export default function CompanyProfile() {
   if (!company?.name) {
     return <h4> Please Login to edit your company profile!</h4>;
   }
+  const handleFollow = async (e) => {
+    console.log(e.target.id);
+    await followEntity({
+      variables: {
+        companyId: e.target.id,
+      },
+    });
+    console.log("Company Followed");
+  };
 
   return (
     <>
       {/* Header */}
       <div className="container-Header m-5 ">
         <div className="grid grid-cols-8 gird-rows-1 justify-items-center">
-          
           <div className="col-span-4 row-span-1 bg-slate-700 rounded ml-10 ">
-            
             <h1 className="Name font-bold text-white text-5xl m-4">
               {company.name}
             </h1>
             <p className="About text-xl m-5 pl-4">{company.bio}</p>
-            <button className="btn btn-active">Follow</button>
+            <button
+              id={company._id}
+              className="btn btn-active"
+              onClick={handleFollow}
+            >
+              Follow
+            </button>
           </div>
           <div className="col-span-1 row-span-1 bg-slate-700 rounded ml-40">
             <img
-              src="https://placehold.co/200x200"
+              src={company.profPic}
               className="float-right m-5 max-w-xs max-h-72 rounded-lg shadow-2xl"
             />
           </div>
