@@ -16,6 +16,7 @@ export {
   CREATE_POST_REACTION,
   CREATE_COMMENT_REACTION,
   CREATE_LOCATION,
+  APPLY_TO_JOB,
 };
 
 const CREATE_USER = gql`
@@ -223,8 +224,6 @@ const ADD_SKILL = gql`
   }
 `;
 
-// const CREATE_POST_REACTION = gql``;
-
 const CREATE_COMMENT = gql`
   mutation Mutation($postId: String!, $commentBody: String!) {
     createComment(postId: $postId, commentBody: $commentBody) {
@@ -365,6 +364,7 @@ const CREATE_POST_REACTION = gql`
     }
   }
 `;
+
 const CREATE_COMMENT_REACTION = gql`
   mutation CreateCommentReaction($postId: String!, $reactionId: String!) {
     createCommentReaction(postId: $postId, reactionId: $reactionId) {
@@ -389,6 +389,23 @@ const CREATE_COMMENT_REACTION = gql`
             lastName
           }
         }
+      }
+    }
+  }
+`;
+
+const APPLY_TO_JOB = gql`
+  mutation ApplyToJob($jobId: ID!) {
+    applyToJob(jobId: $jobId) {
+      _id
+      company {
+        name
+      }
+      title
+      applicants {
+        _id
+        firstName
+        lastName
       }
     }
   }

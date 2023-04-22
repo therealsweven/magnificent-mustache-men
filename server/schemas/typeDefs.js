@@ -75,7 +75,7 @@ const typeDefs = gql`
 
   type Comment {
     _id: ID!
-    entity: [Entity]
+    entity: Entity
     commentBody: String
     reactions: [CommentReaction]
   }
@@ -436,9 +436,9 @@ const typeDefs = gql`
     removeConnection(connectionId: ID!): User
     unfollowEntity(entityId: ID!, userId: ID!): User
     leaveGroup(userId: ID!, groupId: ID!): Group
+    applyToJob(jobId: ID!): Job
+    applyToJobTest(userId: String!, jobId: String!): Job
   }
 `;
 
 module.exports = typeDefs;
-
-// applyToJob

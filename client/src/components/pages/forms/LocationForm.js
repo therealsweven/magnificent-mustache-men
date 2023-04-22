@@ -18,7 +18,7 @@ export default function LocationForm() {
     phone: "",
   };
 
-  const validationSchema = Yup.object.shape({
+  const validationSchema = Yup.object().shape({
     city: Yup.string().required("This field is required"),
     state: Yup.string().required("This field is required"),
     size: Yup.string().required("This field is required"),
@@ -33,8 +33,8 @@ export default function LocationForm() {
         variables: {
           city: values.city,
           state: values.state,
-          size: values.email,
-          phone: values.password,
+          size: values.size,
+          phone: values.phone.toString(),
         },
       });
       resetForm();
