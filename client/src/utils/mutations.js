@@ -163,6 +163,7 @@ const CREATE_JOB = gql`
   mutation CreateJob(
     $title: String!
     $responsibilities: String!
+    $description: String!
     $qualifications: String!
     $schedule: String
     $salary: Int
@@ -173,6 +174,7 @@ const CREATE_JOB = gql`
       title: $title
       responsibilities: $responsibilities
       qualifications: $qualifications
+      description: $description
       schedule: $schedule
       salary: $salary
       benefits: $benefits

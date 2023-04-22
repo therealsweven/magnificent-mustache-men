@@ -277,7 +277,7 @@ const typeDefs = gql`
       bio: String!
       companySize: String!
       foundedYear: Int!
-      specialities: String
+      specialties: String
     ): Company
     addConnection(connectionId: String!): User
     followEntity(entityId: String!): User

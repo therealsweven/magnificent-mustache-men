@@ -40,6 +40,7 @@ export default function CompanyForm() {
   const handleSubmit = async (values, { resetForm, setSubmitting }) => {
     try {
       console.log(values);
+
       await createCompany({
         variables: {
           name: values.name,
@@ -88,7 +89,7 @@ export default function CompanyForm() {
               name="industry"
             >
               <option value="">Select an Industry</option>
-              {industries[0].map((industry) => (
+              {industries.map((industry) => (
                 <option key={industry.name} value={industry.name.toString()}>
                   {industry.name}
                 </option>
@@ -96,7 +97,6 @@ export default function CompanyForm() {
             </Field>
             <ErrorMessage name="industry" component="div" className="error" />
           </div>
-          
           <div className="form-control">
             <label className="label" htmlFor="hqCity">
               <span className="label-text">Headquarters City</span>

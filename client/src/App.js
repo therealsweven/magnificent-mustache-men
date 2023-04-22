@@ -21,9 +21,10 @@ import Profile from "./components/pages/Profile";
 import JobList from "./components/pages/jobList";
 import CompanyProfile from "./components/pages/CompanyProfile";
 import AllCompanies from "./components/pages/AllCompanies";
+import AllUsers from "./components/pages/AllUsers";
+import UsersProfile from "./components/pages/usersProfile";
 // forms
 import CompanyForm from "./components/pages/forms/CompanyForm";
-import CommentForm from "./components/pages/forms/CommentForm";
 import EducationForm from "./components/pages/forms/EducationForm";
 import ExperienceForm from "./components/pages/forms/ExperienceForm";
 import GroupForm from "./components/pages/forms/GroupForm";
@@ -72,6 +73,8 @@ function App() {
             <Route path="/feed" element={<UserFeed />} />
             <Route path="/signup" element={<Signup />} />
             <Route path="/profile" element={<Profile />} />
+            <Route path="/profiles" element={<AllUsers />} />
+            <Route path="/profiles/:profileId" element={<UsersProfile />} />
             <Route path="/jobPost" element={<JobList />} />
             <Route path="/company" element={<AllCompanies />} />
             <Route
