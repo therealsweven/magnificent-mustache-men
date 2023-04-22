@@ -258,6 +258,13 @@ const typeDefs = gql`
       bannerPic: String
       entitiesFollowed: [String]
     ): User
+    updateUserTest(
+      userId: String
+      city: String
+      state: String
+      country: String
+      bio: String
+    ): User
     createSchool(
       name: String!
       city: String!

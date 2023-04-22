@@ -499,12 +499,22 @@ const resolvers = {
       return { token, userData, entityId };
     },
     //update user
-    updateUser: async (parent, { id, userInput }) => {
-      return await User.findOneAndUpdate(
-        { _id: id },
-        { userInput },
-        { new: true }
-      );
+    // updateUser: async (parent, { id, userInput }) => {
+    //   return await User.findOneAndUpdate(
+    //     { _id: id },
+    //     { userInput },
+    //     { new: true }
+    //   );
+    // },
+    updateUserTest: async (parent, { id, userTest }, context) => {
+      if (context.user) {
+        const updatedUser = await User.findByIdAndUpdate(
+          { _id: context.user._id },
+          { userTest },
+          { new: true }
+        );
+        return updatedUser;
+      }
     },
     //update company
     updateCompany: async (parent, { id, companyInput }) => {
