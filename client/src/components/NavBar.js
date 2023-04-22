@@ -60,12 +60,19 @@ export default function NavBar() {
           </Link>
         </div>
         <div className="flex-none gap-2">
-          
           <div className="dropdown dropdown-end">
             <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
               <div className="w-10 rounded-full">
                 {/* Menu Dropdown*/}
-                <img src={ profDisplay.length ? profDisplay[0].profPic : <h2>...loading</h2>} />
+                <img
+                  src={
+                    profDisplay.length ? (
+                      profDisplay[0].profPic
+                    ) : (
+                      <h2>...loading</h2>
+                    )
+                  }
+                />
               </div>
             </label>
             <ul
@@ -86,36 +93,42 @@ export default function NavBar() {
                     className="dropdown-content menu p-2 shadow bg-base-100 rounded-box"
                   >
                     <>
-                      {profDisplay.length ? profDisplay.map((prof) => (
-                        <li>
-                          <div>
-                            <label
-                              tabIndex={0}
-                              className="btn btn-ghost w-14 btn btn-circle avatar"
-                            >
-                              <div className="w-14  rounded-full">
-                                {/* Profile images*/}
-                                <img src={prof.profPic} />
+                      {profDisplay.length ? (
+                        profDisplay.map((prof) => (
+                          <li>
+                            <div>
+                              <label
+                                tabIndex={0}
+                                className="btn btn-ghost w-14 btn btn-circle avatar"
+                              >
+                                <div className="w-14  rounded-full">
+                                  {/* Profile images*/}
+                                  <img src={placeholder} />
+                                </div>
+                              </label>
+                              <div
+                                className="btn btn-ghost"
+                                onClick={() => {
+                                  setType(prof.type);
+                                  setEntity(prof.entityId);
+                                  console.log(type);
+                                  console.log(entity);
+                                }}
+                                key={prof.entityId}
+                              >
+                                <p className="w-72">
+                                  {prof.type !== "user"
+                                    ? prof.type + " - "
+                                    : ""}
+                                  {prof.name}
+                                </p>
                               </div>
-                            </label>
-                            <div
-                              className="btn btn-ghost"
-                              onClick={() => {
-                                setType(prof.type);
-                                setEntity(prof.entityId);
-                                console.log(type);
-                                console.log(entity);
-                              }}
-                              key={prof.entityId}
-                            >
-                              <p className="w-72">
-                                {prof.type !== "user" ? prof.type + " - " : ""}
-                                {prof.name}
-                              </p>
                             </div>
-                          </div>
-                        </li>
-                      )) : <h2>...loading</h2>}
+                          </li>
+                        ))
+                      ) : (
+                        <h2>...loading</h2>
+                      )}
                     </>
                   </ul>
                 </div>

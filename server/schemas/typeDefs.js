@@ -280,7 +280,7 @@ const typeDefs = gql`
       specialties: String
     ): Company
     addConnection(connectionId: String!): User
-    followEntity(entityId: String!): User
+    followEntity(companyId: String, schoolId: String): User
     joinGroup(groupID: String!): User
     createGroup(
       name: String!

@@ -20,7 +20,7 @@ export default function AllCompanies() {
                 <div className="card card-side bg-base-300 shadow-xl m-3 items-center">
                   <figure className="p-10 ">
                     <img
-                      src="https://placehold.co/200x200"
+                      src={company.profPic}
                       alt="company logo"
                       className="rounded-xl float"
                     ></img>

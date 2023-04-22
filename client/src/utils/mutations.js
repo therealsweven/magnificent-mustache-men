@@ -17,6 +17,8 @@ export {
   CREATE_COMMENT_REACTION,
   CREATE_LOCATION,
   APPLY_TO_JOB,
+  FOLLOW_ENTITY,
+  ADD_CONNECTION,
 };
 
 const CREATE_USER = gql`
@@ -404,6 +406,31 @@ const APPLY_TO_JOB = gql`
       title
       applicants {
         _id
+        firstName
+        lastName
+      }
+    }
+  }
+`;
+const FOLLOW_ENTITY = gql`
+  mutation FollowEntity($companyId: String, $schoolId: String) {
+    followEntity(companyId: $companyId, schoolId: $schoolId) {
+      _id
+      firstName
+      lastName
+      entitiesFollowed {
+        _id
+      }
+    }
+  }
+`;
+
+const ADD_CONNECTION = gql`
+  mutation AddConnection($connectionId: String!) {
+    addConnection(connectionId: $connectionId) {
+      firstName
+      lastName
+      connections {
         firstName
         lastName
       }
