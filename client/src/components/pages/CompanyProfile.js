@@ -18,7 +18,7 @@ export default function CompanyProfile() {
 
   const company = data?.me || data?.company || {};
 
-  console.log(company);
+  
 
   if (Auth.loggedIn() && Auth.getProfile().data._id === companyId) {
     return <Navigate to="/" />;

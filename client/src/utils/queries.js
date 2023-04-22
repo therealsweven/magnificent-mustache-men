@@ -212,6 +212,32 @@ export const QUERY_USER = gql`
         _id
         postBody
       }
+      experience {
+        endMonth
+        current
+        endYear
+        jobDescription
+        startMonth
+        startYear
+        title
+        skills {
+          _id
+          skillName
+        }
+        company {
+          name
+        }
+      }
+      education {
+        school {
+          name
+        }
+        fieldOfStudy
+        certificateType
+        startMonth
+        startYear
+        current
+      }
     }
   }
 `;

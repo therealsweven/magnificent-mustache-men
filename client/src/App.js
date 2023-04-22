@@ -74,7 +74,7 @@ function App() {
             <Route path="/signup" element={<Signup />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/profiles" element={<AllUsers />} />
-            <Route path="/profiles/:profileId" element={<UsersProfile />} />
+            <Route path="/profiles/:userId" element={<UsersProfile />} />
             <Route path="/jobPost" element={<JobList />} />
             <Route path="/company" element={<AllCompanies />} />
             <Route

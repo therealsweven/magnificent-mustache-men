@@ -16,7 +16,7 @@ export default function AllUsers() {
         <div key={user._id} className="card card-side bg-base-300 shadow-xl m-3 items-center">
           <div className="avatar">
             <div className="w-24 ml-3 rounded-full">
-              <img src="https://i.pinimg.com/originals/49/3f/a0/493fa0f13970ab3ef29375669f670451.jpg" />
+              <img src={user.profPic} />
             </div>
           </div>
           <div className="card-body items-start">
