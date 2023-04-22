@@ -506,15 +506,15 @@ const resolvers = {
     //     { new: true }
     //   );
     // },
-    updateUserTest: async (parent, { id, userTest }, context) => {
-      if (context.user) {
-        const updatedUser = await User.findByIdAndUpdate(
-          { _id: context.user._id },
-          { userTest },
-          { new: true }
-        );
-        return updatedUser;
-      }
+    updateUserTest: async (parent, { userId, userTest }, context) => {
+      // if (context.user) {
+      return User.findOneAndUpdate(
+        { _id: userId },
+        { userTest },
+        { new: true, runValidators: true }
+      );
+      // }
+      throw new AuthenticationError("You need to be logged in!");
     },
     //update company
     updateCompany: async (parent, { id, companyInput }) => {
