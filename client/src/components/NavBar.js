@@ -18,6 +18,7 @@ export default function NavBar() {
           type: "user",
           entityId: profile._id,
           name: profile.user.firstName + " " + profile.user.lastName,
+          profPic: profile.user.profPic,
         };
         profDisplay.push(prof);
       } else if (profile.school) {
@@ -25,6 +26,7 @@ export default function NavBar() {
           type: "school",
           entityId: profile._id,
           name: profile.school.name,
+          profPic: profile.school.profPic,
         };
         profDisplay.push(prof);
       } else if (profile.company) {
@@ -32,11 +34,13 @@ export default function NavBar() {
           type: "company",
           entityId: profile._id,
           name: profile.company.name,
+          profPic: profile.company.profPic,
         };
         profDisplay.push(prof);
       }
     });
-    console.log(profDisplay);
+    console.log(profDisplay[0].profPic);
+    console.log("hello");
   }
   // Auth.profileSwitch(type, entity);
   const [type, setType] = useState();
@@ -68,8 +72,8 @@ export default function NavBar() {
           <div className="dropdown dropdown-end">
             <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
               <div className="w-10 rounded-full">
-                {/* Profile images*/}
-                <img src={placeholder} />
+                {/* Menu Dropdown*/}
+                <img src={profDisplay[0].profPic} />
               </div>
             </label>
             <ul
@@ -99,7 +103,7 @@ export default function NavBar() {
                             >
                               <div className="w-14  rounded-full">
                                 {/* Profile images*/}
-                                <img src={placeholder} />
+                                <img src={prof.profPic} />
                               </div>
                             </label>
                             <div
