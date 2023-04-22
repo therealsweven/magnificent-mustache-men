@@ -7,6 +7,7 @@ import { QUERY_ME } from "../../utils/queries";
 import CommentForm from "./forms/CommentForm";
 import PostForm from "./forms/PostForm";
 // import Auth from '../utils/auth';
+import ReactionForm from "./forms/ReactionForm"
 
 export default function Profile() {
   // const { profileId } = useParams();
@@ -18,9 +19,9 @@ export default function Profile() {
   };
   const { loading, data } = useQuery(QUERY_ME);
   const profile = data?.me || {};
-  console.log(data);
+  console.log(profile);
 
-  if (loading) {
+  if (loading && profile.length) {
     return <h2>...loading</h2>;
   }
   return (
@@ -86,7 +87,7 @@ export default function Profile() {
                 {profile.groups ? (
                   profile.groups.map((group) => (
                     <li>
-                      <div className="badge" key={group._id}>
+                      <div className="btn btn-primary" key={group._id}>
                         {group.name}
                       </div>
                     </li>
@@ -95,6 +96,29 @@ export default function Profile() {
                   <button className="btn btn-success">add groups</button>
                 )}
               </ul>
+            </div>
+            <div className="container rounded bg-base-200  m-5">
+              <h1 className="text-xl text-center font-bold mx-auto py-6">
+                Posts
+              </h1>
+              <PostForm />
+              {profile.posts ? (
+                profile.posts.map((post) => (
+                  <div className="text-center font-bold" key={post._id}>
+                    {post.postBody} {post._id}
+                    {/* <span className="label">Comments</span> */}
+                    {/* {profile.post.comments.map((comment) => (
+                      <div className="text-center" key={comment._id}>
+                        {comment.commentBody}
+                      </div> */}
+                    {/* ))} */}
+                    <CommentForm postId={post._id} />
+                    <ReactionForm postId={post._id} />
+                  </div>
+                ))
+              ) : (
+                <button className="btn btn-success">add Posts</button>
+              )}
             </div>
           </div>
 
@@ -109,77 +133,46 @@ export default function Profile() {
                 <button className="btn btn-success">edit bio</button>
               )}
             </div>
-            <div className="container h-72 rounded bg-base-200  m-5">
-              <h1 className="text-xl text-center font-bold mx-auto py-6">
-                Posts
-              </h1>
 
-              {profile.posts ? (
-                profile.posts.map((post) => (
-                  <div className="text-center font-bold" key={post._id}>
-                    {post.postBody} {post._id}
-                    <CommentForm postId={post._id} />
-                  </div>
-                ))
-              ) : (
-                <button className="btn btn-success">add Posts</button>
-              )}
-            </div>
           </div>
-
-          <div className="box w-32 m-10 text-right bg-base-200 ">
+          <div className="m-10 text-right bg-base-200">
             <div className="m-2">
               <h1 className="text-2xl font-bold mx-auto">Experience</h1>
-              {profile.experience.company ? (
-                <ul>
-                  <li>
-                    <div className="badge badge-primary">
-                      {profile.experience.company}
-                    </div>
-                  </li>
-                  <li>
-                    <div className="badge badge-primary">
-                      {profile.experience.title}
-                    </div>
-                  </li>
-                  <li>
-                    <div className="badge badge-primary">
-                      {profile.experience.jobDescription}
-                    </div>
-                  </li>
-                  <li>
-                    <div className="badge badge-primary">
-                      {profile.experience.startMonth}
-                    </div>
-                  </li>
-                  <li>
-                    <div className="badge badge-primary">
-                      {profile.experience.startMonth}
-                    </div>
-                  </li>
-                  <li>
-                    <div className="badge badge-primary">
-                      {profile.experience.current}
-                    </div>
-                  </li>
-                  {profile.experience.current === true ? (
-                    <>
-                      {" "}
-                      <li>
-                        <div className="badge badge-primary">
-                          {profile.experience.endMonth}
-                        </div>
-                      </li>
-                      <li>
-                        <div className="badge badge-primary">
-                          {profile.experience.endYear}
-                        </div>
-                      </li>
-                    </>
-                  ) : (
-                    <></>
-                  )}
-                </ul>
+              {profile.experience ? (
+                profile.experience.map((exp) => (
+                  <ul>
+                    <li>
+                      <div className="btn">{exp.company.name}</div>
+                    </li>
+                    <li>
+                      <div className="btn">{exp.title}</div>
+                    </li>
+                    <li>
+                      <div className="btn">{exp.jobDescription}</div>
+                    </li>
+                    <li>
+                      <div className="btn">{exp.startMonth}</div>
+                    </li>
+                    <li>
+                      <div className="btn">{exp.startYear}</div>
+                    </li>
+                    <li>
+                      <div className="btn">{exp.current}</div>
+                    </li>
+                    {exp.current === true ? (
+                      <>
+                        <li>
+                          <div className="btn">{exp.endMonth}</div>
+                        </li>
+                        <li>
+                          <div className="btn">{exp.endYear}</div>
+                        </li>
+                      </>
+                    ) : (
+                      <></>
+                    )}
+                  </ul>
+                ))
               ) : (
                 <button className="btn btn-success">add experience</button>
               )}
@@ -187,41 +180,53 @@ export default function Profile() {
             <div className="m-2">
               <h1 className="text-2xl font-bold mx-auto">Education</h1>
 
-              {profile.education.school ? (
-                <ul>
-                  <li>
-                    <div className="badge badge-secondary">
-                      {profile.education.school}
-                    </div>
-                  </li>
-                  <li>
-                    <div className="badge badge-secondary">
-                      {profile.education.fieldOfStudy}
-                    </div>
-                  </li>
-                  <li>
-                    <div className="badge badge-secondary">
-                      {profile.education.certificateType}
-                    </div>
-                  </li>
-                  <li>
-                    <div className="badge badge-secondary">
-                      {profile.education.startMonth}
-                    </div>
-                  </li>
-                  <li>
-                    <div className="badge badge-secondary">
-                      {profile.education.startYear}
-                    </div>
-                  </li>
-                  <li>
-                    <div className="badge badge-secondary">
-                      {profile.education.current}
-                    </div>
-                  </li>
-                </ul>
+              {profile.education ? (
+                profile.education.map((edu) => (
+                  <ul>
+                    <li>
+                      <div className="btn btn-secondary">
+                        {edu.school.name}
+                      </div>
+                    </li>
+                    <li>
+                      <div className="btn btn-secondary">
+                        {edu.fieldOfStudy}
+                      </div>
+                    </li>
+                    <li>
+                      <div className="btn btn-secondary">
+                        {edu.certificateType}
+                      </div>
+                    </li>
+                    <li>
+                      <div className="btn btn-secondary">
+                        {edu.startMonth}
+                      </div>
+                    </li>
+                    <li>
+                      <div className="btn btn-secondary">
+                        {edu.startYear}
+                      </div>
+                    </li>
+                    <li>
+                      <div className="btn btn-secondary">{edu.current}</div>
+                    </li>
+                    {edu.current === true ? (
+                      <>
+                        <li>
+                          <div className="btn btn-secondary">{edu.endMonth}</div>
+                        </li>
+                        <li>
+                          <div className="btn btn-secondary">{edu.endYear}</div>
+                        </li>
+                      </>
+                    ) : (
+                      <></>
+                    )}
+                  </ul>
+                ))
               ) : (
-                <button className="btn btn-success">add Education</button>
+                <button className="btn btn-success">add experience</button>
               )}
             </div>
           </div>

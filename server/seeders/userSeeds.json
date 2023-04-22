@@ -7,17 +7,19 @@
     "city": "Denver",
     "state": "CO",
     "country": "United States",
-    "website": "www.bestwebsiteever.com"
+    "website": "www.bestwebsiteever.com",
+    "profPic": "https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"
   },
   {
-    "firstName": "Kevin",
+    "firstName": "Jane",
     "lastName": "Olsen",
-    "email": "kolsen@techfriends.dev",
+    "email": "jolsen@techfriends.dev",
     "password": "password",
     "city": "Dallas",
     "state": "TX",
     "country": "United States",
-    "website": "www.bestwebsiteever.com"
+    "website": "www.bestwebsiteever.com",
+    "profPic": "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"
   },
   {
     "firstName": "Amiko",
@@ -27,7 +29,8 @@
     "city": "Cheyenne",
     "state": "WY",
     "country": "United States",
-    "website": "www.bestwebsiteever.com"
+    "website": "www.bestwebsiteever.com",
+    "profPic": "https://images.unsplash.com/photo-1547425260-76bcadfb4f2c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"
   },
   {
     "firstName": "Chewbacca",
@@ -37,7 +40,8 @@
     "city": "Deathstar",
     "state": "MI",
     "country": "United States",
-    "website": "www.bestwebsiteever.com"
+    "website": "www.bestwebsiteever.com",
+    "profPic": "https://images.unsplash.com/photo-1597642363544-47e721ef972c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80"
   },
   {
     "firstName": "Han",
@@ -47,7 +51,8 @@
     "city": "idk",
     "state": "KS",
     "country": "United States",
-    "website": "www.bestwebsiteever.com"
+    "website": "www.bestwebsiteever.com",
+    "profPic": "https://images.unsplash.com/photo-1579972668140-f7da53ccc2a6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1471&q=80"
   },
   {
     "firstName": "Chuck",
@@ -57,16 +62,18 @@
     "city": "New York",
     "state": "NY",
     "country": "United States",
-    "website": "www.bestwebsiteever.com"
+    "website": "www.bestwebsiteever.com",
+    "profPic": "https://images.unsplash.com/photo-1631687942171-18a6c5cf704b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=765&q=80"
   },
   {
-    "firstName": "Chuck",
+    "firstName": "Cassie",
     "lastName": "Norris",
     "email": "chuck2@techfriends.dev",
     "password": "password",
     "city": "Honolulu",
     "state": "HI",
     "country": "United States",
-    "website": "www.bestwebsiteever.com"
+    "website": "www.bestwebsiteever.com",
+    "profPic": "https://images.unsplash.com/photo-1593104547489-5cfb3839a3b5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1453&q=80"
   }
 ]
