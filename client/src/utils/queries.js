@@ -244,6 +244,7 @@ export const QUERY_COMPANIES = gql`
 export const QUERY_SINGLE_COMPANY = gql`
   query Query($companyId: ID!) {
     company(companyId: $companyId) {
+      _id
       bio
       companySize
       hqCity

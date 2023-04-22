@@ -17,6 +17,7 @@ export {
   CREATE_COMMENT_REACTION,
   CREATE_LOCATION,
   APPLY_TO_JOB,
+  FOLLOW_ENTITY,
 };
 
 const CREATE_USER = gql`
@@ -406,6 +407,18 @@ const APPLY_TO_JOB = gql`
         _id
         firstName
         lastName
+      }
+    }
+  }
+`;
+const FOLLOW_ENTITY = gql`
+  mutation FollowEntity($companyId: String, $schoolId: String) {
+    followEntity(companyId: $companyId, schoolId: $schoolId) {
+      _id
+      firstName
+      lastName
+      entitiesFollowed {
+        _id
       }
     }
   }
