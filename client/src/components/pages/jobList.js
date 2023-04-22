@@ -48,15 +48,9 @@ export default function JobList() {
                     >
                       Read More
                     </label>
-                    <button
-                      id={job._id}
-                      className="btn btn-primary"
-                      onClick={handleApply}
-                    >
-                      One Click Apply
-                    </button>
                   </div>
                 </div>
+               
                 <input type="checkbox" id={job._id} className="modal-toggle " />
                 <div className="modal">
                   <div className="modal-box relative max-w-5xl">
@@ -105,7 +99,11 @@ export default function JobList() {
                           <li>{job.benefits}</li>
                         </ul>
                       </div>
-                      <button className="btn btn-md btn-primary">
+                      <button
+                        id={job._id}
+                        className="btn btn-primary"
+                        onClick={handleApply}
+                      >
                         One Click Apply
                       </button>
                     </div>
