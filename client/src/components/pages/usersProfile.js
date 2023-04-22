@@ -38,6 +38,9 @@ export default function Profile() {
   return (
     <div className="container mx-auto grid-cols-3 bg-base-100">
       <div className="container mx-auto rounded-lg">
+        <button className="btn btn-circle text-3xl pb-1 my-2 connection-btn">
+          +
+        </button>
         <div className="h-15 bg-base-200 rounded-lg">
           <div className="flex-col rounded-lg">
             <img
