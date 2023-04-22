@@ -154,7 +154,7 @@ export default function Profile() {
                   </li>
                   <li>
                     <div className="badge badge-primary">
-                      {profile.experience.startYear}
+                      {profile.experience.startMonth}
                     </div>
                   </li>
                   <li>
@@ -319,7 +319,7 @@ export default function Profile() {
           </div>
         </div>
       </div>
-      <div className="container mx-auto rounded">03</div>
+      <div className="container mx-auto rounded"></div>
     </div>
   );
 }

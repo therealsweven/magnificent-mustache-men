@@ -13,18 +13,26 @@ export default function Profile() {
     setActiveTab(tabName);
   };
 
-  const { profileId } = useParams();
+  const { userId } = useParams();
 
-  const { loading, data } = useQuery(profileId ? QUERY_USER : QUERY_ME, {
-    variables: { profileId: profileId },
+  const { loading, data } = useQuery(userId ? QUERY_USER : QUERY_ME, {
+    variables: { userId: userId },
   });
 
-  const profile = data?.me || data?.profile || {};
+  const user = data?.me || data?.user || {};
 
-  console.log(`profile ${profile}`);
+  console.log(user);
+
+  if (Auth.loggedIn() && Auth.getProfile().data._id === userId) {
+    return <Navigate to="/profile" />;
+  }
 
   if (loading) {
     return <div>Loading...</div>;
+  }
+
+  if (!user?.firstName) {
+    return <h4 className="text-center"> Please Login to View Profiles</h4>;
   }
 
   return (
@@ -39,8 +47,10 @@ export default function Profile() {
             <div className="mx-auto">
               <h1 className="text-2xl text-right font-bold mx-auto"></h1>
               <h1 className="text-xl text-right font-bold mx-auto">
-                {profile.city && profile.state && profile.country ? (
-                  <></>
+                {user.city && user.state && user.country ? (
+                  <>
+                    {user.city} {user.state}
+                  </>
                 ) : (
                   <Link to="" className="btn btn-success">
                     edit location
@@ -48,8 +58,8 @@ export default function Profile() {
                 )}
               </h1>
               <h1 className="text-xl text-right font-bold mx-auto">
-                {profile.city && profile.state && profile.country ? (
-                  <>{profile.country}</>
+                {user.city && user.state && user.country ? (
+                  <>{user.country}</>
                 ) : (
                   <></>
                 )}
@@ -57,7 +67,7 @@ export default function Profile() {
             </div>
             <div className="container mx-auto rounded-lg">
               <h1 className="text-5xl text-center font-bold mx-auto py-10">
-                Pants
+                {user.firstName} {user.lastName}
               </h1>
             </div>
           </div>
@@ -67,8 +77,8 @@ export default function Profile() {
             <div className="m-2">
               <h1 className="text-2xl font-bold mx-auto">Skills</h1>
               <ul>
-                {profile.skills ? (
-                  profile.skills.map((skill) => (
+                {user.skills ? (
+                  user.skills.map((skill) => (
                     <div className="btn btn-outline" key={skill._id}>
                       {skill.skillName}
                     </div>
@@ -83,8 +93,8 @@ export default function Profile() {
                 Communities
               </h1>
               <ul>
-                {profile.groups ? (
-                  profile.groups.map((group) => (
+                {user.groups ? (
+                  user.groups.map((group) => (
                     <li>
                       <div className="badge" key={group._id}>
                         {group.name}
@@ -103,19 +113,16 @@ export default function Profile() {
               <h1 className="text-xl text-center font-bold mx-auto py-6">
                 About Me
               </h1>
-              {profile.bio ? (
-                <p className="text-center font-bold">{profile.bio}</p>
-              ) : (
-                <button className="btn btn-success">edit bio</button>
-              )}
+
+              <p className="text-center font-bold">{user.bio}</p>
             </div>
             <div className="container h-72 rounded bg-base-200  m-5">
               <h1 className="text-xl text-center font-bold mx-auto py-6">
                 Posts
               </h1>
 
-              {profile.posts ? (
-                profile.posts.map((post) => (
+              {user.posts ? (
+                user.posts.map((post) => (
                   <div className="text-center font-bold" key={post._id}>
                     {post.postBody} {post._id}
                     <CommentForm postId={post._id} />
@@ -130,49 +137,49 @@ export default function Profile() {
           <div className="box w-32 m-10 text-right bg-base-200 ">
             <div className="m-2">
               <h1 className="text-2xl font-bold mx-auto">Experience</h1>
-              {profile.firstName ? (
+              {user.experience.company ? (
                 <ul>
                   <li>
                     <div className="badge badge-primary">
-                      {profile.firstName}
+                      {user.experience.company}
                     </div>
                   </li>
                   <li>
                     <div className="badge badge-primary">
-                      {profile.experience.title}
+                      {user.experience.title}
                     </div>
                   </li>
                   <li>
                     <div className="badge badge-primary">
-                      {profile.experience.jobDescription}
+                      {user.experience.jobDescription}
                     </div>
                   </li>
                   <li>
                     <div className="badge badge-primary">
-                      {profile.experience.startMonth}
+                      {user.experience.startMonth}
                     </div>
                   </li>
                   <li>
                     <div className="badge badge-primary">
-                      {profile.experience.startYear}
+                      {user.experience.startMonth}
                     </div>
                   </li>
                   <li>
                     <div className="badge badge-primary">
-                      {profile.experience.current}
+                      {user.experience.current}
                     </div>
                   </li>
-                  {profile.experience.current === true ? (
+                  {user.experience === true ? (
                     <>
                       {" "}
                       <li>
                         <div className="badge badge-primary">
-                          {profile.experience.endMonth}
+                          {user.experience.endMonth}
                         </div>
                       </li>
                       <li>
                         <div className="badge badge-primary">
-                          {profile.experience.endYear}
+                          {user.experience.endYear}
                         </div>
                       </li>
                     </>
@@ -181,47 +188,51 @@ export default function Profile() {
                   )}
                 </ul>
               ) : (
-                <button className="btn btn-success">add experience</button>
+                <button className="btn btn-success hidden">
+                  add experience
+                </button>
               )}
             </div>
             <div className="m-2">
               <h1 className="text-2xl font-bold mx-auto">Education</h1>
 
-              {profile ? (
+              {user.education.school ? (
                 <ul>
                   <li>
                     <div className="badge badge-secondary">
-                      {profile.education}
+                      {user.education.school}
                     </div>
                   </li>
                   <li>
                     <div className="badge badge-secondary">
-                      {profile.education}
+                      {user.education.fieldOfStudy}
                     </div>
                   </li>
                   <li>
                     <div className="badge badge-secondary">
-                      {profile.education}
+                      {user.education.certificateType}
                     </div>
                   </li>
                   <li>
                     <div className="badge badge-secondary">
-                      {profile.education}
+                      {user.education.startMonth}
                     </div>
                   </li>
                   <li>
                     <div className="badge badge-secondary">
-                      {profile.education}
+                      {user.education.startYear}
                     </div>
                   </li>
                   <li>
                     <div className="badge badge-secondary">
-                      {profile.education}
+                      {user.education.current}
                     </div>
                   </li>
                 </ul>
               ) : (
-                <button className="btn btn-success">add Education</button>
+                <button className="btn btn-success hidden">
+                  add Education
+                </button>
               )}
             </div>
           </div>
@@ -319,7 +330,7 @@ export default function Profile() {
           </div>
         </div>
       </div>
-      <div className="container mx-auto rounded">03</div>
+      <div className="container mx-auto rounded"></div>
     </div>
   );
 }
