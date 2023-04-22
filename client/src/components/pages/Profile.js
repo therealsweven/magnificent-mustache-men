@@ -7,7 +7,7 @@ import { QUERY_ME } from "../../utils/queries";
 import CommentForm from "./forms/CommentForm";
 import PostForm from "./forms/PostForm";
 // import Auth from '../utils/auth';
-import ReactionForm from "./forms/ReactionForm"
+import ReactionForm from "./forms/ReactionForm";
 
 export default function Profile() {
   // const { profileId } = useParams();
@@ -133,7 +133,6 @@ export default function Profile() {
                 <button className="btn btn-success">edit bio</button>
               )}
             </div>
-
           </div>
           <div className="m-10 text-right bg-base-200">
             <div className="m-2">
@@ -184,9 +183,7 @@ export default function Profile() {
                 profile.education.map((edu) => (
                   <ul>
                     <li>
-                      <div className="btn btn-secondary">
-                        {edu.school.name}
-                      </div>
+                      <div className="btn btn-secondary">{edu.school.name}</div>
                     </li>
                     <li>
                       <div className="btn btn-secondary">
@@ -199,14 +196,10 @@ export default function Profile() {
                       </div>
                     </li>
                     <li>
-                      <div className="btn btn-secondary">
-                        {edu.startMonth}
-                      </div>
+                      <div className="btn btn-secondary">{edu.startMonth}</div>
                     </li>
                     <li>
-                      <div className="btn btn-secondary">
-                        {edu.startYear}
-                      </div>
+                      <div className="btn btn-secondary">{edu.startYear}</div>
                     </li>
                     <li>
                       <div className="btn btn-secondary">{edu.current}</div>
@@ -214,7 +207,9 @@ export default function Profile() {
                     {edu.current === true ? (
                       <>
                         <li>
-                          <div className="btn btn-secondary">{edu.endMonth}</div>
+                          <div className="btn btn-secondary">
+                            {edu.endMonth}
+                          </div>
                         </li>
                         <li>
                           <div className="btn btn-secondary">{edu.endYear}</div>

@@ -92,13 +92,12 @@ export default function ExperienceForm() {
             >
               <option value="">Select a Company</option>
               {companydata.map((company, index) => (
-                <optgroup
-                  key={index}
-                >{company.companies.map((comp, compindex) => (
-                  <option key={compindex} value={comp._id}>
-                    {comp.name} 
-                </option>
-                ))}
+                <optgroup key={index}>
+                  {company.companies.map((comp, compindex) => (
+                    <option key={compindex} value={comp._id}>
+                      {comp.name}
+                    </option>
+                  ))}
                 </optgroup>
               ))}
             </Field>
