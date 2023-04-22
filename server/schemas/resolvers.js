@@ -84,55 +84,69 @@ const resolvers = {
         "schedule",
       ]);
     },
-    feed: async (parent, args, context) => {
-      // const entities = [];
+    feedTest: async (parent, args, context) => {
+      console.log("Line 88", args.entityId);
+      const entity = await Entity.findOne({
+        _id: args.entityId,
+      }).populate("user");
+      console.log("Line91", "entity", entity);
 
-      const entity = Entity.findOne({
-        _id: context.activeProfile.entity,
-      }).populate("user", "school", "company");
-      console.log(entity);
+      const user = await User.findOne({ _id: entity.user });
+      console.log("user", user.entitiesFollowed);
+      const entities = user.entitiesFollowed;
+
+      console.log("Line 98", "entities", entities);
+
       const posts = await Post.find({ entity: { $in: entities } }).populate(
-        "reactions",
-        "comments"
+        "entity",
+        "user"
       );
-
+      console.log(posts);
       const sortedPosts = posts.sort(function (a, b) {
         let x = a.updatedAt;
         let y = b.updatedAt;
 
         if (x > y) {
-          return 1;
+          return -1;
         }
         if (x < y) {
-          return -1;
+          return 1;
         }
         return 0;
       });
       return sortedPosts;
     },
-    feedTest: async (parent, args, context) => {
-      //user
-      const entity = Entity.findOne({
+    feed: async (parent, args, context) => {
+      console.log("Line 88", context.activeProfile.entity);
+      const entity = await Entity.findOne({
         _id: context.activeProfile.entity,
-      }).populate("user", "school", "company");
-      console.log(entity);
-      const posts = await Post.find({ entity: { $in: entities } }).populate(
-        "reactions",
-        "comments"
-      );
+      }).populate("user");
+      console.log("Line91", "entity", entity);
 
+      const user = await User.findOne({ _id: entity.user });
+      console.log("user", user.entitiesFollowed);
+      const entities = user.entitiesFollowed;
+
+      console.log("Line 98", "entities", entities);
+
+      const posts = await Post.find({ entity: { $in: entities } }).populate(
+        "entity",
+        "user"
+      );
+      console.log(posts);
       const sortedPosts = posts.sort(function (a, b) {
         let x = a.updatedAt;
         let y = b.updatedAt;
 
         if (x > y) {
-          return 1;
+          return -1;
         }
         if (x < y) {
-          return -1;
+          return 1;
         }
         return 0;
       });
+      console.log("sorted posts", sortedPosts);
       return sortedPosts;
     },
     profiles: async (parent, args, context) => {

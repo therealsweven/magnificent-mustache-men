@@ -67,10 +67,12 @@ const typeDefs = gql`
   type Post {
     _id: ID!
     user: User
-    entity: Entity
+    entity: Entity!
     postBody: String
     reactions: [PostReaction]
-    comments: [Comment]
+    comments: [Comment!]!
+    updatedAt: String
+    createdAt: String
   }
 
   type Comment {

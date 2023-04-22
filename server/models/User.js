@@ -105,6 +105,9 @@ const userSchema = new Schema(
     country: {
       type: String,
     },
+    bio: {
+      type: String,
+    },
     education: [{ type: Schema.Types.ObjectId, ref: "Education" }],
     experience: [{ type: Schema.Types.ObjectId, ref: "Experience" }],
     skills: [{ type: Schema.Types.ObjectId, ref: "Skill" }],
