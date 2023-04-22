@@ -1,11 +1,11 @@
 import React from "react";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import { useMutation } from "@apollo/client";
-import { CREATE_REACTION } from "../../../utils/mutations";
+import { CREATE_POST_REACTION } from "../../../utils/mutations";
 import * as Yup from "yup";
 
 export default function ReactionForm() {
-  const [createUser] = useMutation(CREATE_REACTION);
+  const [createPostReaction] = useMutation( CREATE_POST_REACTION );
 
   const initialValues = {
     reactionName: "",
@@ -19,7 +19,7 @@ export default function ReactionForm() {
 
   const handleSubmit = async (values, { resetForm, setSubmitting }) => {
     try {
-      await createReaction({
+      await createPostReaction({
         variables: {
           reactionName: values.reactionName,
           icon: values.icon,
