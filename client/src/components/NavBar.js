@@ -133,6 +133,9 @@ export default function NavBar() {
                 <Link to="/jobPost">Jobs</Link>
               </li>
               <li>
+                <Link to="/profiles">Make Connections</Link>
+              </li>
+              <li>
                 <Link to="#">Settings</Link>
               </li>
               <li>
