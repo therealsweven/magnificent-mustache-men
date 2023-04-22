@@ -39,7 +39,7 @@ export default function NavBar() {
         profDisplay.push(prof);
       }
     });
-    console.log(profDisplay[0].profPic);
+    console.log(profDisplay);
     console.log("hello");
   }
   // Auth.profileSwitch(type, entity);
@@ -73,7 +73,7 @@ export default function NavBar() {
             <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
               <div className="w-10 rounded-full">
                 {/* Menu Dropdown*/}
-                <img src={profDisplay[0].profPic} />
+                <img src={placeholder} />
               </div>
             </label>
             <ul
@@ -103,7 +103,7 @@ export default function NavBar() {
                             >
                               <div className="w-14  rounded-full">
                                 {/* Profile images*/}
-                                <img src={prof.profPic} />
+                                <img src={placeholder} />
                               </div>
                             </label>
                             <div

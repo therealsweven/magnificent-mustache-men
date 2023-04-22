@@ -90,6 +90,7 @@ function App() {
             <Route path="/test5" element={<SkillForm />} />
             <Route path="/test6" element={<JobForm />} />
             <Route path="/test7" element={<LocationForm />} />
+            <Route path="/test8" element={<NavBar />} />
           </Routes>
           <Footer />
         </div>

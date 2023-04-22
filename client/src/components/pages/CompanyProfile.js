@@ -1,10 +1,10 @@
 import { Navigate, useParams } from "react-router-dom";
 import { useQuery } from "@apollo/client";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 import { QUERY_SINGLE_COMPANY, QUERY_ME } from "../../utils/queries";
 import PostForm from "./forms/PostForm";
 
-import Auth from '../../utils/auth';
+import Auth from "../../utils/auth";
 
 export default function CompanyProfile() {
   const { companyId } = useParams();
@@ -16,21 +16,19 @@ export default function CompanyProfile() {
     }
   );
 
-const company = data?.me || data?.company || {};
+  const company = data?.me || data?.company || {};
 
-if(Auth.loggedIn() && Auth.getProfile().data._id === companyId){
-  return <Navigate to="/" />
-}
+  if (Auth.loggedIn() && Auth.getProfile().data._id === companyId) {
+    return <Navigate to="/" />;
+  }
 
-if (loading){
-  return <div>Loading...</div>
-}
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
-if(!company?.name){
-  return(
-    <h4> Please Login to edit your company profile!</h4>
-  )
-}
+  if (!company?.name) {
+    return <h4> Please Login to edit your company profile!</h4>;
+  }
 
   return (
     <>
@@ -38,21 +36,23 @@ if(!company?.name){
       <div className="container-Header m-5 ">
         <div className="grid grid-cols-8 gird-rows-1 justify-items-center">
           <div className="col-span-4 row-span-1 bg-slate-700 rounded ml-10 ">
-            <h1 className="Name font-bold text-white text-5xl m-4">{company.name}</h1>
-            <p className="About text-xl m-5 pl-4">
-              {company.bio}
-            </p>
+            <h1 className="Name font-bold text-white text-5xl m-4">
+              {company.name}
+            </h1>
+            <p className="About text-xl m-5 pl-4">{company.bio}</p>
           </div>
           <div className="col-span-1 row-span-1 bg-slate-700 rounded ml-40">
             <img
-              src="https://placehold.co/200x200"
+              src={company.profPic}
               className="float-right m-5 max-w-xs max-h-72 rounded-lg shadow-2xl"
             />
           </div>
           <div className="col-span-3 row-span-1 bg-slate-700 ml-44 rounded">
             <h2 className="font-bold text-white text-3xl my-2 px-4">Info</h2>
             <ul>
-              <li className="px-4 m-3">Location: {company.hqState}, {company.hqCity}</li>
+              <li className="px-4 m-3">
+                Location: {company.hqState}, {company.hqCity}
+              </li>
               <li className="px-4 m-3">Size: {company.companySize}</li>
               <li className="px-4 m-3">Founded: {company.foundedYear}</li>
               <li className="px-4 m-3">
@@ -70,7 +70,7 @@ if(!company?.name){
             <h2 className="jobPosts font-bold text-white text-4xl m-4">
               Current Job Openings
             </h2>
-            
+
             <div className="card-body bg-cyan-900 rounded w-full p-4 my-2">
               <h2 className="card-title text-white">
                 Full-Stack Web Developer
