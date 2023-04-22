@@ -15,6 +15,8 @@ export {
   CREATE_EDUCATION,
   CREATE_POST_REACTION,
   CREATE_COMMENT_REACTION,
+  CREATE_LOCATION,
+  APPLY_TO_JOB,
 };
 
 const CREATE_USER = gql`
@@ -89,6 +91,25 @@ const CREATE_COMPANY = gql`
   }
 `;
 
+const CREATE_LOCATION = gql`
+  mutation Mutation(
+    $city: String!
+    $state: String!
+    $size: String
+    $phone: String
+  ) {
+    createLocation(city: $city, state: $state, size: $size, phone: $phone) {
+      name
+      locations {
+        city
+        state
+        phone
+        size
+      }
+    }
+  }
+`;
+
 const CREATE_SCHOOL = gql`
   mutation createSchool(
     $name: String!
@@ -143,6 +164,7 @@ const CREATE_JOB = gql`
   mutation CreateJob(
     $title: String!
     $responsibilities: String!
+    $description: String!
     $qualifications: String!
     $schedule: String
     $salary: Int
@@ -153,6 +175,7 @@ const CREATE_JOB = gql`
       title: $title
       responsibilities: $responsibilities
       qualifications: $qualifications
+      description: $description
       schedule: $schedule
       salary: $salary
       benefits: $benefits
@@ -200,8 +223,6 @@ const ADD_SKILL = gql`
     }
   }
 `;
-
-// const CREATE_POST_REACTION = gql``;
 
 const CREATE_COMMENT = gql`
   mutation Mutation($postId: String!, $commentBody: String!) {
@@ -343,6 +364,7 @@ const CREATE_POST_REACTION = gql`
     }
   }
 `;
+
 const CREATE_COMMENT_REACTION = gql`
   mutation CreateCommentReaction($postId: String!, $reactionId: String!) {
     createCommentReaction(postId: $postId, reactionId: $reactionId) {
@@ -367,6 +389,23 @@ const CREATE_COMMENT_REACTION = gql`
             lastName
           }
         }
+      }
+    }
+  }
+`;
+
+const APPLY_TO_JOB = gql`
+  mutation ApplyToJob($jobId: ID!) {
+    applyToJob(jobId: $jobId) {
+      _id
+      company {
+        name
+      }
+      title
+      applicants {
+        _id
+        firstName
+        lastName
       }
     }
   }

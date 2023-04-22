@@ -29,20 +29,19 @@ const typeDefs = gql`
 
   type Company {
     _id: ID!
-    entityId: ID
     name: String
     industry: String
     hqCity: String
     hqState: String
-    locations: [String]
     website: String
     tagline: String
     bio: String
+    locations: [Location]
     companySize: String
     foundedYear: Int
     specialties: String
-    followers: [String]
-    employees: [String]
+    followers: [User]
+    employees: [User]
     posts: [Post]
     jobs: [Job]
     admins: [User]
@@ -53,7 +52,7 @@ const typeDefs = gql`
 
   type Job {
     _id: ID!
-    company: [Company]
+    company: Company
     title: String
     description: String
     responsibilities: String
@@ -76,7 +75,7 @@ const typeDefs = gql`
 
   type Comment {
     _id: ID!
-    entity: [Entity]
+    entity: Entity
     commentBody: String
     reactions: [CommentReaction]
   }
@@ -102,6 +101,7 @@ const typeDefs = gql`
   }
 
   type Experience {
+    _id: ID!
     company: Company
     title: String
     jobDescription: String
@@ -224,10 +224,10 @@ const typeDefs = gql`
     createExperience(
       company: String!
       title: String!
-      jobDescription: String
+      jobDescription: String!
       skills: [String]
-      startMonth: String
-      startYear: Int
+      startMonth: String!
+      startYear: Int!
       current: Boolean
       endMonth: String
       endYear: Int
@@ -278,7 +278,7 @@ const typeDefs = gql`
       bio: String!
       companySize: String!
       foundedYear: Int!
-      specialities: String
+      specialties: String
     ): Company
     addConnection(connectionId: String!): User
     followEntity(entityId: String!): User
@@ -294,6 +294,18 @@ const typeDefs = gql`
     createSkill(skillName: String!): Skill
     addSkill(skillId: String!): User
     createJob(
+      company: ID!
+      title: String!
+      responsibilities: String!
+      qualifications: String!
+      description: String!
+      schedule: String
+      salary: Int
+      benefits: String
+      skills: [String]
+    ): Job
+    createJobTest(
+      company: ID!
       title: String!
       responsibilities: String!
       qualifications: String!
@@ -427,9 +439,9 @@ const typeDefs = gql`
     removeConnection(connectionId: ID!): User
     unfollowEntity(entityId: ID!, userId: ID!): User
     leaveGroup(userId: ID!, groupId: ID!): Group
+    applyToJob(jobId: ID!): Job
+    applyToJobTest(userId: String!, jobId: String!): Job
   }
 `;
 
 module.exports = typeDefs;
-
-// applyToJob

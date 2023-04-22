@@ -1,15 +1,30 @@
-import { useQuery } from "@apollo/client";
+import { useQuery, useMutation } from "@apollo/client";
 import { QUERY_JOBS } from "../../utils/queries";
 import google from "../images/image8-2.jpg";
+import { APPLY_TO_JOB } from "../../utils/mutations";
 
 export default function JobList() {
   //make sure to auto gen drawer with title to match drawer to proper posting
   const { loading, data } = useQuery(QUERY_JOBS);
+  const [applyToJob] = useMutation(APPLY_TO_JOB);
   const jobs = data?.jobs || [];
 
   if (!jobs.length) {
     return <h3>No Jobs posted yet</h3>;
   }
+  const handleApply = async (e) => {
+    // console.log(e.target.id);
+    try {
+      await applyToJob({
+        variables: {
+          jobId: e.target.id,
+        },
+      });
+      console.log("applied to job");
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   return (
     <>
@@ -33,7 +48,13 @@ export default function JobList() {
                     >
                       Read More
                     </label>
-                    <button className="btn btn-primary">One Click Apply</button>
+                    <button
+                      id={job._id}
+                      className="btn btn-primary"
+                      onClick={handleApply}
+                    >
+                      One Click Apply
+                    </button>
                   </div>
                 </div>
                 <input type="checkbox" id={job._id} className="modal-toggle " />

@@ -30,7 +30,6 @@ const experienceSchema = new Schema({
   },
   endMonth: {
     type: String,
-    required: true,
   },
   endYear: {
     type: Number,
@@ -67,11 +66,9 @@ const educationSchema = new Schema({
   },
   endMonth: {
     type: String,
-    required: true,
   },
   endYear: {
     type: Number,
-    required: true,
   },
 });
 

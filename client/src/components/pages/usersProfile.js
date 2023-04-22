@@ -1,45 +1,63 @@
-import React, { useState } from "react";
-import portrait from "../images/portrait-philip-martin-unsplash.jpg";
-import { Link } from "react-router-dom";
-// import { Navigate, useParams } from 'react-router-dom';
-import { useQuery } from "@apollo/client";
-import { QUERY_ME } from "../../utils/queries";
+
+import { useState } from "react";
+import { Navigate, useParams } from 'react-router-dom';
+import { useQuery, } from '@apollo/client';
+import { Link } from 'react-router-dom';
+import {QUERY_USER, QUERY_ME} from '../../utils/queries'
 import CommentForm from "./forms/CommentForm";
-import PostForm from "./forms/PostForm";
-// import Auth from '../utils/auth';
+
+import Auth from '../../utils/auth'
+
 
 export default function Profile() {
-  // const { profileId } = useParams();
+    const [activeTab, setActiveTab] = useState("News");
+    const handleTabClick = (tabName) => {
+      setActiveTab(tabName);
+    };
 
-  // If there is no `profileId` in the URL as a parameter, execute the `QUERY_ME` query instead for the logged in user's information
-  const [activeTab, setActiveTab] = useState("News");
-  const handleTabClick = (tabName) => {
-    setActiveTab(tabName);
-  };
-  const { loading, data } = useQuery(QUERY_ME);
-  const profile = data?.me || {};
-  console.log(data);
+const {profileId} = useParams();
+
+const {loading, data} = useQuery(
+  profileId ? QUERY_USER : QUERY_ME,
+  {
+    variables:{profileId: profileId}
+  }
+);
+
+const profile = data?.me || data?.profile || {}
+
+  if(Auth.loggedIn() && Auth.getProfile().data._id === profileId) {
+    return <Navigate to="/profile" />
+  }
 
   if (loading) {
-    return <h2>...loading</h2>;
+    return <div>Loading...</div>
   }
-  return (
+
+  if(!profile?.firstName){
+    return (
+      <h4>LOG IN PLEASE!!</h4>
+    )
+  }
+
+
+return (
     <div className="container mx-auto grid-cols-3 bg-base-100">
       <div className="container mx-auto rounded-lg">
         <div className="h-15 bg-base-200 rounded-lg">
           <div className="flex-col rounded-lg">
             <img
-              src={portrait}
+              src="https://i.pinimg.com/originals/49/3f/a0/493fa0f13970ab3ef29375669f670451.jpg"
               className="float-right m-5 max-w-xs max-h-72 rounded-lg shadow-2xl"
             />
             <div className="mx-auto">
               <h1 className="text-2xl text-right font-bold mx-auto">
-                {profile.firstName} {profile.lastName}
+              
               </h1>
               <h1 className="text-xl text-right font-bold mx-auto">
                 {profile.city && profile.state && profile.country ? (
                   <>
-                    {profile.city} {profile.state}
+                   
                   </>
                 ) : (
                   <Link to="" className="btn btn-success">
@@ -69,9 +87,11 @@ export default function Profile() {
               <ul>
                 {profile.skills ? (
                   profile.skills.map((skill) => (
-                    <div className="btn btn-outline" key={skill._id}>
-                      {skill.skillName}
-                    </div>
+                    
+                      <div className="btn btn-outline" key={skill._id}>
+                        {skill.skillName}
+                      </div>
+                    
                   ))
                 ) : (
                   <button className="btn btn-success">add skills</button>
@@ -130,11 +150,11 @@ export default function Profile() {
           <div className="box w-32 m-10 text-right bg-base-200 ">
             <div className="m-2">
               <h1 className="text-2xl font-bold mx-auto">Experience</h1>
-              {profile.experience.company ? (
+              {profile.firstName ? (
                 <ul>
                   <li>
                     <div className="badge badge-primary">
-                      {profile.experience.company}
+                      {profile.firstName}
                     </div>
                   </li>
                   <li>

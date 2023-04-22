@@ -19,7 +19,7 @@ export default function CompanyProfile() {
 const company = data?.me || data?.company || {};
 
 if(Auth.loggedIn() && Auth.getProfile().data._id === companyId){
-  return <Navigate to="/me" />
+  return <Navigate to="/" />
 }
 
 if (loading){

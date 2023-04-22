@@ -8,7 +8,7 @@ const {
   PostReaction,
   CommentReaction,
 } = require("../models/Post");
-const { Company } = require("../models");
+const { Company, Location } = require("../models");
 const { Job } = require("../models");
 const { Group } = require("../models");
 const { Reaction } = require("../models");
@@ -224,11 +224,11 @@ const resolvers = {
         "profilePic",
       ]);
     },
-    search: async (_, { query }, { dataSources }) => {
-      const jobs = await dataSources.productAPI.searchJobs(query);
-     
-      return { jobs };
-    },
+    // search: async (_, { query }, { dataSources }) => {
+    //   const jobs = await dataSources.productAPI.searchJobs(query);
+
+    //   return { jobs };
+    // },
   },
 
   Mutation: {
@@ -251,6 +251,16 @@ const resolvers = {
       const company = await Company.create(companyInput);
       await Entity.create({ company: company._id });
       return company;
+    },
+    // create new company
+    createLocation: async (parent, args, context) => {
+      console.log("hello");
+      const entity = Entity.findOne({ _id: context.activeProfile.entity });
+      const location = await Location.create(args);
+      return await Company.findOneAndUpdate(
+        { _id: entity.company },
+        { $push: { locations: location._id } }
+      );
     },
     // create new group       - good
     createGroup: async (parent, groupInput, context) => {
@@ -277,19 +287,34 @@ const resolvers = {
     // create new work experience
     createExperience: async (parent, args, context) => {
       const experience = await Experience.create(args);
-      await User.findOneAndUpdate(
+      return await User.findOneAndUpdate(
         { _id: context.user._id },
         { $push: { experience: experience._id } }
       );
     },
-    // create new work experience
+    // createExperienceTest: async (parent, args, context) => {
+    //   const experience = await Experience.create(args);
+    //   return await User.findOneAndUpdate(
+    //     { _id: args.userId },
+    //     { $push: { experience: experience._id } }
+    //   );
+    // },
+    // create new education record
     createEducation: async (parent, args, context) => {
       const education = await Education.create(args);
-      await User.findOneAndUpdate(
+      return await User.findOneAndUpdate(
         { _id: context.user._id },
         { $push: { education: education._id } }
       );
     },
+    // create new education record
+    // createEducationTest: async (parent, args, context) => {
+    //   const education = await Education.create(args);
+    //   return await User.findOneAndUpdate(
+    //     { _id: args.userId },
+    //     { $push: { education: education._id } }
+    //   );
+    // },
     // create new job
     createJob: async (parent, jobInput, context) => {
       const entity = await Entity.findOne({
@@ -763,6 +788,28 @@ const resolvers = {
     //   }
     //   throw new AuthenticationError("You need to be logged in");
     // },
+    applyToJob: async (parent, args, context) => {
+      return await Job.findOneAndUpdate(
+        { _id: args.jobId },
+        {
+          $push: { applicants: context.user._id },
+        },
+        {
+          new: true,
+        }
+      ).populate("applicants");
+    },
+    applyToJobTest: async (parent, args, context) => {
+      return await Job.findOneAndUpdate(
+        { _id: args.jobId },
+        {
+          $push: { applicants: args.userId },
+        },
+        {
+          new: true,
+        }
+      ).populate("applicants");
+    },
   },
 };
 

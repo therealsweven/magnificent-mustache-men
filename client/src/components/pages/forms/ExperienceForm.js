@@ -1,8 +1,9 @@
 import React from "react";
 import { Formik, Field, Form, ErrorMessage } from "formik";
-import { useMutation } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import { CREATE_EXPERIENCE } from "../../../utils/mutations";
 import * as Yup from "yup";
+import { QUERY_COMPANIES } from "../../../utils/queries";
 
 export default function ExperienceForm() {
   const [createExperience] = useMutation(CREATE_EXPERIENCE);
@@ -65,6 +66,12 @@ export default function ExperienceForm() {
     }
   };
 
+  const { loading, data } = useQuery(QUERY_COMPANIES);
+  const companydata = [data];
+  console.log(companydata);
+  if (loading) {
+    return <h2>...loading</h2>;
+  }
   return (
     <Formik
       initialValues={initialValues}
@@ -79,9 +86,22 @@ export default function ExperienceForm() {
             </label>
             <Field
               className="input input-bordered"
+              as="select"
               type="text"
               name="company"
-            />
+            >
+              <option value="">Select a Company</option>
+              {companydata.map((company, index) => (
+                <optgroup
+                  key={index}
+                >{company.companies.map((comp, compindex) => (
+                  <option key={compindex} value={comp._id}>
+                    {comp.name} 
+                </option>
+                ))}
+                </optgroup>
+              ))}
+            </Field>
             <ErrorMessage name="company" component="div" className="error" />
           </div>
           <div className="form-control">
