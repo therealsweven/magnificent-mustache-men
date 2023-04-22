@@ -55,7 +55,6 @@ export default function CommentForm({ postId }) {
             />
             <ErrorMessage name="commentBody" component="div" className="error" />
           </div>
-
           <div className="form-control mt-6">
             <button
               className="btn btn-primary"
