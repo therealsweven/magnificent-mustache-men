@@ -41,7 +41,7 @@ export default function Profile() {
         <div className="h-15 bg-base-200 rounded-lg">
           <div className="flex-col rounded-lg">
             <img
-              src="https://i.pinimg.com/originals/49/3f/a0/493fa0f13970ab3ef29375669f670451.jpg"
+              src={user.profPic}
               className="float-right m-5 max-w-xs max-h-72 rounded-lg shadow-2xl"
             />
             <div className="mx-auto">
