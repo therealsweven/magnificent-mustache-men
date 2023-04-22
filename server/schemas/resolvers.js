@@ -396,14 +396,14 @@ const resolvers = {
     addConnection: async (parent, args, context) => {
       if (context.user._id) {
         await User.findOneAndUpdate(
-          { _id: friendId },
-          { $push: { connections: args._id } }
+          { _id: args.connectionId },
+          { $push: { connections: context.user._id } }
         );
         return await User.findOneAndUpdate(
           { _id: context.user._id },
           {
             $push: {
-              connections: context.user._id,
+              connections: args.connectionId,
             },
           },
           {
@@ -413,15 +413,35 @@ const resolvers = {
       }
       throw new AuthenticationError("You need to be logged in");
     },
-    //  create followEntity need entityId
+    //  follow a school or company need schoolId or companyId
     followEntity: async (parent, args, context) => {
+      console.log(args);
       if (context.user) {
-        //add entity to user entitiesFollowed
+        // is it school or company
+        const id = args.schoolId || args.companyId;
+        let entity = {};
+        // for company
+        if (args.companyId) {
+          entity = await Entity.findOne({ company: id });
+          console.log(entity);
+          await Company.findOneAndUpdate(
+            { _id: id },
+            { $addToSet: { followers: context.user._id } }
+          );
+          // for school
+        } else if (args.schoolId) {
+          entity = await Entity.findOne({ school: id });
+          await School.findOneAndUpdate(
+            { _id: id },
+            { $addToSet: { followers: context.user._id } }
+          );
+        }
+        //add to user array
         return await User.findOneAndUpdate(
           { _id: context.user._id },
           {
-            $push: {
-              entitiesFollowed: args.entityId,
+            $addToSet: {
+              entitiesFollowed: entity._id,
             },
           },
           {
