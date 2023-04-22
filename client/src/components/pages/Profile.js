@@ -87,7 +87,7 @@ export default function Profile() {
                 {profile.groups ? (
                   profile.groups.map((group) => (
                     <li>
-                      <div className="badge" key={group._id}>
+                      <div className="btn btn-primary" key={group._id}>
                         {group.name}
                       </div>
                     </li>
@@ -135,7 +135,7 @@ export default function Profile() {
             </div>
 
           </div>
-          <div className="box w-32 m-10 text-right bg-base-200 ">
+          <div className="m-10 text-right bg-base-200">
             <div className="m-2">
               <h1 className="text-2xl font-bold mx-auto">Experience</h1>
               {profile.experience ? (
@@ -184,40 +184,40 @@ export default function Profile() {
                 profile.education.map((edu) => (
                   <ul>
                     <li>
-                      <div className="badge badge-secondary">
+                      <div className="btn btn-secondary">
                         {edu.school.name}
                       </div>
                     </li>
                     <li>
-                      <div className="badge badge-secondary">
+                      <div className="btn btn-secondary">
                         {edu.fieldOfStudy}
                       </div>
                     </li>
                     <li>
-                      <div className="badge badge-secondary">
+                      <div className="btn btn-secondary">
                         {edu.certificateType}
                       </div>
                     </li>
                     <li>
-                      <div className="badge badge-secondary">
+                      <div className="btn btn-secondary">
                         {edu.startMonth}
                       </div>
                     </li>
                     <li>
-                      <div className="badge badge-secondary">
+                      <div className="btn btn-secondary">
                         {edu.startYear}
                       </div>
                     </li>
                     <li>
-                      <div className="btn">{edu.current}</div>
+                      <div className="btn btn-secondary">{edu.current}</div>
                     </li>
                     {edu.current === true ? (
                       <>
                         <li>
-                          <div className="btn">{edu.endMonth}</div>
+                          <div className="btn btn-secondary">{edu.endMonth}</div>
                         </li>
                         <li>
-                          <div className="btn">{edu.endYear}</div>
+                          <div className="btn btn-secondary">{edu.endYear}</div>
                         </li>
                       </>
                     ) : (
