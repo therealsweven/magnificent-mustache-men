@@ -254,6 +254,7 @@ const resolvers = {
     },
     // create new company
     createLocation: async (parent, args, context) => {
+      console.log("hello");
       const entity = Entity.findOne({ _id: context.activeProfile.entity });
       const location = await Location.create(args);
       return await Company.findOneAndUpdate(
@@ -693,6 +694,28 @@ const resolvers = {
         );
       }
       throw new AuthenticationError("You need to be logged in!");
+    },
+    applyToJob: async (parent, args, context) => {
+      return await Job.findOneAndUpdate(
+        { _id: args.jobId },
+        {
+          $push: { applicants: context.user._id },
+        },
+        {
+          new: true,
+        }
+      ).populate("applicants");
+    },
+    applyToJobTest: async (parent, args, context) => {
+      return await Job.findOneAndUpdate(
+        { _id: args.jobId },
+        {
+          $push: { applicants: args.userId },
+        },
+        {
+          new: true,
+        }
+      ).populate("applicants");
     },
   },
 };
