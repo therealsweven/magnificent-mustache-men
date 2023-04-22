@@ -18,6 +18,7 @@ export {
   CREATE_LOCATION,
   APPLY_TO_JOB,
   FOLLOW_ENTITY,
+  ADD_CONNECTION,
 };
 
 const CREATE_USER = gql`
@@ -419,6 +420,19 @@ const FOLLOW_ENTITY = gql`
       lastName
       entitiesFollowed {
         _id
+      }
+    }
+  }
+`;
+
+const ADD_CONNECTION = gql`
+  mutation AddConnection($connectionId: String!) {
+    addConnection(connectionId: $connectionId) {
+      firstName
+      lastName
+      connections {
+        firstName
+        lastName
       }
     }
   }
