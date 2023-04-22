@@ -319,7 +319,7 @@ const typeDefs = gql`
     ): Job
     createPost(postBody: String!): Post
     createPostReaction(postId: String!, reactionId: String!): Post
-    createComment(postId: String!, commentBody: String!): Post
+    createComment(postId: ID!, commentBody: String!): Post
     createCommentReaction(postId: String!, reactionId: String!): Comment
     userLogin(email: String, username: String, password: String!): Auth
     updateCompany(

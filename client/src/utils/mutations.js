@@ -227,17 +227,11 @@ const ADD_SKILL = gql`
 `;
 
 const CREATE_COMMENT = gql`
-  mutation Mutation($postId: String!, $commentBody: String!) {
+  mutation CreateComment($postId: ID!, $commentBody: String!) {
     createComment(postId: $postId, commentBody: $commentBody) {
       _id
-      comments
-      postBody
-      reactions
-      user {
-        _id
-      }
-      entity {
-        _id
+      comments {
+        commentBody
       }
     }
   }

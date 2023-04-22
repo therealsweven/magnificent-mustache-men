@@ -338,12 +338,16 @@ const resolvers = {
     },
     // create new comment - good
     createComment: async (parent, args, context) => {
-      args.entity = context.activeProfile.entity;
-      const comment = await Comment.create(args);
-      await Post.findOneAndUpdate(
+      console.log(args);
+      const comment = await Comment.create({
+        entity: context.activeProfile.entity,
+        commentBody: args.commentBody,
+      });
+      return await Post.findOneAndUpdate(
         { _id: args.postId },
-        { $push: { comments: comment._id } }
-      );
+        { $push: { comments: comment._id } },
+        { new: true }
+      ).populate("comments");
     },
     // create post reaction
     createPostReaction: async (parent, args, context) => {
