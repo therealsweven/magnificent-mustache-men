@@ -324,7 +324,7 @@ export default function Profile() {
           </div>
         </div>
       </div>
-      <div className="container mx-auto rounded">03</div>
+      <div className="container mx-auto rounded"></div>
     </div>
   );
 }
