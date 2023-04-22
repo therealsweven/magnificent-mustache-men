@@ -262,7 +262,6 @@ const typeDefs = gql`
       entitiesFollowed: [String]
     ): User
     updateUserTest(
-      userId: String
       city: String
       state: String
       country: String

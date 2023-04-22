@@ -537,7 +537,7 @@ const resolvers = {
       const token = signToken(userData);
       return { token, userData, entity };
     },
-    //update user
+    // update user
     // updateUser: async (parent, { id, userInput }) => {
     //   return await User.findOneAndUpdate(
     //     { _id: id },
@@ -545,15 +545,13 @@ const resolvers = {
     //     { new: true }
     //   );
     // },
-    updateUserTest: async (parent, { userId, userTest }, context) => {
-      // if (context.user) {
-      return User.findOneAndUpdate(
-        { _id: userId },
-        { userTest },
-        { new: true, runValidators: true }
-      );
-      // }
-      throw new AuthenticationError("You need to be logged in!");
+    updateUserTest: async (parent, args, context) => {
+      if (context.user) {
+        return User.findOneAndUpdate({ _id: context.user._id }, args, {
+          new: true,
+        });
+      }
+      // throw new AuthenticationError("You need to be logged in!");
     },
     //update company
     updateCompany: async (parent, { id, companyInput }) => {

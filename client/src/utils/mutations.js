@@ -478,19 +478,12 @@ const ADD_CONNECTION = gql`
 `;
 const UPDATE_USER_TEST = gql`
   mutation UpdateUserTest(
-    $userId: String
     $city: String
     $state: String
     $country: String
     $bio: String
   ) {
-    updateUserTest(
-      userId: $userId
-      city: $city
-      state: $state
-      country: $country
-      bio: $bio
-    ) {
+    updateUserTest(city: $city, state: $state, country: $country, bio: $bio) {
       _id
     }
   }
