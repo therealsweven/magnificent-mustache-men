@@ -2,7 +2,6 @@ import { Navigate, useParams } from "react-router-dom";
 import { useQuery } from "@apollo/client";
 import { Link } from "react-router-dom";
 import { QUERY_SINGLE_COMPANY, QUERY_ME } from "../../utils/queries";
-import PostForm from "./forms/PostForm";
 
 import Auth from "../../utils/auth";
 
@@ -17,6 +16,8 @@ export default function CompanyProfile() {
   );
 
   const company = data?.me || data?.company || {};
+
+  console.log(company);
 
   if (Auth.loggedIn() && Auth.getProfile().data._id === companyId) {
     return <Navigate to="/" />;
@@ -40,6 +41,7 @@ export default function CompanyProfile() {
               {company.name}
             </h1>
             <p className="About text-xl m-5 pl-4">{company.bio}</p>
+            <button className="btn btn-active">Follow</button>
           </div>
           <div className="col-span-1 row-span-1 bg-slate-700 rounded ml-40">
             <img
