@@ -29,7 +29,6 @@ const typeDefs = gql`
 
   type Company {
     _id: ID!
-    entityId: ID
     name: String
     industry: String
     hqCity: String
@@ -53,7 +52,7 @@ const typeDefs = gql`
 
   type Job {
     _id: ID!
-    company: [Company]
+    company: Company
     title: String
     description: String
     responsibilities: String
@@ -278,7 +277,7 @@ const typeDefs = gql`
       bio: String!
       companySize: String!
       foundedYear: Int!
-      specialities: String
+      specialties: String
     ): Company
     addConnection(connectionId: String!): User
     followEntity(entityId: String!): User
@@ -294,6 +293,7 @@ const typeDefs = gql`
     createSkill(skillName: String!): Skill
     addSkill(skillId: String!): User
     createJob(
+      company: ID
       title: String!
       responsibilities: String!
       qualifications: String!
