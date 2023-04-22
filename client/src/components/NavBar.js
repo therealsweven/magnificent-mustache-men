@@ -112,8 +112,10 @@ export default function NavBar() {
                               }}
                               key={prof.entityId}
                             >
-                              {prof.type}
-                              {prof.entityId}
+                              <p>
+                                {prof.type !== "user" ? prof.type + " - " : ""}{" "}
+                                {prof.name}
+                              </p>
                             </div>
                           </div>
                         </li>
