@@ -1,10 +1,21 @@
 import { useQuery } from "@apollo/client";
-import { QUERY_JOBS } from "../../utils/queries";
+import { QUERY_JOBS, QUERY_FEED } from "../../utils/queries";
 import PostForm from "./forms/PostForm";
 
 export default function UserFeed() {
-  const { loading, data } = useQuery(QUERY_JOBS);
-  const jobs = data?.jobs || [];
+  const { loading: jobLoading, data: jobData } = useQuery(QUERY_JOBS);
+  const { loading: feedLoading, data: feedData } = useQuery(QUERY_FEED);
+
+  // const { load, feedData } = useQuery(QUERY_FEED);
+
+  const jobs = jobData?.jobs || [];
+  const feed = feedData?.feed || [];
+  if (!feedLoading) {
+    console.log(feed);
+  }
+  if (!jobLoading) {
+    console.log(jobs);
+  }
 
   return (
     <>
@@ -42,7 +53,7 @@ export default function UserFeed() {
                     <h3 className="p-5 m-4 font-bold text-white text-5xl">
                       {job.title}
                     </h3>
-                    <div class="grid grid-cols-3 gap-4">
+                    <div className="grid grid-cols-3 gap-4">
                       <ul className="p-3 m-5 shadow shadow-blue-500/50 ">
                         <h3 className="font-bold text-white text-3xl">
                           Qualifications
@@ -63,7 +74,7 @@ export default function UserFeed() {
                         <p>{job.responsibilities}</p>
                       </div>
                     </div>
-                    <div class="grid grid-cols-2 gap-4 place-content-between">
+                    <div className="grid grid-cols-2 gap-4 place-content-between">
                       <div className="p-3 m-5 shadow shadow-blue-500/50">
                         <h2 className="font-bold text-white text-4xl m-2">
                           Salary
