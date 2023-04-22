@@ -28,11 +28,12 @@ export default function LoginForm() {
           password: values.password,
         },
       });
-      console.log(data.userLogin.userData);
+      // console.log(data);
       // verify token
       Auth.login(data.userLogin.token);
       //switch into user profile by default
-      // Auth.profileSwitch("user", data.userLogin.entityId);
+      Auth.profileSwitch("user", data.userLogin.entity._id);
+      window.location.assign("/profile");
       console.log("login successful");
     } catch (err) {
       console.error(err);

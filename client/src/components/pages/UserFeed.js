@@ -1,10 +1,15 @@
 import { useQuery } from "@apollo/client";
-import { QUERY_JOBS } from "../../utils/queries";
+import { QUERY_JOBS, QUERY_FEED } from "../../utils/queries";
 import PostForm from "./forms/PostForm";
 
 export default function UserFeed() {
   const { loading, data } = useQuery(QUERY_JOBS);
+  const { load, feedData } = useQuery(QUERY_FEED);
   const jobs = data?.jobs || [];
+  const feed = feedData?.feed || [];
+  if (!load) {
+    console.log(feed);
+  }
 
   return (
     <>

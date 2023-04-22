@@ -175,6 +175,7 @@ const typeDefs = gql`
   type Auth {
     token: ID!
     user: User
+    entity: Entity
   }
 
   type SearchResult {
@@ -190,7 +191,7 @@ const typeDefs = gql`
     jobs: [Job]
     job(jobId: ID!): Job
     feed: [Post]
-    feedTest(type: String!, entity: ID!): [Post]
+    feedTest(entityId: ID!): [Post]
     profiles: [Entity]
     profilesByUser(userId: ID!): [Entity]
     post(postId: ID!): Post
@@ -280,7 +281,7 @@ const typeDefs = gql`
       specialties: String
     ): Company
     addConnection(connectionId: String!): User
-    followEntity(companyId: String, schoolId: String): User
+    followEntity(companyId: String, schoolId: String): Entity
     joinGroup(groupID: String!): User
     createGroup(
       name: String!
