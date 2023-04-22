@@ -144,24 +144,22 @@ export const QUERY_FEED = gql`
   query Feed {
     feed {
       _id
+      postBody
       entity {
         _id
-        company {
-          _id
-          name
-        }
-        school {
-          _id
-          name
-        }
         user {
           _id
           firstName
           lastName
+          profPic
         }
       }
-      postBody
-      reactions
+      comments {
+        _id
+        commentBody
+      }
+      createdAt
+      updatedAt
     }
   }
 `;

@@ -30,6 +30,7 @@ import ExperienceForm from "./components/pages/forms/ExperienceForm";
 import GroupForm from "./components/pages/forms/GroupForm";
 import JobForm from "./components/pages/forms/JobForm";
 import SchoolForm from "./components/pages/forms/SchoolForm";
+import LoginForm from "./components/pages/forms/LoginForm";
 
 import PostForm from "./components/pages/forms/PostForm";
 import SkillForm from "./components/pages/forms/SkillForm";
@@ -90,7 +91,7 @@ function App() {
             <Route path="/test5" element={<SkillForm />} />
             <Route path="/test6" element={<JobForm />} />
             <Route path="/test7" element={<LocationForm />} />
-            <Route path="/test8" element={<NavBar />} />
+            <Route path="/test8" element={<LoginForm />} />
           </Routes>
           <Footer />
         </div>

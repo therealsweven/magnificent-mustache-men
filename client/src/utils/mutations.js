@@ -45,14 +45,14 @@ const CREATE_USER = gql`
 `;
 
 const USER_LOGIN = gql`
-  mutation userLogin($email: String!, $password: String!) {
+  mutation UserLogin($email: String, $password: String!) {
     userLogin(email: $email, password: $password) {
       token
       user {
         _id
-        email
-        firstName
-        lastName
+      }
+      entity {
+        _id
       }
     }
   }
@@ -414,14 +414,51 @@ const APPLY_TO_JOB = gql`
     }
   }
 `;
+
 const FOLLOW_ENTITY = gql`
   mutation FollowEntity($companyId: String, $schoolId: String) {
     followEntity(companyId: $companyId, schoolId: $schoolId) {
-      _id
-      firstName
-      lastName
-      entitiesFollowed {
-        _id
+      company {
+        entitiesFollowed {
+          _id
+          company {
+            _id
+          }
+          school {
+            _id
+          }
+          user {
+            _id
+          }
+        }
+      }
+      school {
+        entitiesFollowed {
+          _id
+          company {
+            _id
+          }
+          school {
+            _id
+          }
+          user {
+            _id
+          }
+        }
+      }
+      user {
+        entitiesFollowed {
+          _id
+          company {
+            _id
+          }
+          school {
+            _id
+          }
+          user {
+            _id
+          }
+        }
       }
     }
   }

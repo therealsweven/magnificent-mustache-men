@@ -84,88 +84,69 @@ const resolvers = {
         "schedule",
       ]);
     },
-    feed: async (parent, args, context) => {
-      //user
-      const entities = [];
-      if (context.activeProfile.type === "user") {
-        const user = await User.findOne({
-          entityId: context.activeProfile.entity,
-        }).populate("entitiesFollowed");
-        entities = user.entitiesFollowed;
+    feedTest: async (parent, args, context) => {
+      console.log("Line 88", args.entityId);
+      const entity = await Entity.findOne({
+        _id: args.entityId,
+      }).populate("user");
+      console.log("Line91", "entity", entity);
 
-        // company
-      } else if (context.activeProfile.type === "company") {
-        const company = await Company.findOne({
-          entityId: context.activeProfile.entity,
-        }).populate("entitiesFollowed");
-        entities = company.entitiesFollowed;
+      const user = await User.findOne({ _id: entity.user });
+      console.log("user", user.entitiesFollowed);
+      const entities = user.entitiesFollowed;
 
-        // school
-      } else if (context.activeProfile.type === "school") {
-        const school = await School.findOne({
-          entityId: context.activeProfile.entity,
-        }).populate("entitiesFollowed");
-        entities = school.entitiesFollowed;
-      }
+      console.log("Line 98", "entities", entities);
+
       const posts = await Post.find({ entity: { $in: entities } }).populate(
-        "reactions",
-        "comments"
+        "entity",
+        "user"
       );
-
+      console.log(posts);
       const sortedPosts = posts.sort(function (a, b) {
         let x = a.updatedAt;
         let y = b.updatedAt;
 
         if (x > y) {
-          return 1;
+          return -1;
         }
         if (x < y) {
-          return -1;
+          return 1;
         }
         return 0;
       });
       return sortedPosts;
     },
-    feedTest: async (parent, args, context) => {
-      //user
-      const entities = [];
-      if (args.type === "user") {
-        const user = await User.findOne({
-          entityId: args.entity,
-        }).populate("entitiesFollowed");
-        entities = user.entitiesFollowed;
+    feed: async (parent, args, context) => {
+      console.log("Line 88", context.activeProfile.entity);
+      const entity = await Entity.findOne({
+        _id: context.activeProfile.entity,
+      }).populate("user");
+      console.log("Line91", "entity", entity);
 
-        // company
-      } else if (args.type === "company") {
-        const company = await Company.findOne({
-          entityId: args.entity,
-        }).populate("entitiesFollowed");
-        entities = company.entitiesFollowed;
+      const user = await User.findOne({ _id: entity.user });
+      console.log("user", user.entitiesFollowed);
+      const entities = user.entitiesFollowed;
 
-        // school
-      } else if (args.type === "school") {
-        const school = await School.findOne({
-          entityId: args.entity,
-        }).populate("entitiesFollowed");
-        entities = school.entitiesFollowed;
-      }
+      console.log("Line 98", "entities", entities);
+
       const posts = await Post.find({ entity: { $in: entities } }).populate(
-        "reactions",
-        "comments"
+        "entity",
+        "user"
       );
-
+      console.log(posts);
       const sortedPosts = posts.sort(function (a, b) {
         let x = a.updatedAt;
         let y = b.updatedAt;
 
         if (x > y) {
-          return 1;
+          return -1;
         }
         if (x < y) {
-          return -1;
+          return 1;
         }
         return 0;
       });
+      console.log("sorted posts", sortedPosts);
       return sortedPosts;
     },
     profiles: async (parent, args, context) => {
@@ -395,6 +376,23 @@ const resolvers = {
     //create add friend
     addConnection: async (parent, args, context) => {
       if (context.user._id) {
+        //find entities for user and user being added
+        const eUser = await Entity.findOne({ user: context.user._id }).populate(
+          "user"
+        );
+        const eConnect = await Entity.findOne({
+          user: args.connectionId,
+        }).populate("user");
+        // add to entities followed
+        await User.findOneAndUpdate(
+          { _id: args.connectionId },
+          { $push: { entitiesFollowed: eUser._id } }
+        );
+        await User.findOneAndUpdate(
+          { _id: context.user._id },
+          { $push: { entitiesFollowed: eConnect._id } }
+        );
+        // add to connections
         await User.findOneAndUpdate(
           { _id: args.connectionId },
           { $push: { connections: context.user._id } }
@@ -426,28 +424,68 @@ const resolvers = {
           console.log(entity);
           await Company.findOneAndUpdate(
             { _id: id },
-            { $addToSet: { followers: context.user._id } }
+            { $addToSet: { followers: context.activeProfile.entity } }
           );
           // for school
         } else if (args.schoolId) {
           entity = await Entity.findOne({ school: id });
           await School.findOneAndUpdate(
             { _id: id },
-            { $addToSet: { followers: context.user._id } }
+            { $addToSet: { followers: context.activeProfile.entity } }
           );
         }
-        //add to user array
-        return await User.findOneAndUpdate(
-          { _id: context.user._id },
-          {
-            $addToSet: {
-              entitiesFollowed: entity._id,
+        // add to user array
+        if (context.activeProfile.type === "user") {
+          const e = await Entity.findOne({ _id: context.activeProfile.entity });
+          await User.findOneAndUpdate(
+            { _id: e.user },
+            {
+              $addToSet: {
+                entitiesFollowed: entity._id,
+              },
             },
-          },
-          {
-            new: true,
-          }
-        );
+            {
+              new: true,
+            }
+          );
+          return await Entity.findOne({
+            _id: context.activeProfile.entity,
+          }).populate("user");
+          // add to school array
+        } else if (context.activeProfile.type === "school") {
+          const e = await Entity.findOne({ _id: context.activeProfile.entity });
+          await School.findOneAndUpdate(
+            { _id: e.school },
+            {
+              $addToSet: {
+                entitiesFollowed: entity._id,
+              },
+            },
+            {
+              new: true,
+            }
+          );
+          return await Entity.findOne({
+            _id: context.activeProfile.entity,
+          }).populate("school");
+          //add to company array
+        } else if (context.activeProfile.type === "company") {
+          const e = await Entity.findOne({ _id: context.activeProfile.entity });
+          await Company.findOneAndUpdate(
+            { _id: e.company },
+            {
+              $addToSet: {
+                entitiesFollowed: entity._id,
+              },
+            },
+            {
+              new: true,
+            }
+          );
+          return await Entity.findOne({
+            _id: context.activeProfile.entity,
+          }).populate("company");
+        }
       }
       throw new AuthenticationError("You need to be logged in");
     },
@@ -493,10 +531,11 @@ const resolvers = {
       if (!correctPw) {
         throw new AuthenticationError("Incorrect password!");
       }
-      const entity = await Entity.find({ user: { $eq: userData._id } });
-      const entityId = entity[0]._id;
+
+      const entity = await Entity.findOne({ user: userData._id });
+      console.log(entity);
       const token = signToken(userData);
-      return { token, userData, entityId };
+      return { token, userData, entity };
     },
     //update user
     // updateUser: async (parent, { id, userInput }) => {
