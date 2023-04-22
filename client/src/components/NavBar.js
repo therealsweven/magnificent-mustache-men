@@ -39,8 +39,6 @@ export default function NavBar() {
         profDisplay.push(prof);
       }
     });
-    console.log(profDisplay[0].profPic);
-    console.log("hello");
   }
   // Auth.profileSwitch(type, entity);
   const [type, setType] = useState();
@@ -73,7 +71,7 @@ export default function NavBar() {
             <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
               <div className="w-10 rounded-full">
                 {/* Menu Dropdown*/}
-                <img src={profDisplay[0].profPic} />
+                <img src={ profDisplay.length ? profDisplay[0].profPic : <h2>...loading</h2>} />
               </div>
             </label>
             <ul
@@ -94,7 +92,7 @@ export default function NavBar() {
                     className="dropdown-content menu p-2 shadow bg-base-100 rounded-box"
                   >
                     <>
-                      {profDisplay.map((prof) => (
+                      {profDisplay.length ? profDisplay.map((prof) => (
                         <li>
                           <div>
                             <label
@@ -116,14 +114,14 @@ export default function NavBar() {
                               }}
                               key={prof.entityId}
                             >
-                              <p>
-                                {prof.type !== "user" ? prof.type + " - " : ""}{" "}
+                              <p className="w-72">
+                                {prof.type !== "user" ? prof.type + " - " : ""}
                                 {prof.name}
                               </p>
                             </div>
                           </div>
                         </li>
-                      ))}
+                      )) : <h2>...loading</h2>}
                     </>
                   </ul>
                 </div>
