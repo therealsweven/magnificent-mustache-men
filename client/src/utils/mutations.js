@@ -15,6 +15,7 @@ export {
   CREATE_EDUCATION,
   CREATE_POST_REACTION,
   CREATE_COMMENT_REACTION,
+  CREATE_LOCATION,
 };
 
 const CREATE_USER = gql`
@@ -85,6 +86,25 @@ const CREATE_COMPANY = gql`
       companySize
       foundedYear
       specialties
+    }
+  }
+`;
+
+const CREATE_LOCATION = gql`
+  mutation Mutation(
+    $city: String!
+    $state: String!
+    $size: String
+    $phone: String
+  ) {
+    createLocation(city: $city, state: $state, size: $size, phone: $phone) {
+      name
+      locations {
+        city
+        state
+        phone
+        size
+      }
     }
   }
 `;

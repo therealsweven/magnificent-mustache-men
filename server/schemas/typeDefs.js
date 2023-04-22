@@ -29,20 +29,19 @@ const typeDefs = gql`
 
   type Company {
     _id: ID!
-    entityId: ID
     name: String
     industry: String
     hqCity: String
     hqState: String
-    locations: [String]
     website: String
     tagline: String
     bio: String
+    locations: [Location]
     companySize: String
     foundedYear: Int
     specialties: String
-    followers: [String]
-    employees: [String]
+    followers: [User]
+    employees: [User]
     posts: [Post]
     jobs: [Job]
     admins: [User]
@@ -53,7 +52,7 @@ const typeDefs = gql`
 
   type Job {
     _id: ID!
-    company: [Company]
+    company: Company
     title: String
     description: String
     responsibilities: String
@@ -232,18 +231,6 @@ const typeDefs = gql`
       endMonth: String
       endYear: Int
     ): User
-    createExperienceTest(
-      userId: ID!
-      company: String!
-      title: String!
-      jobDescription: String
-      skills: [String]
-      startMonth: String!
-      startYear: Int!
-      current: Boolean
-      endMonth: String
-      endYear: Int
-    ): User
     createUser(
       firstName: String!
       lastName: String!
@@ -306,6 +293,18 @@ const typeDefs = gql`
     createSkill(skillName: String!): Skill
     addSkill(skillId: String!): User
     createJob(
+      company: ID!
+      title: String!
+      responsibilities: String!
+      qualifications: String!
+      description: String!
+      schedule: String
+      salary: Int
+      benefits: String
+      skills: [String]
+    ): Job
+    createJobTest(
+      company: ID!
       title: String!
       responsibilities: String!
       qualifications: String!

@@ -8,7 +8,7 @@ const {
   PostReaction,
   CommentReaction,
 } = require("../models/Post");
-const { Company } = require("../models");
+const { Company, Location } = require("../models");
 const { Job } = require("../models");
 const { Group } = require("../models");
 const { Reaction } = require("../models");
@@ -252,6 +252,15 @@ const resolvers = {
       await Entity.create({ company: company._id });
       return company;
     },
+    // create new company
+    createLocation: async (parent, args, context) => {
+      const entity = Entity.findOne({ _id: context.activeProfile.entity });
+      const location = await Location.create(args);
+      return await Company.findOneAndUpdate(
+        { _id: entity.company },
+        { $push: { locations: location._id } }
+      );
+    },
     // create new group       - good
     createGroup: async (parent, groupInput, context) => {
       groupInput.admins = [context.user._id];
@@ -282,13 +291,13 @@ const resolvers = {
         { $push: { experience: experience._id } }
       );
     },
-    createExperienceTest: async (parent, args, context) => {
-      const experience = await Experience.create(args);
-      return await User.findOneAndUpdate(
-        { _id: args.userId },
-        { $push: { experience: experience._id } }
-      );
-    },
+    // createExperienceTest: async (parent, args, context) => {
+    //   const experience = await Experience.create(args);
+    //   return await User.findOneAndUpdate(
+    //     { _id: args.userId },
+    //     { $push: { experience: experience._id } }
+    //   );
+    // },
     // create new education record
     createEducation: async (parent, args, context) => {
       const education = await Education.create(args);
