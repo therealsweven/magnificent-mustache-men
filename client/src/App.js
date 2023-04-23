@@ -24,6 +24,8 @@ import CompanyProfile from "./components/pages/CompanyProfile";
 import AllCompanies from "./components/pages/AllCompanies";
 import AllUsers from "./components/pages/AllUsers";
 import UsersProfile from "./components/pages/usersProfile";
+import AllGroups from "./components/pages/AllGroups";
+import GroupProfile from "./components/pages/groupProfile";
 // forms
 import CompanyForm from "./components/pages/forms/CompanyForm";
 import EducationForm from "./components/pages/forms/EducationForm";
@@ -83,6 +85,11 @@ function App() {
               path="/companyProfile/:companyId"
               element={<CompanyProfile />}
             />
+            <Route path="/activeCommunities" element={<AllGroups />} />
+            <Route path="/groups/:groupId" element={<GroupProfile />} />
+            <Route path="/settings" element={<Settings />} />
+
+            {/* forms */}
             <Route path="/test" element={<SchoolForm />} />
             <Route path="/company" element={<CompanyProfile />} />
             <Route path="/test" element={<CompanyForm />} />
@@ -93,7 +100,6 @@ function App() {
             <Route path="/test6" element={<JobForm />} />
             <Route path="/test7" element={<LocationForm />} />
             <Route path="/test8" element={<LoginForm />} />
-            <Route path="/settings" element={<Settings />} />
           </Routes>
           <Footer />
         </div>
