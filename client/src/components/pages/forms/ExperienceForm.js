@@ -4,6 +4,7 @@ import { useMutation, useQuery } from "@apollo/client";
 import { CREATE_EXPERIENCE } from "../../../utils/mutations";
 import * as Yup from "yup";
 import { QUERY_COMPANIES } from "../../../utils/queries";
+import months from "../../../utils/months.json"
 
 export default function ExperienceForm() {
   const [createExperience] = useMutation(CREATE_EXPERIENCE);
@@ -74,7 +75,6 @@ export default function ExperienceForm() {
 
   const { loading, data } = useQuery(QUERY_COMPANIES);
   const companydata = [data];
-  console.log(companydata);
   if (loading) {
     return <h2>...loading</h2>;
   }
@@ -137,9 +137,13 @@ export default function ExperienceForm() {
             </label>
             <Field
               className="input input-bordered"
+              as="select"
               type="text"
               name="startMonth"
-            />
+            ><option>Select a Month</option>
+            {months.map((month) =>
+            <option key={month.name} value={month.name}>{month.name}</option>)}
+            </Field>
             <ErrorMessage name="startMonth" component="div" className="error" />
           </div>
           <div className="form-control">
@@ -172,11 +176,15 @@ export default function ExperienceForm() {
                   <span className="label-text">End Month</span>
                 </label>
                 <Field
-                  className="input input-bordered"
-                  type="text"
-                  name="endMonth"
-                  disabled
-                />
+              className="input input-bordered"
+              as="select"
+              type="text"
+              name="endMonth"
+              disabled
+            ><option>Select a Month</option>
+            {months.map((month) =>
+            <option key={month.name} value={month.name}>{month.name}</option>)}
+            </Field>
                 <ErrorMessage
                   name="endMonth"
                   component="div"
@@ -207,15 +215,15 @@ export default function ExperienceForm() {
                   <span className="label-text">End Month</span>
                 </label>
                 <Field
-                  className="input input-bordered"
-                  type="text"
-                  name="endMonth"
-                />
-                <ErrorMessage
-                  name="endMonth"
-                  component="div"
-                  className="error"
-                />
+              className="input input-bordered"
+              as="select"
+              type="text"
+              name="endMonth"
+              disabled
+            ><option>Select a Month</option>
+            {months.map((month) =>
+            <option key={month.name} value={month.name}>{month.name}</option>)}
+            </Field>
               </div>
               <div className="form-control">
                 <label className="label" htmlFor="endYear">

@@ -1,24 +1,13 @@
 import React from "react";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import { useMutation, useQuery } from "@apollo/client";
-import { CREATE_EDUCATION } from "../../../utils/mutations";
+import { UPDATE_EDUCATION } from "../../../utils/mutations";
 import * as Yup from "yup";
 import { QUERY_SCHOOL } from "../../../utils/queries";
 import months from "../../../utils/months.json"
 
-export default function EducationForm() {
-  const [createEducation] = useMutation(CREATE_EDUCATION);
-
-  const initialValues = {
-    school: "",
-    fieldOfStudy: "",
-    certificateType: "",
-    startMonth: "",
-    startYear: "",
-    current: false,
-    endMonth: "",
-    endYear: "",
-  };
+export default function EducationForm({ initialValues }) {
+  const [updateEducation] = useMutation(UPDATE_EDUCATION);
 
   const validationSchema = Yup.object().shape({
     school: Yup.string().required("This is a required field"),
@@ -59,7 +48,7 @@ export default function EducationForm() {
         variables.endMonth = values.endMonth;
         variables.endYear = values.endYear;
       }
-      await createEducation({
+      await updateEducation({
         variables: variables,
       });
       resetForm();
@@ -93,7 +82,7 @@ export default function EducationForm() {
               type="text"
               name="school"
             >
-              <option value="">Select a school...</option>
+              <option>Select a school...</option>
               {schools.map((schoolGroup, groupIndex) => (
                 <optgroup key={groupIndex} label={`Group ${groupIndex + 1}`}>
                   {schoolGroup.schools.map((school, schoolIndex) => (
