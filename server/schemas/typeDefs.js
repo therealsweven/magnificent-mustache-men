@@ -200,6 +200,7 @@ const typeDefs = gql`
     post(postId: ID!): Post
     groups: [Group]
     group(groupId: ID!): Group
+    reactions: [Reaction]
     schools: [School]
     school(schoolId: ID!): School
     skills: [Skill]

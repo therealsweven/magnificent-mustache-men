@@ -112,8 +112,8 @@ export default function Profile() {
                         {comment.commentBody}
                       </div> */}
                     {/* ))} */}
-                    <CommentForm postId={post._id} />
                     <ReactionForm postId={post._id} />
+                    <CommentForm postId={post._id} />
                   </div>
                 ))
               ) : (
