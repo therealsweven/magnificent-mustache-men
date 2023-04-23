@@ -23,7 +23,7 @@ export default function AllUsers() {
   };
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-7 bg-slate-700">
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-7">
       {users.map((user) => (
         <div
           key={user._id}
@@ -35,7 +35,7 @@ export default function AllUsers() {
             </div>
           </div>
           <div className="card-body items-start">
-            <h2 className="card-title text-white text-3xl">
+            <h2 className="card-title  text-3xl">
               {user.firstName} {user.lastName}
             </h2>
             <Link
