@@ -18,6 +18,7 @@
   },
   "dependencies": {
     "graphql-tag": "^2.12.6",
-    "lodash": "^4.17.21"
+    "lodash": "^4.17.21",
+    "theme-change": "^2.5.0"
   }
 }
