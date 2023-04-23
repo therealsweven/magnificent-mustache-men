@@ -107,11 +107,11 @@ export default function Profile() {
                   <div className="text-center font-bold" key={post._id}>
                     {post.postBody} {post._id}
                     {/* <span className="label">Comments</span> */}
-                    {/* {profile.post.comments.map((comment) => (
+                    {post.comments.map((comment) => (
                       <div className="text-center" key={comment._id}>
                         {comment.commentBody}
-                      </div> */}
-                    {/* ))} */}
+                      </div>
+                    ))}
                     <ReactionForm postId={post._id} />
                     <CommentForm postId={post._id} />
                   </div>
