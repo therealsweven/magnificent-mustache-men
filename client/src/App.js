@@ -25,6 +25,7 @@ import AllCompanies from "./components/pages/AllCompanies";
 import AllUsers from "./components/pages/AllUsers";
 import UsersProfile from "./components/pages/usersProfile";
 import AllGroups from "./components/pages/AllGroups";
+import GroupProfile from "./components/pages/groupProfile";
 // forms
 import CompanyForm from "./components/pages/forms/CompanyForm";
 import EducationForm from "./components/pages/forms/EducationForm";
@@ -85,6 +86,7 @@ function App() {
               element={<CompanyProfile />}
             />
             <Route path="/activeCommunities" element={<AllGroups />} />
+            <Route path="/groups/:groupId" element={<GroupProfile />} />
             <Route path="/settings" element={<Settings />} />
 
             {/* forms */}

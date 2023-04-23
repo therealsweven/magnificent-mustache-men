@@ -39,7 +39,12 @@ export default function AllGroups() {
             </div>
             <div className="card-footer flex justify-center my-3">
               <Link to={`/groups/${group._id}`}>
-                <button className="btn btn-primary">Get to Know Us!</button>
+                <button
+                  className="btn btn-primary"
+                  to={`/groups/${group._id}`}
+                >
+                  Get to Know Us!
+                </button>
               </Link>
             </div>
           </div>
