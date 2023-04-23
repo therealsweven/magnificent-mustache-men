@@ -20,7 +20,8 @@ export {
   FOLLOW_ENTITY,
   ADD_CONNECTION,
   UPDATE_USER_TEST,
-  UPDATE_GROUP,
+  // UPDATE_GROUP,
+  // UPDATE_USER,
   // REMOVE_USER,
 };
 
@@ -489,43 +490,92 @@ const UPDATE_USER_TEST = gql`
     }
   }
 `;
-const UPDATE_GROUP = gql`
-  mutation UpdateGroup(
-    $groupId: String
-    $name: String
-    $admins: [String]
-    $private: Boolean
-    $members: [String]
-    $posts: [String]
-    $joinQuestion: String
-    $profPic: String
-    $bannerPic: String
-  ) {
-    updateGroupTest(
-      groupId: $groupId
-      name: $name
-      admins: $admins
-      private: $private
-      members: $members
-      posts: $posts
-      joinQuestion: $joinQuestion
-      profPic: $profPic
-      bannerPic: $bannerPic
-    ) {
-      _id
-      name
-      joinQuestion
-      bannerPic
-      profilePic
-      members {
-        _id
-        firstName
-        lastName
-        email
-      }
-    }
-  }
-`;
 
+// update group
+
+// const UPDATE_GROUP = gql`
+//   mutation UpdateGroup(
+//     $name: String
+//     $admins: [String]
+//     $private: Boolean
+//     $members: [String]
+//     $posts: [String]
+//     $joinQuestion: String
+//     $profPic: String
+//     $bannerPic: String
+//   ) {
+//     updateGroup(
+//       name: $name
+//       admins: $admins
+//       private: $private
+//       members: $members
+//       posts: $posts
+//       joinQuestion: $joinQuestion
+//       profPic: $profPic
+//       bannerPic: $bannerPic
+//     ) {
+//       _id
+//       name
+//       joinQuestion
+//       bannerPic
+//       profilePic
+//       members {
+//         _id
+//         firstName
+//         lastName
+//         email
+//       }
+//     }
+//   }
+// `;
+
+// update user
+// const UPDATE_USER = gql`
+//   mutation UpdateUser(
+//     $firstName: String
+//     $lastName: String
+//     $email: String
+//     $password: String
+//     $city: String
+//     $state: String
+//     $country: String
+//     $education: [String]
+//     $experience: [String]
+//     $skills: [String]
+//     $website: String
+//     $posts: [String]
+//     $connections: [String]
+//     $groups: [String]
+//     $profPic: String
+//     $bannerPic: String
+//     $entitiesFollowed: [String]
+//   ) {
+//     updateUser(
+//       firstName: $firstName
+//       lastName: $lastName
+//       email: $email
+//       password: $password
+//       city: $city
+//       state: $state
+//       country: $country
+//       education: $education
+//       experience: $experience
+//       skills: $skills
+//       website: $website
+//       posts: $posts
+//       connections: $connections
+//       groups: $groups
+//       profPic: $profPic
+//       bannerPic: $bannerPic
+//       entitiesFollowed: $entitiesFollowed
+//     ) {
+//       _id
+//       firstName
+//       lastName
+//       email
+//       password
+//     }
+//   }
+// `;
 // const REMOVE_USER = gql `
 // `
