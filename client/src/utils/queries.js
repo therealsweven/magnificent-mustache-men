@@ -311,3 +311,12 @@ export const QUERY_ALL_USERS = gql`
     }
   }
 `;
+export const QUERY_REACTIONS = gql`
+  query Reactions {
+    reactions {
+      _id
+      icon
+      reactionName
+    }
+  }
+`;
