@@ -90,10 +90,10 @@ export default function CompanyProfile() {
             </h2>
 
             <div className="card-body bg-base-200 rounded w-full p-4 my-2">
-              <h2 className="card-title text-white">
+              <h2 className="card-title">
                 Full-Stack Web Developer
               </h2>
-              <p className="text-white">
+              <p>
                 We need someone who is good at things and stuff for web
                 Development.
               </p>

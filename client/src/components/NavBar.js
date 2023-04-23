@@ -59,7 +59,7 @@ export default function NavBar() {
             enCoded
           </Link>
         </div>
-        
+       
         <div className="flex-none gap-2">
           <div className="dropdown dropdown-end">
             <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
