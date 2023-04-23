@@ -28,7 +28,7 @@ export default function AllGroups() {
           >
             <div className="card-header">
               <img
-                src={group.profilePic}
+                src={group.profPic}
                 alt="Group Logo"
                 className="h-64 w-full object-cover"
               />
@@ -41,7 +41,7 @@ export default function AllGroups() {
               <Link to={`/groups/${group._id}`}>
                 <button
                   className="btn btn-primary"
-                  to={`/groups/${group._id}`}
+                  to={`/${group._id}`}
                 >
                   Get to Know Us!
                 </button>

@@ -337,7 +337,7 @@ export const QUERY_SINGLE_GROUP = gql`
     group(groupId: $groupId) {
       name
       _id
-      profilePic
+      profPic
       bannerPic
       admins {
         firstName
