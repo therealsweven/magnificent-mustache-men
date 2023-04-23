@@ -34,15 +34,14 @@ db.once("open", async () => {
     //add skills;
 
     userSeeds.map((user) => {
-      const userSkills = [];
+      const userSkills = new Set();
       const randomNums = Array.from({ length: skillSeeds.length }, () =>
         Math.floor(Math.random() * skillSeeds.length)
       );
       for (i = 0; i < randomNums.length; i++) {
-        userSkills.push(skills[randomNums[i]]._id);
-        console.log(userSkills);
+        userSkills.add(skills[randomNums[i]]._id);
       }
-      user.skills = userSkills;
+      user.skills = [...userSkills];
     });
 
     const users = await User.create(userSeeds);

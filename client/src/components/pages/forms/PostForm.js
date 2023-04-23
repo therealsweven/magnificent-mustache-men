@@ -10,7 +10,7 @@ export default function PostForm() {
   const { loading, data } = useQuery(QUERY_FEED);
   const posts = data?.posts || {};
   if (!loading) {
-    console.log(posts);
+    <h2>...loading</h2>
   }
 
   const initialValues = {
