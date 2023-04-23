@@ -46,8 +46,8 @@ export default function CompanyProfile() {
       {/* Header */}
       <div className="container-Header m-5 ">
         <div className="grid grid-cols-8 gird-rows-1 justify-items-center">
-          <div className="col-span-4 row-span-1 bg-slate-700 rounded ml-10 ">
-            <h1 className="Name font-bold text-white text-5xl m-4">
+          <div className="col-span-4 row-span-1 shadow-xl bg-base-300 rounded ml-10 ">
+            <h1 className="Name font-bold text-5xl m-4">
               {company.name}
             </h1>
             <p className="About text-xl m-5 pl-4">{company.bio}</p>
@@ -59,14 +59,14 @@ export default function CompanyProfile() {
               Follow
             </button>
           </div>
-          <div className="col-span-1 row-span-1 bg-slate-700 rounded ml-40">
+          <div className="col-span-1 row-span-1 bg-base-300 shadow-xl rounded ml-40">
             <img
               src={company.profPic}
               className="float-right m-5 max-w-xs max-h-72 rounded-lg shadow-2xl"
             />
           </div>
-          <div className="col-span-3 row-span-1 bg-slate-700 ml-44 rounded">
-            <h2 className="font-bold text-white text-3xl my-2 px-4">Info</h2>
+          <div className="col-span-3 row-span-1 bg-base-300 ml-44 rounded">
+            <h2 className="font-bold text-3xl my-2 px-4">Info</h2>
             <ul>
               <li className="px-4 m-3">
                 Location: {company.hqState}, {company.hqCity}
@@ -84,16 +84,16 @@ export default function CompanyProfile() {
       <div className="container-Body m-5 ">
         {/* Current Job Postings */}
         <div className="grid grid-cols-8 gird-rows-1 justify-items-center">
-          <div className="col-span-6 row-span-1 overflow-scroll bg-slate-700 p-3 rounded max-h-72 w-11/12 ">
-            <h2 className="jobPosts font-bold text-white text-4xl m-4">
+          <div className="col-span-6 row-span-1 overflow-scroll bg-base-300 p-3 rounded max-h-72 w-11/12 ">
+            <h2 className="jobPosts font-bold text-4xl m-4">
               Current Job Openings
             </h2>
 
-            <div className="card-body bg-cyan-900 rounded w-full p-4 my-2">
-              <h2 className="card-title text-white">
+            <div className="card-body bg-base-200 rounded w-full p-4 my-2">
+              <h2 className="card-title">
                 Full-Stack Web Developer
               </h2>
-              <p className="text-white">
+              <p>
                 We need someone who is good at things and stuff for web
                 Development.
               </p>
@@ -118,11 +118,11 @@ export default function CompanyProfile() {
             </div>
           </div>
           {/* Current Employess */}
-          <div className="col-span-2 row-span-1 overflow-y-scroll bg-slate-700 p-3 rounded max-h-72">
-            <h2 className="font-bold text-white text-2xl m-4">
+          <div className="col-span-2 row-span-1 overflow-y-scroll bg-base-300 p-3 rounded max-h-72">
+            <h2 className="font-bold text-2xl m-4">
               Current Employees
             </h2>
-            <ul className=" p-3 rounded bg-cyan-900">
+            <ul className=" p-3 rounded bg-base-200">
               <li>
                 <div className="avatar">
                   <div className="w-12 my-2 rounded-full">
@@ -130,7 +130,7 @@ export default function CompanyProfile() {
                       <img src="#" className="overlow-hidden" />
                     </Link>
                   </div>
-                  <h4 className="Name text-xl text-white self-center px-3">
+                  <h4 className="Name text-xl self-center px-3">
                     Philip Martin
                   </h4>
                 </div>
@@ -142,22 +142,22 @@ export default function CompanyProfile() {
                       <img src="#" className="overlow-hidden" />
                     </Link>
                   </div>
-                  <h4 className="Name text-xl text-white self-center px-3">
+                  <h4 className="Name text-xl  self-center px-3">
                     Sundar Pichai
                   </h4>
                 </div>
               </li>
             </ul>
           </div>
-          <div className="col-span-6 row-span-1 overflow-scroll bg-slate-700 p-3 rounded max-h-72 w-11/12 my-12">
-            <h2 className="jobPosts font-bold text-white text-4xl m-4">
+          <div className="col-span-6 row-span-1 overflow-scroll bg-base-300 p-3 rounded max-h-72 w-11/12 my-12">
+            <h2 className="jobPosts font-bold  text-4xl m-4">
               What is Happening at Google
             </h2>
-            <div className="card-body bg-cyan-900 rounded w-full p-4 my-2">
-              <h2 className="card-title text-white">
+            <div className="card-body bg-base-200 rounded w-full p-4 my-2">
+              <h2 className="card-title">
                 We dont Sell your info, We promise
               </h2>
-              <p className="text-white">
+              <p>
                 We don't make money off of your basic info, we promise!
               </p>
 
@@ -170,11 +170,11 @@ export default function CompanyProfile() {
                 </label>
               </div>
             </div>
-            <div className="card-body bg-cyan-900 rounded w-full p-4 my-2">
-              <h2 className="card-title text-white">
+            <div className="card-body bg-base-200 rounded w-full p-4 my-2">
+              <h2 className="card-title ">
                 We dont work for the robots!
               </h2>
-              <p className="text-white">
+              <p>
                 We are planning on starting the robot uprising. We have already
                 converted 30% of our work force to robots to complete work
                 faster than humans!
