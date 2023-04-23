@@ -10,8 +10,8 @@ import { UPDATE_USER_TEST } from "../../utils/mutations";
 import ExperienceForm from "./forms/ExperienceForm";
 import EducationForm from "./forms/EducationForm";
 import GroupForm from "./forms/GroupForm";
-import SkillForm from "./forms/SkillForm";
-import UserForm from "./forms/UserForm";
+import AddSkill from "./forms/AddSkill";
+import UserInfoForm from "./forms/UserInfoForm";
 
 export default function Profile() {
   const [activeTab, setActiveTab] = useState("About Me");
@@ -144,37 +144,37 @@ export default function Profile() {
                   <>
                     <p className="text-center font-bold">{profile.bio}</p>
                     <button
-                      onClick={() => handleEditClick("UserForm")}
+                      onClick={() => handleEditClick("UserInfoForm")}
                       className="btn btn-success"
                     >
                       edit
                     </button>
                     <div
                       className={
-                        isEditing === "UserForm"
+                        isEditing === "UserInfoForm"
                           ? "rounded bg-base-200"
                           : "hidden"
                       }
                     >
-                      <UserForm />
+                      <UserInfoForm />
                     </div>
                   </>
                 ) : (
                   <>
                     <button
-                      onClick={() => handleEditClick("UserForm")}
+                      onClick={() => handleEditClick("UserInfoForm")}
                       className="btn btn-success"
                     >
                       edit
                     </button>
                     <div
                       className={
-                        isEditing === "UserForm"
+                        isEditing === "UserInfoForm"
                           ? "rounded bg-base-200"
                           : "hidden"
                       }
                     >
-                      <UserForm />
+                      <UserInfoForm />
                     </div>
                   </>
                 )}
@@ -355,25 +355,25 @@ export default function Profile() {
                             : "hidden"
                         }
                       >
-                        <SkillForm />
+                        <AddSkill />
                       </div>
                     </>
                   ) : (
                     <>
                       <button
-                        onClick={() => handleEditClick("SkillForm")}
+                        onClick={() => handleEditClick("AddSkill")}
                         className="btn btn-success"
                       >
                         edit
                       </button>
                       <div
                         className={
-                          isEditing === "SkillForm"
+                          isEditing === "AddSkill"
                             ? "rounded bg-base-200"
                             : "hidden"
                         }
                       >
-                        <SkillForm />
+                        <AddSkill />
                       </div>
                     </>
                   )}
