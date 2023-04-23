@@ -321,3 +321,50 @@ export const QUERY_REACTIONS = gql`
     }
   }
 `;
+
+export const QUERY_ALL_GROUPS = gql`
+  query Query {
+    groups {
+      _id
+      profilePic
+      name
+    }
+  }
+`;
+
+export const QUERY_SINGLE_GROUP = gql`
+  query Query($groupId: ID!) {
+    group(groupId: $groupId) {
+      name
+      _id
+      profPic
+      bannerPic
+      admins {
+        firstName
+        lastName
+        profPic
+        _id
+      }
+      members {
+        firstName
+        lastName
+        profPic
+        _id
+      }
+      posts {
+        _id
+        postBody
+        updatedAt
+        reactions {
+          _id
+          reactionId {
+            _id
+            icon
+            reactionName
+          }
+        }
+      }
+      private
+    }
+  }
+`;

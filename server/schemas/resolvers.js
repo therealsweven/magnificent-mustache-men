@@ -205,7 +205,6 @@ const resolvers = {
         "admins",
         "members",
         "posts",
-        "profilePic",
       ]);
     },
     // search: async (_, { query }, { dataSources }) => {
