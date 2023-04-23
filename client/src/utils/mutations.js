@@ -791,10 +791,17 @@ const UPDATE_USER_TEST = gql`
 //   }
 // `;
 
-// remove user
+// join group
 
-// const REMOVE_USER = gql `
-// `
+// const JOIN_GROUP = gql`
+//   mutation JoinGroup($groupId: String!) {
+//     joinGroup(groupID: $groupId) {
+//       _id
+//       firstName
+//       lastName
+//     }
+//   }
+// `;
 
 // remove group
 
