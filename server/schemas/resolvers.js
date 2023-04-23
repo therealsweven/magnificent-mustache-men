@@ -596,7 +596,7 @@ const resolvers = {
         { new: true }
       );
     },
-    // update post reaction
+    // update post reaction - needs updating
     updatePostReaction: async (parent, { postReactionId, reactionInput }) => {
       return await Post.findOneAndUpdate(
         { _id: postReactionId },
