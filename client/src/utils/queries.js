@@ -273,14 +273,34 @@ export const QUERY_SINGLE_COMPANY = gql`
       _id
       bio
       companySize
+      foundedYear
       hqCity
       hqState
-      profPic
-      foundedYear
-      name
       industry
+      name
+      profPic
+      specialties
+      tagline
       website
-      bannerPic
+      jobs {
+        _id
+        benefits
+        description
+        qualifications
+        responsibilities
+        salary
+        skills {
+          _id
+          skillName
+        }
+        title
+        applicants {
+          _id
+          firstName
+          lastName
+          profPic
+        }
+      }
     }
   }
 `;
