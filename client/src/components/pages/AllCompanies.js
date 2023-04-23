@@ -15,7 +15,7 @@ export default function AllCompanies() {
 
   return (
     <>
-      <div className="grid grid-flow-col grid-cols-1">
+      <div className="grid grid-flow-col grid-cols-1 grid-rows-4">
         <div className="card card-side flex flex-wrap  shadow-xl max-h-screen m-5">
           {companies &&
             companies.map((company) => (
