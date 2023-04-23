@@ -1,4 +1,4 @@
-import React from "react";
+import { Navigate, redirect } from "react-router-dom";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import { useMutation } from "@apollo/client";
 import { CREATE_USER } from "../../../utils/mutations";
@@ -36,7 +36,7 @@ export default function UserForm() {
         },
       });
       resetForm();
-      console.log("user created");
+      return redirect("/")
     } catch (err) {
       console.error(err);
     }

@@ -16,7 +16,7 @@ export default function AllCompanies() {
   return (
     <>
       <div className="grid grid-flow-row grid-cols-1 bg-slate-900 ">
-        <div className="card card-side bg-base-100 shadow-xl h-screen m-5">
+        <div className="card card-side bg-base-100 shadow-xl max-h-screen m-5">
           {companies &&
             companies.map((company) => (
               <div key={company._id}>
@@ -26,6 +26,7 @@ export default function AllCompanies() {
                       src={company.profPic}
                       alt="company logo"
                       className="rounded-xl float"
+                      style={{ width: "200px", height: "200px" }}
                     ></img>
                   </figure>
                   <div className="card-body items-start">
