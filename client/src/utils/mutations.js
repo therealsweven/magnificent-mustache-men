@@ -231,17 +231,11 @@ const ADD_SKILL = gql`
 `;
 
 const CREATE_COMMENT = gql`
-  mutation Mutation($postId: String!, $commentBody: String!) {
+  mutation CreateComment($postId: ID!, $commentBody: String!) {
     createComment(postId: $postId, commentBody: $commentBody) {
       _id
-      comments
-      postBody
-      reactions
-      user {
-        _id
-      }
-      entity {
-        _id
+      comments {
+        commentBody
       }
     }
   }
@@ -251,10 +245,10 @@ const CREATE_EXPERIENCE = gql`
   mutation CreateExperience(
     $company: String!
     $title: String!
-    $jobDescription: String
+    $jobDescription: String!
     $skills: [String]
-    $startMonth: String
-    $startYear: Int
+    $startMonth: String!
+    $startYear: Int!
     $current: Boolean
     $endMonth: String
     $endYear: Int

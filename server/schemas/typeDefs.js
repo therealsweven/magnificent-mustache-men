@@ -235,6 +235,17 @@ const typeDefs = gql`
       endMonth: String
       endYear: Int
     ): User
+    createExperienceTest(
+      company: String!
+      title: String!
+      jobDescription: String!
+      skills: [String]
+      startMonth: String!
+      startYear: Int!
+      current: Boolean
+      endMonth: String
+      endYear: Int
+    ): User
     createUser(
       firstName: String!
       lastName: String!
@@ -325,7 +336,7 @@ const typeDefs = gql`
     ): Job
     createPost(postBody: String!): Post
     createPostReaction(postId: String!, reactionId: String!): Post
-    createComment(postId: String!, commentBody: String!): Post
+    createComment(postId: ID!, commentBody: String!): Post
     createCommentReaction(postId: String!, reactionId: String!): Comment
     userLogin(email: String, username: String, password: String!): Auth
     updateCompany(

@@ -33,7 +33,6 @@ const experienceSchema = new Schema({
   },
   endYear: {
     type: Number,
-    required: true,
   },
 });
 

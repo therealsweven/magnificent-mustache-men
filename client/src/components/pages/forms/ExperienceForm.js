@@ -46,17 +46,23 @@ export default function ExperienceForm() {
   const handleSubmit = async (values, { resetForm, setSubmitting }) => {
     try {
       console.log(values);
+
+      let variables = {
+        company: values.company,
+        title: values.title,
+        jobDescription: values.jobDescription,
+        startMonth: values.startMonth,
+        startYear: values.startYear,
+        current: values.current,
+      };
+
+      if (!values.current) {
+        variables.endMonth = values.endMonth;
+        variables.endYear = values.endYear;
+      }
+      console.log("line 71 ", variables);
       await createExperience({
-        variables: {
-          company: values.company,
-          title: values.title,
-          jobDescription: values.jobDescription,
-          startMonth: values.startMonth,
-          startYear: values.startYear,
-          current: values.current,
-          endMonth: values.endMonth,
-          endYear: values.endYear,
-        },
+        variables: variables,
       });
       console.log("experience recorded");
       resetForm();
