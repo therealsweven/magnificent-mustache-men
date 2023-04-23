@@ -137,7 +137,7 @@ const typeDefs = gql`
     members: [User]
     posts: [Post]
     joinQuestion: String
-    profilePic: String
+    profPic: String
     bannerPic: String
   }
 
