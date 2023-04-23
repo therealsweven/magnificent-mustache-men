@@ -14,6 +14,7 @@ const typeDefs = gql`
     password: String
     city: String
     state: String
+    bio: String
     country: String
     education: [Education]
     experience: [Experience]
@@ -258,6 +259,7 @@ const typeDefs = gql`
       lastName: String
       email: String
       password: String
+      bio: String
       city: String
       state: String
       country: String
@@ -312,7 +314,7 @@ const typeDefs = gql`
       bannerPic: String
     ): Group
     createSkill(skillName: String!): Skill
-    addSkill(skillId: String!): User
+    addSkill(skillName: String!): User
     createJob(
       company: ID!
       title: String!
