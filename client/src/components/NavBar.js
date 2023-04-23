@@ -53,13 +53,13 @@ export default function NavBar() {
         <div className="flex-1">
           <img className=" mx-3 rounded h-11 " src={logo} />
           <Link
-            to="/profile"
+            to="/myDashboard"
             className="btn btn-ghost normal-case text-xl font-titilliumWeb"
           >
             enCoded
           </Link>
         </div>
-       
+
         <div className="flex-none gap-2">
           <div className="dropdown dropdown-end">
             <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
