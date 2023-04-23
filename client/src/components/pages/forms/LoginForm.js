@@ -33,7 +33,7 @@ export default function LoginForm() {
       Auth.login(data.userLogin.token);
       //switch into user profile by default
       Auth.profileSwitch("user", data.userLogin.entity._id);
-      window.location.assign("/profile");
+      window.location.assign("/myDashboard");
       console.log("login successful");
     } catch (err) {
       console.error(err);
