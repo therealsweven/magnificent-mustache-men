@@ -159,6 +159,27 @@ export default function NavBar() {
               </li>
             </ul>
           </div>
+          <div className="divider divider-horizontal"></div>
+          <div className="dropdown dropdown-end">
+            <label tabIndex={0} className="btn btn-square m-1">
+              {" "}
+              +{" "}
+            </label>
+            <ul
+              tabIndex={0}
+              className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52"
+            >
+              <Link className="m-3 p-3 bg-base-300 rounded" to="/createCompany">
+                Create a Company
+              </Link>
+              <Link className="m-3 p-3 bg-base-300 rounded" to="/createGroup">
+                Create a Group
+              </Link>
+              <Link className="m-3 p-3 bg-base-300 rounded" to="/createSchool">
+                Create a School
+              </Link>
+            </ul>
+          </div>
         </div>
       </div>
     </>
