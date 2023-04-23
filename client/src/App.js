@@ -13,6 +13,7 @@ import Auth from "./utils/auth";
 import Home from "./components/pages/Home";
 import Signup from "./components/pages/Signup";
 import Login from "./components/pages/Login";
+import Settings from "./components/pages/Settings";
 import LanNavBar from "./components/LanNavBar";
 import NavBar from "./components/NavBar";
 import UserDashboard from "./components/pages/UserDashBoard";
@@ -92,6 +93,7 @@ function App() {
             <Route path="/test6" element={<JobForm />} />
             <Route path="/test7" element={<LocationForm />} />
             <Route path="/test8" element={<LoginForm />} />
+            <Route path="/settings" element={<Settings />} />
           </Routes>
           <Footer />
         </div>
