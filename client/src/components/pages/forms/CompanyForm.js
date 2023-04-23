@@ -4,9 +4,11 @@ import { CREATE_COMPANY } from "../../../utils/mutations";
 import * as Yup from "yup";
 import industries from "../../../utils/industries.json";
 import states from "../../../utils/statearray.json";
-import { Navigate } from "react-router-dom";
+
+import { useNavigate } from "react-router-dom";
 
 export default function CompanyForm() {
+  const navigate = useNavigate();
   const [createCompany] = useMutation(CREATE_COMPANY);
 
   const initialValues = {
@@ -55,7 +57,7 @@ export default function CompanyForm() {
         },
       });
       resetForm();
-      <Navigate to="/company" replace={true} />;
+      navigate("/company");
     } catch (err) {
       console.error(err);
     }
