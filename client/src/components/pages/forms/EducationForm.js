@@ -5,7 +5,6 @@ import { CREATE_EDUCATION } from "../../../utils/mutations";
 import * as Yup from "yup";
 import { QUERY_SCHOOL } from "../../../utils/queries";
 
-
 export default function EducationForm() {
   const [createEducation] = useMutation(CREATE_EDUCATION);
 
@@ -31,32 +30,36 @@ export default function EducationForm() {
     current: Yup.boolean().required("This is a required field"),
     endMonth: Yup.string().when("current", {
       is: false,
-      then: ()=> Yup.string().required("This is a required field"),
-      otherwise: ()=> Yup.string(),
+      then: () => Yup.string().required("This is a required field"),
+      otherwise: () => Yup.string(),
     }),
     endYear: Yup.number().when("current", {
       is: false,
-      then: ()=> Yup.number()
-        .typeError("This must be a number")
-        .required("This is a required field"),
-      otherwise: ()=> Yup.number(),
+      then: () =>
+        Yup.number()
+          .typeError("This must be a number")
+          .required("This is a required field"),
+      otherwise: () => Yup.number(),
     }),
   });
 
   const handleSubmit = async (values, { resetForm, setSubmitting }) => {
-    console.log(values)
+    console.log(values);
     try {
+      let variables = {
+        school: values.school,
+        fieldOfStudy: values.fieldOfStudy,
+        certificateType: values.certificateType,
+        startMonth: values.startMonth,
+        startYear: values.startYear,
+        current: values.current,
+      };
+      if (!values.current) {
+        variables.endMonth = values.endMonth;
+        variables.endYear = values.endYear;
+      }
       await createEducation({
-        variables: {
-          school: values.school,
-          fieldOfStudy: values.fieldOfStudy,
-          certificateType: values.certificateType,
-          startMonth: values.startMonth,
-          startYear: values.startYear,
-          current: values.current,
-          endMonth: values.endMonth,
-          endYear: values.endYear
-        },
+        variables: variables,
       });
       resetForm();
       console.log("education recorded");
@@ -67,7 +70,7 @@ export default function EducationForm() {
   };
   const { loading, data } = useQuery(QUERY_SCHOOL);
   const schools = [data];
-  console.log(schools)
+  console.log(schools);
   if (loading) {
     return <h2>...loading</h2>;
   }
@@ -83,19 +86,23 @@ export default function EducationForm() {
             <label className="label" htmlFor="school">
               <span className="label-text">School</span>
             </label>
-            <Field className="input input-bordered" as="select" setype="text" name="school">
-            <option value="">Select a school...</option>
-        {schools.map((schoolGroup, groupIndex) => (
-          <optgroup key={groupIndex} label={`Group ${groupIndex + 1}`}>
-            {schoolGroup.schools.map((school, schoolIndex) => (
-              <option key={schoolIndex} value={school._id}>
-                {school.name}
-              </option>
-            ))}
-          </optgroup>
-        ))}
-      
-              </Field>
+            <Field
+              className="input input-bordered"
+              as="select"
+              setype="text"
+              name="school"
+            >
+              <option value="">Select a school...</option>
+              {schools.map((schoolGroup, groupIndex) => (
+                <optgroup key={groupIndex} label={`Group ${groupIndex + 1}`}>
+                  {schoolGroup.schools.map((school, schoolIndex) => (
+                    <option key={schoolIndex} value={school._id}>
+                      {school.name}
+                    </option>
+                  ))}
+                </optgroup>
+              ))}
+            </Field>
             <ErrorMessage name="school" component="div" className="error" />
           </div>
           <div className="form-control">

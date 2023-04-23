@@ -56,7 +56,7 @@ const resolvers = {
       ]);
     },
     schools: async () => {
-      return await School.find();
+      return await School.find().sort({ name: "asc" });
     },
     school: async (parent, { schoolId }) => {
       return await School.findOne({ _id: schoolId }).populate([
@@ -168,6 +168,9 @@ const resolvers = {
 
       return profs;
     },
+    reactions: async (parent, args, context) => {
+      return await Reaction.find();
+    },
     // profilesByUser: async (parent, { userId }) => {
     //   const user = await User.findOne({ _id: userId });
     //   const companies = await Company.find({ admins: { $in: userId } });
@@ -267,19 +270,29 @@ const resolvers = {
     },
     // create new work experience
     createExperience: async (parent, args, context) => {
+      console.log(args);
       const experience = await Experience.create(args);
       return await User.findOneAndUpdate(
         { _id: context.user._id },
         { $push: { experience: experience._id } }
       );
     },
-    // createExperienceTest: async (parent, args, context) => {
-    //   const experience = await Experience.create(args);
-    //   return await User.findOneAndUpdate(
-    //     { _id: args.userId },
-    //     { $push: { experience: experience._id } }
-    //   );
-    // },
+    createExperienceTest: async (parent, args, context) => {
+      const experience = await Experience.create({
+        company: args.company,
+        title: args.title,
+        jobDescription: args.jobDescription,
+        startMonth: args.startMonth,
+        startYear: args.startYear,
+        current: args.current,
+        endMonth: args.endMonth,
+        endYear: args.endYear,
+      });
+      return await User.findOneAndUpdate(
+        { _id: args.userId },
+        { $push: { experience: experience._id } }
+      );
+    },
     // create new education record
     createEducation: async (parent, args, context) => {
       const education = await Education.create(args);
@@ -338,22 +351,27 @@ const resolvers = {
     },
     // create new comment - good
     createComment: async (parent, args, context) => {
-      args.entity = context.activeProfile.entity;
-      const comment = await Comment.create(args);
-      await Post.findOneAndUpdate(
+      console.log(args);
+      const comment = await Comment.create({
+        entity: context.activeProfile.entity,
+        commentBody: args.commentBody,
+      });
+      return await Post.findOneAndUpdate(
         { _id: args.postId },
-        { $push: { comments: comment._id } }
-      );
+        { $push: { comments: comment._id } },
+        { new: true }
+      ).populate("comments");
     },
     // create post reaction
     createPostReaction: async (parent, args, context) => {
       args.entity = context.activeProfile.entity;
-      const postReaction = PostReaction.create(args);
+      const postReaction = await PostReaction.create(args);
+      console.log(postReaction);
       const post = await Post.findOneAndUpdate(
         { _id: args.postId },
         {
-          reactions: {
-            $push: postReaction._id,
+          $push: {
+            reactions: postReaction._id,
           },
         }
       );
@@ -364,10 +382,10 @@ const resolvers = {
       args.entity = context.activeProfile.entity;
       const commentReaction = CommentReaction.create(args);
       const comment = await Comment.findOneAndUpdate(
-        { _id: args.postId },
+        { _id: args.commentId },
         {
-          reactions: {
-            $push: commentReaction._id,
+          $push: {
+            reactions: commentReaction._id,
           },
         }
       );

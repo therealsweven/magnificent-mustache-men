@@ -200,6 +200,7 @@ const typeDefs = gql`
     post(postId: ID!): Post
     groups: [Group]
     group(groupId: ID!): Group
+    reactions: [Reaction]
     schools: [School]
     school(schoolId: ID!): School
     skills: [Skill]
@@ -225,6 +226,17 @@ const typeDefs = gql`
       endYear: Int
     ): User
     createExperience(
+      company: String!
+      title: String!
+      jobDescription: String!
+      skills: [String]
+      startMonth: String!
+      startYear: Int!
+      current: Boolean
+      endMonth: String
+      endYear: Int
+    ): User
+    createExperienceTest(
       company: String!
       title: String!
       jobDescription: String!
@@ -325,7 +337,7 @@ const typeDefs = gql`
     ): Job
     createPost(postBody: String!): Post
     createPostReaction(postId: String!, reactionId: String!): Post
-    createComment(postId: String!, commentBody: String!): Post
+    createComment(postId: ID!, commentBody: String!): Post
     createCommentReaction(postId: String!, reactionId: String!): Comment
     userLogin(email: String, username: String, password: String!): Auth
     updateCompany(
