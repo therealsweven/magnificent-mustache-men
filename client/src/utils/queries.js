@@ -261,6 +261,7 @@ export const QUERY_COMPANIES = gql`
       industry
       hqCity
       hqState
+      profPic
     }
   }
 `;

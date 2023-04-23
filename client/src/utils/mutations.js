@@ -217,8 +217,8 @@ const CREATE_SKILL = gql`
 `;
 // add skill to user
 const ADD_SKILL = gql`
-  mutation AddSkill($skillId: String!) {
-    addSkill(skillId: $skillId) {
+  mutation AddSkill($skillName: String!) {
+    addSkill(skillName: $skillName) {
       _id
       firstName
       lastName

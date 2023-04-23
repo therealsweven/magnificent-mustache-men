@@ -87,7 +87,7 @@ export default function NavBar() {
                   <label tabIndex={0} className="">
                     Switch Profiles
                   </label>
-                 
+
                   <ul
                     tabIndex={0}
                     className="dropdown-content menu p-2 shadow bg-base-100 rounded-box"
@@ -103,7 +103,7 @@ export default function NavBar() {
                               >
                                 <div className="w-14  rounded-full">
                                   {/* Profile images*/}
-                                  <img src={placeholder} />
+                                  <img src={prof.profPic} />
                                 </div>
                               </label>
                               <div
