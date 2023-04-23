@@ -241,10 +241,10 @@ const CREATE_EXPERIENCE = gql`
   mutation CreateExperience(
     $company: String!
     $title: String!
-    $jobDescription: String
+    $jobDescription: String!
     $skills: [String]
-    $startMonth: String
-    $startYear: Int
+    $startMonth: String!
+    $startYear: Int!
     $current: Boolean
     $endMonth: String
     $endYear: Int

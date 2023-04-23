@@ -234,6 +234,17 @@ const typeDefs = gql`
       endMonth: String
       endYear: Int
     ): User
+    createExperienceTest(
+      company: String!
+      title: String!
+      jobDescription: String!
+      skills: [String]
+      startMonth: String!
+      startYear: Int!
+      current: Boolean
+      endMonth: String
+      endYear: Int
+    ): User
     createUser(
       firstName: String!
       lastName: String!
