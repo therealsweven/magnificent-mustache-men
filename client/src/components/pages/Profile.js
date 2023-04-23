@@ -128,7 +128,7 @@ export default function Profile() {
               <div
                 id="About Me"
                 className={
-                  activeTab === "About Me" ? "rounded bg-base-200" : "hidden"
+                  activeTab === "About Me" ? "rounded bg-base-300 border-2 border-slate-700" : "hidden"
                 }
               >
                 <h1 className="text-xl text-center font-bold mx-auto py-6">
@@ -139,14 +139,14 @@ export default function Profile() {
                     <p className="text-center font-bold">{profile.bio}</p>
                     <button
                       onClick={() => handleEditClick("UserInfoForm")}
-                      className="btn btn-success"
+                      className="m-5 btn btn-success"
                     >
                       edit
                     </button>
                     <div
                       className={
                         isEditing === "UserInfoForm"
-                          ? "rounded bg-base-200"
+                          ? "rounded bg-base-300 border-2 border-slate-700"
                           : "hidden"
                       }
                     >
@@ -160,7 +160,7 @@ export default function Profile() {
                       />
                       <button
                         onClick={() => handleEditClick("")}
-                        className="btn btn-success"
+                        className="m-5 btn btn-success"
                       >
                         close
                       </button>
@@ -170,14 +170,14 @@ export default function Profile() {
                   <>
                     <button
                       onClick={() => handleEditClick("UserInfoForm")}
-                      className="btn btn-success"
+                      className="m-5 btn btn-success"
                     >
                       edit
                     </button>
                     <div
                       className={
                         isEditing === "UserInfoForm"
-                          ? "rounded bg-base-200"
+                          ? "rounded bg-base-300 border-2 border-slate-700"
                           : "hidden"
                       }
                     >
@@ -191,7 +191,7 @@ export default function Profile() {
                       />
                       <button
                         onClick={() => handleEditClick("")}
-                        className="btn btn-success"
+                        className="m-5 btn btn-success"
                       >
                         close
                       </button>
@@ -202,7 +202,7 @@ export default function Profile() {
               <div
                 id="Experience"
                 className={
-                  activeTab === "Experience" ? "rounded bg-base-200" : "hidden"
+                  activeTab === "Experience" ? "rounded bg-base-300 border-2 border-slate-700" : "hidden"
                 }
               >
                 <h1 className="text-xl text-center font-bold mx-auto py-6">
@@ -213,17 +213,33 @@ export default function Profile() {
                     <>
                       {profile.experience.map((exp) => (
                         <>
-                          <div className="btn">{exp.company.name}</div>
-                          <div className="btn">{exp.title}</div>
-                          <div className="btn">{exp.jobDescription}</div>
-                          <div className="btn">{exp.startMonth}</div>
-                          <div className="btn">{exp.startYear}</div>
-                          <div className="btn">{exp.current}</div>
+                          <div className="text-2xl text-center">
+                            {exp.name} {exp.company.name}
+                          </div>
+                          <div className="text-xl">
+                            Title: {exp.title}
+                          </div>
+                          <div className="text-xl">
+                            Description: {exp.jobDescription}
+                          </div>
+                          <div className="text-xl">
+                            Start Month: {exp.startMonth}
+                          </div>
+                          <div className="text-xl">
+                            Start Year: {exp.startYear}
+                          </div>
+                          <div className="text-xl">
+                            Current: {exp.current === true ? "Yes" : "No"}
+                          </div>
 
-                          {exp.current === true ? (
+                          {exp.current === false ? (
                             <>
-                              <div className="btn">{exp.endMonth}</div>
-                              <div className="btn">{exp.endYear}</div>
+                              <div className="text-xl">
+                                End Month: {exp.endMonth}
+                              </div>
+                              <div className="text-xl">
+                                End Year: {exp.endYear}
+                              </div>
                             </>
                           ) : (
                             <></>
@@ -231,7 +247,7 @@ export default function Profile() {
 
                           <button
                             onClick={() => handleEditClick(exp._id)}
-                            className="btn btn-success"
+                            className="m-5 btn btn-success"
                           >
                             edit
                           </button>
@@ -239,13 +255,13 @@ export default function Profile() {
                           <div
                             className={
                               isEditing === exp._id
-                                ? "rounded bg-base-200"
+                                ? "rounded bg-base-300 border-2 border-slate-700"
                                 : "hidden"
                             }
                           >
                             <EditExperienceForm
                               initialValues={{
-                                company: exp.company.name,
+                                company: exp.name,
                                 title: exp.title,
                                 jobDescription: exp.jobDescription,
                                 startMonth: exp.startMonth,
@@ -257,7 +273,7 @@ export default function Profile() {
                             />
                             <button
                               onClick={() => handleEditClick("")}
-                              className="btn btn-success"
+                              className="m-5 btn btn-success"
                             >
                               close
                             </button>
@@ -266,21 +282,21 @@ export default function Profile() {
                       ))}
                       <button
                         onClick={() => handleEditClick("ExperienceForm")}
-                        className="btn btn-success"
+                        className="m-5 btn btn-success"
                       >
                         add
                       </button>
                       <div
                         className={
                           isEditing === "ExperienceForm"
-                            ? "rounded bg-base-200"
+                            ? "rounded bg-base-300 border-2 border-slate-700"
                             : "hidden"
                         }
                       >
                         <ExperienceForm />
                         <button
                           onClick={() => handleEditClick("")}
-                          className="btn btn-success"
+                          className="m-5 btn btn-success"
                         >
                           close
                         </button>
@@ -290,21 +306,21 @@ export default function Profile() {
                     <>
                       <button
                         onClick={() => handleEditClick("ExperienceForm")}
-                        className="btn btn-success"
+                        className="m-5 btn btn-success"
                       >
                         add
                       </button>
                       <div
                         className={
                           isEditing === "ExperienceForm"
-                            ? "rounded bg-base-200"
+                            ? "rounded bg-base-300 border-2 border-slate-700"
                             : "hidden"
                         }
                       >
                         <ExperienceForm />
                         <button
                           onClick={() => handleEditClick("")}
-                          className="btn btn-success"
+                          className="m-5 btn btn-success"
                         >
                           close
                         </button>
@@ -316,7 +332,7 @@ export default function Profile() {
               <div
                 id="Education"
                 className={
-                  activeTab === "Education" ? "rounded bg-base-200" : "hidden"
+                  activeTab === "Education" ? "rounded bg-base-300 border-2 border-slate-700" : "hidden"
                 }
               >
                 <h1 className="text-xl text-center font-bold mx-auto py-6">
@@ -327,32 +343,34 @@ export default function Profile() {
                     <>
                       {profile.education.map((edu) => (
                         <>
-                          <div className="btn btn-secondary">
+                          <div className="text-2xl text-center">
                             {edu.school.name}
                           </div>
-                          <div className="btn btn-secondary">
-                            {edu.fieldOfStudy}
+                          <div className="text-xl">
+                            Field of Study: {edu.fieldOfStudy}
                           </div>
 
-                          <div className="btn btn-secondary">
-                            {edu.certificateType}
+                          <div className="text-xl">
+                            Certificate Type: {edu.certificateType}
                           </div>
 
-                          <div className="btn btn-secondary">
-                            {edu.startMonth}
+                          <div className="text-xl">
+                            Start Month: {edu.startMonth}
                           </div>
-                          <div className="btn btn-secondary">
-                            {edu.startYear}
+                          <div className="text-xl">
+                            Start Year: {edu.startYear}
                           </div>
-                          <div className="btn btn-secondary">{edu.current}</div>
+                          <div className="text-xl">
+                            Current: {edu.current === true ? "Yes" : "No"}
+                          </div>
 
-                          {edu.current === true ? (
+                          {edu.current === false ? (
                             <>
-                              <div className="btn btn-secondary">
-                                {edu.endMonth}
+                              <div className="text-xl">
+                                End Month: {edu.endMonth}
                               </div>
-                              <div className="btn btn-secondary">
-                                {edu.endYear}
+                              <div className="text-xl">
+                                End Year: {edu.endYear}
                               </div>
                             </>
                           ) : (
@@ -360,14 +378,14 @@ export default function Profile() {
                           )}
                           <button
                             onClick={() => handleEditClick(edu._id)}
-                            className="btn btn-success"
+                            className="m-5 btn btn-success"
                           >
                             edit
                           </button>
                           <div
                             className={
                               isEditing === edu._id
-                                ? "rounded bg-base-200"
+                                ? "rounded bg-base-300 border-2 border-slate-700"
                                 : "hidden"
                             }
                           >
@@ -385,7 +403,7 @@ export default function Profile() {
                             />
                             <button
                               onClick={() => handleEditClick("")}
-                              className="btn btn-success"
+                              className="btn btn-success mx-auto"
                             >
                               close
                             </button>
@@ -394,44 +412,44 @@ export default function Profile() {
                       ))}
                       <button
                         onClick={() => handleEditClick("EducationForm")}
-                        className="btn btn-success"
+                        className="m-5 btn btn-success"
                       >
                         add
                       </button>
                       <div
                         className={
                           isEditing === "EducationForm"
-                            ? "rounded bg-base-200"
+                            ? "rounded bg-base-300 border-2 border-slate-700"
                             : "hidden"
                         }
                       >
+                        <EducationForm />
                         <button
                           onClick={() => handleEditClick("")}
-                          className="btn btn-success"
+                          className="m-5 btn btn-success"
                         >
                           close
                         </button>
-                        <EducationForm />
                       </div>
                     </>
                   ) : (
                     <>
                       <button
                         onClick={() => handleEditClick("EducationForm")}
-                        className="btn btn-success"
+                        className="m-5 btn btn-success"
                       >
                         add
                       </button>
                       <div
                         className={
                           isEditing === "EducationForm"
-                            ? "rounded bg-base-200"
+                            ? "rounded bg-base-300 border-2 border-slate-700"
                             : "hidden"
                         }
                       >
                         <button
                           onClick={() => handleEditClick("")}
-                          className="btn btn-success"
+                          className="m-5 btn btn-success"
                         >
                           close
                         </button>
@@ -444,7 +462,7 @@ export default function Profile() {
               <div
                 id="Skills"
                 className={
-                  activeTab === "Skills" ? "rounded bg-base-200 h-72" : "hidden"
+                  activeTab === "Skills" ? "rounded bg-base-300 border-2 border-slate-700 h-72" : "hidden"
                 }
               >
                 <h1 className="text-xl text-center font-bold mx-auto py-6">
@@ -460,21 +478,21 @@ export default function Profile() {
                       ))}
                       <button
                         onClick={() => handleEditClick("SkillForm")}
-                        className="btn btn-success"
+                        className="m-5 btn btn-success"
                       >
                         add
                       </button>
                       <div
                         className={
                           isEditing === "SkillForm"
-                            ? "rounded bg-base-200"
+                            ? "rounded bg-base-300 border-2 border-slate-700"
                             : "hidden"
                         }
                       >
                         <AddSkill />
                         <button
                           onClick={() => handleEditClick("")}
-                          className="btn btn-success"
+                          className="m-5 btn btn-success"
                         >
                           close
                         </button>
@@ -484,21 +502,21 @@ export default function Profile() {
                     <>
                       <button
                         onClick={() => handleEditClick("AddSkill")}
-                        className="btn btn-success"
+                        className="m-5 btn btn-success"
                       >
                         add
                       </button>
                       <div
                         className={
                           isEditing === "AddSkill"
-                            ? "rounded bg-base-200"
+                            ? "rounded bg-base-300 border-2 border-slate-700"
                             : "hidden"
                         }
                       >
                         <AddSkill />
                         <button
                           onClick={() => handleEditClick("")}
-                          className="btn btn-success"
+                          className="m-5 btn btn-success"
                         >
                           close
                         </button>
@@ -510,7 +528,7 @@ export default function Profile() {
               <div
                 id="Communities"
                 className={
-                  activeTab === "Communities" ? "rounded bg-base-200" : "hidden"
+                  activeTab === "Communities" ? "rounded bg-base-300 border-2 border-slate-700" : "hidden"
                 }
               >
                 <h1 className="text-xl text-center font-bold mx-auto py-6">
@@ -521,19 +539,22 @@ export default function Profile() {
                     <>
                       {profile.groups.map((group) => (
                         <>
-                          <div className="btn btn-primary" key={group._id}>
+                          <div
+                            className="text-xl"
+                            key={group._id}
+                          >
                             {group.name}
                           </div>
                           <button
                             onClick={() => handleEditClick(group._id)}
-                            className="btn btn-success"
+                            className="m-5 btn btn-success"
                           >
                             edit
                           </button>
                           <div
                             className={
                               isEditing === group._id
-                                ? "rounded bg-base-200"
+                                ? "rounded bg-base-300 border-2 border-slate-700"
                                 : "hidden"
                             }
                           >
@@ -546,7 +567,7 @@ export default function Profile() {
                             />
                             <button
                               onClick={() => handleEditClick("")}
-                              className="btn btn-success"
+                              className="m-5 btn btn-success"
                             >
                               close
                             </button>
@@ -555,21 +576,21 @@ export default function Profile() {
                       ))}
                       <button
                         onClick={() => handleEditClick("GroupForm")}
-                        className="btn btn-success"
+                        className="m-5 btn btn-success"
                       >
                         add
                       </button>
                       <div
                         className={
                           isEditing === "GroupForm"
-                            ? "rounded bg-base-200"
+                            ? "rounded bg-base-300 border-2 border-slate-700"
                             : "hidden"
                         }
                       >
                         <GroupForm />
                         <button
                           onClick={() => handleEditClick("")}
-                          className="btn btn-success"
+                          className="m-5 btn btn-success"
                         >
                           close
                         </button>
@@ -579,21 +600,21 @@ export default function Profile() {
                     <>
                       <button
                         onClick={() => handleEditClick("GroupForm")}
-                        className="btn btn-success"
+                        className="m-5 btn btn-success"
                       >
                         add
                       </button>
                       <div
                         className={
                           isEditing === "GroupForm"
-                            ? "rounded bg-base-200"
+                            ? "rounded bg-base-300 border-2 border-slate-700"
                             : "hidden"
                         }
                       >
                         <GroupForm />
                         <button
                           onClick={() => handleEditClick("")}
-                          className="btn btn-success"
+                          className="m-5 btn btn-success"
                         >
                           close
                         </button>
@@ -605,7 +626,7 @@ export default function Profile() {
               <div
                 id="Posts"
                 className={
-                  activeTab === "Posts" ? "rounded bg-base-200" : "hidden"
+                  activeTab === "Posts" ? "rounded bg-base-300 border-2 border-slate-700" : "hidden"
                 }
               >
                 <div className="m-2">
@@ -628,7 +649,7 @@ export default function Profile() {
                       </div>
                     ))
                   ) : (
-                    <button className="btn btn-success">add Posts</button>
+                    <button className="m-5 btn btn-success">add Posts</button>
                   )}
                 </div>
               </div>
