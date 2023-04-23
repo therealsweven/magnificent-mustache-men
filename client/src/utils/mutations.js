@@ -24,6 +24,10 @@ export {
   // UPDATE_USER,
   // UPDATE_COMPANY,
   // UPDATE_SCHOOL,
+  // UPDATE_JOB,
+  // UPDATE_LOCATION,
+  // UPDATE_EDUCATION,
+  // UPDATE_EXPERIENCE,
   // REMOVE_USER,
   // REMOVE_GROUP,
 };
@@ -631,6 +635,157 @@ const UPDATE_USER_TEST = gql`
 //         salary
 //         title
 //       }
+//     }
+//   }
+// `;
+
+// update school
+
+// const UPDATE_SCHOOL = gql`
+//   mutation UpdateSchool(
+//     $name: String
+//     $city: String
+//     $state: String
+//     $bio: String
+//     $foundedYear: Int
+//     $studentBody: Int
+//     $website: String
+//     $profPic: String
+//     $bannerPic: String
+//     $posts: [String]
+//     $entitiesFollowed: [String]
+//   ) {
+//     updateSchool(
+//       name: $name
+//       city: $city
+//       state: $state
+//       bio: $bio
+//       foundedYear: $foundedYear
+//       studentBody: $studentBody
+//       website: $website
+//       profPic: $profPic
+//       bannerPic: $bannerPic
+//       posts: $posts
+//       entitiesFollowed: $entitiesFollowed
+//     ) {
+//       _id
+//       city
+//       bio
+//       name
+//       state
+//       studentBody
+//     }
+//   }
+// `;
+
+// update job
+
+// const UPDATE_JOB = gql`
+//   mutation UpdateJob(
+//     $company: String
+//     $title: String
+//     $responsibilities: String
+//     $qualifications: String
+//     $schedule: String
+//     $salary: String
+//     $benefits: String
+//     $applicants: [String]
+//     $skills: [String]
+//   ) {
+//     updateJob(
+//       company: $company
+//       title: $title
+//       responsibilities: $responsibilities
+//       qualifications: $qualifications
+//       schedule: $schedule
+//       salary: $salary
+//       benefits: $benefits
+//       applicants: $applicants
+//       skills: $skills
+//     ) {
+//       _id
+//       description
+//       qualifications
+//       responsibilities
+//       salary
+//       schedule
+//       company {
+//         _id
+//         name
+//         hqCity
+//         hqState
+//       }
+//     }
+//   }
+// `;
+
+// update location
+
+// const UPDATE_LOCATION = gql`
+//   mutation UpdateLocation(
+//     $city: String
+//     $state: String
+//     $size: String
+//     $phone: String
+//   ) {
+//     updateLocation(city: $city, state: $state, size: $size, phone: $phone) {
+//       _id
+//       hqCity
+//       hqState
+//       name
+//     }
+//   }
+// `;
+
+// update education
+
+// const UPDATE_EDUCATION = gql`
+//   mutation UpdateLocation(
+//     $city: String
+//     $state: String
+//     $size: String
+//     $phone: String
+//   ) {
+//     updateLocation(city: $city, state: $state, size: $size, phone: $phone) {
+//       _id
+//       hqCity
+//       hqState
+//       name
+//     }
+//   }
+// `;
+
+// update experience
+
+// const UPDATE_EXPERIENCE = gql`
+//   mutation UpdateExperience(
+//     $company: String
+//     $title: String
+//     $jobDescription: String
+//     $skills: [String]
+//     $startMonth: String
+//     $current: Boolean
+//     $startYear: Int
+//     $endMonth: String
+//     $endYear: Int
+//   ) {
+//     updateExperience(
+//       company: $company
+//       title: $title
+//       jobDescription: $jobDescription
+//       skills: $skills
+//       startMonth: $startMonth
+//       current: $current
+//       startYear: $startYear
+//       endMonth: $endMonth
+//       endYear: $endYear
+//     ) {
+//       _id
+//       city
+//       country
+//       email
+//       firstName
+//       lastName
 //     }
 //   }
 // `;
