@@ -17,7 +17,7 @@ const skillSeeds = require("./skillSeeds.json");
 const reactionSeeds = require("./reactionSeeds.json");
 const groupSeeds = require("./groupSeeds.json");
 const jobSeeds = require("./jobsSeeds.json");
-
+const postSeeds = require("./postSeeds.json");
 
 db.once("open", async () => {
   try {
@@ -50,7 +50,6 @@ db.once("open", async () => {
     });
     console.log("****USERS AND ENTITIES FOR USER SEEDS SEEDED****");
 
-
     // ***** COMPANIES *****
     await Company.deleteMany({});
 
@@ -76,13 +75,38 @@ db.once("open", async () => {
       );
       for (i = 0; i < randomNums.length / 10; i++) {
         jobSkills.push(skills[randomNums[i]]._id);
-        console.log("job skills");
-        console.log(jobSkills);
+        //console.log("job skills");
+        //console.log(jobSkills);
       }
       job.skills = jobSkills;
     });
     await Job.deleteMany({});
     await Job.create(jobSeeds);
+
+    await Reaction.deleteMany({});
+    await Reaction.create(reactionSeeds);
+    console.log("****REACTIONS SEEDED****");
+
+    await Group.deleteMany({});
+    await Group.create(groupSeeds);
+    console.log("****GROUPS SEEDED****");
+
+    await Post.deleteMany({});
+    const entities = await Entity.find({});
+    console.log(entities);
+    const randomNumsPosts = Array.from({ length: entities.length }, () =>
+      Math.floor(Math.random() * entities.length)
+    );
+    console.log(randomNumsPosts);
+    console.log(entities);
+    let k = 0;
+    postSeeds.map((post) => {
+      post.entity = entities[randomNumsPosts[k]]._id;
+      k = k + 1;
+    });
+    console.log("107 post seeds", postSeeds);
+    await Post.create(postSeeds);
+    console.log("****POSTS SEEDED****");
 
     // ***** SCHOOLS *****
     await School.deleteMany({});
@@ -96,14 +120,6 @@ db.once("open", async () => {
       Entity.create({ school: school._id });
     });
     console.log("****SCHOOLS AND ENTITIES SEEDED****");
-
-    await Reaction.deleteMany({});
-    await Reaction.create(reactionSeeds);
-    console.log("****REACTIONS SEEDED****");
-
-    await Group.deleteMany({});
-    await Group.create(groupSeeds);
-    console.log("****GROUPS SEEDED****");
 
     console.log("all done!");
     process.exit(0);
