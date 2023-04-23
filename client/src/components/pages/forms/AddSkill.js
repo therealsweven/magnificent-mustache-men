@@ -32,7 +32,7 @@ export default function SkillForm() {
   };
 
   const { loading, data } = useQuery(QUERY_SKILLS);
-  const skills = [{data}];
+  const skills = [{ data }];
   console.log(skills);
   if (loading) {
     return <h2>...loading</h2>;
@@ -58,10 +58,10 @@ export default function SkillForm() {
             >
               <option value="">Select a Skill</option>
               {data.skills.map((skill, index) => (
-                    <option key={index} value={skill._id}>
-                      {skill.skillName}
-                    </option>
-                  ))}
+                <option key={index} value={skill.skillName}>
+                  {skill.skillName}
+                </option>
+              ))}
             </Field>
             <ErrorMessage name="skillName" component="div" className="error" />
           </div>

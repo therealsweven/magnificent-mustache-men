@@ -8,8 +8,11 @@ import PostForm from "./forms/PostForm";
 import ReactionForm from "./forms/ReactionForm";
 import { UPDATE_USER_TEST } from "../../utils/mutations";
 import ExperienceForm from "./forms/ExperienceForm";
+import EditExperienceForm from "./forms/EditExperienceForm";
 import EducationForm from "./forms/EducationForm";
+import EditEducationForm from "./forms/EditEducationForm";
 import GroupForm from "./forms/GroupForm";
+import EditGroupForm from "./forms/EditGroupForm";
 import AddSkill from "./forms/AddSkill";
 import UserInfoForm from "./forms/UserInfoForm";
 
@@ -49,20 +52,11 @@ export default function Profile() {
                 {profile.city && profile.state && profile.country ? (
                   <>
                     {profile.city} {profile.state}
-                    <button
-                      onClick={() => handleEditClick("UserForm")}
-                      className="btn btn-success"
-                    >
-                      edit
-                    </button>
                   </>
                 ) : (
-                  <button
-                    onClick={() => handleEditClick("UserForm")}
-                    className="btn btn-success"
-                  >
-                    edit
-                  </button>
+                  <h1 className="text-xl text-right font-bold mx-auto">
+                    update your location in the about me section!
+                  </h1>
                 )}
               </h1>
               <h1 className="text-xl text-right font-bold mx-auto">
@@ -156,7 +150,20 @@ export default function Profile() {
                           : "hidden"
                       }
                     >
-                      <UserInfoForm />
+                      <UserInfoForm
+                        initialValues={{
+                          city: profile.city,
+                          state: profile.state,
+                          country: profile.country,
+                          bio: profile.bio,
+                        }}
+                      />
+                      <button
+                        onClick={() => handleEditClick("")}
+                        className="btn btn-success"
+                      >
+                        close
+                      </button>
                     </div>
                   </>
                 ) : (
@@ -174,7 +181,20 @@ export default function Profile() {
                           : "hidden"
                       }
                     >
-                      <UserInfoForm />
+                      <UserInfoForm
+                        initialValues={{
+                          city: profile.city,
+                          state: profile.state,
+                          country: profile.country,
+                          bio: profile.bio,
+                        }}
+                      />
+                      <button
+                        onClick={() => handleEditClick("")}
+                        className="btn btn-success"
+                      >
+                        close
+                      </button>
                     </div>
                   </>
                 )}
@@ -190,58 +210,107 @@ export default function Profile() {
                 </h1>
                 <div className="m-2">
                   {profile.experience && profile.experience.length ? (
-                    profile.experience.map((exp) => (
-                      <>
-                        <div className="btn">{exp.company.name}</div>
-                        <div className="btn">{exp.title}</div>
-                        <div className="btn">{exp.jobDescription}</div>
-                        <div className="btn">{exp.startMonth}</div>
-                        <div className="btn">{exp.startYear}</div>
-                        <div className="btn">{exp.current}</div>
+                    <>
+                      {profile.experience.map((exp) => (
+                        <>
+                          <div className="btn">{exp.company.name}</div>
+                          <div className="btn">{exp.title}</div>
+                          <div className="btn">{exp.jobDescription}</div>
+                          <div className="btn">{exp.startMonth}</div>
+                          <div className="btn">{exp.startYear}</div>
+                          <div className="btn">{exp.current}</div>
 
-                        {exp.current === true ? (
-                          <>
-                            <div className="btn">{exp.endMonth}</div>
-                            <div className="btn">{exp.endYear}</div>
-                          </>
-                        ) : (
-                          <></>
-                        )}
+                          {exp.current === true ? (
+                            <>
+                              <div className="btn">{exp.endMonth}</div>
+                              <div className="btn">{exp.endYear}</div>
+                            </>
+                          ) : (
+                            <></>
+                          )}
 
+                          <button
+                            onClick={() => handleEditClick(exp._id)}
+                            className="btn btn-success"
+                          >
+                            edit
+                          </button>
+
+                          <div
+                            className={
+                              isEditing === exp._id
+                                ? "rounded bg-base-200"
+                                : "hidden"
+                            }
+                          >
+                            <EditExperienceForm
+                              initialValues={{
+                                company: exp.company.name,
+                                title: exp.title,
+                                jobDescription: exp.jobDescription,
+                                startMonth: exp.startMonth,
+                                startYear: exp.startYear,
+                                current: exp.current,
+                                endMonth: exp.endMonth,
+                                endYear: exp.endYear,
+                              }}
+                            />
+                            <button
+                              onClick={() => handleEditClick("")}
+                              className="btn btn-success"
+                            >
+                              close
+                            </button>
+                          </div>
+                        </>
+                      ))}
+                      <button
+                        onClick={() => handleEditClick("ExperienceForm")}
+                        className="btn btn-success"
+                      >
+                        add
+                      </button>
+                      <div
+                        className={
+                          isEditing === "ExperienceForm"
+                            ? "rounded bg-base-200"
+                            : "hidden"
+                        }
+                      >
+                        <ExperienceForm />
                         <button
-                          onClick={() => handleEditClick("ExperienceForm")}
+                          onClick={() => handleEditClick("")}
                           className="btn btn-success"
                         >
-                          edit
+                          close
                         </button>
-                        <div
-                          className={
-                            isEditing === "ExperienceForm"
-                              ? "rounded bg-base-200"
-                              : "hidden"
-                          }
-                        >
-                          <ExperienceForm />
-                        </div>
-                      </>
-                    ))
+                      </div>
+                    </>
                   ) : (
-                    <button
-                      onClick={() => handleEditClick("ExperienceForm")}
-                      className="btn btn-success"
-                    >
-                      edit
-                    </button>
+                    <>
+                      <button
+                        onClick={() => handleEditClick("ExperienceForm")}
+                        className="btn btn-success"
+                      >
+                        add
+                      </button>
+                      <div
+                        className={
+                          isEditing === "ExperienceForm"
+                            ? "rounded bg-base-200"
+                            : "hidden"
+                        }
+                      >
+                        <ExperienceForm />
+                        <button
+                          onClick={() => handleEditClick("")}
+                          className="btn btn-success"
+                        >
+                          close
+                        </button>
+                      </div>
+                    </>
                   )}
-                  <div
-                    className={
-                      isEditing === "ExperienceForm"
-                        ? "rounded bg-base-200"
-                        : "hidden"
-                    }
-                  >
-                    <ExperienceForm />
-                  </div>
                 </div>
               </div>
               <div
@@ -255,62 +324,79 @@ export default function Profile() {
                 </h1>
                 <div className="m-2">
                   {profile.education && profile.education.length ? (
-                    profile.education.map((edu) => (
-                      <>
-                        <div className="btn btn-secondary">
-                          {edu.school.name}
-                        </div>
-                        <div className="btn btn-secondary">
-                          {edu.fieldOfStudy}
-                        </div>
+                    <>
+                      {profile.education.map((edu) => (
+                        <>
+                          <div className="btn btn-secondary">
+                            {edu.school.name}
+                          </div>
+                          <div className="btn btn-secondary">
+                            {edu.fieldOfStudy}
+                          </div>
 
-                        <div className="btn btn-secondary">
-                          {edu.certificateType}
-                        </div>
+                          <div className="btn btn-secondary">
+                            {edu.certificateType}
+                          </div>
 
-                        <div className="btn btn-secondary">
-                          {edu.startMonth}
-                        </div>
-                        <div className="btn btn-secondary">{edu.startYear}</div>
-                        <div className="btn btn-secondary">{edu.current}</div>
+                          <div className="btn btn-secondary">
+                            {edu.startMonth}
+                          </div>
+                          <div className="btn btn-secondary">
+                            {edu.startYear}
+                          </div>
+                          <div className="btn btn-secondary">{edu.current}</div>
 
-                        {edu.current === true ? (
-                          <>
-                            <div className="btn btn-secondary">
-                              {edu.endMonth}
-                            </div>
-
-                            <div className="btn btn-secondary">
-                              {edu.endYear}
-                            </div>
+                          {edu.current === true ? (
+                            <>
+                              <div className="btn btn-secondary">
+                                {edu.endMonth}
+                              </div>
+                              <div className="btn btn-secondary">
+                                {edu.endYear}
+                              </div>
+                            </>
+                          ) : (
+                            <></>
+                          )}
+                          <button
+                            onClick={() => handleEditClick(edu._id)}
+                            className="btn btn-success"
+                          >
+                            edit
+                          </button>
+                          <div
+                            className={
+                              isEditing === edu._id
+                                ? "rounded bg-base-200"
+                                : "hidden"
+                            }
+                          >
+                            <EditEducationForm
+                              initialValues={{
+                                school: edu.school.name,
+                                fieldOfStudy: edu.fieldOfStudy,
+                                certificateType: edu.certificateType,
+                                startMonth: edu.startMonth,
+                                startYear: edu.startYear,
+                                current: edu.current,
+                                endMonth: edu.endMonth || "",
+                                endYear: edu.endYear || "",
+                              }}
+                            />
                             <button
-                              onClick={() => handleEditClick("EducationForm")}
+                              onClick={() => handleEditClick("")}
                               className="btn btn-success"
                             >
-                              edit
+                              close
                             </button>
-                            <div
-                              className={
-                                isEditing === "EducationForm"
-                                  ? "rounded bg-base-200"
-                                  : "hidden"
-                              }
-                            >
-                              <EducationForm />
-                            </div>
-                          </>
-                        ) : (
-                          <></>
-                        )}
-                      </>
-                    ))
-                  ) : (
-                    <>
+                          </div>
+                        </>
+                      ))}
                       <button
                         onClick={() => handleEditClick("EducationForm")}
                         className="btn btn-success"
                       >
-                        edit
+                        add
                       </button>
                       <div
                         className={
@@ -319,6 +405,36 @@ export default function Profile() {
                             : "hidden"
                         }
                       >
+                        <button
+                          onClick={() => handleEditClick("")}
+                          className="btn btn-success"
+                        >
+                          close
+                        </button>
+                        <EducationForm />
+                      </div>
+                    </>
+                  ) : (
+                    <>
+                      <button
+                        onClick={() => handleEditClick("EducationForm")}
+                        className="btn btn-success"
+                      >
+                        add
+                      </button>
+                      <div
+                        className={
+                          isEditing === "EducationForm"
+                            ? "rounded bg-base-200"
+                            : "hidden"
+                        }
+                      >
+                        <button
+                          onClick={() => handleEditClick("")}
+                          className="btn btn-success"
+                        >
+                          close
+                        </button>
                         <EducationForm />
                       </div>
                     </>
@@ -346,7 +462,7 @@ export default function Profile() {
                         onClick={() => handleEditClick("SkillForm")}
                         className="btn btn-success"
                       >
-                        edit
+                        add
                       </button>
                       <div
                         className={
@@ -356,6 +472,12 @@ export default function Profile() {
                         }
                       >
                         <AddSkill />
+                        <button
+                          onClick={() => handleEditClick("")}
+                          className="btn btn-success"
+                        >
+                          close
+                        </button>
                       </div>
                     </>
                   ) : (
@@ -364,7 +486,7 @@ export default function Profile() {
                         onClick={() => handleEditClick("AddSkill")}
                         className="btn btn-success"
                       >
-                        edit
+                        add
                       </button>
                       <div
                         className={
@@ -374,6 +496,12 @@ export default function Profile() {
                         }
                       >
                         <AddSkill />
+                        <button
+                          onClick={() => handleEditClick("")}
+                          className="btn btn-success"
+                        >
+                          close
+                        </button>
                       </div>
                     </>
                   )}
@@ -388,37 +516,48 @@ export default function Profile() {
                 <h1 className="text-xl text-center font-bold mx-auto py-6">
                   Communities
                 </h1>
-                <div classname="m-2">
+                <div className="m-2">
                   {profile.groups && profile.groups.length ? (
-                    profile.groups.map((group) => (
-                      <>
-                        <div className="btn btn-primary" key={group._id}>
-                          {group.name}
-                        </div>
-                        <button
-                          onClick={() => handleEditClick("GroupForm")}
-                          className="btn btn-success"
-                        >
-                          edit
-                        </button>
-                        <div
-                          className={
-                            isEditing === "GroupForm"
-                              ? "rounded bg-base-200"
-                              : "hidden"
-                          }
-                        >
-                          <GroupForm />
-                        </div>
-                      </>
-                    ))
-                  ) : (
                     <>
+                      {profile.groups.map((group) => (
+                        <>
+                          <div className="btn btn-primary" key={group._id}>
+                            {group.name}
+                          </div>
+                          <button
+                            onClick={() => handleEditClick(group._id)}
+                            className="btn btn-success"
+                          >
+                            edit
+                          </button>
+                          <div
+                            className={
+                              isEditing === group._id
+                                ? "rounded bg-base-200"
+                                : "hidden"
+                            }
+                          >
+                            <EditGroupForm
+                              initialValues={{
+                                name: group.name,
+                                private: group.private,
+                                joinQuestion: group.joinQuestion,
+                              }}
+                            />
+                            <button
+                              onClick={() => handleEditClick("")}
+                              className="btn btn-success"
+                            >
+                              close
+                            </button>
+                          </div>
+                        </>
+                      ))}
                       <button
                         onClick={() => handleEditClick("GroupForm")}
                         className="btn btn-success"
                       >
-                        edit
+                        add
                       </button>
                       <div
                         className={
@@ -428,6 +567,36 @@ export default function Profile() {
                         }
                       >
                         <GroupForm />
+                        <button
+                          onClick={() => handleEditClick("")}
+                          className="btn btn-success"
+                        >
+                          close
+                        </button>
+                      </div>
+                    </>
+                  ) : (
+                    <>
+                      <button
+                        onClick={() => handleEditClick("GroupForm")}
+                        className="btn btn-success"
+                      >
+                        add
+                      </button>
+                      <div
+                        className={
+                          isEditing === "GroupForm"
+                            ? "rounded bg-base-200"
+                            : "hidden"
+                        }
+                      >
+                        <GroupForm />
+                        <button
+                          onClick={() => handleEditClick("")}
+                          className="btn btn-success"
+                        >
+                          close
+                        </button>
                       </div>
                     </>
                   )}

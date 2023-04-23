@@ -1,29 +1,18 @@
 import React from "react";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import { useMutation, useQuery } from "@apollo/client";
-import { CREATE_EDUCATION } from "../../../utils/mutations";
+import { UPDATE_EXPERIENCE } from "../../../utils/mutations";
 import * as Yup from "yup";
-import { QUERY_SCHOOL } from "../../../utils/queries";
+import { QUERY_COMPANIES } from "../../../utils/queries";
 import months from "../../../utils/months.json"
 
-export default function EducationForm() {
-  const [createEducation] = useMutation(CREATE_EDUCATION);
-
-  const initialValues = {
-    school: "",
-    fieldOfStudy: "",
-    certificateType: "",
-    startMonth: "",
-    startYear: "",
-    current: false,
-    endMonth: "",
-    endYear: "",
-  };
+export default function EditExperienceForm({initialValues}) {
+  const [updateExperience] = useMutation(UPDATE_EXPERIENCE);
 
   const validationSchema = Yup.object().shape({
-    school: Yup.string().required("This is a required field"),
-    fieldOfStudy: Yup.string().required("This is a required field"),
-    certificateType: Yup.string().required("This is a required field"),
+    company: Yup.string().required("This is a required field"),
+    title: Yup.string().required("This is a required field"),
+    jobDescription: Yup.string().required("This is a required field"),
     startMonth: Yup.string().required("This is a required field"),
     startYear: Yup.number()
       .typeError("This must be a number")
@@ -32,7 +21,7 @@ export default function EducationForm() {
     endMonth: Yup.string().when("current", {
       is: false,
       then: () => Yup.string().required("This is a required field"),
-      otherwise: () => Yup.string(),
+      otherwise: () => Yup.string().notRequired(),
     }),
     endYear: Yup.number().when("current", {
       is: false,
@@ -40,98 +29,93 @@ export default function EducationForm() {
         Yup.number()
           .typeError("This must be a number")
           .required("This is a required field"),
-      otherwise: () => Yup.number(),
+      otherwise: () => Yup.number().notRequired(),
     }),
   });
 
   const handleSubmit = async (values, { resetForm, setSubmitting }) => {
-    console.log(values);
     try {
+      console.log(values);
+
       let variables = {
-        school: values.school,
-        fieldOfStudy: values.fieldOfStudy,
-        certificateType: values.certificateType,
+        company: values.company,
+        title: values.title,
+        jobDescription: values.jobDescription,
         startMonth: values.startMonth,
         startYear: values.startYear,
         current: values.current,
       };
+
       if (!values.current) {
         variables.endMonth = values.endMonth;
         variables.endYear = values.endYear;
       }
-      await createEducation({
+      console.log("line 71 ", variables);
+      await updateExperience({
         variables: variables,
       });
+      console.log("experience recorded");
       resetForm();
-      console.log("education recorded");
     } catch (err) {
       console.error(err);
       setSubmitting(false);
     }
   };
-  const { loading, data } = useQuery(QUERY_SCHOOL);
-  const schools = [data];
-  console.log(schools);
+
+  const { loading, data } = useQuery(QUERY_COMPANIES);
+  const companydata = [data];
   if (loading) {
     return <h2>...loading</h2>;
   }
   return (
     <Formik
       initialValues={initialValues}
-      validationSchema={validationSchema}
       onSubmit={handleSubmit}
+      validationSchema={validationSchema}
     >
       {({ values, isSubmitting }) => (
         <Form>
           <div className="form-control">
-            <label className="label" htmlFor="school">
-              <span className="label-text">School</span>
+            <label className="label" htmlFor="company">
+              <span className="label-text">Company</span>
             </label>
             <Field
               className="input input-bordered"
               as="select"
               type="text"
-              name="school"
+              name="company"
             >
-              <option value="">Select a school...</option>
-              {schools.map((schoolGroup, groupIndex) => (
-                <optgroup key={groupIndex} label={`Group ${groupIndex + 1}`}>
-                  {schoolGroup.schools.map((school, schoolIndex) => (
-                    <option key={schoolIndex} value={school._id}>
-                      {school.name}
+              <option value="">Select a Company</option>
+              {companydata.map((company, index) => (
+                <optgroup key={index}>
+                  {company.companies.map((comp, compindex) => (
+                    <option key={compindex} value={comp._id}>
+                      {comp.name}
                     </option>
                   ))}
                 </optgroup>
               ))}
             </Field>
-            <ErrorMessage name="school" component="div" className="error" />
+            <ErrorMessage name="company" component="div" className="error" />
           </div>
           <div className="form-control">
-            <label className="label" htmlFor="fieldOfStudy">
-              <span className="label-text">Field of Study</span>
+            <label className="label" htmlFor="title">
+              <span className="label-text">Title</span>
+            </label>
+            <Field className="input input-bordered" type="text" name="title" />
+            <ErrorMessage name="title" component="div" className="error" />
+          </div>
+          <div className="form-control">
+            <label className="label" htmlFor="title">
+              <span className="label-text">Job Description</span>
             </label>
             <Field
               className="input input-bordered"
               type="text"
-              name="fieldOfStudy"
+              name="jobDescription"
             />
             <ErrorMessage
-              name="fieldOfStudy"
-              component="div"
-              className="error"
-            />
-          </div>
-          <div className="form-control">
-            <label className="label" htmlFor="certificateType">
-              <span className="label-text">Type of Certificate</span>
-            </label>
-            <Field
-              className="input input-bordered"
-              type="text"
-              name="certificateType"
-            />
-            <ErrorMessage
-              name="certificateType"
+              name="jobDescription"
               component="div"
               className="error"
             />
@@ -173,6 +157,7 @@ export default function EducationForm() {
             />
             <ErrorMessage name="current" />
           </div>
+
           {values.current ? (
             <>
               <div className="form-control">
@@ -184,6 +169,7 @@ export default function EducationForm() {
               as="select"
               type="text"
               name="endMonth"
+              disabled
             ><option>Select a Month</option>
             {months.map((month) =>
             <option key={month.name} value={month.name}>{month.name}</option>)}
@@ -222,15 +208,11 @@ export default function EducationForm() {
               as="select"
               type="text"
               name="endMonth"
+              disabled
             ><option>Select a Month</option>
             {months.map((month) =>
             <option key={month.name} value={month.name}>{month.name}</option>)}
             </Field>
-                <ErrorMessage
-                  name="endMonth"
-                  component="div"
-                  className="error"
-                />
               </div>
               <div className="form-control">
                 <label className="label" htmlFor="endYear">
@@ -249,6 +231,7 @@ export default function EducationForm() {
               </div>
             </>
           )}
+
           <div className="form-control mt-6">
             <button
               className="btn btn-primary"
