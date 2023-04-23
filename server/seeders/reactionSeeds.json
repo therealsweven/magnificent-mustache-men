@@ -1,22 +1,22 @@
 [
   {
     "reactionName": "Thumbs Up",
-    "icon": "&#128077;"
+    "icon": "128077"
   },
   {
     "reactionName": "Vulcan Salute",
-    "icon": "&#128406;"
+    "icon": "128406"
   },
   {
     "reactionName": "Slightly Frowning Face",
-    "icon": "&#128577;"
+    "icon": "128577"
   },
   {
     "reactionName": "Partying Face",
-    "icon": "&#129395;"
+    "icon": "129395"
   },
   {
     "reactionName": "Face With Open Mouth",
-    "icon": "&#128558;"
+    "icon": "128558"
   }
 ]

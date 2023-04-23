@@ -178,6 +178,7 @@ export default function Profile() {
                     </div>
                   </>
                 )}
+
               </div>
               <div
                 id="Experience"

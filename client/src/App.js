@@ -15,7 +15,7 @@ import Signup from "./components/pages/Signup";
 import Login from "./components/pages/Login";
 import LanNavBar from "./components/LanNavBar";
 import NavBar from "./components/NavBar";
-import UserFeed from "./components/pages/UserFeed";
+import UserDashboard from "./components/pages/UserDashBoard";
 import Footer from "./components/footer";
 import Profile from "./components/pages/Profile";
 import JobList from "./components/pages/jobList";
@@ -71,7 +71,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
-            <Route path="/feed" element={<UserFeed />} />
+            <Route path="/myDashboard" element={<UserDashboard />} />
             <Route path="/signup" element={<Signup />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/profiles" element={<AllUsers />} />

@@ -1,12 +1,11 @@
 import React from "react";
-import { Formik, Field, Form, ErrorMessage } from "formik";
 import { useMutation, useQuery } from "@apollo/client";
-import { CREATE_POST_REACTION } from "../../../utils/mutations";
+import { CREATE_COMMENT_REACTION } from "../../../utils/mutations";
 import { QUERY_REACTIONS } from "../../../utils/queries";
 
-export default function ReactionForm({ postId }) {
+export default function CommentReactionForm({ commentId }) {
   const { loading, data } = useQuery(QUERY_REACTIONS);
-  const [createPostReaction] = useMutation(CREATE_POST_REACTION);
+  const [createCommentReaction] = useMutation(CREATE_COMMENT_REACTION);
 
   const reactions = data?.reactions || [];
   if (!loading) {
@@ -17,11 +16,11 @@ export default function ReactionForm({ postId }) {
   const handleReaction = async (e) => {
     try {
       console.log(e.target.id);
-      console.log(postId);
-      await createPostReaction({
+      console.log(commentId);
+      await createCommentReaction({
         variables: {
           reactionId: e.target.id,
-          postId: postId,
+          commentId: commentId,
         },
       });
       console.log("reaction posted");

@@ -168,6 +168,9 @@ const resolvers = {
 
       return profs;
     },
+    reactions: async (parent, args, context) => {
+      return await Reaction.find();
+    },
     // profilesByUser: async (parent, { userId }) => {
     //   const user = await User.findOne({ _id: userId });
     //   const companies = await Company.find({ admins: { $in: userId } });
@@ -362,12 +365,13 @@ const resolvers = {
     // create post reaction
     createPostReaction: async (parent, args, context) => {
       args.entity = context.activeProfile.entity;
-      const postReaction = PostReaction.create(args);
+      const postReaction = await PostReaction.create(args);
+      console.log(postReaction);
       const post = await Post.findOneAndUpdate(
         { _id: args.postId },
         {
-          reactions: {
-            $push: postReaction._id,
+          $push: {
+            reactions: postReaction._id,
           },
         }
       );
@@ -378,10 +382,10 @@ const resolvers = {
       args.entity = context.activeProfile.entity;
       const commentReaction = CommentReaction.create(args);
       const comment = await Comment.findOneAndUpdate(
-        { _id: args.postId },
+        { _id: args.commentId },
         {
-          reactions: {
-            $push: commentReaction._id,
+          $push: {
+            reactions: commentReaction._id,
           },
         }
       );
