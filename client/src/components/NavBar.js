@@ -147,6 +147,9 @@ export default function NavBar() {
                 <Link to="/profiles">Make Connections</Link>
               </li>
               <li>
+                <Link to="/activeCommunities">Communities</Link>
+              </li>
+              <li>
                 <Link to="/settings">Settings</Link>
               </li>
               <li>
