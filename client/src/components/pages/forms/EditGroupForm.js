@@ -1,19 +1,11 @@
 import React from "react";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import { useMutation } from "@apollo/client";
-import { CREATE_GROUP } from "../../../utils/mutations";
+import { UPDATE_GROUP } from "../../../utils/mutations";
 import * as Yup from "yup";
-import { useNavigate } from "react-router-dom";
 
-export default function GroupForm() {
-  const navigate = useNavigate();
-  const [createGroup] = useMutation(CREATE_GROUP);
-
-  const initialValues = {
-    name: "",
-    private: false,
-    joinQuestion: "",
-  };
+export default function EditGroupForm({initialValues}) {
+  const [updateGroup] = useMutation(UPDATE_GROUP);
 
   const validationSchema = Yup.object().shape({
     name: Yup.string().required("This field is required"),
@@ -23,7 +15,7 @@ export default function GroupForm() {
 
   const handleSubmit = async (values, { resetForm, setSubmitting }) => {
     try {
-      await createGroup({
+      await updateGroup({
         variables: {
           name: values.name,
           private: values.private,
@@ -31,7 +23,7 @@ export default function GroupForm() {
         },
       });
       resetForm();
-      navigate("/activeCommunities");
+      console.log("group created");
     } catch (err) {
       console.error(err);
     }

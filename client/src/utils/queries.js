@@ -12,6 +12,7 @@ export const QUERY_ME = gql`
       city
       state
       country
+      bio
       education {
         school {
           _id
@@ -90,7 +91,7 @@ export const QUERY_ME = gql`
         name
         private
         joinQuestion
-        profilePic
+        profPic
         bannerPic
       }
       profPic
@@ -204,7 +205,7 @@ export const QUERY_USER = gql`
       groups {
         _id
         name
-        profilePic
+        profPic
       }
       posts {
         _id

@@ -26,6 +26,8 @@ import AllUsers from "./components/pages/AllUsers";
 import UsersProfile from "./components/pages/usersProfile";
 import AllGroups from "./components/pages/AllGroups";
 import GroupProfile from "./components/pages/groupProfile";
+import CreateCompany from './components/pages/CreateCompany'
+import CreateGroup from "./components/pages/CreateGroup";
 // forms
 import CompanyForm from "./components/pages/forms/CompanyForm";
 import EducationForm from "./components/pages/forms/EducationForm";
@@ -34,7 +36,7 @@ import GroupForm from "./components/pages/forms/GroupForm";
 import JobForm from "./components/pages/forms/JobForm";
 import SchoolForm from "./components/pages/forms/SchoolForm";
 import LoginForm from "./components/pages/forms/LoginForm";
-
+import CreateSchool from "./components/pages/CreateSchool"
 import PostForm from "./components/pages/forms/PostForm";
 import SkillForm from "./components/pages/forms/SkillForm";
 import LocationForm from "./components/pages/forms/LocationForm";
@@ -87,7 +89,10 @@ function App() {
             />
             <Route path="/activeCommunities" element={<AllGroups />} />
             <Route path="/groups/:groupId" element={<GroupProfile />} />
+            <Route path="/createSchool" element={<CreateSchool />} />
             <Route path="/settings" element={<Settings />} />
+            <Route path="/createCompany" element={<CreateCompany />} />
+            <Route path="/createGroup" element={<CreateGroup />} />
 
             {/* forms */}
             <Route path="/test" element={<SchoolForm />} />
