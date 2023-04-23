@@ -103,7 +103,7 @@ export default function UserDashboard() {
           <div className="m-4">
           <PostForm />
           </div>
-          <div className="Feed-Containter grid grid-cols-1 bg-slate-500 rounded p-4">
+          <div className="Feed-Containter grid grid-cols-1 bg-slate-500 overflow-scroll max-h-screen  rounded p-4">
             {feed.map((feed) => (
               <div className="Card  bg-slate-700 shadow-xl p-5 m-4 rounded">
                 <div className="avatar">
