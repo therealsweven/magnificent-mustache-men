@@ -22,7 +22,7 @@ export {
   UPDATE_USER_TEST,
   // UPDATE_GROUP,
   // UPDATE_USER,
-  // REMOVE_USER,
+  REMOVE_USER,
 };
 
 const CREATE_USER = gql`
@@ -571,5 +571,10 @@ const UPDATE_USER_TEST = gql`
 //     }
 //   }
 // `;
-// const REMOVE_USER = gql `
-// `
+const REMOVE_USER = gql`
+  mutation RemoveUser {
+    removeUser {
+      _id
+    }
+  }
+`;
