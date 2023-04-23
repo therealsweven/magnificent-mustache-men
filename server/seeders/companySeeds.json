@@ -13,10 +13,120 @@
     "name": "Chicken Soup for Coders",
     "hqCity": "Dallas",
     "hqState": "Georgia",
-    "website": "www.ass.com",
+    "website": "www.chickensoup.com",
     "bio": "We specialize is supplying coders with the technological equivalent of chicken soup.  Are you hungry digitally hungry?  Contact us today to negotiate your subscription price.  We've been in the digital chicken soup business since 2023!",
     "companySize": "500-1000",
     "foundedYear": 2007,
     "profPic": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6IYvh-gO_1uJ2MOebhNaV6eDoVyyd5qBIx4eiZY9HQd8Ax7l37D_GO-HmMyh94Gu0Xj4asygiEwk&usqp=CAU&ec=48665698"
+  },
+  {
+    "name": "Google",
+    "hqCity": "Dallas",
+    "hqState": "Georgia",
+    "website": "www.chickensoup.com",
+    "bio": "We specialize is supplying coders with the technological equivalent of chicken soup.  Are you hungry digitally hungry?  Contact us today to negotiate your subscription price.  We've been in the digital chicken soup business since 2023!",
+    "companySize": "500-1000",
+    "foundedYear": 2007,
+    "profPic": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6IYvh-gO_1uJ2MOebhNaV6eDoVyyd5qBIx4eiZY9HQd8Ax7l37D_GO-HmMyh94Gu0Xj4asygiEwk&usqp=CAU&ec=48665698"
+  },
+  {
+    "name": "Devshare",
+    "hqCity": "Charleston",
+    "hqState": "West Virginia",
+    "foundedYear": 2009,
+    "bio": "The most clonky company you'll ever come across.  We have been putting the clonk in clonkadork since 2023.  We build the newest, most moder clonkadork tech in existence today!",
+    "companySize": "150-300",
+    "website": "www.bongo.com",
+    "profPic": "https://blog.hubspot.com/hubfs/image8-2.jpg"
+  },
+  {
+    "name": "Mynte",
+    "hqCity": "Boston",
+    "hqState": "Massachusetts",
+    "foundedYear": 1994,
+    "bio": "The most clonky company you'll ever come across.  We have been putting the clonk in clonkadork since 2023.  We build the newest, most moder clonkadork tech in existence today!",
+    "companySize": "150-300",
+    "website": "www.bongo.com",
+    "profPic": "https://blog.hubspot.com/hubfs/image8-2.jpg"
+  },
+  {
+    "name": "Brightdog",
+    "hqCity": "Miami",
+    "hqState": "Florida",
+    "foundedYear": 2007,
+    "bio": "The most clonky company you'll ever come across.  We have been putting the clonk in clonkadork since 2023.  We build the newest, most moder clonkadork tech in existence today!",
+    "companySize": "150-300",
+    "website": "www.bongo.com",
+    "profPic": "https://blog.hubspot.com/hubfs/image8-2.jpg"
+  },
+  {
+    "name": "Edgeblab",
+    "hqCity": "Kansas City",
+    "hqState": "Missouri",
+    "foundedYear": 2001,
+    "bio": "The most clonky company you'll ever come across.  We have been putting the clonk in clonkadork since 2023.  We build the newest, most moder clonkadork tech in existence today!",
+    "companySize": "150-300",
+    "website": "www.bongo.com",
+    "profPic": "https://blog.hubspot.com/hubfs/image8-2.jpg"
+  },
+  {
+    "name": "Twinder",
+    "hqCity": "Richmond",
+    "hqState": "California",
+    "foundedYear": 2007,
+    "bio": "The most clonky company you'll ever come across.  We have been putting the clonk in clonkadork since 2023.  We build the newest, most moder clonkadork tech in existence today!",
+    "companySize": "150-300",
+    "website": "www.bongo.com",
+    "profPic": "https://blog.hubspot.com/hubfs/image8-2.jpg"
+  },
+  {
+    "name": "Demizz",
+    "hqCity": "New Orleans",
+    "hqState": "Louisiana",
+    "foundedYear": 2006,
+    "bio": "The most clonky company you'll ever come across.  We have been putting the clonk in clonkadork since 2023.  We build the newest, most moder clonkadork tech in existence today!",
+    "companySize": "150-300",
+    "website": "www.bongo.com",
+    "profPic": "https://blog.hubspot.com/hubfs/image8-2.jpg"
+  },
+  {
+    "name": "Topicshots",
+    "hqCity": "Aurora",
+    "hqState": "Illinois",
+    "foundedYear": 1991,
+    "bio": "The most clonky company you'll ever come across.  We have been putting the clonk in clonkadork since 2023.  We build the newest, most moder clonkadork tech in existence today!",
+    "companySize": "150-300",
+    "website": "www.bongo.com",
+    "profPic": "https://blog.hubspot.com/hubfs/image8-2.jpg"
+  },
+  {
+    "name": "Jabbersphere",
+    "hqCity": "Sacramento",
+    "hqState": "California",
+    "foundedYear": 2008,
+    "bio": "The most clonky company you'll ever come across.  We have been putting the clonk in clonkadork since 2023.  We build the newest, most moder clonkadork tech in existence today!",
+    "companySize": "150-300",
+    "profPic": "https://blog.hubspot.com/hubfs/image8-2.jpg",
+    "website": "www.bongo.com"
+  },
+  {
+    "name": "Zoovu",
+    "hqCity": "Evanston",
+    "hqState": "Illinois",
+    "foundedYear": 2006,
+    "bio": "The most clonky company you'll ever come across.  We have been putting the clonk in clonkadork since 2023.  We build the newest, most moder clonkadork tech in existence today!",
+    "companySize": "150-300",
+    "website": "www.bongo.com",
+    "profPic": "https://blog.hubspot.com/hubfs/image8-2.jpg"
+  },
+  {
+    "name": "Tazzy",
+    "hqCity": "Honolulu",
+    "hqState": "Hawaii",
+    "foundedYear": 1990,
+    "bio": "The most clonky company you'll ever come across.  We have been putting the clonk in clonkadork since 2023.  We build the newest, most moder clonkadork tech in existence today!",
+    "companySize": "150-300",
+    "website": "www.bongo.com",
+    "profPic": "https://blog.hubspot.com/hubfs/image8-2.jpg"
   }
 ]

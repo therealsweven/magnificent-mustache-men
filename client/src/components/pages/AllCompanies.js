@@ -15,8 +15,8 @@ export default function AllCompanies() {
 
   return (
     <>
-      <div className="grid grid-flow-row grid-cols-1  ">
-        <div className="card card-side bg-base-100 shadow-xl max-h-screen m-5 border">
+      <div className="grid grid-flow-row grid-cols-1  bg-slate-900 ">
+        <div className="card card-side bg-base-100 shadow-xl max-h-screen m-5">
           {companies &&
             companies.map((company) => (
               <div key={company._id}>
@@ -30,9 +30,7 @@ export default function AllCompanies() {
                     ></img>
                   </figure>
                   <div className="card-body items-start">
-                    <h2 className="card-title text-3xl">
-                      {company.name}
-                    </h2>
+                    <h2 className="card-title text-3xl">{company.name}</h2>
                     <p>{company.industry}</p>
                     <p>
                       {company.hqState}, {company.hqCity}

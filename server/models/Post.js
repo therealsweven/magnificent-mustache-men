@@ -33,7 +33,7 @@ const postReactionSchema = new Schema(
 
 const postSchema = new Schema(
   {
-    user: { type: Schema.Types.ObjectId, ref: "User", required: true },
+    user: { type: Schema.Types.ObjectId, ref: "User" },
     entity: { type: Schema.Types.ObjectId, ref: "Entity", required: true },
     postBody: { type: String, required: true },
     reactions: [{ type: Schema.Types.ObjectId, ref: "PostReaction" }],
