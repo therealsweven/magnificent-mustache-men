@@ -56,7 +56,7 @@ const resolvers = {
       ]);
     },
     schools: async () => {
-      return await School.find();
+      return await School.find().sort({ name: "asc" });
     },
     school: async (parent, { schoolId }) => {
       return await School.findOne({ _id: schoolId }).populate([
