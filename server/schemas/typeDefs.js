@@ -441,7 +441,7 @@ const typeDefs = gql`
       endMonth: String
       endYear: Int
     ): User
-    removeUser: User
+    removeUser(userId: ID!): User
     removeGroup(groupId: ID!): Group
     removeComment(postId: ID!, commentId: ID!): Post
     removeCommentReaction(commentId: ID!, reactionId: ID!): Post

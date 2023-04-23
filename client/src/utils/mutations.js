@@ -22,7 +22,10 @@ export {
   UPDATE_USER_TEST,
   // UPDATE_GROUP,
   // UPDATE_USER,
+  // UPDATE_COMPANY,
+  // UPDATE_SCHOOL,
   // REMOVE_USER,
+  // REMOVE_GROUP,
 };
 
 const CREATE_USER = gql`
@@ -524,6 +527,8 @@ const UPDATE_USER_TEST = gql`
 // `;
 
 // update user
+
+// update user
 // const UPDATE_USER = gql`
 //   mutation UpdateUser(
 //     $firstName: String
@@ -571,5 +576,86 @@ const UPDATE_USER_TEST = gql`
 //     }
 //   }
 // `;
+
+// update company
+
+// const UPDATE_COMPANY = gql`
+//   mutation UpdateCompany(
+//     $name: String
+//     $industry: String
+//     $hqCity: String
+//     $hqState: String
+//     $website: String
+//     $tagline: String
+//     $bio: String
+//     $companySize: String
+//     $foundedYear: Int
+//     $specialties: String
+//     $followers: [String]
+//     $employees: [String]
+//     $posts: [String]
+//     $jobs: [String]
+//     $admins: [String]
+//     $profPic: String
+//     $bannerPic: String
+//     $entitiesFollowed: [String]
+//   ) {
+//     updateCompany(
+//       name: $name
+//       industry: $industry
+//       hqCity: $hqCity
+//       hqState: $hqState
+//       website: $website
+//       tagline: $tagline
+//       bio: $bio
+//       companySize: $companySize
+//       foundedYear: $foundedYear
+//       specialties: $specialties
+//       followers: $followers
+//       employees: $employees
+//       posts: $posts
+//       jobs: $jobs
+//       admins: $admins
+//       profPic: $profPic
+//       bannerPic: $bannerPic
+//       entitiesFollowed: $entitiesFollowed
+//     ) {
+//       _id
+//       name
+//       hqCity
+//       hqState
+//       jobs {
+//         _id
+//         description
+//         qualifications
+//         salary
+//         title
+//       }
+//     }
+//   }
+// `;
+
+// remove user
+
 // const REMOVE_USER = gql `
 // `
+
+// remove group
+
+// const REMOVE_GROUP = gql`
+//   mutation RemoveGroup($groupId: ID!) {
+//     removeGroup(groupId: $groupId) {
+//       _id
+//       name
+//       members {
+//         firstName
+//         lastName
+//         _id
+//         posts {
+//           _id
+//           postBody
+//         }
+//       }
+//     }
+//   }
+// `;
