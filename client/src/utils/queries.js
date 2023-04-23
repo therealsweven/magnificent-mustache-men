@@ -327,7 +327,7 @@ export const QUERY_ALL_GROUPS = gql`
   query Query {
     groups {
       _id
-      profilePic
+      profPic
       name
     }
   }
