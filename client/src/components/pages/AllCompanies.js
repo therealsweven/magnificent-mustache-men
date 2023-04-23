@@ -15,12 +15,13 @@ export default function AllCompanies() {
 
   return (
     <>
-      <div className="grid grid-flow-row grid-cols-1  bg-slate-900 ">
-        <div className="card card-side bg-base-100 shadow-xl max-h-screen m-5">
+    
+      <div className="grid grid-flow-row grid-cols-3 ">
+        <div className="card card-side  shadow-xl max-h-screen m-5">
           {companies &&
             companies.map((company) => (
               <div key={company._id}>
-                <div className="card card-side shadow-xl m-3 items-center border">
+                <div className="card card-side shadow-xl m-3 items-center bg-base-300 border">
                   <figure className="p-10 ">
                     <img
                       src={company.profPic}
