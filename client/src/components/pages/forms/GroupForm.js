@@ -3,8 +3,10 @@ import { Formik, Field, Form, ErrorMessage } from "formik";
 import { useMutation } from "@apollo/client";
 import { CREATE_GROUP } from "../../../utils/mutations";
 import * as Yup from "yup";
+import { useNavigate } from "react-router-dom";
 
 export default function GroupForm() {
+  const navigate = useNavigate();
   const [createGroup] = useMutation(CREATE_GROUP);
 
   const initialValues = {
@@ -29,7 +31,7 @@ export default function GroupForm() {
         },
       });
       resetForm();
-      console.log("group created");
+      navigate("/activeCommunities");
     } catch (err) {
       console.error(err);
     }

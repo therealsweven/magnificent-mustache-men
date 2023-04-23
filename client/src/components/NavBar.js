@@ -172,7 +172,7 @@ export default function NavBar() {
               <Link className="m-3 p-3 bg-base-300 rounded" to="/createCompany">
                 Create a Company
               </Link>
-              <Link className="m-3 p-3 bg-base-300 rounded">
+              <Link className="m-3 p-3 bg-base-300 rounded" to="/createGroup">
                 Create a Group
               </Link>
               <Link className="m-3 p-3 bg-base-300 rounded">
