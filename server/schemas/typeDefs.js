@@ -444,11 +444,11 @@ const typeDefs = gql`
       endYear: Int
     ): User
     removeUser: User
-    removeGroup: Group
+    removeGroup(groupId: ID!): Group
     removeComment(postId: ID!, commentId: ID!): Post
     removeCommentReaction(commentId: ID!, reactionId: ID!): Post
     removePost(postId: ID!): Post
-    removeCompany: Company
+    removeCompany(companyId: ID!): Company
     removeJob: Job
     removeSchool: School
     removeReaction(reactionId: ID!): Reaction

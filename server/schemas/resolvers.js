@@ -205,7 +205,6 @@ const resolvers = {
         "admins",
         "members",
         "posts",
-        "profilePic",
       ]);
     },
     // search: async (_, { query }, { dataSources }) => {
@@ -708,9 +707,11 @@ const resolvers = {
       }
       throw new AuthenticationError("You need to be logged in!");
     },
+    // tested in Apollo - working
     removeGroup: async (parent, args, context) => {
       return await Group.findOneAndDelete({ _id: args.groupId });
     },
+    // tested in Apollo - working
     removeCompany: async (parent, args, context) => {
       await Entity.findOneAndDelete({ company: args.companyId });
       return await Company.findOneAndDelete({ _id: args.companyId });
