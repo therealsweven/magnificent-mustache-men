@@ -205,7 +205,7 @@ export const QUERY_USER = gql`
       groups {
         _id
         name
-        profilePic
+        profPic
       }
       posts {
         _id

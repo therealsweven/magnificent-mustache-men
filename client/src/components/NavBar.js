@@ -169,9 +169,15 @@ export default function NavBar() {
               tabIndex={0}
               className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52"
             >
-              <Link className="m-3 p-3 bg-base-300 rounded">Create a Company</Link>
-              <Link className="m-3 p-3 bg-base-300 rounded">Create a Group</Link>
-              <Link to="/CreateSchool" className="m-3 p-3 bg-base-300 rounded">Create a School</Link>
+              <Link className="m-3 p-3 bg-base-300 rounded" to="/createCompany">
+                Create a Company
+              </Link>
+              <Link className="m-3 p-3 bg-base-300 rounded" to="/createGroup">
+                Create a Group
+              </Link>
+              <Link className="m-3 p-3 bg-base-300 rounded" to="/createSchool">
+                Create a School
+              </Link>
             </ul>
           </div>
         </div>
