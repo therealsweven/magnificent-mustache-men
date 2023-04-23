@@ -117,23 +117,23 @@ const resolvers = {
       return sortedPosts;
     },
     feed: async (parent, args, context) => {
-      console.log("Line 88", context.activeProfile.entity);
+      //console.log("Line 88", context.activeProfile.entity);
       const entity = await Entity.findOne({
         _id: context.activeProfile.entity,
       }).populate("user");
-      console.log("Line91", "entity", entity);
+      //console.log("Line91", "entity", entity);
 
       const user = await User.findOne({ _id: entity.user });
       console.log("user", user.entitiesFollowed);
       const entities = user.entitiesFollowed;
 
-      console.log("Line 98", "entities", entities);
+      //console.log("Line 98", "entities", entities);
 
       const posts = await Post.find({ entity: { $in: entities } }).populate(
         "entity",
         "user"
       );
-      console.log(posts);
+      //console.log(posts);
       const sortedPosts = posts.sort(function (a, b) {
         let x = a.updatedAt;
         let y = b.updatedAt;
@@ -146,7 +146,7 @@ const resolvers = {
         }
         return 0;
       });
-      console.log("sorted posts", sortedPosts);
+      //console.log("sorted posts", sortedPosts);
       return sortedPosts;
     },
     profiles: async (parent, args, context) => {
@@ -263,10 +263,22 @@ const resolvers = {
     },
     // add skill to user
     addSkill: async (parent, args, context) => {
-      return await User.findOneAndUpdate(
-        { _id: context.user._id },
-        { $push: { skills: args.skillId } }
-      );
+      console.log(args);
+      const skill = await Skill.findOne({ skillName: args.skillName });
+      console.log(skill);
+      if (skill) {
+        return await User.findOneAndUpdate(
+          { _id: context.user._id },
+          { $push: { skills: skill._id } }
+        );
+      }
+      if (skill === null) {
+        const newSkill = Skill.create(args);
+        return await User.findOneAndUpdate(
+          { _id: context.user._id },
+          { $push: { skills: newSkill._id } }
+        );
+      }
     },
     // create new work experience
     createExperience: async (parent, args, context) => {
@@ -564,14 +576,14 @@ const resolvers = {
       }
       throw new AuthenticationError("You need to be logged in!");
     },
-    // updateUserTest: async (parent, args, context) => {
-    //   if (context.user) {
-    //     return User.findOneAndUpdate({ _id: context.user._id }, args, {
-    //       new: true,
-    //     });
-    //   }
-    //   // throw new AuthenticationError("You need to be logged in!");
-    // },
+    updateUserTest: async (parent, args, context) => {
+      if (context.user) {
+        return User.findOneAndUpdate({ _id: context.user._id }, args, {
+          new: true,
+        });
+      }
+      throw new AuthenticationError("You need to be logged in!");
+    },
     //update company - should work
     updateCompany: async (parent, args, context) => {
       const entity = await Entity.findOne({

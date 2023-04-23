@@ -30,6 +30,7 @@ export {
   // UPDATE_EXPERIENCE,
   // REMOVE_USER,
   // REMOVE_GROUP,
+  REMOVE_USER,
 };
 
 const CREATE_USER = gql`
@@ -224,8 +225,8 @@ const CREATE_SKILL = gql`
 `;
 // add skill to user
 const ADD_SKILL = gql`
-  mutation AddSkill($skillId: String!) {
-    addSkill(skillId: $skillId) {
+  mutation AddSkill($skillName: String!) {
+    addSkill(skillName: $skillName) {
       _id
       firstName
       lastName
@@ -814,3 +815,10 @@ const UPDATE_USER_TEST = gql`
 //     }
 //   }
 // `;
+const REMOVE_USER = gql`
+  mutation RemoveUser {
+    removeUser {
+      _id
+    }
+  }
+`;

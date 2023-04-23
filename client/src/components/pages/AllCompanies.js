@@ -9,6 +9,9 @@ export default function AllCompanies() {
   if (!companies.length) {
     return <h3>No Companies Built Yet!</h3>;
   }
+  if (!loading) {
+    console.log(data);
+  }
 
   return (
     <>

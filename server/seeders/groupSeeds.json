@@ -1,26 +1,32 @@
 [
   {
     "name": "Coders With More Than 10 Toes",
-    "private": false
+    "private": false,
+    "profPic": "https://dynaimage.cdn.cnn.com/cnn/c_fill,g_auto,w_1200,h_675,ar_16:9/https%3A%2F%2Fcdn.cnn.com%2Fcnnnext%2Fdam%2Fassets%2F160504091249-restricted-01-polydactylism.jpg"
   },
   {
     "name": "React Tips",
-    "private": false
+    "private": false,
+    "profPic": "https://styles.redditmedia.com/t5_2su6s/styles/communityIcon_4g1uo0kd87c61.png"
   },
   {
     "name": "Wannabe Programmers Unite",
-    "private": false
+    "private": false,
+    "profPic": "https://media.4rgos.it/i/Argos/1121-m0014-m007-m050-m008-gaming-pcs-and-laptops-guide-as274382882?maxW=1200&qlt=75&fmt.jpeg.interlaced=true"
   },
   {
     "name": "Jr Dev Network",
-    "private": false
+    "private": false,
+    "profPic": "https://www.daedtech.com/wp-content/uploads/2018/04/Baby-programmer-getting-pats-on-the-head.jpg"
   },
   {
     "name": "Coders with Pet Chickens",
-    "private": true
+    "private": true,
+    "profPic": "https://cdn.knowyourchickens.com/wp-content/uploads/2019/09/pet-chicken.jpg"
   },
   {
     "name": "Star Wars Nerds Unite",
-    "private": true
+    "private": true,
+    "profPic": "https://assets-prd.ignimgs.com/2022/05/25/starwarssaga-blogroll-1653501853399.jpg"
   }
 ]
