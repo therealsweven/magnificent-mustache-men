@@ -453,7 +453,7 @@ const typeDefs = gql`
     removeSchool: School
     removeReaction(reactionId: ID!): Reaction
     removePostReaction(postId: ID!, reactionId: ID!): Post
-    removeSkill(skillId: ID!, userId: ID!): Skill
+    removeSkill(skillId: ID!): Skill
     removeEntity(entityId: ID!): Entity
     removeConnection(connectionId: ID!): User
     unfollowEntity(entityId: ID!, userId: ID!): User
