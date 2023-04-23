@@ -242,7 +242,6 @@ const typeDefs = gql`
       password: String!
     ): User
     updateUser(
-      id: ID!
       firstName: String
       lastName: String
       email: String
@@ -330,7 +329,6 @@ const typeDefs = gql`
     createCommentReaction(postId: String!, reactionId: String!): Comment
     userLogin(email: String, username: String, password: String!): Auth
     updateCompany(
-      id: ID!
       name: String
       industry: String
       hqCity: String
@@ -351,14 +349,12 @@ const typeDefs = gql`
       entitiesFollowed: [String]
     ): Company
     updateLocation(
-      id: ID!
       city: String
       state: String
       size: String
       phone: String
     ): Company
     updateSchool(
-      id: ID!
       name: String
       city: String
       state: String
@@ -371,14 +367,7 @@ const typeDefs = gql`
       posts: [String]
       entitiesFollowed: [String]
     ): School
-    updatePost(
-      id: ID!
-      user: String
-      entity: String
-      postBody: String
-      reactions: [String]
-      comments: [String]
-    ): Post
+    updatePost(postId: ID!, postBody: String!): Post
     updateCommentReaction(comReactionId: ID!, reaction: String): Post
     updateComment(
       commentId: ID!
@@ -387,7 +376,17 @@ const typeDefs = gql`
     ): Post
     updatePostReaction(postReactionId: ID!, reaction: String): Post
     updateGroup(
-      id: ID!
+      name: String
+      admins: [String]
+      private: Boolean
+      members: [String]
+      posts: [String]
+      joinQuestion: String
+      profPic: String
+      bannerPic: String
+    ): Group
+    updateGroupTest(
+      groupId: String
       name: String
       admins: [String]
       private: Boolean
@@ -398,7 +397,6 @@ const typeDefs = gql`
       bannerPic: String
     ): Group
     updateJob(
-      id: ID!
       company: String
       title: String
       responsibilities: String
@@ -410,7 +408,6 @@ const typeDefs = gql`
       skills: [String]
     ): Job
     updateExperience(
-      id: ID!
       company: String
       title: String
       jobDescription: String
@@ -422,7 +419,6 @@ const typeDefs = gql`
       endYear: Int
     ): User
     updateEducation(
-      id: ID!
       school: String
       fieldOfStudy: String
       certificateType: String

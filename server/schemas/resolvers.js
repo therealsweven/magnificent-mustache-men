@@ -537,39 +537,42 @@ const resolvers = {
       const token = signToken(userData);
       return { token, userData, entity };
     },
-    // update user
-    // updateUser: async (parent, { id, userInput }) => {
-    //   return await User.findOneAndUpdate(
-    //     { _id: id },
-    //     { userInput },
-    //     { new: true }
-    //   );
-    // },
-    updateUserTest: async (parent, args, context) => {
+    // update user - should work
+    updateUser: async (parent, args, context) => {
       if (context.user) {
         return User.findOneAndUpdate({ _id: context.user._id }, args, {
           new: true,
         });
       }
-      // throw new AuthenticationError("You need to be logged in!");
+      throw new AuthenticationError("You need to be logged in!");
     },
-    //update company
-    updateCompany: async (parent, { id, companyInput }) => {
-      return await Company.findOneAndUpdate(
-        { _id: id },
-        { companyInput },
-        { new: true }
-      );
+    // updateUserTest: async (parent, args, context) => {
+    //   if (context.user) {
+    //     return User.findOneAndUpdate({ _id: context.user._id }, args, {
+    //       new: true,
+    //     });
+    //   }
+    //   // throw new AuthenticationError("You need to be logged in!");
+    // },
+    //update company - should work
+    updateCompany: async (parent, args, context) => {
+      const entity = await Entity.findOne({
+        company: context.activeProfile.entity,
+      });
+      return await Company.findOneAndUpdate({ _id: entity.company }, args, {
+        new: true,
+      });
     },
-    // update school
-    updateSchool: async (parent, { id, schoolInput }) => {
-      return await School.findOneAndUpdate(
-        { _id: id },
-        { schoolInput },
-        { new: true }
-      );
+    // update school - should work
+    updateSchool: async (parent, args, context) => {
+      const entity = await Entity.findOne({
+        school: context.activeProfile.entity,
+      });
+      return await School.findOneAndUpdate({ _id: entity.school }, args, {
+        new: true,
+      });
     },
-    // update post
+    // update post - needs updating
     updatePost: async (parent, { id, postInput }) => {
       return await Post.findOneAndUpdate(
         { _id: id },
@@ -577,7 +580,7 @@ const resolvers = {
         { new: true }
       );
     },
-    // update comment reaction
+    // update comment reaction - needs updating
     updateCommentReaction: async (parent, { comReactionId, reactionInput }) => {
       return await Post.findOneAndUpdate(
         { _id: comReactionId },
@@ -585,7 +588,7 @@ const resolvers = {
         { new: true }
       );
     },
-    // update comment
+    // update comment - needs updating
     updateComment: async (parent, { commentId, commentInput }) => {
       return await Post.findOneAndUpdate(
         { _id: commentId },
@@ -593,7 +596,7 @@ const resolvers = {
         { new: true }
       );
     },
-    // update post reaction
+    // update post reaction - needs updating
     updatePostReaction: async (parent, { postReactionId, reactionInput }) => {
       return await Post.findOneAndUpdate(
         { _id: postReactionId },
@@ -601,45 +604,65 @@ const resolvers = {
         { new: true }
       );
     },
-    // update group
-    updateGroup: async (parent, { id, groupInput }) => {
+    // update group - should work
+    updateGroup: async (parent, args, context) => {
+      if (context.user) {
+        return Group.findOneAndUpdate({ _id: context.user._id }, args, {
+          new: true,
+        });
+      }
+      throw new AuthenticationError("You need to be logged in!");
+    },
+    // test - works
+    updateGroupTest: async (parent, args, context) => {
       return await Group.findOneAndUpdate(
-        { _id: id },
-        { groupInput },
+        { groupId: args.id },
+        {
+          name: args.name,
+          admins: args.admins,
+          private: args.private,
+          members: args.members,
+          posts: args.posts,
+          joinQuestion: args.joinQuestion,
+          profPic: args.profPic,
+          bannerPic: args.bannerPic,
+        },
         { new: true }
       );
     },
-    // update job listing
-    updateJob: async (parent, { id, jobInput }) => {
-      return await Job.findOneAndUpdate(
-        { _id: id },
-        { jobInput },
-        { new: true }
-      );
+    // update job listing - should work
+    updateJob: async (parent, args, context) => {
+      if (context.user) {
+        return Job.findOneAndUpdate({ _id: context.user._id }, args, {
+          new: true,
+        });
+      }
+      throw new AuthenticationError("You need to be logged in");
     },
-    // update company location
-    updateLocation: async (parent, { id, locationInput }) => {
-      return await Company.findOneAndUpdate(
-        { _id: id },
-        { locationInput },
-        { new: true }
-      );
+    // update company location - should work
+    updateLocation: async (parent, args, context) => {
+      if (context.user) {
+        return Company.findOneAndUpdate({ _id: context.user._id }, args, {
+          new: true,
+        });
+      }
+      throw new AuthenticationError("You need to be logged in");
     },
-    // update user work experience
-    updateExperience: async (parent, { id, experienceInput }) => {
-      return await User.findOneAndUpdate(
-        { _id: id },
-        { experienceInput },
-        { new: true }
-      );
+    // update user work experience - should work
+    updateExperience: async (parent, args, context) => {
+      if (context.user) {
+        return User.findOneAndUpdate({ _id: context.user._id }, args, {
+          new: true,
+        });
+      }
     },
-    // update user education info
-    updateEducation: async (parent, { id, educationInput }) => {
-      return await User.findOneAndUpdate(
-        { _id: id },
-        { educationInput },
-        { new: true }
-      );
+    // update user education info - should work
+    updateEducation: async (parent, args, context) => {
+      if (context.user) {
+        return User.findOneAndUpdate({ _id: context.user._id }, args, {
+          new: true,
+        });
+      }
     },
     removeUser: async (parent, args, context) => {
       if (context.user) {
