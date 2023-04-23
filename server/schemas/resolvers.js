@@ -551,13 +551,23 @@ const resolvers = {
       const token = signToken(userData);
       return { token, userData, entity };
     },
-    updateUser: async (parent, { id, userInput }) => {
-      return await User.findOneAndUpdate(
-        { _id: id },
-        { userInput },
-        { new: true }
-      );
+    // update user
+    // updateUser: async (parent, { id, userInput }) => {
+    //   return await User.findOneAndUpdate(
+    //     { _id: id },
+    //     { userInput },
+    //     { new: true }
+    //   );
+    // },
+    updateUserTest: async (parent, args, context) => {
+      if (context.user) {
+        return User.findOneAndUpdate({ _id: context.user._id }, args, {
+          new: true,
+        });
+      }
+      // throw new AuthenticationError("You need to be logged in!");
     },
+    //update company
     updateCompany: async (parent, { id, companyInput }) => {
       return await Company.findOneAndUpdate(
         { _id: id },
@@ -565,7 +575,7 @@ const resolvers = {
         { new: true }
       );
     },
-    // updateLocation: async (parent, {}) => {},
+    // update school
     updateSchool: async (parent, { id, schoolInput }) => {
       return await School.findOneAndUpdate(
         { _id: id },
@@ -573,6 +583,7 @@ const resolvers = {
         { new: true }
       );
     },
+    // update post
     updatePost: async (parent, { id, postInput }) => {
       return await Post.findOneAndUpdate(
         { _id: id },
@@ -580,9 +591,31 @@ const resolvers = {
         { new: true }
       );
     },
-    // updateCommentReaction: async (parent, {}) => {},
-    // updateComment: async (parent, {}) => {},
-    // updatePostReaction: async (parent, {}) => {},
+    // update comment reaction
+    updateCommentReaction: async (parent, { comReactionId, reactionInput }) => {
+      return await Post.findOneAndUpdate(
+        { _id: comReactionId },
+        { reactionInput },
+        { new: true }
+      );
+    },
+    // update comment
+    updateComment: async (parent, { commentId, commentInput }) => {
+      return await Post.findOneAndUpdate(
+        { _id: commentId },
+        { commentInput },
+        { new: true }
+      );
+    },
+    // update post reaction
+    updatePostReaction: async (parent, { postReactionId, reactionInput }) => {
+      return await Post.findOneAndUpdate(
+        { _id: postReactionId },
+        { reactionInput },
+        { new: true }
+      );
+    },
+    // update group
     updateGroup: async (parent, { id, groupInput }) => {
       return await Group.findOneAndUpdate(
         { _id: id },
@@ -590,6 +623,7 @@ const resolvers = {
         { new: true }
       );
     },
+    // update job listing
     updateJob: async (parent, { id, jobInput }) => {
       return await Job.findOneAndUpdate(
         { _id: id },
@@ -597,8 +631,30 @@ const resolvers = {
         { new: true }
       );
     },
-    updateExperience: async (parent, {}) => {},
-    updateEducation: async (parent, {}) => {},
+    // update company location
+    updateLocation: async (parent, { id, locationInput }) => {
+      return await Company.findOneAndUpdate(
+        { _id: id },
+        { locationInput },
+        { new: true }
+      );
+    },
+    // update user work experience
+    updateExperience: async (parent, { id, experienceInput }) => {
+      return await User.findOneAndUpdate(
+        { _id: id },
+        { experienceInput },
+        { new: true }
+      );
+    },
+    // update user education info
+    updateEducation: async (parent, { id, educationInput }) => {
+      return await User.findOneAndUpdate(
+        { _id: id },
+        { educationInput },
+        { new: true }
+      );
+    },
     removeUser: async (parent, args, context) => {
       if (context.user) {
         const user = await User.findOne({ _id: context.user._id });
@@ -768,6 +824,51 @@ const resolvers = {
       }
       throw new AuthenticationError("You need to be logged in!");
     },
+    // removeLocation: async (parent, args, context) => {
+    //   if (context.user) {
+    //     const location = await Company.findOneAndDelete({
+    //       _id: args.locationId,
+    //       locationCreator: context.user._id,
+    //     });
+
+    //     await Company.findOneAndUpdate(
+    //       { _id: context.user._id },
+    //       { $pull: { locations: location._id } }
+    //     );
+    //     return location;
+    //   }
+    //   throw new AuthenticationError("You need to be logged in");
+    // },
+    // removeEducation: async (parent, args, context) => {
+    //   if (context.user) {
+    //     const education = await User.findOneAndDelete({
+    //       _id: args.educationId,
+    //       educationCreator: context.user._id,
+    //     });
+
+    //     await User.findOneAndUpdate(
+    //       { _id: context.user._id },
+    //       { $pull: { educations: education._id } }
+    //     );
+    //     return education;
+    //   }
+    //   throw new AuthenticationError("You need to be logged in");
+    // },
+    // removeExperience: async (parent, { experienceId }, context) => {
+    //   if (context.user) {
+    //     const experience = await User.findOneAndDelete({
+    //       _id: experienceId,
+    //       experienceCreator: context.user._id,
+    //     });
+
+    //     await User.findOneAndUpdate(
+    //       { _id: context.user._id },
+    //       { $pull: { experiences: experience._id } }
+    //     );
+    //     return experience;
+    //   }
+    //   throw new AuthenticationError("You need to be logged in");
+    // },
     applyToJob: async (parent, args, context) => {
       return await Job.findOneAndUpdate(
         { _id: args.jobId },

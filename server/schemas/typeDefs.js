@@ -83,6 +83,7 @@ const typeDefs = gql`
   }
 
   type Location {
+    _id: ID!
     city: String
     state: String
     size: String
@@ -271,6 +272,12 @@ const typeDefs = gql`
       bannerPic: String
       entitiesFollowed: [String]
     ): User
+    updateUserTest(
+      city: String
+      state: String
+      country: String
+      bio: String
+    ): User
     createSchool(
       name: String!
       city: String!
@@ -355,6 +362,7 @@ const typeDefs = gql`
       entitiesFollowed: [String]
     ): Company
     updateLocation(
+      id: ID!
       city: String
       state: String
       size: String
@@ -382,14 +390,13 @@ const typeDefs = gql`
       reactions: [String]
       comments: [String]
     ): Post
-    updateCommentReaction(entity: String, reactionId: String): Post
+    updateCommentReaction(comReactionId: ID!, reaction: String): Post
     updateComment(
-      id: ID!
-      entity: String
+      commentId: ID!
       commentBody: String
       reactions: [String]
     ): Post
-    updatePostReaction(entity: String, reactionId: String): Post
+    updatePostReaction(postReactionId: ID!, reaction: String): Post
     updateGroup(
       id: ID!
       name: String
@@ -414,6 +421,7 @@ const typeDefs = gql`
       skills: [String]
     ): Job
     updateExperience(
+      id: ID!
       company: String
       title: String
       jobDescription: String
@@ -425,6 +433,7 @@ const typeDefs = gql`
       endYear: Int
     ): User
     updateEducation(
+      id: ID!
       school: String
       fieldOfStudy: String
       certificateType: String
