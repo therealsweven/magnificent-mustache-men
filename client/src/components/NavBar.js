@@ -59,6 +59,7 @@ export default function NavBar() {
             enCoded
           </Link>
         </div>
+       
         <div className="flex-none gap-2">
           <div className="dropdown dropdown-end">
             <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
@@ -144,6 +145,9 @@ export default function NavBar() {
               </li>
               <li>
                 <Link to="/profiles">Make Connections</Link>
+              </li>
+              <li>
+                <Link to="/activeCommunities">Communities</Link>
               </li>
               <li>
                 <Link to="/settings">Settings</Link>

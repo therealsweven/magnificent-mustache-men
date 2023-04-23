@@ -20,7 +20,7 @@ export default function AllCompanies() {
           {companies &&
             companies.map((company) => (
               <div key={company._id}>
-                <div className="card card-side bg-base-300 shadow-xl m-3 items-center">
+                <div className="card card-side shadow-xl m-3 items-center border">
                   <figure className="p-10 ">
                     <img
                       src={company.profPic}
@@ -30,9 +30,7 @@ export default function AllCompanies() {
                     ></img>
                   </figure>
                   <div className="card-body items-start">
-                    <h2 className="card-title text-white text-3xl">
-                      {company.name}
-                    </h2>
+                    <h2 className="card-title text-3xl">{company.name}</h2>
                     <p>{company.industry}</p>
                     <p>
                       {company.hqState}, {company.hqCity}

@@ -22,6 +22,13 @@ export {
   UPDATE_USER_TEST,
   // UPDATE_GROUP,
   // UPDATE_USER,
+  // UPDATE_COMPANY,
+  // UPDATE_SCHOOL,
+  // UPDATE_JOB,
+  // UPDATE_LOCATION,
+  // UPDATE_EDUCATION,
+  // UPDATE_EXPERIENCE,
+  // REMOVE_GROUP,
   REMOVE_USER,
 };
 
@@ -524,6 +531,8 @@ const UPDATE_USER_TEST = gql`
 // `;
 
 // update user
+
+// update user
 // const UPDATE_USER = gql`
 //   mutation UpdateUser(
 //     $firstName: String
@@ -568,6 +577,240 @@ const UPDATE_USER_TEST = gql`
 //       lastName
 //       email
 //       password
+//     }
+//   }
+// `;
+
+// update company
+
+// const UPDATE_COMPANY = gql`
+//   mutation UpdateCompany(
+//     $name: String
+//     $industry: String
+//     $hqCity: String
+//     $hqState: String
+//     $website: String
+//     $tagline: String
+//     $bio: String
+//     $companySize: String
+//     $foundedYear: Int
+//     $specialties: String
+//     $followers: [String]
+//     $employees: [String]
+//     $posts: [String]
+//     $jobs: [String]
+//     $admins: [String]
+//     $profPic: String
+//     $bannerPic: String
+//     $entitiesFollowed: [String]
+//   ) {
+//     updateCompany(
+//       name: $name
+//       industry: $industry
+//       hqCity: $hqCity
+//       hqState: $hqState
+//       website: $website
+//       tagline: $tagline
+//       bio: $bio
+//       companySize: $companySize
+//       foundedYear: $foundedYear
+//       specialties: $specialties
+//       followers: $followers
+//       employees: $employees
+//       posts: $posts
+//       jobs: $jobs
+//       admins: $admins
+//       profPic: $profPic
+//       bannerPic: $bannerPic
+//       entitiesFollowed: $entitiesFollowed
+//     ) {
+//       _id
+//       name
+//       hqCity
+//       hqState
+//       jobs {
+//         _id
+//         description
+//         qualifications
+//         salary
+//         title
+//       }
+//     }
+//   }
+// `;
+
+// update school
+
+// const UPDATE_SCHOOL = gql`
+//   mutation UpdateSchool(
+//     $name: String
+//     $city: String
+//     $state: String
+//     $bio: String
+//     $foundedYear: Int
+//     $studentBody: Int
+//     $website: String
+//     $profPic: String
+//     $bannerPic: String
+//     $posts: [String]
+//     $entitiesFollowed: [String]
+//   ) {
+//     updateSchool(
+//       name: $name
+//       city: $city
+//       state: $state
+//       bio: $bio
+//       foundedYear: $foundedYear
+//       studentBody: $studentBody
+//       website: $website
+//       profPic: $profPic
+//       bannerPic: $bannerPic
+//       posts: $posts
+//       entitiesFollowed: $entitiesFollowed
+//     ) {
+//       _id
+//       city
+//       bio
+//       name
+//       state
+//       studentBody
+//     }
+//   }
+// `;
+
+// update job
+
+// const UPDATE_JOB = gql`
+//   mutation UpdateJob(
+//     $company: String
+//     $title: String
+//     $responsibilities: String
+//     $qualifications: String
+//     $schedule: String
+//     $salary: String
+//     $benefits: String
+//     $applicants: [String]
+//     $skills: [String]
+//   ) {
+//     updateJob(
+//       company: $company
+//       title: $title
+//       responsibilities: $responsibilities
+//       qualifications: $qualifications
+//       schedule: $schedule
+//       salary: $salary
+//       benefits: $benefits
+//       applicants: $applicants
+//       skills: $skills
+//     ) {
+//       _id
+//       description
+//       qualifications
+//       responsibilities
+//       salary
+//       schedule
+//       company {
+//         _id
+//         name
+//         hqCity
+//         hqState
+//       }
+//     }
+//   }
+// `;
+
+// update location
+
+// const UPDATE_LOCATION = gql`
+//   mutation UpdateLocation(
+//     $city: String
+//     $state: String
+//     $size: String
+//     $phone: String
+//   ) {
+//     updateLocation(city: $city, state: $state, size: $size, phone: $phone) {
+//       _id
+//       hqCity
+//       hqState
+//       name
+//     }
+//   }
+// `;
+
+// update education
+
+// const UPDATE_EDUCATION = gql`
+//   mutation UpdateLocation(
+//     $city: String
+//     $state: String
+//     $size: String
+//     $phone: String
+//   ) {
+//     updateLocation(city: $city, state: $state, size: $size, phone: $phone) {
+//       _id
+//       hqCity
+//       hqState
+//       name
+//     }
+//   }
+// `;
+
+// update experience
+
+// const UPDATE_EXPERIENCE = gql`
+//   mutation UpdateExperience(
+//     $company: String
+//     $title: String
+//     $jobDescription: String
+//     $skills: [String]
+//     $startMonth: String
+//     $current: Boolean
+//     $startYear: Int
+//     $endMonth: String
+//     $endYear: Int
+//   ) {
+//     updateExperience(
+//       company: $company
+//       title: $title
+//       jobDescription: $jobDescription
+//       skills: $skills
+//       startMonth: $startMonth
+//       current: $current
+//       startYear: $startYear
+//       endMonth: $endMonth
+//       endYear: $endYear
+//     ) {
+//       _id
+//       city
+//       country
+//       email
+//       firstName
+//       lastName
+//     }
+//   }
+// `;
+
+// remove user
+
+// const REMOVE_USER = gql `
+// `
+
+// remove group
+
+// const REMOVE_GROUP = gql`
+//   mutation RemoveGroup($groupId: ID!) {
+//     removeGroup(groupId: $groupId) {
+//       _id
+//       name
+//       members {
+//         firstName
+//         lastName
+//         _id
+//         posts {
+//           _id
+//           postBody
+//         }
+//       }
 //     }
 //   }
 // `;
