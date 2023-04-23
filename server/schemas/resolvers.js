@@ -382,10 +382,10 @@ const resolvers = {
       args.entity = context.activeProfile.entity;
       const commentReaction = CommentReaction.create(args);
       const comment = await Comment.findOneAndUpdate(
-        { _id: args.postId },
+        { _id: args.commentId },
         {
-          reactions: {
-            $push: commentReaction._id,
+          $push: {
+            reactions: commentReaction._id,
           },
         }
       );
