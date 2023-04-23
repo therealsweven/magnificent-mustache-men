@@ -87,7 +87,7 @@ export default function NavBar() {
                   <label tabIndex={0} className="">
                     Switch Profiles
                   </label>
-                  {}
+                 
                   <ul
                     tabIndex={0}
                     className="dropdown-content menu p-2 shadow bg-base-100 rounded-box"
@@ -132,6 +132,9 @@ export default function NavBar() {
                     </>
                   </ul>
                 </div>
+              </li>
+              <li>
+                <Link to="/myDashboard">My DashBoard</Link>
               </li>
               <li>
                 <Link to="/company">Companies</Link>

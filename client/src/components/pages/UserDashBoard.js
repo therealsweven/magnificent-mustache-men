@@ -2,7 +2,7 @@ import { useQuery } from "@apollo/client";
 import { QUERY_JOBS, QUERY_FEED } from "../../utils/queries";
 import PostForm from "./forms/PostForm";
 
-export default function UserFeed() {
+export default function UserDashboard() {
   const { loading: jobLoading, data: jobData } = useQuery(QUERY_JOBS);
   const { loading: feedLoading, data: feedData } = useQuery(QUERY_FEED);
 
@@ -10,9 +10,10 @@ export default function UserFeed() {
 
   const jobs = jobData?.jobs || [];
   const feed = feedData?.feed || [];
-  if (!feedLoading) {
-    console.log(feed);
-  }
+
+  console.log("below is feed");
+  console.log(feed);
+
   if (!jobLoading) {
     console.log(jobs);
   }
@@ -98,8 +99,24 @@ export default function UserFeed() {
               </div>
             ))}
         </div>
-        <div className="col-span-3 row-span-8 bg-slate-700 rounded h-min-44 m-2">
+        <div className="col-span-3 row-span-8 bg-slate-900 rounded h-min-44 m-6">
+          <div className="m-4">
           <PostForm />
+          </div>
+          <div className="Feed-Containter grid grid-cols-1 bg-slate-500 rounded p-4">
+            {feed.map((feed) => (
+              <div className="Card  bg-slate-700 shadow-xl p-5 m-4 rounded">
+                <div className="avatar">
+                  <div className="w-12 rounded-full">
+                    <img src="/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+                  </div>
+                  <h2 className="card-title text-center ml-5">Michael Mount</h2>
+                  
+                </div>
+                <p className="bg-black text-green-500 rounded p-5 my-2">{feed.postBody}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </>
