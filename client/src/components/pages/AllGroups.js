@@ -18,13 +18,13 @@ export default function AllGroups() {
 
   return (
     <div className="mx-6">
-      <h1 className="text-5xl font-bold mb-6">Join a community today!</h1>
+      <h1 className="text-5xl font-bold mb-6 mt-5">Join a community today!</h1>
       <div className="divider"></div>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {groups.map((group) => (
           <div
             key={group._id}
-            className="card flex flex-col justify-between rounded-md shadow-md overflow-hidden my-3"
+            className="card flex flex-col justify-between rounded-md shadow-md overflow-hidden my-3 border bg-base-200"
           >
             <div className="card-header">
               <img
@@ -39,10 +39,7 @@ export default function AllGroups() {
             </div>
             <div className="card-footer flex justify-center my-3">
               <Link to={`/groups/${group._id}`}>
-                <button
-                  className="btn btn-primary"
-                  to={`/${group._id}`}
-                >
+                <button className="btn btn-primary" to={`/${group._id}`}>
                   Get to Know Us!
                 </button>
               </Link>

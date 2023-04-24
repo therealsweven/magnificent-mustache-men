@@ -39,7 +39,7 @@ export default function AllUsers() {
         {users.map((user) => (
           <div
             key={user._id}
-            className="bg-white shadow-lg rounded-lg overflow-hidden"
+            className="bg-base-200 shadow-lg rounded-lg overflow-hidden border"
           >
             <div className="relative">
               <img

@@ -14,7 +14,6 @@ export default function ReactionForm({ postId }) {
 
   const handleReaction = async (e) => {
     try {
-
       await createPostReaction({
         variables: {
           reactionId: e.target.id,
@@ -28,15 +27,12 @@ export default function ReactionForm({ postId }) {
   };
 
   return (
-    <div>
-      {/* <h1>REACTION </h1> */}
-      <div>
-        {reactions.map((reaction) => (
-          <button id={reaction._id} onClick={handleReaction}>
-            {String.fromCodePoint(reaction.icon)}
-          </button>
-        ))}
-      </div>
+    <div className="border rounded-lg px-1">
+      {reactions.map((reaction) => (
+        <button id={reaction._id} onClick={handleReaction}>
+          {String.fromCodePoint(reaction.icon)}
+        </button>
+      ))}
     </div>
   );
 }
