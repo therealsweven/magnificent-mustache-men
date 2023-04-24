@@ -101,7 +101,7 @@ export default function UserDashboard() {
         </div>
         <div className="col-span-3 row-span-8 bg-slate-900 rounded h-min-44 m-6">
           <div className="m-4">
-          <PostForm />
+            <PostForm />
           </div>
           <div className="Feed-Containter grid grid-cols-1 bg-slate-500 overflow-scroll max-h-screen  rounded p-4">
             {feed.map((feed) => (
@@ -111,9 +111,10 @@ export default function UserDashboard() {
                     <img src="/images/stock/photo-1534528741775-53994a69daeb.jpg" />
                   </div>
                   <h2 className="card-title text-center ml-5">Michael Mount</h2>
-                  
                 </div>
-                <p className="bg-black text-green-500 rounded p-5 my-2">{feed.postBody}</p>
+                <p className="bg-black text-green-500 rounded p-5 my-2">
+                  {feed.postBody}
+                </p>
               </div>
             ))}
           </div>
