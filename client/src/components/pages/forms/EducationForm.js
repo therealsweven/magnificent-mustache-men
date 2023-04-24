@@ -184,6 +184,7 @@ export default function EducationForm() {
               as="select"
               type="text"
               name="endMonth"
+              disabled
             ><option>Select a Month</option>
             {months.map((month) =>
             <option key={month.name} value={month.name}>{month.name}</option>)}
