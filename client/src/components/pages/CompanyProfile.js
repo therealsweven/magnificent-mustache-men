@@ -43,6 +43,7 @@ export default function CompanyProfile() {
   return (
     <>
       {/* Header */}
+      
       <div className="container-Header m-5 ">
         <div className="grid grid-cols-8 gird-rows-1 justify-items-center">
           <div className="col-span-4 row-span-1 shadow-xl bg-base-300 rounded ml-10 ">
@@ -88,9 +89,11 @@ export default function CompanyProfile() {
             <label htmlFor="add-job-modal" className="btn font-bold text-2xl">
               +
             </label>
-            {company.jobs.map((jobs) => {<div Key={jobs._id}></div>})}
+            
             <div className="card-body bg-base-200 rounded w-full p-4 my-2">
+            
               <h2 className="card-title">Full-Stack Web Developer</h2>
+              
               <p>
                 We need someone who is good at things and stuff for web
                 Development.
