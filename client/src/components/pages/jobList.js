@@ -28,8 +28,9 @@ export default function JobList() {
 
   return (
     <>
-      <div className="grid grid-cols-1 grid-rows-1 ">
-        <div className="card card-side bg-base-100 shadow-xl h-screen border m-5">
+      <div className="container mx-auto">
+      <h1 className="text-3xl font-semibold m-8">Find The Right Job For You!</h1>
+      <div className="divider"></div>
           {jobs &&
             jobs.map((job) => (
               <div key={job._id}>
@@ -50,7 +51,7 @@ export default function JobList() {
                     </label>
                   </div>
                 </div>
-               
+
                 <input type="checkbox" id={job._id} className="modal-toggle " />
                 <div className="modal">
                   <div className="modal-box relative max-w-5xl">
@@ -60,21 +61,15 @@ export default function JobList() {
                     >
                       ✕
                     </label>
-                    <h3 className="p-5 m-4 font-bold text-5xl">
-                      {job.title}
-                    </h3>
+                    <h3 className="p-5 m-4 font-bold text-5xl">{job.title}</h3>
                     <div class="grid grid-cols-3 gap-4">
                       <ul className="p-3 m-5 shadow-xl ">
-                        <h3 className="font-bold text-3xl">
-                          Qualifications
-                        </h3>
+                        <h3 className="font-bold text-3xl">Qualifications</h3>
                         <li>{job.qualifications}</li>
                       </ul>
 
                       <div className="p-3 m-5 shadow-xl ">
-                        <h3 className="font-bold  text-3xl m-2">
-                          Description
-                        </h3>
+                        <h3 className="font-bold  text-3xl m-2">Description</h3>
                         <p>{job.description}</p>
                       </div>
                       <div className="p-3 m-5 shadow-xl ">
@@ -86,16 +81,12 @@ export default function JobList() {
                     </div>
                     <div class="grid grid-cols-2 gap-4 place-content-between">
                       <div className="p-3 m-5 shadow-xl ">
-                        <h2 className="font-bold text-4xl m-2">
-                          Salary
-                        </h2>
+                        <h2 className="font-bold text-4xl m-2">Salary</h2>
                         <p className="text-xl text-center ">{job.salary}K</p>
                       </div>
                       <div className="p-3 m-5 shadow-xl ">
                         <ul>
-                          <h2 className="font-bold text-4xl m-2">
-                            Benefits
-                          </h2>
+                          <h2 className="font-bold text-4xl m-2">Benefits</h2>
                           <li>{job.benefits}</li>
                         </ul>
                       </div>
@@ -112,7 +103,7 @@ export default function JobList() {
               </div>
             ))}
         </div>
-      </div>
+      
     </>
   );
 }

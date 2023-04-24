@@ -3,9 +3,11 @@ import { Formik, Field, Form, ErrorMessage } from "formik";
 import { useMutation } from "@apollo/client";
 import { CREATE_USER } from "../../../utils/mutations";
 import * as Yup from "yup";
+import { useNavigate } from "react-router-dom";
 
 export default function UserForm() {
   const [createUser] = useMutation(CREATE_USER);
+  const navigate = useNavigate();
 
   const initialValues = {
     firstName: "",
@@ -36,7 +38,7 @@ export default function UserForm() {
         },
       });
       resetForm();
-      return redirect("/")
+      navigate("/login");
     } catch (err) {
       console.error(err);
     }
