@@ -34,7 +34,7 @@ class AuthService {
   profileSwitch(type, entity) {
     localStorage.setItem("profType", type);
     localStorage.setItem("profEntity", entity);
-    // window.location.reload();
+    window.location.reload();
   }
 }
 

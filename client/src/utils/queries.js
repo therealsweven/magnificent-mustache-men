@@ -137,6 +137,36 @@ export const QUERY_ME = gql`
   }
 `;
 
+export const QUERY_POST = gql`
+  query Post($postId: ID!) {
+    post(postId: $postId) {
+      _id
+      reactions {
+        _id
+        reactionId {
+          _id
+          icon
+          reactionName
+        }
+      }
+    }
+  }
+`;
+export const QUERY_COMMENT = gql`
+  query Comment($commentId: ID!) {
+    comment(commentId: $commentId) {
+      _id
+      reactions {
+        _id
+        reactionId {
+          _id
+          icon
+          reactionName
+        }
+      }
+    }
+  }
+`;
 export const QUERY_PROFILES = gql`
   query Profiles {
     profiles {
@@ -180,6 +210,14 @@ export const QUERY_FEED = gql`
     feed {
       _id
       postBody
+      reactions {
+        _id
+        reactionId {
+          _id
+          icon
+          reactionName
+        }
+      }
       entity {
         company {
           _id

@@ -199,6 +199,7 @@ const typeDefs = gql`
     profiles: [Entity]
     profilesByUser(userId: ID!): [Entity]
     post(postId: ID!): Post
+    comment(commentId: ID!): Comment
     groups: [Group]
     group(groupId: ID!): Group
     reactions: [Reaction]
