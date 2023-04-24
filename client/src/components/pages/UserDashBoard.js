@@ -47,7 +47,7 @@ export default function UserDashboard() {
             <ul className="menu p-4 w-80 bg-base-100 bg-base-300">
               {/* <!-- Sidebar content here --> */}
               <li>
-                <a>My Conntections</a>
+                <a>My Connections</a>
               </li>
               <li>
                 <a>My Communities</a>
@@ -93,7 +93,9 @@ export default function UserDashboard() {
                   </h2>
                 </div>
                 <p className="bg-base-300  rounded p-5 my-2">{feed.postBody}</p>
-                <span className="label-text flex justify-end">{new Date(parseInt(feed.createdAt)).toLocaleString()}</span>
+                <span className="label-text flex justify-end">
+                  {new Date(parseInt(feed.createdAt)).toLocaleString()}
+                </span>
                 <div className="flex justify-end">
                   <ReactionForm postId={feed._id} />
                 </div>
@@ -130,7 +132,9 @@ export default function UserDashboard() {
                       <p className="bg-base-300 rounded p-5 my-2">
                         {comment.commentBody}
                       </p>
-                      <span className="label-text flex justify-end">{new Date(parseInt(feed.createdAt)).toLocaleString()}</span>
+                      <span className="label-text flex justify-end">
+                        {new Date(parseInt(feed.createdAt)).toLocaleString()}
+                      </span>
                       <div className="flex justify-end ">
                         <CommentReactionForm commentId={comment._id} />
                       </div>
