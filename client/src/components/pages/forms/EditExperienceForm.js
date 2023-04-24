@@ -38,6 +38,7 @@ export default function EditExperienceForm({ initialValues }) {
       console.log(values);
 
       let variables = {
+        expId: values.expId,
         company: values.company,
         title: values.title,
         jobDescription: values.jobDescription,
