@@ -863,7 +863,7 @@ const resolvers = {
     //remove skill from user
     removeSkill: async (parent, skillId, context) => {
       if (context.user) {
-        return Skill.findOneAndUpdate(
+        return await User.findOneAndUpdate(
           { _id: context.user._id },
           {
             $pull: {

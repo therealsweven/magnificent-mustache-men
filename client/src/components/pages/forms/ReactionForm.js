@@ -5,7 +5,7 @@ import { CREATE_POST_REACTION } from "../../../utils/mutations";
 import { QUERY_REACTIONS } from "../../../utils/queries";
 
 export default function ReactionForm({ postId }) {
-  const { loading, data } = useQuery(QUERY_REACTIONS);
+  const { loading, data, refetch } = useQuery(QUERY_REACTIONS);
   const [createPostReaction] = useMutation(CREATE_POST_REACTION);
 
   const reactions = data?.reactions || [];
@@ -22,6 +22,7 @@ export default function ReactionForm({ postId }) {
         },
       });
       console.log("reaction posted");
+      await refetch();
     } catch (err) {
       console.error(err);
     }
