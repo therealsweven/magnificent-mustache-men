@@ -310,6 +310,24 @@ export const QUERY_USER = gql`
         _id
         postBody
         createdAt
+        entity {
+          company {
+            _id
+            name
+            profPic
+          }
+          school {
+            _id
+            name
+            profPic
+          }
+          user {
+            _id
+            firstName
+            lastName
+            profPic
+          }
+        }
         comments {
           _id
           commentBody

@@ -29,12 +29,19 @@ const resolvers = {
         "skills",
         "groups",
         "connections",
-        "education",
-        "experience",
+        {
+        path: "education",
+        populate: "school",
+        },
+        {
+        path: "experience",
+        populate: "company",
+        },
         "posts",
         {
           path: "entitiesFollowed",
           populate: [{ path: "user" }, { path: "company" }, { path: "school" }],
+          
         },
       ]);
     },
