@@ -65,20 +65,20 @@ export default function UserDashboard() {
                       {job.title}
                     </h3>
                     <div className="grid grid-cols-3 gap-4">
-                      <ul className="p-3 m-5 shadow shadow-blue-500/50 ">
+                      <ul className="p-3 m-5 shadow-xl ">
                         <h3 className="font-bold text-white text-3xl">
                           Qualifications
                         </h3>
                         <li>{job.qualifications}</li>
                       </ul>
 
-                      <div className="p-3 m-5 shadow shadow-blue-500/50">
+                      <div className="p-3 m-5 shadow-xl">
                         <h3 className="font-bold text-white text-3xl m-2">
                           Description
                         </h3>
                         <p>{job.description}</p>
                       </div>
-                      <div className="p-3 m-5 shadow shadow-blue-500/50">
+                      <div className="p-3 m-5 shadow-xl">
                         <h3 className="font-bold text-white text-3xl m-2">
                           Responsibilities
                         </h3>
@@ -86,13 +86,13 @@ export default function UserDashboard() {
                       </div>
                     </div>
                     <div className="grid grid-cols-2 gap-4 place-content-between">
-                      <div className="p-3 m-5 shadow shadow-blue-500/50">
+                      <div className="p-3 m-5 shadow-xl">
                         <h2 className="font-bold text-white text-4xl m-2">
                           Salary
                         </h2>
                         <p className="text-xl text-center ">{job.salary}K</p>
                       </div>
-                      <div className="p-3 m-5 shadow shadow-blue-500/50">
+                      <div className="p-3 m-5 shadow-xl">
                         <ul>
                           <h2 className="font-bold text-white text-4xl m-2">
                             Benefits

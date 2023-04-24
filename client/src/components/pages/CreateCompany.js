@@ -17,7 +17,7 @@ export default function CreateCompany() {
               Teamwork Starts Here on enCoded!
             </h1>
             <p className="mb-5">
-              Find your teammates quickly and effecietnly here!
+              Find your teammates quickly and efficiently here!
             </p>
           </div>
 
