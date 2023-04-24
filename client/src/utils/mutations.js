@@ -820,13 +820,14 @@ const REMOVE_SKILL = gql`
 // remove job
 
 const REMOVE_JOB = gql`
-  mutation RemoveJob {
-    removeJob {
+  mutation Mutation($jobId: ID!) {
+    removeJob(jobId: $jobId) {
       _id
       company {
         _id
         name
       }
+      title
     }
   }
 `;
