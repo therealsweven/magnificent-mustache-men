@@ -26,20 +26,9 @@ import AllUsers from "./components/pages/AllUsers";
 import UsersProfile from "./components/pages/usersProfile";
 import AllGroups from "./components/pages/AllGroups";
 import GroupProfile from "./components/pages/groupProfile";
-import CreateCompany from './components/pages/CreateCompany'
+import CreateSchool from "./components/pages/CreateSchool";
+import CreateCompany from "./components/pages/CreateCompany";
 import CreateGroup from "./components/pages/CreateGroup";
-// forms
-import CompanyForm from "./components/pages/forms/CompanyForm";
-import EducationForm from "./components/pages/forms/EducationForm";
-import ExperienceForm from "./components/pages/forms/ExperienceForm";
-import GroupForm from "./components/pages/forms/GroupForm";
-import JobForm from "./components/pages/forms/JobForm";
-import SchoolForm from "./components/pages/forms/SchoolForm";
-import LoginForm from "./components/pages/forms/LoginForm";
-import CreateSchool from "./components/pages/CreateSchool"
-import PostForm from "./components/pages/forms/PostForm";
-import SkillForm from "./components/pages/forms/SkillForm";
-import LocationForm from "./components/pages/forms/LocationForm";
 
 const httpLink = createHttpLink({
   uri: "/graphql",
@@ -76,8 +65,8 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
-            <Route path="/myDashboard" element={<UserDashboard />} />
             <Route path="/signup" element={<Signup />} />
+            <Route path="/myDashboard" element={<UserDashboard />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/profiles" element={<AllUsers />} />
             <Route path="/profiles/:userId" element={<UsersProfile />} />
@@ -87,24 +76,13 @@ function App() {
               path="/companyProfile/:companyId"
               element={<CompanyProfile />}
             />
+            <Route path="/company" element={<CompanyProfile />} />
             <Route path="/activeCommunities" element={<AllGroups />} />
             <Route path="/groups/:groupId" element={<GroupProfile />} />
-            <Route path="/createSchool" element={<CreateSchool />} />
             <Route path="/settings" element={<Settings />} />
             <Route path="/createCompany" element={<CreateCompany />} />
             <Route path="/createGroup" element={<CreateGroup />} />
-
-            {/* forms */}
-            <Route path="/test" element={<SchoolForm />} />
-            <Route path="/company" element={<CompanyProfile />} />
-            <Route path="/test" element={<CompanyForm />} />
-            <Route path="/test2" element={<GroupForm />} />
-            <Route path="/test3" element={<EducationForm />} />
-            <Route path="/test4" element={<ExperienceForm />} />
-            <Route path="/test5" element={<SkillForm />} />
-            <Route path="/test6" element={<JobForm />} />
-            <Route path="/test7" element={<LocationForm />} />
-            <Route path="/test8" element={<LoginForm />} />
+            <Route path="/createSchool" element={<CreateSchool />} />
           </Routes>
           <Footer />
         </div>

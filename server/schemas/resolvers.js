@@ -31,11 +31,12 @@ const resolvers = {
         "connections",
         {
         path: "education",
-        populate: "school",
+        populate: "school"
         },
         {
         path: "experience",
-        populate: "company",
+        populate: "company"
+        
         },
         "posts",
         {
@@ -969,7 +970,7 @@ const resolvers = {
           {
             $pull: {
               skills: {
-                _id: skillId.skillId,
+                _id: skillId,
               },
             },
           },
