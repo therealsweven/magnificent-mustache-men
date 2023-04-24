@@ -179,6 +179,19 @@ const resolvers = {
 
       const posts = await Post.find({ entity: { $in: entities } }).populate([
         {
+          path: "reactions",
+          populate: [
+            {
+              path: "reactionId",
+              populate: [
+                { path: "_id" },
+                { path: "icon" },
+                { path: "reactionName" },
+              ],
+            },
+          ],
+        },
+        {
           path: "entity",
           populate: [{ path: "user" }, { path: "company" }, { path: "school" }],
         },
@@ -282,12 +295,43 @@ const resolvers = {
     //   return profs;
     // },
     post: async (parent, { postId }) => {
-      return await Post.findOne({ _id: postId }).populate([
-        "comments",
-        "postBody",
-        "entity",
-        "reactions",
+      //console.log(postId);
+      const post = await Post.findOne({ _id: postId }).populate([
+        {
+          path: "reactions",
+          populate: [
+            {
+              path: "reactionId",
+              populate: [
+                { path: "_id" },
+                { path: "icon" },
+                { path: "reactionName" },
+              ],
+            },
+          ],
+        },
       ]);
+      return post;
+    },
+    comment: async (parent, { commentId }) => {
+      console.log(commentId);
+      const comment = await Comment.findOne({ _id: commentId }).populate([
+        {
+          path: "reactions",
+          populate: [
+            {
+              path: "reactionId",
+              populate: [
+                { path: "_id" },
+                { path: "icon" },
+                { path: "reactionName" },
+              ],
+            },
+          ],
+        },
+      ]);
+      console.log(comment);
+      return comment;
     },
     groups: async () => {
       return await Group.find();

@@ -40,12 +40,17 @@ Dashboard:
 The user will use the navbar to navigate through the different parts of the app. My profile will take the user to their own personal profile where they can edit all their information. The 'companies' tab will render the user a list of companies that are on enCoded and links to their respective pages where the user may follow the company, view more information, and view the jobs posted currently by that company. The 'jobs' tab will render a list of job opportunities posted by companies and schools on enCoded. The 'make connections' tab will render the user a list of users that are on enCoded where they may 'conntect' with other users and view their pages. The 'communities' tab will render a list of communities on enCoded that the user may join. The 'settings' tab will take the user to their account settings, and logout will log them out.
 
 Navbar:
-![login](screenshots/navbar.png)
+![navbar](screenshots/navbar.png)
 
 The navbar also includes a '+' icon where a user may create a company page, a school page, or a community(group). The profile switcher in the above photo will allow the user to switch between their user profile and any company or school profiles that user is an admin for.
 
 Navbar (create school, company, group):
-![login](screenshots/createButton.png)
+
+![createCompany](screenshots/createButton.png)
+
+In the settings the user may delete their account as well as switch themes. See below.
+
+![settings](screenshots/settings.png)
 
 ## Credits
 

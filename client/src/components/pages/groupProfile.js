@@ -15,7 +15,7 @@ export default function GroupProfile() {
 
   const [joinGroup, { error }] = useMutation(JOIN_GROUP);
 
-  const handleJoin = async ({groupId}) => {
+  const handleJoin = async ({ groupId }) => {
     try {
       console.log(groupId);
       const { data } = await joinGroup({
@@ -61,10 +61,14 @@ export default function GroupProfile() {
             <h3 className="text-lg leading-6 font-medium text-gray-900">
               {group.name}
             </h3>
-            <button className="btn float-right" groupId={group._id} onClick={() => handleJoin({groupId})} >Follow</button>
-            <p className="mt-1 max-w-2xl text-sm text-gray-500">
-              WE ARE HERE TO STEAL YOUR TOES
-            </p>
+            <button
+              className="btn float-right"
+              groupId={group._id}
+              onClick={() => handleJoin({ groupId })}
+            >
+              Follow
+            </button>
+            <p className="mt-1 max-w-2xl text-sm text-gray-500">SAMPLE POST</p>
           </div>
           <div className="border-t border-gray-200">
             <dl>

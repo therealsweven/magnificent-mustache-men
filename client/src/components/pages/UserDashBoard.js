@@ -7,7 +7,11 @@ import CommentReactionForm from "./forms/CommentReaction";
 
 export default function UserDashboard() {
   const { loading: jobLoading, data: jobData } = useQuery(QUERY_JOBS);
-  const { loading: feedLoading, data: feedData } = useQuery(QUERY_FEED);
+  const {
+    loading: feedLoading,
+    data: feedData,
+    refetch,
+  } = useQuery(QUERY_FEED);
   //const { loading: profLoading, data: profData } = useQuery(QUERY_ME);
 
   // const { load, feedData } = useQuery(QUERY_FEED);
@@ -20,10 +24,9 @@ export default function UserDashboard() {
     console.log(jobs);
   }
 
-  if (!feedLoading && feed.length) {
+  if (!feedLoading) {
     console.log(feed);
   }
-
   return (
     <>
       <h1 className="text-5xl font-bold mx-8 mt-4">
@@ -93,9 +96,15 @@ export default function UserDashboard() {
                   </h2>
                 </div>
                 <p className="bg-base-300  rounded p-5 my-2">{feed.postBody}</p>
-                <span className="label-text flex justify-end">{new Date(parseInt(feed.createdAt)).toLocaleString()}</span>
-                <div className="flex justify-end">
-                  <ReactionForm postId={feed._id} />
+
+                <div className="flex justify-between">
+                  <span className="label-text">
+                    {new Date(parseInt(feed.createdAt)).toLocaleString()}
+                  </span>
+                  <ReactionForm
+                    postId={feed._id}
+                    // postReactions={feed.reactions}
+                  />
                 </div>
                 <div>
                   <h2>Comments:</h2>
@@ -130,8 +139,10 @@ export default function UserDashboard() {
                       <p className="bg-base-300 rounded p-5 my-2">
                         {comment.commentBody}
                       </p>
-                      <span className="label-text flex justify-end">{new Date(parseInt(feed.createdAt)).toLocaleString()}</span>
-                      <div className="flex justify-end ">
+                      <div className="flex justify-between ">
+                        <span className="label-text flex">
+                          {new Date(parseInt(feed.createdAt)).toLocaleString()}
+                        </span>
                         <CommentReactionForm commentId={comment._id} />
                       </div>
                     </div>
