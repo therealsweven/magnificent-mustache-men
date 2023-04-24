@@ -88,7 +88,8 @@ export default function Profile() {
                 </h1>
               </div>
               <div className="container mx-auto rounded-lg">
-                <h1 className="text-5xl text-center font-bold mx-auto py-10">
+              <h2 className="text-xl text-center italic mx-auto py-10">{profile.bio}</h2>
+                <h1 className="text-5xl text-left font-bold py-10">
                   {profile.firstName} {profile.lastName}
                 </h1>
               </div>
@@ -160,7 +161,10 @@ export default function Profile() {
                   </h1>
                   {profile.bio ? (
                     <>
-                      <p className="text-center font-bold">{profile.bio}</p>
+                      <p className="text-left font-bold">City: {profile.city}</p>
+                      <p className="text-left font-bold">State: {profile.state}</p>
+                      <p className="text-left font-bold">Country: {profile.country}</p>
+                      <p className="text-left font-bold">Banner: {profile.bio}</p>
                       <button
                         onClick={() => handleEditClick("UserInfoForm")}
                         className="m-5 btn btn-success"
@@ -239,36 +243,34 @@ export default function Profile() {
                       <>
                         {profile.experience.map((exp) => (
                           <>
-                            <div className="text-2xl text-center">
-                              {exp.name} {exp.company.name}
-                            </div>
-                            <div className="text-xl">Title: {exp.title}</div>
-                            <div className="text-xl">
-                              Description: {exp.jobDescription}
-                            </div>
-                            <div className="text-xl">
-                              Start Month: {exp.startMonth}
-                            </div>
-                            <div className="text-xl">
-                              Start Year: {exp.startYear}
-                            </div>
-                            <div className="text-xl">
-                              Current: {exp.current === true ? "Yes" : "No"}
-                            </div>
-
-                            {exp.current === false ? (
-                              <>
-                                <div className="text-xl">
-                                  End Month: {exp.endMonth}
-                                </div>
-                                <div className="text-xl">
-                                  End Year: {exp.endYear}
-                                </div>
-                              </>
-                            ) : (
-                              <></>
-                            )}
-
+                          
+                          <div className="card w-96 bg-base-200 text-primary-content m-5">
+                    <figure>
+                      <img src={exp.company.profPic} alt="company photo" />
+                    </figure>
+                    <div className="card-body">
+                      <h2 className="card-title">{exp.company.name}</h2>
+                      <p>Title: {exp.title}</p>
+                      <p>Job Description: {exp.jobDescription}</p>
+                      <p>Start Month: {exp.startMonth}</p>
+                      <p>Start Year: {exp.startYear}</p>
+                      <p> Current: {exp.current === true ? "Yes" : "No"}</p>
+                      {exp.current === false ? (
+                        <>
+                          <p className="text-xl">End Month: {exp.endMonth}</p>
+                          <p className="text-xl">End Year: {exp.endYear}</p>
+                        </>
+                      ) : (
+                        <></>
+                      )}
+                      <Link
+                        to={`/companyProfile/:${exp.company._id}`}
+                        className="btn btn-primary justify-center"
+                      >
+                        View Company
+                      </Link>
+                    </div>
+                  </div>
                             <button
                               onClick={() => handleEditClick(exp._id)}
                               className="m-5 btn btn-success"
@@ -370,39 +372,33 @@ export default function Profile() {
                       <>
                         {profile.education.map((edu) => (
                           <>
-                            <div className="text-2xl text-center">
-                              {edu.name} {edu.school.name}
-                            </div>
-                            <div className="text-xl">
-                              Field of Study: {edu.fieldOfStudy}
-                            </div>
-
-                            <div className="text-xl">
-                              Certificate Type: {edu.certificateType}
-                            </div>
-
-                            <div className="text-xl">
-                              Start Month: {edu.startMonth}
-                            </div>
-                            <div className="text-xl">
-                              Start Year: {edu.startYear}
-                            </div>
-                            <div className="text-xl">
-                              Current: {edu.current === true ? "Yes" : "No"}
-                            </div>
-
-                            {edu.current === false ? (
-                              <>
-                                <div className="text-xl">
-                                  End Month: {edu.endMonth}
-                                </div>
-                                <div className="text-xl">
-                                  End Year: {edu.endYear}
-                                </div>
-                              </>
-                            ) : (
-                              <></>
-                            )}
+                            <div className="card w-96 bg-base-300 text-primary-content m-5">
+                      <figure>
+                        <img src={edu.profPic} alt="education photo" />
+                      </figure>
+                      <div className="card-body">
+                        <h2 className="card-title">{edu.school.name}</h2>
+                        <p>Field of Study: {edu.fieldOfStudy}</p>
+                        <p>Certificate Type: {edu.jobDescription}</p>
+                        <p>Start Month: {edu.startMonth}</p>
+                        <p>Start Year: {edu.startYear}</p>
+                        <p> Current: {edu.current === true ? "Yes" : "No"}</p>
+                        {edu.current === false ? (
+                          <>
+                            <p className="text-xl">End Month: {edu.endMonth}</p>
+                            <p className="text-xl">End Year: {edu.endYear}</p>
+                          </>
+                        ) : (
+                          <></>
+                        )}
+                        <Link
+                          to={`/educationProfile/:${edu._id}`}
+                          className="btn btn-primary justify-center"
+                        >
+                          View Education
+                        </Link>
+                      </div>
+                    </div>
                             <button
                               onClick={() => handleEditClick(edu._id)}
                               className="m-5 btn btn-success"
@@ -607,9 +603,32 @@ export default function Profile() {
                       <>
                         {profile.groups.map((group) => (
                           <>
-                            <div className="text-xl" key={group._id}>
-                              {group.name}
-                            </div>
+                                <div
+                    key={group._id}
+                    className="card flex flex-col justify-between rounded-md shadow-md overflow-hidden my-3 border bg-base-300"
+                  >
+                    <div className="card-header">
+                      <img
+                        src={group.profPic}
+                        alt="Group Logo"
+                        className="h-48 w-full object-cover"
+                      />
+                    </div>
+                    <div className="card-body">
+                      <h2 className="card-title text-2xl">{group.name}</h2>
+                      <p className="card-text">{group.description}</p>
+                    </div>
+                    <div className="card-footer flex justify-center my-3">
+                      <Link to={`/groups/${group._id}`}>
+                        <button
+                          className="btn btn-primary"
+                          to={`/${group._id}`}
+                        >
+                          View Group
+                        </button>
+                      </Link>
+                    </div>
+                  </div>
                             <button
                               onClick={() => handleEditClick(group._id)}
                               className="m-5 btn btn-success"

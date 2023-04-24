@@ -80,7 +80,7 @@ export default function UserInfoForm({ initialValues }) {
           </div>
           <div className="form-control">
             <label className="label" htmlFor="bio">
-              <span className="label-text">About Me</span>
+              <span className="label-text">Banner</span>
             </label>
             <Field
               className="input input-bordered"
