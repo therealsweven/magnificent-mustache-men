@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import { useMutation } from "@apollo/client";
 import { USER_LOGIN } from "../../../utils/mutations";
@@ -14,7 +14,7 @@ export default function LoginForm() {
     email: Yup.string()
       .email("Invalid email/password")
       .required("This field is required"),
-    password: Yup.string().required("This field is required"),
+    password: Yup.string().required("This field is required")
   });
 
   const initialValues = {
@@ -33,13 +33,15 @@ export default function LoginForm() {
       // console.log(data);
       // verify token
       Auth.login(data.userLogin.token);
+   
       //switch into user profile by default
-      Auth.profileSwitch("user", data.userLogin.entity._id);
-      navigate("/myDashboard");
+   await Auth.profileSwitch("user", data.userLogin.entity._id)
+   navigate("/profile");
     } catch (err) {
       console.error(err);
     }
   };
+
 
   return (
     <Formik

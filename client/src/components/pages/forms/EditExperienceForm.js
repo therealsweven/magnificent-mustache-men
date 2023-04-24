@@ -6,7 +6,7 @@ import * as Yup from "yup";
 import { QUERY_COMPANIES } from "../../../utils/queries";
 import months from "../../../utils/months.json";
 
-export default function EditExperienceForm({ initialValues }) {
+export default function EditExperienceForm({ initialValues, setIsEditing }) {
   const [updateExperience] = useMutation(UPDATE_EXPERIENCE);
 
   const validationSchema = Yup.object().shape({
@@ -57,6 +57,7 @@ export default function EditExperienceForm({ initialValues }) {
       });
       console.log("experience recorded");
       resetForm();
+      setIsEditing("")
     } catch (err) {
       console.error(err);
       setSubmitting(false);
