@@ -47,7 +47,7 @@ export default function UserDashboard() {
             <ul className="menu p-4 w-80 bg-base-100 bg-base-300">
               {/* <!-- Sidebar content here --> */}
               <li>
-                <a>My Conntections</a>
+                <a>My Connections</a>
               </li>
               <li>
                 <a>My Communities</a>
