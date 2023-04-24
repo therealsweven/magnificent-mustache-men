@@ -52,6 +52,9 @@ export default function UserDashboard() {
               <li>
                 <a>My Communities</a>
               </li>
+              <li>
+                <a>Forums</a>
+              </li>
             </ul>
           </div>
         </div>
@@ -96,7 +99,7 @@ export default function UserDashboard() {
                 <div>
                   <h2>Comments:</h2>
                   {feed.comments.map((comment) => (
-                    <div className="Card  bg-base-100 shadow-xl p-5 m-4 rounded">
+                    <div className="Card  bg-base-100 shadow-xl p-5 m-4 rounded-lg">
                       <div className="avatar">
                         <div className="w-12 rounded-full">
                           <img

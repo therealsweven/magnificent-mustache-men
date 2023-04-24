@@ -7,7 +7,7 @@ import * as Yup from "yup";
 
 export default function PostForm() {
   const [createPost] = useMutation(CREATE_POST);
-  const { loading, data } = useQuery(QUERY_FEED);
+  const { loading, data, refetch } = useQuery(QUERY_FEED);
   const posts = data?.posts || {};
   if (!loading) {
     <h2>...loading</h2>;
@@ -30,6 +30,7 @@ export default function PostForm() {
         },
       });
       resetForm();
+      await refetch();
       console.log("post created");
     } catch (err) {
       console.error(err);

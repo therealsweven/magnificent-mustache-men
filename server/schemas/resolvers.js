@@ -136,14 +136,32 @@ const resolvers = {
       //console.log("Line 88", context.activeProfile.entity);
       const entity = await Entity.findOne({
         _id: context.activeProfile.entity,
-      }).populate("user");
-      //console.log("Line91", "entity", entity);
-
-      const user = await User.findOne({ _id: entity.user });
-      console.log("user", user.entitiesFollowed);
-      const entities = user.entitiesFollowed;
-
-      //console.log("Line 98", "entities", entities);
+      });
+      //console.log("Line140", "entity", entity.company);
+      let entities = [];
+      if (entity.user !== undefined) {
+        const user = await User.findOne({ _id: entity.user });
+        //console.log("user", user.entitiesFollowed);
+        user.entitiesFollowed.map((entity) => {
+          entities.push(entity);
+        });
+      }
+      if (entity.company !== undefined) {
+        console.log("hello");
+        const company = await Company.findOne({ _id: entity.company });
+        //console.log("company", company.entitiesFollowed);
+        company.entitiesFollowed.map((entity) => {
+          entities.push(entity);
+        });
+      }
+      if (entity.school !== undefined) {
+        const school = await School.findOne({ _id: entity.school });
+        //console.log("school", school.entitiesFollowed);
+        school.entitiesFollowed.map((entity) => {
+          entities.push(entity);
+        });
+      }
+      console.log("Line 161", "entities", entities);
 
       const posts = await Post.find({ entity: { $in: entities } }).populate([
         {

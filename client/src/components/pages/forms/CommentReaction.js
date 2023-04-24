@@ -30,7 +30,7 @@ export default function CommentReactionForm({ commentId }) {
   };
 
   return (
-    <div className="border rounded-lg px-1">
+    <div className="bg-base-300 rounded-lg px-1">
       {reactions.map((reaction) => (
         <button id={reaction._id} onClick={handleReaction}>
           {String.fromCodePoint(reaction.icon)}
