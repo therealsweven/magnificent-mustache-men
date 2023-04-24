@@ -6,7 +6,7 @@ import * as Yup from "yup";
 import { QUERY_COMPANIES } from "../../../utils/queries";
 import months from "../../../utils/months.json";
 
-export default function ExperienceForm() {
+export default function ExperienceForm({setIsEditing}) {
   const [createExperience] = useMutation(CREATE_EXPERIENCE);
 
   const initialValues = {
@@ -67,6 +67,7 @@ export default function ExperienceForm() {
       });
       console.log("experience recorded");
       resetForm();
+      setIsEditing("")
     } catch (err) {
       console.error(err);
       setSubmitting(false);

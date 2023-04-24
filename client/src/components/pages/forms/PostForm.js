@@ -5,7 +5,7 @@ import { CREATE_POST } from "../../../utils/mutations";
 import { QUERY_FEED } from "../../../utils/queries";
 import * as Yup from "yup";
 
-export default function PostForm() {
+export default function PostForm({setIsEditing}) {
   const [createPost] = useMutation(CREATE_POST);
   const { loading, data, refetch } = useQuery(QUERY_FEED);
   const posts = data?.posts || {};
@@ -31,7 +31,8 @@ export default function PostForm() {
       });
       resetForm();
       await refetch();
-      console.log("post created");
+      setIsEditing("")
+      console.log("post created")
     } catch (err) {
       console.error(err);
     }

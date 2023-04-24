@@ -24,16 +24,7 @@ export default function Profile() {
     setActiveTab(tabName);
   };
   const [removeSwitch, setRemoveSwitch] = useState(false);
-
-  const [isEditing, setIsEditing] = useState("");
-  const handleEditClick = (formName) => {
-    setIsEditing(formName);
-  };
-
-  const handleRender = () => {
-    refetch();
-  };
-
+  
   const handleRemove = async ({ skillId }) => {
     try {
       console.log(skillId);
@@ -42,13 +33,21 @@ export default function Profile() {
           skillId: skillId,
         },
       });
-      handleRender();
     } catch (err) {
       console.error(err);
     }
   };
-
+  const [isEditing, setIsEditing] = useState("");
+  const handleEditClick = (formName) => {
+    setIsEditing(formName);
+  };
   const { loading, data, refetch } = useQuery(QUERY_ME);
+  useEffect(() => {
+    if (!isEditing) {
+      refetch();
+    }
+  }, [isEditing, refetch]);
+  
   const profile = data?.me || {};
   console.log(profile);
 
@@ -103,7 +102,7 @@ export default function Profile() {
                     className={
                       activeTab === "About Me" ? "tab tab-active" : "tab"
                     }
-                    onClick={() => handleTabClick("About Me")}
+                    onClick={() => handleTabClick("About Me")&& refetch()}
                   >
                     About Me
                   </a>
@@ -111,7 +110,7 @@ export default function Profile() {
                     className={
                       activeTab === "Experience" ? "tab tab-active" : "tab"
                     }
-                    onClick={() => handleTabClick("Experience")}
+                    onClick={() => handleTabClick("Experience")&& refetch()}
                   >
                     Experience
                   </a>
@@ -120,7 +119,7 @@ export default function Profile() {
                     className={
                       activeTab === "Education" ? "tab tab-active" : "tab"
                     }
-                    onClick={() => handleTabClick("Education")}
+                    onClick={() => handleTabClick("Education")&& refetch()}
                   >
                     Education
                   </a>
@@ -129,7 +128,7 @@ export default function Profile() {
                     className={
                       activeTab === "Skills" ? "tab tab-active" : "tab"
                     }
-                    onClick={() => handleTabClick("Skills")}
+                    onClick={() => handleTabClick("Skills")&& refetch()}
                   >
                     Skills
                   </a>
@@ -137,13 +136,13 @@ export default function Profile() {
                     className={
                       activeTab === "Communites" ? "tab tab-active" : "tab"
                     }
-                    onClick={() => handleTabClick("Communities")}
+                    onClick={() => handleTabClick("Communities")&& refetch()}
                   >
                     Communities
                   </a>
                   <a
                     className={activeTab === "Posts" ? "tab tab-active" : "tab"}
-                    onClick={() => handleTabClick("Posts")}
+                    onClick={() => handleTabClick("Posts") && refetch()}
                   >
                     Posts
                   </a>
@@ -185,7 +184,8 @@ export default function Profile() {
                             country: profile.country,
                             bio: profile.bio,
                           }}
-                        />
+                          setIsEditing={setIsEditing}
+/>
                         <button
                           onClick={() => handleEditClick("")}
                           className="m-5 btn btn-success"
@@ -216,6 +216,7 @@ export default function Profile() {
                             country: profile.country,
                             bio: profile.bio,
                           }}
+                          setIsEditing={setIsEditing}
                         />
                         <button
                           onClick={() => handleEditClick("")}
@@ -257,8 +258,8 @@ export default function Profile() {
                       <p> Current: {exp.current === true ? "Yes" : "No"}</p>
                       {exp.current === false ? (
                         <>
-                          <p className="text-xl">End Month: {exp.endMonth}</p>
-                          <p className="text-xl">End Year: {exp.endYear}</p>
+                          <p>End Month: {exp.endMonth}</p>
+                          <p>End Year: {exp.endYear}</p>
                         </>
                       ) : (
                         <></>
@@ -297,6 +298,7 @@ export default function Profile() {
                                   endMonth: exp.endMonth,
                                   endYear: exp.endYear,
                                 }}
+                                setIsEditing={setIsEditing}
                               />
                               <button
                                 onClick={() => handleEditClick("")}
@@ -320,7 +322,7 @@ export default function Profile() {
                               : "hidden"
                           }
                         >
-                          <ExperienceForm />
+                          <ExperienceForm setIsEditing={setIsEditing}/>
                           <button
                             onClick={() => handleEditClick("")}
                             className="m-5 btn btn-success"
@@ -344,7 +346,7 @@ export default function Profile() {
                               : "hidden"
                           }
                         >
-                          <ExperienceForm />
+                          <ExperienceForm setIsEditing={setIsEditing}/>
                           <button
                             onClick={() => handleEditClick("")}
                             className="m-5 btn btn-success"
@@ -385,8 +387,8 @@ export default function Profile() {
                         <p> Current: {edu.current === true ? "Yes" : "No"}</p>
                         {edu.current === false ? (
                           <>
-                            <p className="text-xl">End Month: {edu.endMonth}</p>
-                            <p className="text-xl">End Year: {edu.endYear}</p>
+                            <p>End Month: {edu.endMonth}</p>
+                            <p>End Year: {edu.endYear}</p>
                           </>
                         ) : (
                           <></>
@@ -423,7 +425,9 @@ export default function Profile() {
                                   current: edu.current,
                                   endMonth: edu.endMonth || "",
                                   endYear: edu.endYear || "",
+                                  
                                 }}
+                                setIsEditing={setIsEditing}
                               />
                               <button
                                 onClick={() => handleEditClick("")}
@@ -447,7 +451,7 @@ export default function Profile() {
                               : "hidden"
                           }
                         >
-                          <EducationForm />
+                          <EducationForm setIsEditing={setIsEditing}/>
                           <button
                             onClick={() => handleEditClick("")}
                             className="m-5 btn btn-success"
@@ -471,7 +475,8 @@ export default function Profile() {
                               : "hidden"
                           }
                         >
-                          <EducationForm />
+                          <EducationForm 
+                          setIsEditing={setIsEditing}/>
                           <button
                             onClick={() => handleEditClick("")}
                             className="m-5 btn btn-success"
@@ -529,7 +534,8 @@ export default function Profile() {
                               : "hidden"
                           }
                         >
-                          <AddSkill />
+                          <AddSkill
+                          setIsEditing={setIsEditing} />
                           <button
                             onClick={() => handleEditClick("")}
                             className="m-5 btn btn-success"
@@ -553,7 +559,8 @@ export default function Profile() {
                               : "hidden"
                           }
                         >
-                          <AddSkill />
+                          <AddSkill 
+                          setIsEditing={setIsEditing}/>
                           <button
                             onClick={() => handleEditClick("")}
                             className="m-5 btn btn-success"
@@ -648,6 +655,7 @@ export default function Profile() {
                                   private: group.private,
                                   joinQuestion: group.joinQuestion,
                                 }}
+                                setIsEditing={setIsEditing}
                               />
                               <button
                                 onClick={() => handleEditClick("")}
@@ -671,7 +679,7 @@ export default function Profile() {
                               : "hidden"
                           }
                         >
-                          <GroupForm />
+                          <GroupForm setIsEditing={setIsEditing}/>
                           <button
                             onClick={() => handleEditClick("")}
                             className="m-5 btn btn-success"
@@ -695,7 +703,7 @@ export default function Profile() {
                               : "hidden"
                           }
                         >
-                          <GroupForm />
+                          <GroupForm setIsEditing={setIsEditing}/>
                           <button
                             onClick={() => handleEditClick("")}
                             className="m-5 btn btn-success"
@@ -717,7 +725,8 @@ export default function Profile() {
                 >
                   <div className="col-span-3 row-span-8 bg-base-300 rounde-lg h-min-44 m-6 mt-2 ml-10">
                     <div className="m-4">
-                      <PostForm />
+                      <PostForm
+                      setIsEditing={setIsEditing} />
                     </div>
                     <div className="Feed-Containter grid grid-cols-1 bg-base-300 overflow-scroll max-h-screen  rounded p-4">
                       {profile.posts.map((post) => (

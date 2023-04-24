@@ -1,12 +1,14 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import { useMutation } from "@apollo/client";
 import { UPDATE_USER } from "../../../utils/mutations";
 import * as Yup from "yup";
 import states from "../../../utils/statearray.json";
 
-export default function UserInfoForm({ initialValues }) {
+
+export default function UserInfoForm({ initialValues, setIsEditing}) {
   const [updateUser] = useMutation(UPDATE_USER);
+
 
   const validationSchema = Yup.object().shape({
     city: Yup.string(),
@@ -17,6 +19,7 @@ export default function UserInfoForm({ initialValues }) {
   });
 
   const handleSubmit = async (values, { resetForm, setSubmitting }) => {
+    
     try {
       await updateUser({
         variables: {
@@ -27,12 +30,15 @@ export default function UserInfoForm({ initialValues }) {
         },
       });
       resetForm();
+      setIsEditing("")
       console.log("user updated");
     } catch (err) {
       console.error(err);
     }
     setSubmitting(false);
   };
+
+
   return (
     <Formik
       initialValues={initialValues}

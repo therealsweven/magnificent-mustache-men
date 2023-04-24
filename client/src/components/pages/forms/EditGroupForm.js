@@ -4,7 +4,7 @@ import { useMutation } from "@apollo/client";
 import { UPDATE_GROUP } from "../../../utils/mutations";
 import * as Yup from "yup";
 
-export default function EditGroupForm({initialValues}) {
+export default function EditGroupForm({initialValues, setIsEditing}) {
   const [updateGroup] = useMutation(UPDATE_GROUP);
 
   const validationSchema = Yup.object().shape({
@@ -23,6 +23,7 @@ export default function EditGroupForm({initialValues}) {
         },
       });
       resetForm();
+      setIsEditing("")
       console.log("group created");
     } catch (err) {
       console.error(err);
