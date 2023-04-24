@@ -90,13 +90,13 @@ export default function UserDashboard() {
                   </h2>
                 </div>
                 <p className="bg-base-300  rounded p-5 my-2">{feed.postBody}</p>
-                <div>
+                <div className="flex justify-end">
                   <ReactionForm postId={feed._id} />
                 </div>
                 <div>
                   <h2>Comments:</h2>
                   {feed.comments.map((comment) => (
-                    <div className="Card  bg-slate-700 shadow-xl p-5 m-4 rounded">
+                    <div className="Card  bg-base-100 shadow-xl p-5 m-4 rounded">
                       <div className="avatar">
                         <div className="w-12 rounded-full">
                           <img
@@ -123,10 +123,10 @@ export default function UserDashboard() {
                             : "User Not Found"}
                         </h2>
                       </div>
-                      <p className="bg-black text-green-500 rounded p-5 my-2">
+                      <p className="bg-base-300 rounded p-5 my-2">
                         {comment.commentBody}
                       </p>
-                      <div>
+                      <div className="flex justify-end ">
                         <CommentReactionForm commentId={comment._id} />
                       </div>
                     </div>
