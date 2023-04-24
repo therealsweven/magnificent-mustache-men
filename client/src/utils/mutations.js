@@ -28,6 +28,9 @@ export {
   UPDATE_LOCATION,
   UPDATE_EDUCATION,
   UPDATE_EXPERIENCE,
+  // JOIN_GROUP,
+  REMOVE_SKILL,
+  REMOVE_JOB,
   REMOVE_GROUP,
   REMOVE_USER,
 };
@@ -791,10 +794,54 @@ const UPDATE_EXPERIENCE = gql`
   }
 `;
 
-// remove user
+// join group
 
-// const REMOVE_USER = gql `
-// `
+// const JOIN_GROUP = gql`
+//   mutation JoinGroup($groupId: String!) {
+//     joinGroup(groupID: $groupId) {
+//       _id
+//       firstName
+//       lastName
+//     }
+//   }
+// `;
+
+// join group
+
+// const JOIN_GROUP = gql`
+//   mutation JoinGroup($groupId: String!) {
+//     joinGroup(groupID: $groupId) {
+//       _id
+//       firstName
+//       lastName
+//     }
+//   }
+// `;
+
+// remove skill
+
+const REMOVE_SKILL = gql`
+  mutation RemoveSkill($skillId: ID!) {
+    removeSkill(skillId: $skillId) {
+      _id
+      skillName
+    }
+  }
+`;
+
+// remove job
+
+const REMOVE_JOB = gql`
+  mutation RemoveJob {
+    removeJob {
+      _id
+      company {
+        _id
+        name
+      }
+    }
+  }
+`;
 
 // remove group
 

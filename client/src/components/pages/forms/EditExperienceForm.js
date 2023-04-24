@@ -4,9 +4,9 @@ import { useMutation, useQuery } from "@apollo/client";
 import { UPDATE_EXPERIENCE } from "../../../utils/mutations";
 import * as Yup from "yup";
 import { QUERY_COMPANIES } from "../../../utils/queries";
-import months from "../../../utils/months.json"
+import months from "../../../utils/months.json";
 
-export default function EditExperienceForm({initialValues}) {
+export default function EditExperienceForm({ initialValues }) {
   const [updateExperience] = useMutation(UPDATE_EXPERIENCE);
 
   const validationSchema = Yup.object().shape({
@@ -129,9 +129,13 @@ export default function EditExperienceForm({initialValues}) {
               as="select"
               type="text"
               name="startMonth"
-            ><option>Select a Month</option>
-            {months.map((month) =>
-            <option key={month.name} value={month.name}>{month.name}</option>)}
+            >
+              <option>Select a Month</option>
+              {months.map((month) => (
+                <option key={month.name} value={month.name}>
+                  {month.name}
+                </option>
+              ))}
             </Field>
             <ErrorMessage name="startMonth" component="div" className="error" />
           </div>
@@ -165,15 +169,19 @@ export default function EditExperienceForm({initialValues}) {
                   <span className="label-text">End Month</span>
                 </label>
                 <Field
-              className="input input-bordered"
-              as="select"
-              type="text"
-              name="endMonth"
-              disabled
-            ><option>Select a Month</option>
-            {months.map((month) =>
-            <option key={month.name} value={month.name}>{month.name}</option>)}
-            </Field>
+                  className="input input-bordered"
+                  as="select"
+                  type="text"
+                  name="endMonth"
+                  disabled
+                >
+                  <option>Select a Month</option>
+                  {months.map((month) => (
+                    <option key={month.name} value={month.name}>
+                      {month.name}
+                    </option>
+                  ))}
+                </Field>
                 <ErrorMessage
                   name="endMonth"
                   component="div"
@@ -204,15 +212,19 @@ export default function EditExperienceForm({initialValues}) {
                   <span className="label-text">End Month</span>
                 </label>
                 <Field
-              className="input input-bordered"
-              as="select"
-              type="text"
-              name="endMonth"
-              disabled
-            ><option>Select a Month</option>
-            {months.map((month) =>
-            <option key={month.name} value={month.name}>{month.name}</option>)}
-            </Field>
+                  className="input input-bordered"
+                  as="select"
+                  type="text"
+                  name="endMonth"
+                  disabled
+                >
+                  <option>Select a Month</option>
+                  {months.map((month) => (
+                    <option key={month.name} value={month.name}>
+                      {month.name}
+                    </option>
+                  ))}
+                </Field>
               </div>
               <div className="form-control">
                 <label className="label" htmlFor="endYear">
@@ -237,6 +249,7 @@ export default function EditExperienceForm({initialValues}) {
               className="btn btn-primary"
               type="submit"
               disabled={isSubmitting}
+              // onClick={handleSubmit}
             >
               Submit
             </button>

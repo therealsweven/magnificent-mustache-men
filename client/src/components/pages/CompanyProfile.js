@@ -2,7 +2,7 @@ import { Navigate, useParams } from "react-router-dom";
 import { useQuery, useMutation } from "@apollo/client";
 import { Link } from "react-router-dom";
 import { QUERY_SINGLE_COMPANY, QUERY_ME } from "../../utils/queries";
-import { FOLLOW_ENTITY } from "../../utils/mutations";
+import { FOLLOW_ENTITY, REMOVE_JOB } from "../../utils/mutations";
 import JobForm from "./forms/JobForm";
 import Auth from "../../utils/auth";
 import { APPLY_TO_JOB } from "../../utils/mutations";
@@ -11,6 +11,7 @@ export default function CompanyProfile() {
   const { companyId } = useParams();
   const [followEntity] = useMutation(FOLLOW_ENTITY);
   const [applyToJob] = useMutation(APPLY_TO_JOB);
+  const [removeJob] = useMutation(REMOVE_JOB);
 
   const { loading, data } = useQuery(
     companyId ? QUERY_SINGLE_COMPANY : QUERY_ME,
@@ -56,9 +57,13 @@ export default function CompanyProfile() {
     }
   };
 
+  const handleRemove = async () => {
+    console.log("hello");
+    await removeJob();
+  };
+
   const hasAccessToAddJobModal =
     Auth.loggedIn() && Auth.getProfile().data._id === company.admins[0]._id;
- 
 
   return (
     <>
@@ -147,6 +152,7 @@ export default function CompanyProfile() {
                     >
                       ✕
                     </label>
+
                     <h3 className="p-5 m-4 font-bold text-5xl">{jobs.title}</h3>
                     <div class="grid grid-cols-3 gap-4">
                       <ul className="p-3 m-5 shadow-xl ">
@@ -219,8 +225,6 @@ export default function CompanyProfile() {
               </li>
             </ul>
           </div>
-          
-          
         </div>
       </div>
       <input type="checkbox" id="add-job-modal" className="modal-toggle" />

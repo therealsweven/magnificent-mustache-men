@@ -43,10 +43,20 @@ const resolvers = {
         "experience",
         {
           path: "posts",
-          populate: {
-            path: "comments",
-            match: { commentBody: { $ne: null } }, // exclude comments with null commentBody
-          },
+          populate: [
+            {
+              path: "comments",
+              match: { commentBody: { $ne: null } }, // exclude comments with null commentBody
+            },
+            {
+              path: "entity",
+              populate: [
+                { path: "user" },
+                { path: "company" },
+                { path: "school" },
+              ],
+            },
+          ],
         },
       ]);
     },
@@ -155,6 +165,34 @@ const resolvers = {
           ],
         },
       ]);
+      console.log(posts);
+      const userPosts = await Post.find({
+        entity: { $eq: context.activeProfile.entity },
+      }).populate([
+        {
+          path: "entity",
+          populate: [{ path: "user" }, { path: "company" }, { path: "school" }],
+        },
+        {
+          path: "comments",
+          populate: [
+            { path: "commentBody" },
+            {
+              path: "entity",
+              populate: [
+                { path: "user" },
+                { path: "company" },
+                { path: "school" },
+              ],
+            },
+          ],
+        },
+      ]);
+      console.log("userPosts", userPosts);
+
+      userPosts.forEach((post) => {
+        posts.push(post);
+      });
 
       //console.log(posts);
       const sortedPosts = posts.sort(function (a, b) {
@@ -460,21 +498,21 @@ const resolvers = {
         // add to entities followed
         await User.findOneAndUpdate(
           { _id: args.connectionId },
-          { $push: { entitiesFollowed: eUser._id } }
+          { $addToSet: { entitiesFollowed: eUser._id } }
         );
         await User.findOneAndUpdate(
           { _id: context.user._id },
-          { $push: { entitiesFollowed: eConnect._id } }
+          { $addToSet: { entitiesFollowed: eConnect._id } }
         );
         // add to connections
         await User.findOneAndUpdate(
           { _id: args.connectionId },
-          { $push: { connections: context.user._id } }
+          { $addToSet: { connections: context.user._id } }
         );
         return await User.findOneAndUpdate(
           { _id: context.user._id },
           {
-            $push: {
+            $addToSet: {
               connections: args.connectionId,
             },
           },
@@ -823,15 +861,14 @@ const resolvers = {
       throw new AuthenticationError("You need to be logged in");
     },
     //remove skill from user
-    removeSkill: async (parent, { skillId, userId }, context) => {
+    removeSkill: async (parent, skillId, context) => {
       if (context.user) {
-        return Skill.findOneAndUpdate(
-          { _id: userId },
+        return User.findOneAndUpdate(
+          { _id: context.user._id },
           {
             $pull: {
               skills: {
-                _id: skillId,
-                skillCreator: context.user._id,
+                _id: skillId.skillId,
               },
             },
           },
