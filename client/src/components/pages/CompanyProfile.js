@@ -7,7 +7,6 @@ import JobForm from "./forms/JobForm";
 import Auth from "../../utils/auth";
 import { APPLY_TO_JOB } from "../../utils/mutations";
 
-
 export default function CompanyProfile() {
   const { companyId } = useParams();
   const [followEntity] = useMutation(FOLLOW_ENTITY);
@@ -22,6 +21,8 @@ export default function CompanyProfile() {
   );
 
   const company = data?.me || data?.company || {};
+
+  console.log(company);
 
   if (Auth.loggedIn() && Auth.getProfile().data._id === companyId) {
     return <Navigate to="/" />;
@@ -52,7 +53,6 @@ export default function CompanyProfile() {
           jobId: e.target.id,
         },
       });
-   
     } catch (err) {
       console.error(err);
     }
@@ -130,20 +130,19 @@ export default function CompanyProfile() {
             {company.jobs.map((jobs) => (
               <>
                 <div Key={jobs._id}>
-                  <div
-                    className="card-body bg-base-200 rounded w-full p-4 my-2"
-                  >
+                  <div className="card-body bg-base-200 rounded w-full p-4 my-2">
                     <h2 className="card-title">{jobs.title}</h2>
                     <p>{jobs.description}</p>
                     <div className="card-actions justify-end">
-                      <button
-                      id={jobs._id}
-                        className="flex justify-center self-center shadow-3xl w-4 mx-4"
-                        onClick={handleRemove}
-                        
-                      >
-                        X
-                      </button>
+                      {hasAccessToAddJobModal && (
+                        <button
+                          id={jobs._id}
+                          className="flex justify-center self-center shadow-3xl w-4 mx-4 btn btn-primary"
+                          onClick={handleRemove}
+                        >
+                          X
+                        </button>
+                      )}
                       <label
                         htmlFor={`modal-${jobs._id}`}
                         className="drawer-button btn btn-primary"
@@ -208,36 +207,6 @@ export default function CompanyProfile() {
                 </div>
               </>
             ))}
-          </div>
-          {/* Current Employess */}
-          <div className="col-span-2 row-span-1 overflow-y-scroll bg-base-300 p-3 rounded max-h-72">
-            <h2 className="font-bold text-2xl m-4">Current Applicants</h2>
-            <ul className=" p-3 rounded bg-base-200">
-              <li>
-                <div className="avatar">
-                  <div className="w-12 my-2 rounded-full">
-                    <Link to="#">
-                      <img src="#" className="overlow-hidden" />
-                    </Link>
-                  </div>
-                  <h4 className="Name text-xl self-center px-3">
-                    Philip Martin
-                  </h4>
-                </div>
-              </li>
-              <li>
-                <div className="avatar">
-                  <div className="w-12 my-2 rounded-full">
-                    <Link to="#">
-                      <img src="#" className="overlow-hidden" />
-                    </Link>
-                  </div>
-                  <h4 className="Name text-xl  self-center px-3">
-                    Sundar Pichai
-                  </h4>
-                </div>
-              </li>
-            </ul>
           </div>
         </div>
       </div>
