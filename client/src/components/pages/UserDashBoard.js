@@ -8,17 +8,18 @@ import CommentReactionForm from "./forms/CommentReaction";
 export default function UserDashboard() {
   const { loading: jobLoading, data: jobData } = useQuery(QUERY_JOBS);
   const { loading: feedLoading, data: feedData } = useQuery(QUERY_FEED);
-  const { loading, data } = useQuery(QUERY_ME);
+  //const { loading: profLoading, data: profData } = useQuery(QUERY_ME);
 
   // const { load, feedData } = useQuery(QUERY_FEED);
 
   const jobs = jobData?.jobs || [];
   const feed = feedData?.feed || [];
-  const profile = data?.me || {};
+  //const profile = profData?.me || {};
 
   if (!jobLoading) {
     console.log(jobs);
   }
+
   if (!feedLoading && feed.length) {
     console.log(feed);
   }
@@ -26,11 +27,11 @@ export default function UserDashboard() {
   return (
     <>
       <h1 className="text-5xl font-bold mx-8 mt-4">
-        Hello {profile.firstName}! Welcome to Your DashBoard!
+        Hello! Welcome to Your DashBoard!
       </h1>
       <div className="divider m-6 px-4"></div>
       <div className="container grid grid-cols-6 grid-rows-8">
-        <div className="box col-span-2 rounded overflow-scroll max-h-96 m-4 bg-slate-700">
+        <div className="box col-span-2 rounded overflow-scroll max-h-screen m-4 bg-slate-700">
           <h1 className="text-4xl text-white m-2 text-center rounded bg-slate-400 ">
             Recent Job Postings
           </h1>

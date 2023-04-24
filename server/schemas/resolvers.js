@@ -43,12 +43,22 @@ const resolvers = {
         "experience",
         {
           path: "posts",
-          populate: {
-            path: "comments",
-            match: { commentBody: { $ne: null } }, // exclude comments with null commentBody
-          },
-        },
-      ]);
+          populate: [
+            {
+              path: "comments",
+              match: { commentBody: { $ne: null } } // exclude comments with null commentBody
+            },
+            {
+              path: "entity",
+              populate: [
+                { path: "user" },
+                { path: "company" },
+                { path: "school" }
+              ]
+            }
+          ]
+        }
+      ])
     },
     companies: async () => {
       return await Company.find();
@@ -155,6 +165,34 @@ const resolvers = {
           ],
         },
       ]);
+      console.log(posts);
+      const userPosts = await Post.find({
+        entity: { $eq: context.activeProfile.entity },
+      }).populate([
+        {
+          path: "entity",
+          populate: [{ path: "user" }, { path: "company" }, { path: "school" }],
+        },
+        {
+          path: "comments",
+          populate: [
+            { path: "commentBody" },
+            {
+              path: "entity",
+              populate: [
+                { path: "user" },
+                { path: "company" },
+                { path: "school" },
+              ],
+            },
+          ],
+        },
+      ]);
+      console.log("userPosts", userPosts);
+
+      userPosts.forEach((post) => {
+        posts.push(post);
+      });
 
       //console.log(posts);
       const sortedPosts = posts.sort(function (a, b) {

@@ -9,15 +9,12 @@ export default function ReactionForm({ postId }) {
   const [createPostReaction] = useMutation(CREATE_POST_REACTION);
 
   const reactions = data?.reactions || [];
-  // if (!loading) {
-  //   console.log(reactions);
-  //   console.log(reactions[0].icon);
-  // }
+  if (!loading) {
+  }
 
   const handleReaction = async (e) => {
     try {
-      console.log(e.target.id);
-      console.log(postId);
+
       await createPostReaction({
         variables: {
           reactionId: e.target.id,

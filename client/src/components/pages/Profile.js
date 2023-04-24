@@ -648,51 +648,83 @@ export default function Profile() {
                   id="Posts"
                   className={
                     activeTab === "Posts"
-                      ? "rounded bg-base-300 border-2 border-slate-700 w-96"
+                      ? "flex justify-center rounded bg-base-300 border-2 border-slate-700"
                       : "hidden"
                   }
                 >
                   <div className="m-2">
-                    <h1 className="text-xl text-center font-bold mx-auto py-6 border-2 border-slate-700">
+                    <h1 className="text-xl text-center font-bold mx-auto py-6 border-2 border-slate-700 bg-primary">
                       Posts
                     </h1>
                     {profile.posts ? (
                       profile.posts.map((post) => (
-                        <div
-                          className="text-center font-bold mx-auto py-6 border-2 border-slate-700"
-                          key={post._id}
-                        >
-                          {post.postBody}
-                          <span className="label">Comments</span>
-                          {post.comments.map((comment) => (
-                            <div className="text-center" key={comment._id}>
-                              {comment.commentBody}
-                            </div>
-                          ))}
-                          <div className="w-72 mx-auto">
-                            <CommentForm postId={post._id} />
-                          </div>
-                          <button
-                            className="btn btn-secondary btn-sm mx-auto"
-                            onClick={() => handleEditClick("React")}
-                          >
-                            React
-                          </button>
+                        <>
                           <div
-                            className={
-                              isEditing === "React"
-                                ? "btn btn-secondary"
-                                : "hidden"
-                            }
+                            className="text-center mx-auto py-6 border-2 border-slate-700"
+                            key={post._id}
                           >
-                            <ReactionForm postId={post._id} />
+                            {profile.firstName} {profile.lastName} on{" "}
+                            {new Date(
+                              parseInt(post.createdAt)
+                            ).toLocaleString()}
+                            : {post.postBody}
+                            <span className="label border-b-2 border-slate-700">
+                              Comments
+                            </span>
+                            {post.comments.map((comment) => (
+                              <div
+                                className="text-center border-slate-700"
+                                key={comment._id}
+                              >
+                                {post.entity.user ? (
+                                  <span>
+                                    {post.entity.user.firstName}{" "}
+                                    {post.entity.user.lastName} comments:
+                                  </span>
+                                ) : post.entity.company ? (
+                                  <span>
+                                    {post.entity.company.name} comments:
+                                  </span>
+                                ) : post.entity.school ? (
+                                  <span>
+                                    {post.entity.school.name} comments:
+                                  </span>
+                                ) : (
+                                  <></>
+                                )}{" "}
+                                {comment.commentBody}
+                              </div>
+                            ))}
+                            <div className="mx-auto border-slate-700 m-2">
+                              <CommentForm postId={post._id} />
+                            </div>
+                            <button
+                              className="btn btn-secondary btn-sm mx-auto m-2"
+                              onClick={() => handleEditClick("React")}
+                            >
+                              React
+                            </button>
+                            <div
+                              onClick={() => handleEditClick("")}
+                              className={
+                                isEditing === "React"
+                                  ? "bg-base-300 rounded"
+                                  : "hidden"
+                              }
+                            >
+                              <ReactionForm postId={post._id} />
+                            </div>
                           </div>
-                          <PostForm />
-                        </div>
+                        </>
                       ))
                     ) : (
-                      <button className="m-5 btn btn-success">add Posts</button>
+                      <div className="flex flex-row rounded bg-base-300 border-2 border-slate-700 w-96">
+                        <PostForm />
+                      </div>
                     )}
+                    <div className="flex flex-row rounded bg-base-300 border-2 border-slate-700 w-96">
+                      <PostForm />
+                    </div>
                   </div>
                 </div>
               </div>
