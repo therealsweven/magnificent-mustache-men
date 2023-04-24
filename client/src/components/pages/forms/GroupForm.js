@@ -5,7 +5,7 @@ import { CREATE_GROUP } from "../../../utils/mutations";
 import * as Yup from "yup";
 import { useNavigate } from "react-router-dom";
 
-export default function GroupForm() {
+export default function GroupForm({setIsEditing}) {
   const navigate = useNavigate();
   const [createGroup] = useMutation(CREATE_GROUP);
 
@@ -31,6 +31,7 @@ export default function GroupForm() {
         },
       });
       resetForm();
+      setIsEditing("")
       navigate("/activeCommunities");
     } catch (err) {
       console.error(err);

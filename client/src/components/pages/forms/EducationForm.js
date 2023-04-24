@@ -6,7 +6,7 @@ import * as Yup from "yup";
 import { QUERY_SCHOOL } from "../../../utils/queries";
 import months from "../../../utils/months.json"
 
-export default function EducationForm() {
+export default function EducationForm({ setIsEditing }) {
   const [createEducation] = useMutation(CREATE_EDUCATION);
 
   const initialValues = {
@@ -63,6 +63,7 @@ export default function EducationForm() {
         variables: variables,
       });
       resetForm();
+      setIsEditing("")
       console.log("education recorded");
     } catch (err) {
       console.error(err);

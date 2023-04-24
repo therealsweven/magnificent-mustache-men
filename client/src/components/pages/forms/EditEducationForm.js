@@ -6,7 +6,7 @@ import * as Yup from "yup";
 import { QUERY_SCHOOL } from "../../../utils/queries";
 import months from "../../../utils/months.json";
 
-export default function EducationForm({ initialValues }) {
+export default function EducationForm({ initialValues, setIsEditing }) {
   const [updateEducation] = useMutation(UPDATE_EDUCATION);
 
   const validationSchema = Yup.object().shape({
@@ -53,6 +53,7 @@ export default function EducationForm({ initialValues }) {
         variables: variables,
       });
       resetForm();
+      setIsEditing("")
       console.log("education recorded");
     } catch (err) {
       console.error(err);

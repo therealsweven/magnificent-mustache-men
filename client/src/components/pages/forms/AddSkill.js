@@ -5,7 +5,7 @@ import { ADD_SKILL } from "../../../utils/mutations";
 import { QUERY_SKILLS } from "../../../utils/queries";
 import * as Yup from "yup";
 
-export default function SkillForm() {
+export default function AddSkillForm({setIsEditing}) {
   const [addSkill] = useMutation(ADD_SKILL);
 
   const initialValues = {
@@ -23,7 +23,9 @@ export default function SkillForm() {
           skillName: values.skillName,
         },
       });
+
       resetForm();
+      setIsEditing("")
       console.log("skill created");
     } catch (err) {
       console.error(err);
