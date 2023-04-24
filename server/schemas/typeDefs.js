@@ -316,7 +316,6 @@ const typeDefs = gql`
     createSkill(skillName: String!): Skill
     addSkill(skillName: String!): User
     createJob(
-      company: ID!
       title: String!
       responsibilities: String!
       qualifications: String!
