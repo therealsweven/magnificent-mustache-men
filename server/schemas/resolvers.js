@@ -621,24 +621,22 @@ const resolvers = {
     },
     // joinGroup need groupId
     joinGroup: async (parent, args, context) => {
+      console.log("hello")
       if (context.user) {
         //add to group
         await Group.findOneAndUpdate(
           { _id: args.groupId },
           {
-            $push: {
+            $addToSet: {
               members: context.user._id,
             },
           },
-          {
-            new: true,
-          }
         );
         // add group to user groups array
         return await User.findOneAndUpdate(
           { _id: context.user._id },
           {
-            $push: {
+            $addToSet: {
               groups: args.groupId,
             },
           }

@@ -2,8 +2,8 @@ import { Navigate, useParams } from "react-router-dom";
 import { useQuery } from "@apollo/client";
 import { Link } from "react-router-dom";
 import { QUERY_SINGLE_GROUP, QUERY_ME } from "../../utils/queries";
-// import { JOIN_GROUP } from "../../utils/mutations";
-
+import { JOIN_GROUP } from "../../utils/mutations";
+import { useMutation } from "@apollo/client";
 import Auth from "../../utils/auth";
 
 export default function GroupProfile() {
@@ -13,19 +13,19 @@ export default function GroupProfile() {
     variables: { groupId: groupId },
   });
 
-  // const [joinGroup, { error }] = useMutation(JOIN_GROUP);
+  const [joinGroup, { error }] = useMutation(JOIN_GROUP);
 
-  // const handleJoin = async (groupId) => {
-  //   try {
-  //     console.log(groupId);
-  //     const { data } = await joinGroup({
-  //       variables: { groupId: groupId },
-  //     });
-  //     console.log(data);
-  //   } catch (err) {
-  //     console.error(err);
-  //   }
-  // };
+  const handleJoin = async ({groupId}) => {
+    try {
+      console.log(groupId);
+      const { data } = await joinGroup({
+        variables: { groupId: groupId },
+      });
+      console.log(data);
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   const group = data?.me || data?.group || {};
 
@@ -38,7 +38,7 @@ export default function GroupProfile() {
   }
 
   if (!group?.name) {
-    return <h1> Please Log In to Veiw this Group</h1>;
+    return <h1> Please Log In to View this Group</h1>;
   }
 
   return (
@@ -61,7 +61,7 @@ export default function GroupProfile() {
             <h3 className="text-lg leading-6 font-medium text-gray-900">
               {group.name}
             </h3>
-            <button className="btn float-right"> Follow</button>
+            <button className="btn float-right" groupId={group._id} onClick={() => handleJoin({groupId})} >Follow</button>
             <p className="mt-1 max-w-2xl text-sm text-gray-500">
               WE ARE HERE TO STEAL YOUR TOES
             </p>

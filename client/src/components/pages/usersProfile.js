@@ -15,11 +15,11 @@ export default function Profile() {
 
   const { userId } = useParams();
 
-  const { loading, data } = useQuery(userId ? QUERY_USER : QUERY_ME, {
+  const { loading, data } = useQuery(QUERY_USER, {
     variables: { userId: userId },
   });
 
-  const user = data?.me || data?.user || {};
+  const user =  data?.user || {};
 
   console.log(user);
 
@@ -55,9 +55,9 @@ export default function Profile() {
                     {user.city} {user.state}
                   </>
                 ) : (
-                  <Link to="" className="btn btn-success">
-                    edit location
-                  </Link>
+                  <h1 className="text-xl text-right font-bold mx-auto">
+                  Location not recorded
+                </h1>
                 )}
               </h1>
               <h1 className="text-xl text-right font-bold mx-auto">
@@ -77,129 +77,94 @@ export default function Profile() {
         </div>
         <div className="container flex flex-row content-center bg-base-200 rounded-lg">
           <div className="box m-10 text-left">
-            <div className="m-2">
-              <h1 className="text-2xl font-bold mx-auto">Skills</h1>
-              <ul>
-                {user.skills ? (
-                  user.skills.map((skill) => (
-                    <div className="btn btn-outline" key={skill._id}>
-                      {skill.skillName}
-                    </div>
-                  ))
-                ) : (
-                  <button className="btn btn-success">add skills</button>
-                )}
-              </ul>
+            
+            <div className="mx-6">
+      <h1 className="text-3xl font-bold mb-6 mt-5">Communities</h1>
+      <div className="divider"></div>
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        {user.groups.map((group) => (
+          <div
+            key={group._id}
+            className="card flex flex-col justify-between rounded-md shadow-md overflow-hidden my-3 border bg-base-200"
+          >
+            <div className="card-header">
+              <img
+                src={group.profPic}
+                alt="Group Logo"
+                className="h-48 w-full object-cover"
+              />
             </div>
-            <div className="m-2">
-              <h1 className="text-2xl font-bold mx-auto text-left">
-                Communities
-              </h1>
-              <ul>
-                {user.groups ? (
-                  user.groups.map((group) => (
-                    <li>
-                      <div className="badge" key={group._id}>
-                        {group.name}
-                      </div>
-                    </li>
-                  ))
-                ) : (
-                  <button className="btn btn-success">add groups</button>
-                )}
-              </ul>
+            <div className="card-body">
+              <h2 className="card-title text-2xl">{group.name}</h2>
+              <p className="card-text">{group.description}</p>
+            </div>
+            <div className="card-footer flex justify-center my-3">
+              <Link to={`/groups/${group._id}`}>
+                <button className="btn btn-primary" to={`/${group._id}`}>
+                  View Group
+                </button>
+              </Link>
             </div>
           </div>
+        ))}
+      </div>
+    </div>
 
-          <div className="container flex flex-col m-5">
-            <div className="container h-72 rounded bg-base-200 m-5">
-              <h1 className="text-xl text-center font-bold mx-auto py-6">
-                About Me
-              </h1>
 
-              <p className="text-center font-bold">{user.bio}</p>
-            </div>
-            <div className="container h-72 rounded bg-base-200  m-5">
-              <h1 className="text-xl text-center font-bold mx-auto py-6">
-                Posts
-              </h1>
+<div className="container mx-auto rounded-lg flex flex-row" >
+<h1 className="text-3xl font-bold mb-6 mt-5">Posts</h1>
 
-              {user.posts ? (
-                user.posts.map((post) => (
-                  <div className="text-center font-bold" key={post._id}>
-                    {post.postBody} {post._id}
-                    <CommentForm postId={post._id} />
-                  </div>
-                ))
-              ) : (
-                <button className="btn btn-success">add Posts</button>
-              )}
-            </div>
-          </div>
 
+    {user.posts ? 
+    ( 
+    user.posts.map((post) => ( 
+    <div className="card w-96 bg-base-300 text-primary-content m-5">
+  <div className="card-body">
+    <h2 className="card-title">Posted {new Date(parseInt(post.createdAt)).toLocaleString()}</h2>
+    <p>{post.postBody}</p>
+    <div className="card-actions justify-center">
+        <CommentForm postId={post._id} />
+    </div>
+  </div>
+</div>)) ) : (<h1 className="text-xl text-right font-bold mx-auto">
+                {user.firstName} doesn't have any posts.
+                </h1> )}
+</div>
           <div className="box w-32 m-10 text-right bg-base-200 ">
             <div className="m-2">
               <h1 className="text-2xl font-bold mx-auto">Experience</h1>
-              {user.experience.company ? (
-                <ul>
-                  <li>
-                    <div className="badge badge-primary">
-                      {user.experience.company}
-                    </div>
-                  </li>
-                  <li>
-                    <div className="badge badge-primary">
-                      {user.experience.title}
-                    </div>
-                  </li>
-                  <li>
-                    <div className="badge badge-primary">
-                      {user.experience.jobDescription}
-                    </div>
-                  </li>
-                  <li>
-                    <div className="badge badge-primary">
-                      {user.experience.startMonth}
-                    </div>
-                  </li>
-                  <li>
-                    <div className="badge badge-primary">
-                      {user.experience.startMonth}
-                    </div>
-                  </li>
-                  <li>
-                    <div className="badge badge-primary">
-                      {user.experience.current}
-                    </div>
-                  </li>
-                  {user.experience === true ? (
-                    <>
-                      {" "}
-                      <li>
-                        <div className="badge badge-primary">
-                          {user.experience.endMonth}
-                        </div>
-                      </li>
-                      <li>
-                        <div className="badge badge-primary">
-                          {user.experience.endYear}
-                        </div>
-                      </li>
-                    </>
-                  ) : (
-                    <></>
-                  )}
-                </ul>
-              ) : (
-                <button className="btn btn-success hidden">
-                  add experience
-                </button>
-              )}
-            </div>
-            <div className="m-2">
-              <h1 className="text-2xl font-bold mx-auto">Education</h1>
+              {user.experience.length ? (
 
-              {user.education.school ? (
+{user.posts ? 
+  ( 
+  {user.experience.map((exp) => ( 
+  <div className="card w-96 bg-base-300 text-primary-content m-5">
+<div className="card-body">
+  <h2 className="card-title">{exp.company.name}</h2>
+  <p>{exp.title}</p>
+  <p>{exp.jobDescription}</p>
+  <p>{exp.startMonth}</p>
+  <p>{exp.startYear}</p>
+  <p> Current: {exp.current === true ? "Yes" : "No"}</p>
+{exp.current === false ? (
+  <>
+    <p className="text-xl">
+      End Month: {exp.endMonth}
+    </p>
+    <p className="text-xl">
+      End Year: {exp.endYear}
+    </p>
+    </> ) : ( <></> ) }
+  <div className="card-actions justify-center">
+  </div>
+</div>
+</div> ))} ) : ( <h1 className="text-xl text-right font-bold mx-auto">
+              {user.firstName} doesn't have any experience recorded.
+              </h1> )}
+              
+               
+              {user.education.length ? (
+                
                 <ul>
                   <li>
                     <div className="badge badge-secondary">
@@ -238,102 +203,33 @@ export default function Profile() {
                 </button>
               )}
             </div>
+            
           </div>
-        </div>
-      </div>
-      <div className=" grid w-full justify-items-center">
-        <button className="btn btn-accent m-5">View My Resume</button>
-        <button className="btn btn-accent m-5">Add as Friend</button>
-      </div>
-      <div className="container mx-auto rounded flex flex-row">
-        <div className="container flex flex-col rounded ">
-          <div className="container rounded">
-            <div className="tabs tabs-boxed mx-auto">
-              <a
-                className={
-                  activeTab === "Communities" ? "tab tab-active" : "tab"
-                }
-                onClick={() => handleTabClick("Communities")}
-              >
-                Communities
-              </a>
-
-              <a
-                className={activeTab === "News" ? "tab tab-active" : "tab"}
-                onClick={() => handleTabClick("News")}
-              >
-                News
-              </a>
-
-              <a
-                className={activeTab === "Jobs" ? "tab tab-active" : "tab"}
-                onClick={() => handleTabClick("Jobs")}
-              >
-                Jobs
-              </a>
-            </div>
-            <div
-              id="Communities"
-              className={
-                activeTab === "Communities"
-                  ? "rounded bg-base-200 h-72"
-                  : "hidden"
-              }
-            >
-              <h1 className="text-xl text-center font-bold mx-auto">
-                COMMUNITIES:
-              </h1>
-              <p className="text-center font-bold">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed
-                voluptas ratione magni accusantium, adipisci vero.
-              </p>
-            </div>
-            <div
-              id="News"
-              className={
-                activeTab === "News" ? "rounded bg-base-200 h-72" : "hidden"
-              }
-            >
-              <h1 className="text-xl text-center font-bold mx-auto">NEWS:</h1>
-              <p className="text-center font-bold">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed
-                voluptas ratione magni accusantium, adipisci vero.
-              </p>
-            </div>
-            <div
-              id="Jobs"
-              className={
-                activeTab === "Jobs" ? "rounded bg-base-200 h-72" : "hidden"
-              }
-            >
-              <h1 className="text-xl text-center font-bold mx-auto">JOBS:</h1>
-              <p className="text-center font-bold">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed
-                voluptas ratione magni accusantium, adipisci vero.
-              </p>
-            </div>
-          </div>
-          <div className="container rounded">
-            <div className="tabs tabs-boxed mx-auto">
-              <a className="tab">Resume</a>
-
-              <a className="tab tab-active">MyInfo</a>
-
-              <a className="tab">Preferences</a>
-            </div>
-            <div className="rounded  bg-base-200 h-72">
-              <h1 className="text-xl text-center font-bold mx-auto">
-                About Me:
-              </h1>
-              <p className="text-center font-bold">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed
-                voluptas ratione magni accusantium, adipisci vero.
-              </p>
+          
+          <div className="container mx-auto rounded-lg">
             </div>
           </div>
         </div>
+        <div className="container flex flex-row content-center bg-base-200 rounded-lg">
+          <div className="box m-10 text-left">
+            <div className="m-2">
+              <h1 className="text-2xl font-bold mx-auto">Skills</h1>
+              <ul>
+                {user.skills ? (
+                  user.skills.map((skill) => (
+                    <div className="btn btn-outline" key={skill._id}>
+                      {skill.skillName}
+                    </div>
+                  ))
+                ) : (
+                  <button className="btn btn-success">add skills</button>
+                )}
+              </ul>
+            </div>
+        </div>
       </div>
-      <div className="container mx-auto rounded"></div>
     </div>
-  );
+    </div>
+    
+  )
 }
