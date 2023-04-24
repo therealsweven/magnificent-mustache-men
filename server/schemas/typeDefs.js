@@ -448,7 +448,7 @@ const typeDefs = gql`
     removeCommentReaction(commentId: ID!, reactionId: ID!): Post
     removePost(postId: ID!): Post
     removeCompany(companyId: ID!): Company
-    removeJob: Job
+    removeJob(jobId: ID!): Job
     removeSchool: School
     removeReaction(reactionId: ID!): Reaction
     removePostReaction(postId: ID!, reactionId: ID!): Post
