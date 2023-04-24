@@ -36,7 +36,7 @@ export default function LoginForm() {
    
       //switch into user profile by default
    await Auth.profileSwitch("user", data.userLogin.entity._id)
-   navigate("/profile");
+   navigate("/myDashboard");
     } catch (err) {
       console.error(err);
     }
