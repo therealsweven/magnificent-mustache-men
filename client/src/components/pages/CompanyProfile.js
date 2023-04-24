@@ -6,12 +6,14 @@ import { FOLLOW_ENTITY, REMOVE_JOB } from "../../utils/mutations";
 import JobForm from "./forms/JobForm";
 import Auth from "../../utils/auth";
 import { APPLY_TO_JOB } from "../../utils/mutations";
+import { useNavigate } from "react-router-dom";
 
 export default function CompanyProfile() {
   const { companyId } = useParams();
   const [followEntity] = useMutation(FOLLOW_ENTITY);
   const [applyToJob] = useMutation(APPLY_TO_JOB);
   const [removeJob] = useMutation(REMOVE_JOB);
+  const navigate = useNavigate();
 
   const { loading, data } = useQuery(
     companyId ? QUERY_SINGLE_COMPANY : QUERY_ME,
@@ -65,7 +67,7 @@ export default function CompanyProfile() {
           jobId: e.target.id,
         },
       });
-      console.log(e.target.id);
+      navigate("/jobPost");
     } catch (err) {}
   };
 
