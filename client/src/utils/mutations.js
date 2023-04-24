@@ -794,23 +794,10 @@ const UPDATE_EXPERIENCE = gql`
   }
 `;
 
-// join group
-
-// const JOIN_GROUP = gql`
-//   mutation JoinGroup($groupId: String!) {
-//     joinGroup(groupID: $groupId) {
-//       _id
-//       firstName
-//       lastName
-//     }
-//   }
-// `;
-
-// join group
 
 const JOIN_GROUP = gql`
-  mutation JoinGroup($groupId: String!) {
-    joinGroup(groupID: $groupId) {
+  mutation JoinGroup($groupId: ID!) {
+    joinGroup(groupId: $groupId) {
       _id
       firstName
       lastName

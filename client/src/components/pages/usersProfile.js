@@ -91,7 +91,7 @@ export default function Profile() {
               <img
                 src={group.profPic}
                 alt="Group Logo"
-                className="h-64 w-full object-cover"
+                className="h-48 w-full object-cover"
               />
             </div>
             <div className="card-body">
@@ -101,7 +101,7 @@ export default function Profile() {
             <div className="card-footer flex justify-center my-3">
               <Link to={`/groups/${group._id}`}>
                 <button className="btn btn-primary" to={`/${group._id}`}>
-                  Get to Know Us!
+                  View Group
                 </button>
               </Link>
             </div>
@@ -122,7 +122,7 @@ export default function Profile() {
   <div className="card-body">
     <h2 className="card-title">Posted {new Date(parseInt(post.createdAt)).toLocaleString()}</h2>
     <p>{post.postBody}</p>
-    <div className="card-actions justify-end">
+    <div className="card-actions justify-center">
         <CommentForm postId={post._id} />
     </div>
   </div>
@@ -133,65 +133,37 @@ export default function Profile() {
           <div className="box w-32 m-10 text-right bg-base-200 ">
             <div className="m-2">
               <h1 className="text-2xl font-bold mx-auto">Experience</h1>
-              {user.experience.company ? (
-                <ul>
-                  <li>
-                    <div className="badge badge-primary">
-                      {user.experience.company}
-                    </div>
-                  </li>
-                  <li>
-                    <div className="badge badge-primary">
-                      {user.experience.title}
-                    </div>
-                  </li>
-                  <li>
-                    <div className="badge badge-primary">
-                      {user.experience.jobDescription}
-                    </div>
-                  </li>
-                  <li>
-                    <div className="badge badge-primary">
-                      {user.experience.startMonth}
-                    </div>
-                  </li>
-                  <li>
-                    <div className="badge badge-primary">
-                      {user.experience.startMonth}
-                    </div>
-                  </li>
-                  <li>
-                    <div className="badge badge-primary">
-                      {user.experience.current}
-                    </div>
-                  </li>
-                  {user.experience === true ? (
-                    <>
-                      <li>
-                        <div className="badge badge-primary">
-                          {user.experience.endMonth}
-                        </div>
-                      </li>
-                      <li>
-                        <div className="badge badge-primary">
-                          {user.experience.endYear}
-                        </div>
-                      </li>
-                    </>
-                  ) : (
-                    <></>
-                  )}
-                </ul>
-              ) : (
-                <button className="btn btn-success hidden">
-                  add experience
-                </button>
-              )}
-            </div>
-            <div className="m-2">
-              <h1 className="text-2xl font-bold mx-auto">Education</h1>
+              {user.experience.length ? (
 
-              {user.education.school ? (
+{user.posts ? 
+  ( 
+  {user.experience.map((exp) => ( 
+  <div className="card w-96 bg-base-300 text-primary-content m-5">
+<div className="card-body">
+  <h2 className="card-title">{exp.company.name}</h2>
+  <p>{exp.title}</p>
+  <p>{exp.jobDescription}</p>
+  <p>{exp.startMonth}</p>
+  <p>{exp.startYear}</p>
+  <p> Current: {exp.current === true ? "Yes" : "No"}</p>
+{exp.current === false ? (
+  <>
+    <p className="text-xl">
+      End Month: {exp.endMonth}
+    </p>
+    <p className="text-xl">
+      End Year: {exp.endYear}
+    </p>
+    </> ) : ( <></> ) }
+  <div className="card-actions justify-center">
+  </div>
+</div>
+</div> ))} ) : ( <h1 className="text-xl text-right font-bold mx-auto">
+              {user.firstName} doesn't have any experience recorded.
+              </h1> )}
+              
+               
+              {user.education.length ? (
                 
                 <ul>
                   <li>

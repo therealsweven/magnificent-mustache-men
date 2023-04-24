@@ -3,7 +3,7 @@ import { useQuery } from "@apollo/client";
 import { Link } from "react-router-dom";
 import { QUERY_SINGLE_GROUP, QUERY_ME } from "../../utils/queries";
 import { JOIN_GROUP } from "../../utils/mutations";
-
+import { useMutation } from "@apollo/client";
 import Auth from "../../utils/auth";
 
 export default function GroupProfile() {
@@ -15,7 +15,7 @@ export default function GroupProfile() {
 
   const [joinGroup, { error }] = useMutation(JOIN_GROUP);
 
-  const handleJoin = async (groupId) => {
+  const handleJoin = async ({groupId}) => {
     try {
       console.log(groupId);
       const { data } = await joinGroup({
