@@ -46,19 +46,19 @@ const resolvers = {
           populate: [
             {
               path: "comments",
-              match: { commentBody: { $ne: null } } // exclude comments with null commentBody
+              match: { commentBody: { $ne: null } }, // exclude comments with null commentBody
             },
             {
               path: "entity",
               populate: [
                 { path: "user" },
                 { path: "company" },
-                { path: "school" }
-              ]
-            }
-          ]
-        }
-      ])
+                { path: "school" },
+              ],
+            },
+          ],
+        },
+      ]);
     },
     companies: async () => {
       return await Company.find();
@@ -498,21 +498,21 @@ const resolvers = {
         // add to entities followed
         await User.findOneAndUpdate(
           { _id: args.connectionId },
-          { $push: { entitiesFollowed: eUser._id } }
+          { $addToSet: { entitiesFollowed: eUser._id } }
         );
         await User.findOneAndUpdate(
           { _id: context.user._id },
-          { $push: { entitiesFollowed: eConnect._id } }
+          { $addToSet: { entitiesFollowed: eConnect._id } }
         );
         // add to connections
         await User.findOneAndUpdate(
           { _id: args.connectionId },
-          { $push: { connections: context.user._id } }
+          { $addToSet: { connections: context.user._id } }
         );
         return await User.findOneAndUpdate(
           { _id: context.user._id },
           {
-            $push: {
+            $addToSet: {
               connections: args.connectionId,
             },
           },
@@ -863,11 +863,13 @@ const resolvers = {
     //remove skill from user
     removeSkill: async (parent, skillId, context) => {
       if (context.user) {
-        return await User.findOneAndUpdate(
+        return User.findOneAndUpdate(
           { _id: context.user._id },
           {
             $pull: {
-              skills: skillId.skillId,
+              skills: {
+                _id: skillId.skillId,
+              },
             },
           },
           { new: true }

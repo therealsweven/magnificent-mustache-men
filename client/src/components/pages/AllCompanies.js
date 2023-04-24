@@ -15,7 +15,7 @@ export default function AllCompanies() {
       {companies.map((company) => (
         <div
           key={company._id}
-          className="card card-side bg-base-300 shadow-xl m-3 flex flex-col justify-between"
+          className="card card-side bg-base-200 shadow-xl m-3 flex flex-col justify-between border"
         >
           <div>
             <img
@@ -33,7 +33,7 @@ export default function AllCompanies() {
             </div>
           </div>
           <Link
-            className="btn btn-active btn-ghost my-3 shadow-xl"
+            className="btn btn-active btn-ghost my-3 shadow-xl mx-4"
             to={`/companyProfile/${company._id}`}
           >
             Explore More
