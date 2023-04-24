@@ -29,7 +29,7 @@ export default function ReactionForm({ postId }) {
 
   return (
     <div>
-      <h1>REACTION </h1>
+      {/* <h1>REACTION </h1> */}
       <div>
         {reactions.map((reaction) => (
           <button id={reaction._id} onClick={handleReaction}>

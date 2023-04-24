@@ -41,6 +41,7 @@ const resolvers = {
         "connections",
         "education",
         "experience",
+<<<<<<< HEAD
           {
       path: "posts",
       populate: [
@@ -61,6 +62,17 @@ const resolvers = {
 ])
 },
    
+=======
+        {
+          path: "posts",
+          populate: {
+            path: "comments",
+            match: { commentBody: { $ne: null } }, // exclude comments with null commentBody
+          },
+        },
+      ]);
+    },
+>>>>>>> 0236eb943fc3c18ce76149fe7353ea12596716f4
     companies: async () => {
       return await Company.find();
     },
@@ -146,16 +158,27 @@ const resolvers = {
 
       //console.log("Line 98", "entities", entities);
 
-      const posts = await Post.find({ entity: { $in: entities } })
-        .populate({
+      const posts = await Post.find({ entity: { $in: entities } }).populate([
+        {
           path: "entity",
+          populate: [{ path: "user" }, { path: "company" }, { path: "school" }],
+        },
+        {
+          path: "comments",
           populate: [
-            { path: "user" },
-            { path: "company" },
-            { path: "school" }
-          ]
-        });
-          
+            { path: "commentBody" },
+            {
+              path: "entity",
+              populate: [
+                { path: "user" },
+                { path: "company" },
+                { path: "school" },
+              ],
+            },
+          ],
+        },
+      ]);
+
       //console.log(posts);
       const sortedPosts = posts.sort(function (a, b) {
         let x = a.updatedAt;
@@ -307,7 +330,7 @@ const resolvers = {
       if (skill) {
         return await User.findOneAndUpdate(
           { _id: context.user._id },
-          { $push: { skills: skill._id } }
+          { $addToSet: { skills: skill._id } }
         );
       }
       if (skill === null) {
@@ -372,7 +395,7 @@ const resolvers = {
         { _id: entity.company },
         { $push: { jobs: job._id } }
       );
-      console.log(context)
+      console.log(context);
       return job;
     },
     // create new post - good
@@ -433,7 +456,10 @@ const resolvers = {
     // create post reaction
     createCommentReaction: async (parent, args, context) => {
       args.entity = context.activeProfile.entity;
-      const commentReaction = CommentReaction.create(args);
+      const commentReaction = await CommentReaction.create({
+        entity: args.entity,
+        reactionId: args.reactionId,
+      });
       const comment = await Comment.findOneAndUpdate(
         { _id: args.commentId },
         {
