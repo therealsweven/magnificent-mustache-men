@@ -54,9 +54,7 @@ export default function Profile() {
                     {profile.city} {profile.state}
                   </>
                 ) : (
-                  <h1 className="text-xl text-right font-bold mx-auto">
-                    update your location in the about me section!
-                  </h1>
+                  <>update your location in the about me section!</>
                 )}
               </h1>
               <h1 className="text-xl text-right font-bold mx-auto">
@@ -128,7 +126,9 @@ export default function Profile() {
               <div
                 id="About Me"
                 className={
-                  activeTab === "About Me" ? "rounded bg-base-300 border-2 border-slate-700" : "hidden"
+                  activeTab === "About Me"
+                    ? "rounded bg-base-300 border-2 border-slate-700"
+                    : "hidden"
                 }
               >
                 <h1 className="text-xl text-center font-bold mx-auto py-6">
@@ -202,7 +202,9 @@ export default function Profile() {
               <div
                 id="Experience"
                 className={
-                  activeTab === "Experience" ? "rounded bg-base-300 border-2 border-slate-700" : "hidden"
+                  activeTab === "Experience"
+                    ? "rounded bg-base-300 border-2 border-slate-700"
+                    : "hidden"
                 }
               >
                 <h1 className="text-xl text-center font-bold mx-auto py-6">
@@ -216,9 +218,7 @@ export default function Profile() {
                           <div className="text-2xl text-center">
                             {exp.name} {exp.company.name}
                           </div>
-                          <div className="text-xl">
-                            Title: {exp.title}
-                          </div>
+                          <div className="text-xl">Title: {exp.title}</div>
                           <div className="text-xl">
                             Description: {exp.jobDescription}
                           </div>
@@ -332,7 +332,9 @@ export default function Profile() {
               <div
                 id="Education"
                 className={
-                  activeTab === "Education" ? "rounded bg-base-300 border-2 border-slate-700" : "hidden"
+                  activeTab === "Education"
+                    ? "rounded bg-base-300 border-2 border-slate-700"
+                    : "hidden"
                 }
               >
                 <h1 className="text-xl text-center font-bold mx-auto py-6">
@@ -344,7 +346,7 @@ export default function Profile() {
                       {profile.education.map((edu) => (
                         <>
                           <div className="text-2xl text-center">
-                            {edu.school.name}
+                            {edu.name} {edu.school.name}
                           </div>
                           <div className="text-xl">
                             Field of Study: {edu.fieldOfStudy}
@@ -447,13 +449,13 @@ export default function Profile() {
                             : "hidden"
                         }
                       >
+                        <EducationForm />
                         <button
                           onClick={() => handleEditClick("")}
                           className="m-5 btn btn-success"
                         >
                           close
                         </button>
-                        <EducationForm />
                       </div>
                     </>
                   )}
@@ -462,7 +464,9 @@ export default function Profile() {
               <div
                 id="Skills"
                 className={
-                  activeTab === "Skills" ? "rounded bg-base-300 border-2 border-slate-700 h-72" : "hidden"
+                  activeTab === "Skills"
+                    ? "rounded bg-base-300 border-2 border-slate-700 h-72"
+                    : "hidden"
                 }
               >
                 <h1 className="text-xl text-center font-bold mx-auto py-6">
@@ -528,7 +532,9 @@ export default function Profile() {
               <div
                 id="Communities"
                 className={
-                  activeTab === "Communities" ? "rounded bg-base-300 border-2 border-slate-700" : "hidden"
+                  activeTab === "Communities"
+                    ? "rounded bg-base-300 border-2 border-slate-700"
+                    : "hidden"
                 }
               >
                 <h1 className="text-xl text-center font-bold mx-auto py-6">
@@ -539,10 +545,7 @@ export default function Profile() {
                     <>
                       {profile.groups.map((group) => (
                         <>
-                          <div
-                            className="text-xl"
-                            key={group._id}
-                          >
+                          <div className="text-xl" key={group._id}>
                             {group.name}
                           </div>
                           <button
@@ -626,7 +629,9 @@ export default function Profile() {
               <div
                 id="Posts"
                 className={
-                  activeTab === "Posts" ? "rounded bg-base-300 border-2 border-slate-700" : "hidden"
+                  activeTab === "Posts"
+                    ? "rounded bg-base-300 border-2 border-slate-700"
+                    : "hidden"
                 }
               >
                 <div className="m-2">
@@ -644,8 +649,32 @@ export default function Profile() {
                             {comment.commentBody}
                           </div>
                         ))}
-                        <CommentForm postId={post._id} />
-                        <ReactionForm postId={post._id} />
+                        <button
+                          className="btn btn-secondary"
+                          onClick={() => handleEditClick("Comment")}
+                        >Comment</button>
+                        <div
+                          className={
+                            isEditing === "Comment"
+                              ? "btn btn-secondary"
+                              : "hidden"
+                          }
+                        >
+                          <CommentForm postId={post._id} />
+                        </div>
+                        <button
+                          className="btn btn-secondary"
+                          onClick={() => handleEditClick("React")}
+                        >React</button>
+                        <div
+                          className={
+                            isEditing === "React"
+                              ? "btn btn-secondary"
+                              : "hidden"
+                          }
+                        >
+                          <ReactionForm postId={post._id} />
+                        </div>
                       </div>
                     ))
                   ) : (
