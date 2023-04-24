@@ -284,7 +284,7 @@ const resolvers = {
       if (skill) {
         return await User.findOneAndUpdate(
           { _id: context.user._id },
-          { $push: { skills: skill._id } }
+          { $addToSet: { skills: skill._id } }
         );
       }
       if (skill === null) {
