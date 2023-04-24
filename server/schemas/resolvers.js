@@ -41,7 +41,6 @@ const resolvers = {
         "connections",
         "education",
         "experience",
-<<<<<<< HEAD
           {
       path: "posts",
       populate: [
@@ -61,18 +60,6 @@ const resolvers = {
   }
 ])
 },
-   
-=======
-        {
-          path: "posts",
-          populate: {
-            path: "comments",
-            match: { commentBody: { $ne: null } }, // exclude comments with null commentBody
-          },
-        },
-      ]);
-    },
->>>>>>> 0236eb943fc3c18ce76149fe7353ea12596716f4
     companies: async () => {
       return await Company.find();
     },
