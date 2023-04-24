@@ -88,8 +88,7 @@ export default function CompanyProfile() {
             <label htmlFor="add-job-modal" className="btn font-bold text-2xl">
               +
             </label>
-
-            
+            {company.jobs.map((jobs) => {<div Key={jobs._id}></div>})}
             <div className="card-body bg-base-200 rounded w-full p-4 my-2">
               <h2 className="card-title">Full-Stack Web Developer</h2>
               <p>
