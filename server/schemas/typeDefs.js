@@ -339,7 +339,7 @@ const typeDefs = gql`
     createPost(postBody: String!): Post
     createPostReaction(postId: String!, reactionId: String!): Post
     createComment(postId: ID!, commentBody: String!): Post
-    createCommentReaction(postId: String!, reactionId: String!): Comment
+    createCommentReaction(commentId: String!, reactionId: String!): Comment
     userLogin(email: String, username: String, password: String!): Auth
     updateCompany(
       name: String
