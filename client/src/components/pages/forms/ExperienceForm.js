@@ -74,7 +74,7 @@ export default function ExperienceForm() {
   };
 
   const { loading, data } = useQuery(QUERY_COMPANIES);
-  let companydata = [];
+  let companydata = [data];
   console.log(companydata);
   if (loading) {
     return <h2>...loading</h2>;

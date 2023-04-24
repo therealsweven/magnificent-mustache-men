@@ -304,7 +304,7 @@ const typeDefs = gql`
     ): Company
     addConnection(connectionId: String!): User
     followEntity(companyId: String, schoolId: String): Entity
-    joinGroup(groupID: String!): User
+    joinGroup(groupID: ID!): User
     createGroup(
       name: String!
       private: Boolean!

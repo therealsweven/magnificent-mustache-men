@@ -84,6 +84,24 @@ export const QUERY_ME = gql`
         comments {
           _id
           commentBody
+          entity {
+            company {
+              _id
+              name
+              profPic
+            }
+            school {
+              _id
+              name
+              profPic
+            }
+            user {
+              _id
+              firstName
+              lastName
+              profPic
+            }
+          }
           reactions {
             _id
             reactionId {
@@ -251,6 +269,29 @@ export const QUERY_USER = gql`
       posts {
         _id
         postBody
+        createdAt
+        comments {
+          _id
+          commentBody
+          entity {
+            company {
+              _id
+              name
+              profPic
+            }
+            school {
+              _id
+              name
+              profPic
+            }
+            user {
+              _id
+              firstName
+              lastName
+              profPic
+            }
+          }
+        }
       }
       experience {
         endMonth

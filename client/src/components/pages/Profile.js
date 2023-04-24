@@ -15,6 +15,7 @@ import GroupForm from "./forms/GroupForm";
 import EditGroupForm from "./forms/EditGroupForm";
 import AddSkill from "./forms/AddSkill";
 import UserInfoForm from "./forms/UserInfoForm";
+import CommentReactionForm from "./forms/CommentReaction";
 
 export default function Profile() {
   const [activeTab, setActiveTab] = useState("About Me");
@@ -22,33 +23,30 @@ export default function Profile() {
   const handleTabClick = (tabName) => {
     setActiveTab(tabName);
   };
-const [removeSwitch, setRemoveSwitch] = useState(false);
+  const [removeSwitch, setRemoveSwitch] = useState(false);
 
-const [isEditing, setIsEditing] = useState("");
-const handleEditClick = (formName) => {
-  setIsEditing(formName);
-};
+  const [isEditing, setIsEditing] = useState("");
+  const handleEditClick = (formName) => {
+    setIsEditing(formName);
+  };
 
-const handleRender = () => {
-  refetch();
-}
+  const handleRender = () => {
+    refetch();
+  };
 
-
-  const handleRemove = async ({skillId}) => {
+  const handleRemove = async ({ skillId }) => {
     try {
-      console.log(skillId)
+      console.log(skillId);
       await removeSkill({
         variables: {
           skillId: skillId,
         },
       });
-      handleRender()
+      handleRender();
     } catch (err) {
       console.error(err);
     }
   };
-
-
 
   const { loading, data, refetch } = useQuery(QUERY_ME);
   const profile = data?.me || {};
@@ -70,7 +68,6 @@ const handleRender = () => {
               />
               <div className="mx-auto">
                 <h1 className="text-2xl text-right font-bold mx-auto">
-                  {profile.firstName} {profile.lastName}
                 </h1>
                 <h1 className="text-xl text-right font-bold mx-auto">
                   {profile.city && profile.state && profile.country ? (
@@ -79,7 +76,7 @@ const handleRender = () => {
                     </>
                   ) : (
                     <h1 className="text-xl text-right font-bold mx-auto">
-                      update your location in the about me section!
+                      Update your location in the About Me section
                     </h1>
                   )}
                 </h1>
@@ -93,7 +90,7 @@ const handleRender = () => {
               </div>
               <div className="container mx-auto rounded-lg">
                 <h1 className="text-5xl text-center font-bold mx-auto py-10">
-                  Pants
+                {profile.firstName} {profile.lastName}
                 </h1>
               </div>
             </div>
@@ -155,7 +152,7 @@ const handleRender = () => {
                   id="About Me"
                   className={
                     activeTab === "About Me"
-                      ? "rounded bg-base-300 border-2 border-slate-700"
+                      ? "rounded bg-base-300 border-2 border-slate-700 w-2/3 mx-auto"
                       : "hidden"
                   }
                 >
@@ -174,7 +171,7 @@ const handleRender = () => {
                       <div
                         className={
                           isEditing === "UserInfoForm"
-                            ? "rounded bg-base-300 border-2 border-slate-700"
+                            ? "rounded bg-base-300 border-2 border-slate-700 mx-auto w-2/3"
                             : "hidden"
                         }
                       >
@@ -205,7 +202,7 @@ const handleRender = () => {
                       <div
                         className={
                           isEditing === "UserInfoForm"
-                            ? "rounded bg-base-300 border-2 border-slate-700"
+                            ? "rounded bg-base-300 border-2 border-slate-700 mx-auto w-2/3"
                             : "hidden"
                         }
                       >
@@ -231,7 +228,7 @@ const handleRender = () => {
                   id="Experience"
                   className={
                     activeTab === "Experience"
-                      ? "rounded bg-base-300 border-2 border-slate-700"
+                      ? "rounded bg-base-300 border-2 border-slate-700 mx-auto w-2/3"
                       : "hidden"
                   }
                 >
@@ -283,7 +280,7 @@ const handleRender = () => {
                             <div
                               className={
                                 isEditing === exp._id
-                                  ? "rounded bg-base-300 border-2 border-slate-700"
+                                  ? "rounded bg-base-300 border-2 border-slate-700 mx-auto w-2/3"
                                   : "hidden"
                               }
                             >
@@ -317,7 +314,7 @@ const handleRender = () => {
                         <div
                           className={
                             isEditing === "ExperienceForm"
-                              ? "rounded bg-base-300 border-2 border-slate-700"
+                              ? "rounded bg-base-300 border-2 border-slate-700 mx-auto w-2/3"
                               : "hidden"
                           }
                         >
@@ -361,7 +358,7 @@ const handleRender = () => {
                   id="Education"
                   className={
                     activeTab === "Education"
-                      ? "rounded bg-base-300 border-2 border-slate-700"
+                      ? "rounded bg-base-300 border-2 border-slate-700 mx-auto w-2/3"
                       : "hidden"
                   }
                 >
@@ -415,7 +412,7 @@ const handleRender = () => {
                             <div
                               className={
                                 isEditing === edu._id
-                                  ? "rounded bg-base-300 border-2 border-slate-700"
+                                  ? "rounded bg-base-300 border-2 border-slate-700 mx-auto w-2/3"
                                   : "hidden"
                               }
                             >
@@ -449,7 +446,7 @@ const handleRender = () => {
                         <div
                           className={
                             isEditing === "EducationForm"
-                              ? "rounded bg-base-300 border-2 border-slate-700"
+                              ? "rounded bg-base-300 border-2 border-slate-700 mx-auto w-2/3"
                               : "hidden"
                           }
                         >
@@ -473,7 +470,7 @@ const handleRender = () => {
                         <div
                           className={
                             isEditing === "EducationForm"
-                              ? "rounded bg-base-300 border-2 border-slate-700"
+                              ? "rounded bg-base-300 border-2 border-slate-700 mx-auto w-2/3"
                               : "hidden"
                           }
                         >
@@ -493,7 +490,7 @@ const handleRender = () => {
                   id="Skills"
                   className={
                     activeTab === "Skills"
-                      ? "rounded bg-base-300 border-2 border-slate-700 h-72"
+                      ? "rounded bg-base-300 border-2 border-slate-700 mx-auto w-2/3"
                       : "hidden"
                   }
                 >
@@ -504,12 +501,24 @@ const handleRender = () => {
                     {profile.skills && profile.skills.length ? (
                       <>
                         {profile.skills.map((skill) => (
-                          <button className="btn btn-outline" skillId={skill._id} key={skill._id} onClick={removeSwitch ? ()=> handleRemove({skillId: skill._id}) : null } 
+                          <button
+                            className="btn btn-outline"
+                            skillId={skill._id}
+                            key={skill._id}
+                            onClick={
+                              removeSwitch
+                                ? () => handleRemove({ skillId: skill._id })
+                                : null
+                            }
                           >
-                            {removeSwitch ?  (<>Click to Remove {skill.skillName} </>) : ( <> {skill.skillName} </> ) }
+                            {removeSwitch ? (
+                              <>Click to Remove {skill.skillName} </>
+                            ) : (
+                              <> {skill.skillName} </>
+                            )}
                           </button>
                         ))}
-                        
+
                         <button
                           onClick={() => handleEditClick("SkillForm")}
                           className="m-5 btn btn-success"
@@ -519,7 +528,7 @@ const handleRender = () => {
                         <div
                           className={
                             isEditing === "SkillForm"
-                              ? "rounded bg-base-300 border-2 border-slate-700"
+                              ? "rounded bg-base-300 border-2 border-slate-700 mx-auto w-2/3"
                               : "hidden"
                           }
                         >
@@ -543,7 +552,7 @@ const handleRender = () => {
                         <div
                           className={
                             isEditing === "AddSkill"
-                              ? "rounded bg-base-300 border-2 border-slate-700"
+                              ? "rounded bg-base-300 border-2 border-slate-700 mx-auto w-2/3"
                               : "hidden"
                           }
                         >
@@ -557,17 +566,35 @@ const handleRender = () => {
                         </div>
                       </>
                     )}
-                    <label className="label"><span className="label-text">{removeSwitch ? "Skillswitch Engaged" : "Skillswitch Disengaged"}</span></label>
-                    <input type="radio" name="radio-8" className="radio radio-error" checked={!removeSwitch} onChange={() => setRemoveSwitch(false)}/>
-                    <input type="radio" name="radio-8" className="radio radio-error" checked={removeSwitch} onChange={() => setRemoveSwitch(true)} />
+                    <label className="label">
+                      <span className="label-text">
+                        {removeSwitch
+                          ? "Skillswitch Engaged"
+                          : "Skillswitch Disengaged"}
+                      </span>
+                    </label>
+                    <input
+                      type="radio"
+                      name="radio-8"
+                      className="radio radio-error"
+                      checked={!removeSwitch}
+                      onChange={() => setRemoveSwitch(false)}
+                    />
+                    <input
+                      type="radio"
+                      name="radio-8"
+                      className="radio radio-error"
+                      checked={removeSwitch}
+                      onChange={() => setRemoveSwitch(true)}
+                    />
                   </div>
-          
                 </div>
+
                 <div
                   id="Communities"
                   className={
                     activeTab === "Communities"
-                      ? "rounded bg-base-300 border-2 border-slate-700"
+                      ? "rounded bg-base-300 border-2 border-slate-700 mx-auto w-2/3"
                       : "hidden"
                   }
                 >
@@ -591,7 +618,7 @@ const handleRender = () => {
                             <div
                               className={
                                 isEditing === group._id
-                                  ? "rounded bg-base-300 border-2 border-slate-700"
+                                  ? "rounded bg-base-300 border-2 border-slate-700 mx-auto w-2/3"
                                   : "hidden"
                               }
                             >
@@ -620,7 +647,7 @@ const handleRender = () => {
                         <div
                           className={
                             isEditing === "GroupForm"
-                              ? "rounded bg-base-300 border-2 border-slate-700"
+                              ? "rounded bg-base-300 border-2 border-slate-700 mx-auto w-2/3"
                               : "hidden"
                           }
                         >
@@ -644,7 +671,7 @@ const handleRender = () => {
                         <div
                           className={
                             isEditing === "GroupForm"
-                              ? "rounded bg-base-300 border-2 border-slate-700"
+                              ? "rounded bg-base-300 border-2 border-slate-700 mx-auto w-2/3"
                               : "hidden"
                           }
                         >
@@ -664,83 +691,98 @@ const handleRender = () => {
                   id="Posts"
                   className={
                     activeTab === "Posts"
-                      ? "flex justify-center container rounded bg-base-300 border-2 border-slate-700"
+                      ? "mx-auto container rounded bg-base-300 border-2 border-slate-700 w-2/3"
                       : "hidden"
                   }
                 >
-                  
-                  <div className="m-2 w-3/5">
-                  <h1 className="rounded text-xl text-center font-bold mx-auto py-6 border-2 border-slate-700 bg-primary">
-                      Posts
-                    </h1>
-                    {profile.posts ? (
-                      profile.posts.map((post) => (
-                        <>
-                          <div
-                            className="rounded mx-auto py-6 border-2 border-slate-700"
-                            key={post._id}
-                          >
-                              <span className="bg-base-100 label border-b-2 border-slate-700">
-                              {new Date(parseInt(post.createdAt)).toLocaleString()}
-                            </span>
-                            <div className="bg-base-300">
-                            {profile.firstName}{" "}{profile.lastName}:</div><div>{" "}{post.postBody}</div>
-                            <span className="bg-base-100 label border-b-2 border-slate-700">
-                              Comments
-                            </span>
+                  <div className="col-span-3 row-span-8 bg-base-300 rounde-lg h-min-44 m-6 mt-2 ml-10">
+                    <div className="m-4">
+                      <PostForm />
+                    </div>
+                    <div className="Feed-Containter grid grid-cols-1 bg-base-300 overflow-scroll max-h-screen  rounded p-4">
+                      {profile.posts.map((post) => (
+                        <div className="Card  bg-base-100 shadow-xl p-5 m-4 rounded">
+                          <div className="avatar">
+                            <div className="w-12 rounded-full">
+                              <img
+                                src={
+                                  post.entity.user
+                                    ? post.entity.user.profPic
+                                    : post.entity.company
+                                    ? post.entity.company.profPic
+                                    : post.entity.school
+                                    ? post.entity.school.profPic
+                                    : "https://png.pngtree.com/png-vector/20190221/ourlarge/pngtree-female-user-vector-avatar-icon-png-image_691506.jpg"
+                                }
+                              />
+                            </div>
+                            <h2 className="card-title text-center ml-5">
+                              {post.entity.user
+                                ? post.entity.user.firstName +
+                                  " " +
+                                  post.entity.user.lastName
+                                : post.entity.company
+                                ? post.entity.company.name
+                                : post.entity.school
+                                ? post.entity.school.name
+                                : "User Not Found"}
+                            </h2>
+                          </div>
+                        
+                          <p className="bg-base-300  rounded p-5 my-2">
+                            {post.postBody}
+                          </p>
+                          <span className="label-text flex justify-end">{new Date(parseInt(post.createdAt)).toLocaleString()}</span>
+                          <div className="flex justify-end">
+                            <ReactionForm postId={post._id} />
+                          </div>
+                          <div>
+                            <h2>Comments:</h2>
                             {post.comments.map((comment) => (
-                              <div
-                                className="rounded border-slate-700"
-                                key={comment._id}
-                              >
-                                {post.entity.user ? (
-                                  <span>
-                                    {post.entity.user.firstName}{" "}
-                                    {post.entity.user.lastName} comments:
-                                  </span>
-                                ) : post.entity.company ? (
-                                  <span>
-                                    {post.entity.company.name} comments:
-                                  </span>
-                                ) : post.entity.school ? (
-                                  <span>
-                                    {post.entity.school.name} comments:
-                                  </span>
-                                ) : (
-                                  <></>
-                                )}{" "}
-                                {comment.commentBody}
+                              <div className="Card  bg-base-100 shadow-xl p-5 m-4 rounded-lg">
+                                <div className="avatar">
+                                  <div className="w-12 rounded-full">
+                                    <img
+                                      src={
+                                        comment.entity.user
+                                          ? comment.entity.user.profPic
+                                          : comment.entity.company
+                                          ? comment.entity.company.profPic
+                                          : comment.entity.school
+                                          ? comment.entity.school.profPic
+                                          : "https://png.pngtree.com/png-vector/20190221/ourlarge/pngtree-female-user-vector-avatar-icon-png-image_691506.jpg"
+                                      }
+                                    />
+                                  </div>
+                                  <h2 className="card-title text-center ml-5">
+                                    {comment.entity.user
+                                      ? comment.entity.user.firstName +
+                                        " " +
+                                        comment.entity.user.lastName
+                                      : comment.entity.company
+                                      ? comment.entity.company.name
+                                      : comment.entity.school
+                                      ? comment.entity.school.name
+                                      : "User Not Found"}
+                                  </h2>
+                                </div>
+                                <p className="bg-base-300 rounded p-5 my-2">
+                                  {comment.commentBody}
+                                </p>
+                                <span className="label-text flex justify-end">{new Date(parseInt(post.createdAt)).toLocaleString()}</span>
+                                <div className="flex justify-end ">
+                                  <CommentReactionForm
+                                    commentId={comment._id}
+                                  />
+                                </div>
                               </div>
                             ))}
-                            <div className="rounded mx-auto border-slate-700 m-2">
-                              <CommentForm postId={post._id} />
-                            </div>
-                            <button
-                              className="btn btn-secondary btn-sm mx-auto m-2"
-                              onClick={() => handleEditClick("React")}
-                            >
-                              React
-                            </button>
-                            <div
-                              onClick={() => handleEditClick("")}
-                              className={
-                                isEditing === "React"
-                                  ? "bg-base-300 rounded"
-                                  : "hidden"
-                              }
-                            >
-                              <ReactionForm postId={post._id} />
-                            </div>
                           </div>
-                        </>
-                      ))
-                    ) : (
-                      <div className="rounded bg-base-300 border-2 border-slate-700">
-                        <PostForm />
-                      </div>
-                    )}
-                    <div className="rounded bg-base-300 border-2 border-slate-700">
-                      <PostForm />
+                          <div>
+                            <CommentForm postId={post._id} />
+                          </div>
+                        </div>
+                      ))}
                     </div>
                   </div>
                 </div>
