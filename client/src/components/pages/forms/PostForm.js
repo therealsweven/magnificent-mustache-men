@@ -1,4 +1,4 @@
-import React from "react";
+import { React, useState } from "react";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import { useMutation, useQuery } from "@apollo/client";
 import { CREATE_POST } from "../../../utils/mutations";
@@ -10,7 +10,7 @@ export default function PostForm() {
   const { loading, data } = useQuery(QUERY_FEED);
   const posts = data?.posts || {};
   if (!loading) {
-    <h2>...loading</h2>
+    <h2>...loading</h2>;
   }
 
   const initialValues = {
