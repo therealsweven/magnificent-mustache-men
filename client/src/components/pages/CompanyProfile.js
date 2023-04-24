@@ -76,12 +76,13 @@ export default function CompanyProfile() {
     <>
       {/* Header */}
 
-      <div className="container-Header m-5 ">
-        <div className="grid grid-cols-8 gird-rows-1 justify-items-center">
-          <div className="col-span-4 row-span-1 shadow-xl bg-base-300 rounded ml-10 ">
-            <h1 className="Name font-bold text-5xl m-4">{company.name}</h1>
-            <p className="About text-xl m-5 pl-4">{company.bio}</p>
-
+      <div className="container-Header m-5">
+        <div className="grid grid-cols-1 md:grid-cols-8 md:gird-rows-1 justify-items-center">
+          <div className="col-span-4 md:col-span-4 row-span-1 shadow-xl bg-base-300 rounded mb-5 md:mb-0">
+            <h1 className="Name font-bold text-4xl md:text-5xl mt-4 md:mt-0">
+              {company.name}
+            </h1>
+            <p className="About text-base md:text-xl m-5 pl-4">{company.bio}</p>
             <button
               id={company._id}
               className="btn btn-active"
@@ -90,7 +91,7 @@ export default function CompanyProfile() {
               Follow
             </button>
           </div>
-          <div className="col-span-1 row-span-1 bg-base-300 shadow-xl rounded ml-40">
+          <div className="col-span-1 md:col-span-1 row-span-1 bg-base-300 shadow-xl rounded mb-5 md:mb-0">
             <img
               src={
                 company.profPic ||
@@ -99,9 +100,9 @@ export default function CompanyProfile() {
               className="float-right m-5 max-w-xs max-h-72 rounded-lg shadow-2xl"
             />
           </div>
-          <div className="col-span-3 row-span-1 bg-base-300 ml-44 rounded">
-            <h2 className="font-bold text-3xl my-2 px-4">Info</h2>
-            <ul>
+          <div className="col-span-3 md:col-span-3 row-span-1 bg-base-300 rounded">
+            <h2 className="font-bold text-2xl md:text-3xl my-2 px-4">Info</h2>
+            <ul className="text-sm md:text-base">
               <li className="px-4 m-3">
                 Location: {company.hqState}, {company.hqCity}
               </li>
@@ -117,10 +118,11 @@ export default function CompanyProfile() {
       {/* Body */}
       <div className="container-Body m-5 ">
         {/* Current Job Postings */}
-        <div className="grid grid-cols-8 gird-rows-1 justify-items-center">
-          <div className="col-span-6 row-span-1 overflow-scroll bg-base-300 p-3 rounded max-h-72 w-11/12 ">
-            <h2 className="jobPosts font-bold text-4xl m-4">
-              Current Job Openings
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-8 md:grid-rows-1 md:justify-items-center">
+          <div className="col-span-1 md:col-span-6 md:row-span-1 overflow-scroll bg-base-300 p-3 rounded max-h-72 w-full md:w-11/12">
+            <h2 className="jobPosts font-bold text-4xl md:text-5xl m-4">
+              {" "}
+              Current Job Openings{" "}
             </h2>
             {hasAccessToAddJobModal && (
               <label htmlFor="add-job-modal" className="btn font-bold text-2xl">
@@ -129,11 +131,13 @@ export default function CompanyProfile() {
             )}
             {company.jobs.map((jobs) => (
               <>
-                <div Key={jobs._id}>
-                  <div className="card-body bg-base-200 rounded w-full p-4 my-2">
-                    <h2 className="card-title">{jobs.title}</h2>
-                    <p>{jobs.description}</p>
-                    <div className="card-actions justify-end">
+                <div Key={jobs._id} className="my-2">
+                  <div className="card-body bg-base-200 rounded w-full p-4">
+                    <h2 className="card-title text-2xl md:text-3xl">
+                      {jobs.title}
+                    </h2>
+                    <p className="text-sm md:text-base">{jobs.description}</p>
+                    <div className="card-actions flex justify-between">
                       {hasAccessToAddJobModal && (
                         <button
                           id={jobs._id}
@@ -166,26 +170,37 @@ export default function CompanyProfile() {
                       ✕
                     </label>
 
-                    <h3 className="p-5 m-4 font-bold text-5xl">{jobs.title}</h3>
-                    <div class="grid grid-cols-3 gap-4">
-                      <ul className="p-3 m-5 shadow-xl ">
-                        <h3 className="font-bold text-3xl">Qualifications</h3>
-                        <li>{jobs.qualifications}</li>
+                    <h3 className="p-5 m-4 font-bold text-5xl md:text-6xl">
+                      {jobs.title}
+                    </h3>
+                    <div class="grid grid-cols-1 gap-4 md:grid-cols-3 md:gap-6">
+                      <ul className="p-3 shadow-xl bg-base-200">
+                        <h3 className="font-bold text-3xl md:text-4xl mb-3">
+                          Qualifications
+                        </h3>
+                        <li className="text-sm md:text-base">
+                          {jobs.qualifications}
+                        </li>
                       </ul>
-
-                      <div className="p-3 m-5 shadow-xl ">
-                        <h3 className="font-bold  text-3xl m-2">Description</h3>
-                        <p>{jobs.description}</p>
+                      <div className="p-3 shadow-xl bg-base-200">
+                        <h3 className="font-bold text-3xl md:text-4xl m-2">
+                          Description
+                        </h3>
+                        <p className="text-sm md:text-base">
+                          {jobs.description}
+                        </p>
                       </div>
-                      <div className="p-3 m-5 shadow-xl ">
-                        <h3 className="font-bold  text-3xl m-2">
+                      <div className="p-3 shadow-xl bg-base-200">
+                        <h3 className="font-bold text-3xl md:text-4xl m-2">
                           Responsibilities
                         </h3>
-                        <p>{jobs.responsibilities}</p>
+                        <p className="text-sm md:text-base">
+                          {jobs.responsibilities}
+                        </p>
                       </div>
                     </div>
-                    <div class="grid grid-cols-2 gap-4 place-content-between">
-                      <div className="p-3 m-5 shadow-xl ">
+                    <div class="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 md:place-content-between">
+                      <div className="p-3 shadow-xl bg-base-200">
                         <h2 className="font-bold text-4xl m-2">Salary</h2>
                         <p className="text-xl text-center ">{jobs.salary}K</p>
                       </div>
