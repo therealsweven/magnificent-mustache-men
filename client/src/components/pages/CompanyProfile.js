@@ -191,7 +191,7 @@ export default function CompanyProfile() {
           </div>
           {/* Current Employess */}
           <div className="col-span-2 row-span-1 overflow-y-scroll bg-base-300 p-3 rounded max-h-72">
-            <h2 className="font-bold text-2xl m-4">Current Employees</h2>
+            <h2 className="font-bold text-2xl m-4">Current Applicants</h2>
             <ul className=" p-3 rounded bg-base-200">
               <li>
                 <div className="avatar">
@@ -219,41 +219,8 @@ export default function CompanyProfile() {
               </li>
             </ul>
           </div>
-          <div className="col-span-6 row-span-1 overflow-scroll bg-base-300 p-3 rounded max-h-72 w-11/12 my-12">
-            <h2 className="jobPosts font-bold  text-4xl m-4">
-              What is Happening at Google
-            </h2>
-            <div className="card-body bg-base-200 rounded w-full p-4 my-2">
-              <h2 className="card-title">We dont Sell your info, We promise</h2>
-              <p>We don't make money off of your basic info, we promise!</p>
-
-              <div className="card-actions justify-end">
-                <label
-                  htmlFor="modal-1"
-                  className="drawer-button btn btn-primary"
-                >
-                  Read More
-                </label>
-              </div>
-            </div>
-            <div className="card-body bg-base-200 rounded w-full p-4 my-2">
-              <h2 className="card-title ">We dont work for the robots!</h2>
-              <p>
-                We are planning on starting the robot uprising. We have already
-                converted 30% of our work force to robots to complete work
-                faster than humans!
-              </p>
-
-              <div className="card-actions justify-end">
-                <label
-                  htmlFor="modal-1"
-                  className="drawer-button btn btn-primary"
-                >
-                  Read More
-                </label>
-              </div>
-            </div>
-          </div>
+          
+          
         </div>
       </div>
       <input type="checkbox" id="add-job-modal" className="modal-toggle" />
