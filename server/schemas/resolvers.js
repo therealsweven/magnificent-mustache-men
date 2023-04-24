@@ -32,6 +32,10 @@ const resolvers = {
         "education",
         "experience",
         "posts",
+        {
+          path: "entitiesFollowed",
+          populate: [{ path: "user" }, { path: "company" }, { path: "school" }],
+        },
       ]);
     },
     me: async (parent, args, context) => {
@@ -39,8 +43,11 @@ const resolvers = {
         "skills",
         "groups",
         "connections",
-        "education",
-        "experience",
+        { path: "education", populate: { path: "school" } },
+        {
+          path: "experience",
+          populate: { path: "company" },
+        },
         {
           path: "posts",
           populate: [
@@ -621,7 +628,7 @@ const resolvers = {
     },
     // joinGroup need groupId
     joinGroup: async (parent, args, context) => {
-      console.log("hello")
+      console.log("hello");
       if (context.user) {
         //add to group
         await Group.findOneAndUpdate(
@@ -630,7 +637,7 @@ const resolvers = {
             $addToSet: {
               members: context.user._id,
             },
-          },
+          }
         );
         // add group to user groups array
         return await User.findOneAndUpdate(
