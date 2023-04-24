@@ -108,23 +108,23 @@ const resolvers = {
       ]);
     },
     feedTest: async (parent, args, context) => {
-      console.log("Line 88", args.entityId);
+      // console.log("Line 88", args.entityId);
       const entity = await Entity.findOne({
         _id: args.entityId,
       }).populate("user");
-      console.log("Line91", "entity", entity);
+      // console.log("Line91", "entity", entity);
 
       const user = await User.findOne({ _id: entity.user });
-      console.log("user", user.entitiesFollowed);
+      // console.log("user", user.entitiesFollowed);
       const entities = user.entitiesFollowed;
 
-      console.log("Line 98", "entities", entities);
+      // console.log("Line 98", "entities", entities);
 
       const posts = await Post.find({ entity: { $in: entities } }).populate(
         "entity",
         "user"
       );
-      console.log(posts);
+      // console.log(posts);
       const sortedPosts = posts.sort(function (a, b) {
         let x = a.updatedAt;
         let y = b.updatedAt;
@@ -154,7 +154,7 @@ const resolvers = {
         });
       }
       if (entity.company !== undefined) {
-        console.log("hello");
+        // console.log("hello");
         const company = await Company.findOne({ _id: entity.company });
         //console.log("company", company.entitiesFollowed);
         company.entitiesFollowed.map((entity) => {
@@ -168,7 +168,7 @@ const resolvers = {
           entities.push(entity);
         });
       }
-      console.log("Line 161", "entities", entities);
+      // console.log("Line 161", "entities", entities);
 
       const posts = await Post.find({ entity: { $in: entities } }).populate([
         {
@@ -190,7 +190,7 @@ const resolvers = {
           ],
         },
       ]);
-      console.log(posts);
+      // console.log(posts);
       const userPosts = await Post.find({
         entity: { $eq: context.activeProfile.entity },
       }).populate([
@@ -213,7 +213,7 @@ const resolvers = {
           ],
         },
       ]);
-      console.log("userPosts", userPosts);
+      // console.log("userPosts", userPosts);
 
       userPosts.forEach((post) => {
         posts.push(post);
@@ -785,18 +785,45 @@ const resolvers = {
     },
     // update user work experience - should work
     updateExperience: async (parent, args, context) => {
-      if (context.user) {
-        return User.findOneAndUpdate({ _id: context.user._id }, args, {
+      console.log(args);
+
+      // if (context.user) {
+      const exp = await Experience.findOneAndUpdate(
+        { _id: args.expId },
+        {
+          company: args.company,
+          title: args.title,
+          jobDescription: args.jobDescription,
+          startMonth: args.startMonth,
+          startYear: args.startYear,
+          current: args.current,
+        },
+        {
           new: true,
-        });
-      }
+        }
+      );
+      return exp;
     },
     // update user education info - should work
     updateEducation: async (parent, args, context) => {
       if (context.user) {
-        return User.findOneAndUpdate({ _id: context.user._id }, args, {
-          new: true,
-        });
+        return Education.findOneAndUpdate(
+          { _id: args.eduId },
+          {
+            school: args.school,
+            fieldOfStudy: args.fieldOfStudy,
+            certificateType: args.certificateType,
+            skills: args.skills,
+            startMonth: args.startMonth,
+            startYear: args.startYear,
+            current: args.current,
+            endMonth: args.endMonth,
+            endYear: args.endYear,
+          },
+          {
+            new: true,
+          }
+        );
       }
     },
     removeUser: async (parent, args, context) => {

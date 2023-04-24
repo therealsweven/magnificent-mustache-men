@@ -421,6 +421,7 @@ const typeDefs = gql`
       skills: [String]
     ): Job
     updateExperience(
+      expId: ID!
       company: String
       title: String
       jobDescription: String
@@ -430,9 +431,10 @@ const typeDefs = gql`
       current: Boolean
       endMonth: String
       endYear: Int
-    ): User
+    ): Experience
     updateEducation(
-      school: String
+      eduId: ID!
+      school: ID!
       fieldOfStudy: String
       certificateType: String
       skills: [String]
@@ -441,7 +443,7 @@ const typeDefs = gql`
       current: Boolean
       endMonth: String
       endYear: Int
-    ): User
+    ): Education
     removeUser: User
     removeGroup(groupId: ID!): Group
     removeComment(postId: ID!, commentId: ID!): Post

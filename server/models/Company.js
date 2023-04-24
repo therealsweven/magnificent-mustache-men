@@ -55,6 +55,14 @@ const companySchema = new Schema({
   entitiesFollowed: [{ type: Schema.Types.ObjectId, ref: "Entity" }],
 });
 
+companySchema.virtual("followerCount").get(function () {
+  return this.followers.length;
+});
+
+companySchema.virtual("employeeCount").get(function () {
+  return this.employees.length;
+});
+
 const Company = model("Company", companySchema);
 const Location = model("Location", locationSchema);
 

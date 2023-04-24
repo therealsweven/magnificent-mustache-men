@@ -67,8 +67,7 @@ export default function Profile() {
                 className="float-right m-5 max-w-xs max-h-72 rounded-lg shadow-2xl"
               />
               <div className="mx-auto">
-                <h1 className="text-2xl text-right font-bold mx-auto">
-                </h1>
+                <h1 className="text-2xl text-right font-bold mx-auto"></h1>
                 <h1 className="text-xl text-right font-bold mx-auto">
                   {profile.city && profile.state && profile.country ? (
                     <>
@@ -90,7 +89,7 @@ export default function Profile() {
               </div>
               <div className="container mx-auto rounded-lg">
                 <h1 className="text-5xl text-center font-bold mx-auto py-10">
-                {profile.firstName} {profile.lastName}
+                  {profile.firstName} {profile.lastName}
                 </h1>
               </div>
             </div>
@@ -286,6 +285,7 @@ export default function Profile() {
                             >
                               <EditExperienceForm
                                 initialValues={{
+                                  expId: exp._id,
                                   company: exp.name,
                                   title: exp.title,
                                   jobDescription: exp.jobDescription,
@@ -418,6 +418,7 @@ export default function Profile() {
                             >
                               <EditEducationForm
                                 initialValues={{
+                                  eduId: edu._id,
                                   school: edu.school.name,
                                   fieldOfStudy: edu.fieldOfStudy,
                                   certificateType: edu.certificateType,
@@ -728,11 +729,15 @@ export default function Profile() {
                                 : "User Not Found"}
                             </h2>
                           </div>
-                        
+
                           <p className="bg-base-300  rounded p-5 my-2">
                             {post.postBody}
                           </p>
-                          <span className="label-text flex justify-end">{new Date(parseInt(post.createdAt)).toLocaleString()}</span>
+                          <span className="label-text flex justify-end">
+                            {new Date(
+                              parseInt(post.createdAt)
+                            ).toLocaleString()}
+                          </span>
                           <div className="flex justify-end">
                             <ReactionForm postId={post._id} />
                           </div>
@@ -769,7 +774,11 @@ export default function Profile() {
                                 <p className="bg-base-300 rounded p-5 my-2">
                                   {comment.commentBody}
                                 </p>
-                                <span className="label-text flex justify-end">{new Date(parseInt(post.createdAt)).toLocaleString()}</span>
+                                <span className="label-text flex justify-end">
+                                  {new Date(
+                                    parseInt(post.createdAt)
+                                  ).toLocaleString()}
+                                </span>
                                 <div className="flex justify-end ">
                                   <CommentReactionForm
                                     commentId={comment._id}
