@@ -1,5 +1,5 @@
 import GroupForm from "./forms/GroupForm";
-import backGround from "../images/community.jpg"
+import backGround from "../images/community.jpg";
 
 export default function CreateGroup() {
   return (
@@ -17,7 +17,7 @@ export default function CreateGroup() {
               Community Starts Here on enCoded!
             </h1>
             <p className="mb-5">
-              Find new Friends and make conntections with people who Love the
+              Find new Friends and make connections with people who love the
               same things you do!
             </p>
           </div>

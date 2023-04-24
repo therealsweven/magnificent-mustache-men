@@ -165,6 +165,34 @@ const resolvers = {
           ],
         },
       ]);
+      console.log(posts);
+      const userPosts = await Post.find({
+        entity: { $eq: context.activeProfile.entity },
+      }).populate([
+        {
+          path: "entity",
+          populate: [{ path: "user" }, { path: "company" }, { path: "school" }],
+        },
+        {
+          path: "comments",
+          populate: [
+            { path: "commentBody" },
+            {
+              path: "entity",
+              populate: [
+                { path: "user" },
+                { path: "company" },
+                { path: "school" },
+              ],
+            },
+          ],
+        },
+      ]);
+      console.log("userPosts", userPosts);
+
+      userPosts.forEach((post) => {
+        posts.push(post);
+      });
 
       //console.log(posts);
       const sortedPosts = posts.sort(function (a, b) {
@@ -833,16 +861,13 @@ const resolvers = {
       throw new AuthenticationError("You need to be logged in");
     },
     //remove skill from user
-    removeSkill: async (parent, { skillId, userId }, context) => {
+    removeSkill: async (parent, skillId, context) => {
       if (context.user) {
         return Skill.findOneAndUpdate(
-          { _id: userId },
+          { _id: context.user._id },
           {
             $pull: {
-              skills: {
-                _id: skillId,
-                skillCreator: context.user._id,
-              },
+              skills: skillId.skillId,
             },
           },
           { new: true }

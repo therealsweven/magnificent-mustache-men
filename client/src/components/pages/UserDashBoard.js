@@ -8,17 +8,18 @@ import CommentReactionForm from "./forms/CommentReaction";
 export default function UserDashboard() {
   const { loading: jobLoading, data: jobData } = useQuery(QUERY_JOBS);
   const { loading: feedLoading, data: feedData } = useQuery(QUERY_FEED);
-  const { loading, data } = useQuery(QUERY_ME);
+  //const { loading: profLoading, data: profData } = useQuery(QUERY_ME);
 
   // const { load, feedData } = useQuery(QUERY_FEED);
 
   const jobs = jobData?.jobs || [];
   const feed = feedData?.feed || [];
-  const profile = data?.me || {};
+  //const profile = profData?.me || {};
 
   if (!jobLoading) {
     console.log(jobs);
   }
+
   if (!feedLoading && feed.length) {
     console.log(feed);
   }
@@ -26,11 +27,11 @@ export default function UserDashboard() {
   return (
     <>
       <h1 className="text-5xl font-bold mx-8 mt-4">
-        Hello {profile.firstName}! Welcome to Your DashBoard!
+        Hello! Welcome to Your DashBoard!
       </h1>
       <div className="divider m-6 px-4"></div>
       <div className="container grid grid-cols-6 grid-rows-8">
-        <div className="box col-span-2 rounded overflow-scroll max-h-96 m-4 bg-slate-700">
+        <div className="box col-span-2 rounded overflow-scroll max-h-screen m-4 bg-slate-700">
           <h1 className="text-4xl text-white m-2 text-center rounded bg-slate-400 ">
             Recent Job Postings
           </h1>
@@ -64,20 +65,20 @@ export default function UserDashboard() {
                       {job.title}
                     </h3>
                     <div className="grid grid-cols-3 gap-4">
-                      <ul className="p-3 m-5 shadow shadow-blue-500/50 ">
+                      <ul className="p-3 m-5 shadow-xl ">
                         <h3 className="font-bold text-white text-3xl">
                           Qualifications
                         </h3>
                         <li>{job.qualifications}</li>
                       </ul>
 
-                      <div className="p-3 m-5 shadow shadow-blue-500/50">
+                      <div className="p-3 m-5 shadow-xl">
                         <h3 className="font-bold text-white text-3xl m-2">
                           Description
                         </h3>
                         <p>{job.description}</p>
                       </div>
-                      <div className="p-3 m-5 shadow shadow-blue-500/50">
+                      <div className="p-3 m-5 shadow-xl">
                         <h3 className="font-bold text-white text-3xl m-2">
                           Responsibilities
                         </h3>
@@ -85,13 +86,13 @@ export default function UserDashboard() {
                       </div>
                     </div>
                     <div className="grid grid-cols-2 gap-4 place-content-between">
-                      <div className="p-3 m-5 shadow shadow-blue-500/50">
+                      <div className="p-3 m-5 shadow-xl">
                         <h2 className="font-bold text-white text-4xl m-2">
                           Salary
                         </h2>
                         <p className="text-xl text-center ">{job.salary}K</p>
                       </div>
-                      <div className="p-3 m-5 shadow shadow-blue-500/50">
+                      <div className="p-3 m-5 shadow-xl">
                         <ul>
                           <h2 className="font-bold text-white text-4xl m-2">
                             Benefits

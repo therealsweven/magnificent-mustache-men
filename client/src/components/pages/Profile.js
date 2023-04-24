@@ -6,7 +6,7 @@ import { QUERY_ME } from "../../utils/queries";
 import CommentForm from "./forms/CommentForm";
 import PostForm from "./forms/PostForm";
 import ReactionForm from "./forms/ReactionForm";
-import { UPDATE_USER_TEST } from "../../utils/mutations";
+import { UPDATE_USER_TEST, REMOVE_SKILL } from "../../utils/mutations";
 import ExperienceForm from "./forms/ExperienceForm";
 import EditExperienceForm from "./forms/EditExperienceForm";
 import EducationForm from "./forms/EducationForm";
@@ -18,8 +18,21 @@ import UserInfoForm from "./forms/UserInfoForm";
 
 export default function Profile() {
   const [activeTab, setActiveTab] = useState("About Me");
+  const [removeSkill] = useMutation(REMOVE_SKILL);
   const handleTabClick = (tabName) => {
     setActiveTab(tabName);
+  };
+
+  const handleRemove = async (skillId) => {
+    try {
+      const { data } = await removeSkill({
+        variables: {
+          id: skillId,
+        },
+      });
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   const [isEditing, setIsEditing] = useState("");
@@ -666,7 +679,8 @@ export default function Profile() {
                               >
                                 {post.entity.user ? (
                                   <span>
-                                    {post.entity.user.firstName}{" "}{post.entity.user.lastName} comments:
+                                    {post.entity.user.firstName}{" "}
+                                    {post.entity.user.lastName} comments:
                                   </span>
                                 ) : post.entity.company ? (
                                   <span>
@@ -678,8 +692,8 @@ export default function Profile() {
                                   </span>
                                 ) : (
                                   <></>
-                                )}
-                                {" "}{comment.commentBody}
+                                )}{" "}
+                                {comment.commentBody}
                               </div>
                             ))}
                             <div className="rounded mx-auto border-slate-700 m-2">
@@ -692,15 +706,14 @@ export default function Profile() {
                               React
                             </button>
                             <div
-                            onClick={() => handleEditClick("")}
+                              onClick={() => handleEditClick("")}
                               className={
-                                
                                 isEditing === "React"
-                                  ? "bg-base-300 rounded" 
+                                  ? "bg-base-300 rounded"
                                   : "hidden"
                               }
                             >
-                              <ReactionForm postId={post._id}/>
+                              <ReactionForm postId={post._id} />
                             </div>
                           </div>
                         </>
@@ -718,6 +731,10 @@ export default function Profile() {
               </div>
             </div>
           </div>
+        </div>
+        <div className=" grid w-full justify-items-center">
+          <button className="btn btn-accent m-5">View My Resume</button>
+          <button className="btn btn-accent m-5">Add as Friend</button>
         </div>
       </div>
     );
