@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import portrait from "../images/portrait-philip-martin-unsplash.jpg";
 import { Link } from "react-router-dom";
 import { useQuery, useMutation } from "@apollo/client";
@@ -6,7 +6,7 @@ import { QUERY_ME } from "../../utils/queries";
 import CommentForm from "./forms/CommentForm";
 import PostForm from "./forms/PostForm";
 import ReactionForm from "./forms/ReactionForm";
-import { UPDATE_USER_TEST, REMOVE_SKILL } from "../../utils/mutations";
+import { REMOVE_SKILL } from "../../utils/mutations";
 import ExperienceForm from "./forms/ExperienceForm";
 import EditExperienceForm from "./forms/EditExperienceForm";
 import EducationForm from "./forms/EducationForm";
@@ -22,25 +22,35 @@ export default function Profile() {
   const handleTabClick = (tabName) => {
     setActiveTab(tabName);
   };
+const [removeSwitch, setRemoveSwitch] = useState(false);
 
-  const handleRemove = async (skillId) => {
+const [isEditing, setIsEditing] = useState("");
+const handleEditClick = (formName) => {
+  setIsEditing(formName);
+};
+
+const handleRender = () => {
+  refetch();
+}
+
+
+  const handleRemove = async ({skillId}) => {
     try {
-      const { data } = await removeSkill({
+      console.log(skillId)
+      await removeSkill({
         variables: {
-          id: skillId,
+          skillId: skillId,
         },
       });
+      handleRender()
     } catch (err) {
       console.error(err);
     }
   };
 
-  const [isEditing, setIsEditing] = useState("");
-  const handleEditClick = (formName) => {
-    setIsEditing(formName);
-  };
 
-  const { loading, data } = useQuery(QUERY_ME);
+
+  const { loading, data, refetch } = useQuery(QUERY_ME);
   const profile = data?.me || {};
   console.log(profile);
 
@@ -494,10 +504,12 @@ export default function Profile() {
                     {profile.skills && profile.skills.length ? (
                       <>
                         {profile.skills.map((skill) => (
-                          <div className="btn btn-outline" key={skill._id}>
-                            {skill.skillName}
-                          </div>
+                          <button className="btn btn-outline" skillId={skill._id} key={skill._id} onClick={removeSwitch ? ()=> handleRemove({skillId: skill._id}) : null } 
+                          >
+                            {removeSwitch ?  (<>Click to Remove {skill.skillName} </>) : ( <> {skill.skillName} </> ) }
+                          </button>
                         ))}
+                        
                         <button
                           onClick={() => handleEditClick("SkillForm")}
                           className="m-5 btn btn-success"
@@ -545,7 +557,11 @@ export default function Profile() {
                         </div>
                       </>
                     )}
+                    <label className="label"><span className="label-text">{removeSwitch ? "Skillswitch Engaged" : "Skillswitch Disengaged"}</span></label>
+                    <input type="radio" name="radio-8" className="radio radio-error" checked={!removeSwitch} onChange={() => setRemoveSwitch(false)}/>
+                    <input type="radio" name="radio-8" className="radio radio-error" checked={removeSwitch} onChange={() => setRemoveSwitch(true)} />
                   </div>
+          
                 </div>
                 <div
                   id="Communities"
@@ -648,32 +664,33 @@ export default function Profile() {
                   id="Posts"
                   className={
                     activeTab === "Posts"
-                      ? "flex justify-center rounded bg-base-300 border-2 border-slate-700"
+                      ? "flex justify-center container rounded bg-base-300 border-2 border-slate-700"
                       : "hidden"
                   }
                 >
-                  <div className="m-2">
-                    <h1 className="text-xl text-center font-bold mx-auto py-6 border-2 border-slate-700 bg-primary">
+                  
+                  <div className="m-2 w-3/5">
+                  <h1 className="rounded text-xl text-center font-bold mx-auto py-6 border-2 border-slate-700 bg-primary">
                       Posts
                     </h1>
                     {profile.posts ? (
                       profile.posts.map((post) => (
                         <>
                           <div
-                            className="text-center mx-auto py-6 border-2 border-slate-700"
+                            className="rounded mx-auto py-6 border-2 border-slate-700"
                             key={post._id}
                           >
-                            {profile.firstName} {profile.lastName} on{" "}
-                            {new Date(
-                              parseInt(post.createdAt)
-                            ).toLocaleString()}
-                            : {post.postBody}
-                            <span className="label border-b-2 border-slate-700">
+                              <span className="bg-base-100 label border-b-2 border-slate-700">
+                              {new Date(parseInt(post.createdAt)).toLocaleString()}
+                            </span>
+                            <div className="bg-base-300">
+                            {profile.firstName}{" "}{profile.lastName}:</div><div>{" "}{post.postBody}</div>
+                            <span className="bg-base-100 label border-b-2 border-slate-700">
                               Comments
                             </span>
                             {post.comments.map((comment) => (
                               <div
-                                className="text-center border-slate-700"
+                                className="rounded border-slate-700"
                                 key={comment._id}
                               >
                                 {post.entity.user ? (
@@ -695,7 +712,7 @@ export default function Profile() {
                                 {comment.commentBody}
                               </div>
                             ))}
-                            <div className="mx-auto border-slate-700 m-2">
+                            <div className="rounded mx-auto border-slate-700 m-2">
                               <CommentForm postId={post._id} />
                             </div>
                             <button
@@ -718,11 +735,11 @@ export default function Profile() {
                         </>
                       ))
                     ) : (
-                      <div className="flex flex-row rounded bg-base-300 border-2 border-slate-700 w-96">
+                      <div className="rounded bg-base-300 border-2 border-slate-700">
                         <PostForm />
                       </div>
                     )}
-                    <div className="flex flex-row rounded bg-base-300 border-2 border-slate-700 w-96">
+                    <div className="rounded bg-base-300 border-2 border-slate-700">
                       <PostForm />
                     </div>
                   </div>
@@ -730,10 +747,6 @@ export default function Profile() {
               </div>
             </div>
           </div>
-        </div>
-        <div className=" grid w-full justify-items-center">
-          <button className="btn btn-accent m-5">View My Resume</button>
-          <button className="btn btn-accent m-5">Add as Friend</button>
         </div>
       </div>
     );
