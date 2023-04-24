@@ -50,6 +50,3 @@ const Comment = model("Comment", commentSchema);
 const CommentReaction = model("CommentReaction", commentReactionSchema);
 
 module.exports = { Post, Comment, PostReaction, CommentReaction };
-
-//User -- posts
-//  Company

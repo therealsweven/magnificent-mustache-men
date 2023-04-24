@@ -374,8 +374,8 @@ const CREATE_POST_REACTION = gql`
 `;
 
 const CREATE_COMMENT_REACTION = gql`
-  mutation CreateCommentReaction($postId: String!, $reactionId: String!) {
-    createCommentReaction(postId: $postId, reactionId: $reactionId) {
+  mutation CreateCommentReaction($commentId: String!, $reactionId: String!) {
+    createCommentReaction(commentId: $commentId, reactionId: $reactionId) {
       _id
       reactions {
         reactionId {

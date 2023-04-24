@@ -9,10 +9,10 @@ export default function ReactionForm({ postId }) {
   const [createPostReaction] = useMutation(CREATE_POST_REACTION);
 
   const reactions = data?.reactions || [];
-  if (!loading) {
-    console.log(reactions);
-    console.log(reactions[0].icon);
-  }
+  // if (!loading) {
+  //   console.log(reactions);
+  //   console.log(reactions[0].icon);
+  // }
 
   const handleReaction = async (e) => {
     try {
@@ -32,7 +32,7 @@ export default function ReactionForm({ postId }) {
 
   return (
     <div>
-      <h1>REACTION </h1>
+      {/* <h1>REACTION </h1> */}
       <div>
         {reactions.map((reaction) => (
           <button id={reaction._id} onClick={handleReaction}>
