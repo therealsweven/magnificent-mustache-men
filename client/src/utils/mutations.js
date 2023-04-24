@@ -744,17 +744,31 @@ const UPDATE_LOCATION = gql`
 // update education
 
 const UPDATE_EDUCATION = gql`
-  mutation UpdateLocation(
-    $city: String
-    $state: String
-    $size: String
-    $phone: String
+  mutation UpdateEducation(
+    $eduId: ID!
+    $school: ID!
+    $fieldOfStudy: String
+    $certificateType: String
+    $skills: [String]
+    $startMonth: String
+    $startYear: Int
+    $current: Boolean
+    $endMonth: String
+    $endYear: Int
   ) {
-    updateLocation(city: $city, state: $state, size: $size, phone: $phone) {
+    updateEducation(
+      eduId: $eduId
+      school: $school
+      fieldOfStudy: $fieldOfStudy
+      certificateType: $certificateType
+      skills: $skills
+      startMonth: $startMonth
+      startYear: $startYear
+      current: $current
+      endMonth: $endMonth
+      endYear: $endYear
+    ) {
       _id
-      hqCity
-      hqState
-      name
     }
   }
 `;
@@ -762,38 +776,34 @@ const UPDATE_EDUCATION = gql`
 // update experience
 
 const UPDATE_EXPERIENCE = gql`
-  mutation UpdateExperience(
+  mutation Mutation(
+    $expId: ID!
     $company: String
     $title: String
     $jobDescription: String
     $skills: [String]
     $startMonth: String
-    $current: Boolean
     $startYear: Int
+    $current: Boolean
     $endMonth: String
     $endYear: Int
   ) {
     updateExperience(
+      expId: $expId
       company: $company
       title: $title
       jobDescription: $jobDescription
       skills: $skills
       startMonth: $startMonth
-      current: $current
       startYear: $startYear
+      current: $current
       endMonth: $endMonth
       endYear: $endYear
     ) {
       _id
-      city
-      country
-      email
-      firstName
-      lastName
     }
   }
 `;
-
 
 const JOIN_GROUP = gql`
   mutation JoinGroup($groupId: ID!) {

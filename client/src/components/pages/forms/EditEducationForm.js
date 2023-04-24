@@ -4,7 +4,7 @@ import { useMutation, useQuery } from "@apollo/client";
 import { UPDATE_EDUCATION } from "../../../utils/mutations";
 import * as Yup from "yup";
 import { QUERY_SCHOOL } from "../../../utils/queries";
-import months from "../../../utils/months.json"
+import months from "../../../utils/months.json";
 
 export default function EducationForm({ initialValues }) {
   const [updateEducation] = useMutation(UPDATE_EDUCATION);
@@ -37,6 +37,7 @@ export default function EducationForm({ initialValues }) {
     console.log(values);
     try {
       let variables = {
+        eduId: values.eduId,
         school: values.school,
         fieldOfStudy: values.fieldOfStudy,
         certificateType: values.certificateType,
@@ -134,9 +135,13 @@ export default function EducationForm({ initialValues }) {
               as="select"
               type="text"
               name="startMonth"
-            ><option>Select a Month</option>
-            {months.map((month) =>
-            <option key={month.name} value={month.name}>{month.name}</option>)}
+            >
+              <option>Select a Month</option>
+              {months.map((month) => (
+                <option key={month.name} value={month.name}>
+                  {month.name}
+                </option>
+              ))}
             </Field>
             <ErrorMessage name="startMonth" component="div" className="error" />
           </div>
@@ -169,14 +174,18 @@ export default function EducationForm({ initialValues }) {
                   <span className="label-text">End Month</span>
                 </label>
                 <Field
-              className="input input-bordered"
-              as="select"
-              type="text"
-              name="endMonth"
-            ><option>Select a Month</option>
-            {months.map((month) =>
-            <option key={month.name} value={month.name}>{month.name}</option>)}
-            </Field>
+                  className="input input-bordered"
+                  as="select"
+                  type="text"
+                  name="endMonth"
+                >
+                  <option>Select a Month</option>
+                  {months.map((month) => (
+                    <option key={month.name} value={month.name}>
+                      {month.name}
+                    </option>
+                  ))}
+                </Field>
                 <ErrorMessage
                   name="endMonth"
                   component="div"
@@ -207,14 +216,18 @@ export default function EducationForm({ initialValues }) {
                   <span className="label-text">End Month</span>
                 </label>
                 <Field
-              className="input input-bordered"
-              as="select"
-              type="text"
-              name="endMonth"
-            ><option>Select a Month</option>
-            {months.map((month) =>
-            <option key={month.name} value={month.name}>{month.name}</option>)}
-            </Field>
+                  className="input input-bordered"
+                  as="select"
+                  type="text"
+                  name="endMonth"
+                >
+                  <option>Select a Month</option>
+                  {months.map((month) => (
+                    <option key={month.name} value={month.name}>
+                      {month.name}
+                    </option>
+                  ))}
+                </Field>
                 <ErrorMessage
                   name="endMonth"
                   component="div"
