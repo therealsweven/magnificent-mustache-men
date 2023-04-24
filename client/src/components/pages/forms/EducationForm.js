@@ -71,7 +71,7 @@ export default function EducationForm() {
   };
   const { loading, data } = useQuery(QUERY_SCHOOL);
   const schools = [data];
-  console.log(schools);
+
   if (loading) {
     return <h2>...loading</h2>;
   }
