@@ -3,6 +3,7 @@ import { useQuery, useMutation } from "@apollo/client";
 import { Link } from "react-router-dom";
 import { QUERY_SINGLE_COMPANY, QUERY_ME } from "../../utils/queries";
 import { FOLLOW_ENTITY } from "../../utils/mutations";
+import JobForm from "./forms/JobForm";
 import Auth from "../../utils/auth";
 
 export default function CompanyProfile() {
@@ -17,8 +18,6 @@ export default function CompanyProfile() {
   );
 
   const company = data?.me || data?.company || {};
-
-  
 
   if (Auth.loggedIn() && Auth.getProfile().data._id === companyId) {
     return <Navigate to="/" />;
@@ -44,12 +43,11 @@ export default function CompanyProfile() {
   return (
     <>
       {/* Header */}
+      
       <div className="container-Header m-5 ">
         <div className="grid grid-cols-8 gird-rows-1 justify-items-center">
           <div className="col-span-4 row-span-1 shadow-xl bg-base-300 rounded ml-10 ">
-            <h1 className="Name font-bold text-5xl m-4">
-              {company.name}
-            </h1>
+            <h1 className="Name font-bold text-5xl m-4">{company.name}</h1>
             <p className="About text-xl m-5 pl-4">{company.bio}</p>
             <button
               id={company._id}
@@ -61,7 +59,7 @@ export default function CompanyProfile() {
           </div>
           <div className="col-span-1 row-span-1 bg-base-300 shadow-xl rounded ml-40">
             <img
-              src={company.profPic}
+              src={company.profPic || "https://png.pngtree.com/png-vector/20190221/ourlarge/pngtree-female-user-vector-avatar-icon-png-image_691506.jpg" }
               className="float-right m-5 max-w-xs max-h-72 rounded-lg shadow-2xl"
             />
           </div>
@@ -88,11 +86,14 @@ export default function CompanyProfile() {
             <h2 className="jobPosts font-bold text-4xl m-4">
               Current Job Openings
             </h2>
-
+            <label htmlFor="add-job-modal" className="btn font-bold text-2xl">
+              +
+            </label>
+            
             <div className="card-body bg-base-200 rounded w-full p-4 my-2">
-              <h2 className="card-title">
-                Full-Stack Web Developer
-              </h2>
+            
+              <h2 className="card-title">Full-Stack Web Developer</h2>
+              
               <p>
                 We need someone who is good at things and stuff for web
                 Development.
@@ -119,9 +120,7 @@ export default function CompanyProfile() {
           </div>
           {/* Current Employess */}
           <div className="col-span-2 row-span-1 overflow-y-scroll bg-base-300 p-3 rounded max-h-72">
-            <h2 className="font-bold text-2xl m-4">
-              Current Employees
-            </h2>
+            <h2 className="font-bold text-2xl m-4">Current Employees</h2>
             <ul className=" p-3 rounded bg-base-200">
               <li>
                 <div className="avatar">
@@ -154,12 +153,8 @@ export default function CompanyProfile() {
               What is Happening at Google
             </h2>
             <div className="card-body bg-base-200 rounded w-full p-4 my-2">
-              <h2 className="card-title">
-                We dont Sell your info, We promise
-              </h2>
-              <p>
-                We don't make money off of your basic info, we promise!
-              </p>
+              <h2 className="card-title">We dont Sell your info, We promise</h2>
+              <p>We don't make money off of your basic info, we promise!</p>
 
               <div className="card-actions justify-end">
                 <label
@@ -171,9 +166,7 @@ export default function CompanyProfile() {
               </div>
             </div>
             <div className="card-body bg-base-200 rounded w-full p-4 my-2">
-              <h2 className="card-title ">
-                We dont work for the robots!
-              </h2>
+              <h2 className="card-title ">We dont work for the robots!</h2>
               <p>
                 We are planning on starting the robot uprising. We have already
                 converted 30% of our work force to robots to complete work
@@ -189,6 +182,18 @@ export default function CompanyProfile() {
                 </label>
               </div>
             </div>
+          </div>
+        </div>
+      </div>
+      <input type="checkbox" id="add-job-modal" className="modal-toggle" />
+      <div className="modal">
+        <div className="modal-box">
+          <h2>Please Fill this out!</h2>
+          <JobForm />
+          <div className="modal-action">
+            <label htmlFor="add-job-modal" className="btn float-top">
+              X
+            </label>
           </div>
         </div>
       </div>

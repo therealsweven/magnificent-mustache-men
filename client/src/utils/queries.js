@@ -54,6 +54,20 @@ export const QUERY_ME = gql`
       website
       posts {
         _id
+        createdAt
+        entity {
+          _id
+          company {
+            name
+          }
+          school {
+            name
+          }
+          user {
+            firstName
+            lastName
+          }
+        }
         user {
           firstName
           lastName
@@ -147,7 +161,16 @@ export const QUERY_FEED = gql`
       _id
       postBody
       entity {
-        _id
+        company {
+          _id
+          name
+          profPic
+        }
+        school {
+          _id
+          name
+          profPic
+        }
         user {
           _id
           firstName
@@ -273,14 +296,34 @@ export const QUERY_SINGLE_COMPANY = gql`
       _id
       bio
       companySize
+      foundedYear
       hqCity
       hqState
-      profPic
-      foundedYear
-      name
       industry
+      name
+      profPic
+      specialties
+      tagline
       website
-      bannerPic
+      jobs {
+        _id
+        benefits
+        description
+        qualifications
+        responsibilities
+        salary
+        skills {
+          _id
+          skillName
+        }
+        title
+        applicants {
+          _id
+          firstName
+          lastName
+          profPic
+        }
+      }
     }
   }
 `;

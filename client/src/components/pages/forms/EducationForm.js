@@ -71,7 +71,7 @@ export default function EducationForm() {
   };
   const { loading, data } = useQuery(QUERY_SCHOOL);
   const schools = [data];
-  console.log(schools);
+
   if (loading) {
     return <h2>...loading</h2>;
   }
@@ -184,6 +184,7 @@ export default function EducationForm() {
               as="select"
               type="text"
               name="endMonth"
+              disabled
             ><option>Select a Month</option>
             {months.map((month) =>
             <option key={month.name} value={month.name}>{month.name}</option>)}

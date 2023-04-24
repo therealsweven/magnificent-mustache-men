@@ -6,10 +6,12 @@ import Auth from "../utils/auth";
 import { useQuery } from "@apollo/client";
 import { QUERY_PROFILES } from "../utils/queries";
 
+
 export default function NavBar() {
   const { loading, data } = useQuery(QUERY_PROFILES);
   const profiles = data?.profiles || {};
-  console.log(profiles, loading);
+ 
+
   const profDisplay = [];
   if (!loading && profiles.length) {
     profiles.forEach((profile) => {
@@ -18,7 +20,7 @@ export default function NavBar() {
           type: "user",
           entityId: profile._id,
           name: profile.user.firstName + " " + profile.user.lastName,
-          profPic: profile.user.profPic,
+          profPic: profile.user.profPic || "https://png.pngtree.com/png-vector/20190221/ourlarge/pngtree-female-user-vector-avatar-icon-png-image_691506.jpg",
         };
         profDisplay.push(prof);
       } else if (profile.school) {
@@ -26,7 +28,7 @@ export default function NavBar() {
           type: "school",
           entityId: profile._id,
           name: profile.school.name,
-          profPic: profile.school.profPic,
+          profPic: profile.user.profPic || "https://png.pngtree.com/png-vector/20190221/ourlarge/pngtree-female-user-vector-avatar-icon-png-image_691506.jpg",
         };
         profDisplay.push(prof);
       } else if (profile.company) {
@@ -53,7 +55,7 @@ export default function NavBar() {
         <div className="flex-1">
           <img className=" mx-3 rounded h-11 " src={logo} />
           <Link
-            to="/profile"
+            to="/myDashboard"
             className="btn btn-ghost normal-case text-xl font-titilliumWeb"
           >
             enCoded
