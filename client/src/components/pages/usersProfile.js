@@ -44,7 +44,7 @@ export default function Profile() {
   }
 
   if (!Auth.loggedIn()) {
-    return <h4 className="text-center"> Please Login to View Profiles</h4>;
+    return <h4 className="text-center">Please Login to View Profiles</h4>;
   }
 
   return (
@@ -90,14 +90,15 @@ export default function Profile() {
               </h1>
             </div>
             <div className="container mx-auto rounded-lg">
-              <h1 className="text-5xl text-center font-bold mx-auto py-10">
-                {user.firstName} {user.lastName}
+              <h2 className="text-xl text-center italic mx-auto py-10">{user.bio}</h2>
+                <h1 className="text-5xl text-center font-bold mx-auto py-10">
+                  {user.firstName} {user.lastName}
               </h1>
             </div>
           </div>
         </div>
         <div className="container flex flex-row content-center bg-base-200 rounded-lg">
-          <div className="box m-10 text-left">
+          <div className="">
             <div className="mx-6">
               <h1 className="text-3xl font-bold mb-6 mt-5">Communities</h1>
               <div className="divider" />
@@ -133,10 +134,10 @@ export default function Profile() {
               </div>
             </div>
 
-            <div className="m-2">
+            <div className="m-2 ">
               <h1 className="text-2xl font-bold mx-auto">Posts</h1>
               <div className="divider" />
-              <div className="flex flex-row">
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {user.posts ? (
                 user.posts.map((post) => (
                   <div className="card w-96 bg-base-300 text-primary-content m-5">
@@ -160,6 +161,7 @@ export default function Profile() {
             <div className="m-2">
               <h1 className="text-2xl font-bold mx-auto">Experience</h1>
               <div className="divider" />
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
               {user.experience.length ? (
                 user.experience.map((exp) => (
                   <div className="card w-96 bg-base-300 text-primary-content m-5">
@@ -189,15 +191,18 @@ export default function Profile() {
                       </Link>
                     </div>
                   </div>
+                  
                 ))
               ) : (
                 <h1 className="text-xl text-right font-bold mx-auto">
                   {user.firstName} doesn't have any experience recorded.
                 </h1>
               )}
+              </div>
               <div className="m-2">
                 <h1 className="text-2xl font-bold mx-auto">Education</h1>
                 <div className="divider" />
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                 {user.education.length ? (
                   user.education.map((edu) => (
                     <div className="card w-96 bg-base-300 text-primary-content m-5">
@@ -249,6 +254,7 @@ export default function Profile() {
                       {user.firstName} doesn't have any skills mentioned.
                     </h1>
                   )}
+                  </div>
                 </div>
               </div>
             </div>
