@@ -322,15 +322,22 @@ const resolvers = {
     // },
     // create new job
     createJob: async (parent, jobInput, context) => {
+      if (!context.activeProfile.entity) {
+        throw new Error("Active profile entity is undefined");
+      }
       const entity = await Entity.findOne({
         _id: context.activeProfile.entity,
       });
+      if (!entity) {
+        throw new Error("Entity not found");
+      }
       jobInput.company = entity.company;
       const job = await Job.create(jobInput);
       await Company.findOneAndUpdate(
         { _id: entity.company },
         { $push: { jobs: job._id } }
       );
+      console.log(context)
       return job;
     },
     // create new post - good

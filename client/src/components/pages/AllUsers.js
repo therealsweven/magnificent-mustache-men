@@ -44,7 +44,10 @@ export default function AllUsers() {
             <div className="relative">
               <img
                 className="w-full h-64 object-cover"
-                src={user.profPic}
+                src={
+                  user.profPic ||
+                  "https://png.pngtree.com/png-vector/20190221/ourlarge/pngtree-female-user-vector-avatar-icon-png-image_691506.jpg"
+                }
                 alt={`Profile picture of ${user.firstName} ${user.lastName}`}
               />
               <div className="absolute top-0 right-0 p-2 bg-green-500 text-white font-bold rounded-tr-lg">
