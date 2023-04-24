@@ -9,8 +9,8 @@ export default function CommentReactionForm({ commentId }) {
 
   const reactions = data?.reactions || [];
   if (!loading) {
-    console.log(reactions);
-    console.log(reactions[0].icon);
+    //console.log(reactions);
+    //console.log(reactions[0].icon);
   }
 
   const handleReaction = async (e) => {

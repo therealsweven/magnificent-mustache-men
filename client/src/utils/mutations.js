@@ -28,7 +28,7 @@ export {
   UPDATE_LOCATION,
   UPDATE_EDUCATION,
   UPDATE_EXPERIENCE,
-  // JOIN_GROUP,
+  JOIN_GROUP,
   REMOVE_SKILL,
   REMOVE_JOB,
   REMOVE_GROUP,
@@ -796,27 +796,15 @@ const UPDATE_EXPERIENCE = gql`
 
 // join group
 
-// const JOIN_GROUP = gql`
-//   mutation JoinGroup($groupId: String!) {
-//     joinGroup(groupID: $groupId) {
-//       _id
-//       firstName
-//       lastName
-//     }
-//   }
-// `;
-
-// join group
-
-// const JOIN_GROUP = gql`
-//   mutation JoinGroup($groupId: String!) {
-//     joinGroup(groupID: $groupId) {
-//       _id
-//       firstName
-//       lastName
-//     }
-//   }
-// `;
+const JOIN_GROUP = gql`
+  mutation JoinGroup($groupId: ID!) {
+    joinGroup(groupID: $groupId) {
+      _id
+      firstName
+      lastName
+    }
+  }
+`;
 
 // remove skill
 

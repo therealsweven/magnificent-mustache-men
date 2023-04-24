@@ -1,28 +1,56 @@
 import { useQuery } from "@apollo/client";
-import { QUERY_JOBS, QUERY_FEED, QUERY_ME } from "../../utils/queries";
+import { QUERY_JOBS, QUERY_FEED, QUERY_REACTIONS } from "../../utils/queries";
 import PostForm from "./forms/PostForm";
 import ReactionForm from "./forms/ReactionForm";
 import CommentForm from "./forms/CommentForm";
 import CommentReactionForm from "./forms/CommentReaction";
 
+import { countReactions } from "../../utils/helpers";
+
 export default function UserDashboard() {
   const { loading: jobLoading, data: jobData } = useQuery(QUERY_JOBS);
   const { loading: feedLoading, data: feedData } = useQuery(QUERY_FEED);
+  const { loading: reactionLoading, data: reactionData } =
+    useQuery(QUERY_REACTIONS);
+
   //const { loading: profLoading, data: profData } = useQuery(QUERY_ME);
 
   // const { load, feedData } = useQuery(QUERY_FEED);
 
   const jobs = jobData?.jobs || [];
-  const feed = feedData?.feed || [];
+  let feed = feedData?.feed || [];
+  const reactions = reactionData?.reactions || [];
   //const profile = profData?.me || {};
 
   if (!jobLoading) {
     console.log(jobs);
   }
 
-  if (!feedLoading && feed.length) {
-    console.log(feed);
-  }
+  // if (!feedLoading && !reactionLoading && feed.length) {
+  //   // console.log(feed);
+  //   //console.log(reactions);
+  //   feed = JSON.parse(JSON.stringify(feed));
+  //   feed.map((post) => {
+  //     let reactionIds = [];
+  //     let reactionCounts = [];
+  //     // create array of reaction _ids for each post
+  //     post.reactions.map((reaction) => {
+  //       reactionIds.push(reaction.reactionId._id);
+  //     });
+  //     //count reactions
+  //     reactions.map((r) => {
+  //       const count = {
+  //         _id: r._id,
+  //         count: reactionIds.filter((x) => x === r._id).length,
+  //         icon: r.icon,
+  //       };
+  //       reactionCounts.push(count);
+  //       //console.log(count);
+  //     });
+  //     post.reactionCounts = reactionCounts;
+  //     //console.log("reactions", reactionCounts);
+  //   });
+  // }
 
   return (
     <>
@@ -47,7 +75,7 @@ export default function UserDashboard() {
             <ul className="menu p-4 w-80 bg-base-100 bg-base-300">
               {/* <!-- Sidebar content here --> */}
               <li>
-                <a>My Conntections</a>
+                <a>My Connections</a>
               </li>
               <li>
                 <a>My Communities</a>
@@ -94,10 +122,28 @@ export default function UserDashboard() {
                 </div>
                 <p className="bg-base-300  rounded p-5 my-2">{feed.postBody}</p>
                 <div className="flex justify-end">
-                  <ReactionForm postId={feed._id} />
+                  {/* <div className="mt-1 bg-base-300 rounded-lg p-1">
+                    {feed.reactionCounts.map((reaction) => (
+                      <div className="indicator">
+                        <span className="indicator-item badge badge-secondary w-2 h-2 text-xs">
+                          {reaction.count}
+                        </span>
+                        <div className="grid w-5 h-5 bg-base-300 place-items-center">
+                          {String.fromCodePoint(reaction.icon)}
+                        </div>
+                      </div>
+                    ))}
+                  </div> */}
+                  <ReactionForm
+                    postId={feed._id}
+                    counts={feed.reactionCounts}
+                    reactions={reactions}
+                  />
                 </div>
                 <div>
-                  <h2>Comments:</h2>
+                  <h2>
+                    <b>Comments:</b>
+                  </h2>
                   {feed.comments.map((comment) => (
                     <div className="Card  bg-base-100 shadow-xl p-5 m-4 rounded-lg">
                       <div className="avatar">

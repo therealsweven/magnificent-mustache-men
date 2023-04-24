@@ -165,6 +165,11 @@ const resolvers = {
 
       const posts = await Post.find({ entity: { $in: entities } }).populate([
         {
+          path: "reactions",
+          populate: [{ path: "reactionId" }],
+        },
+        ,
+        {
           path: "entity",
           populate: [{ path: "user" }, { path: "company" }, { path: "school" }],
         },
@@ -626,19 +631,16 @@ const resolvers = {
         await Group.findOneAndUpdate(
           { _id: args.groupId },
           {
-            $push: {
+            $addToSet: {
               members: context.user._id,
             },
-          },
-          {
-            new: true,
           }
         );
         // add group to user groups array
         return await User.findOneAndUpdate(
           { _id: context.user._id },
           {
-            $push: {
+            $addToSet: {
               groups: args.groupId,
             },
           }

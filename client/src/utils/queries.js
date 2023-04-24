@@ -178,6 +178,14 @@ export const QUERY_FEED = gql`
           profPic
         }
       }
+      reactions {
+        _id
+        reactionId {
+          _id
+          icon
+          reactionName
+        }
+      }
       comments {
         _id
         commentBody
@@ -309,49 +317,49 @@ export const QUERY_COMPANIES = gql`
 `;
 
 export const QUERY_SINGLE_COMPANY = gql`
-query Query($companyId: ID!) {
-  company(companyId: $companyId) {
-    _id
-    bio
-    companySize
-    foundedYear
-    hqCity
-    hqState
-    industry
-    name
-    profPic
-    specialties
-    tagline
-    website
-    jobs {
+  query Query($companyId: ID!) {
+    company(companyId: $companyId) {
       _id
-      title
-      benefits
-      description
-      qualifications
-      responsibilities
-      salary
-      schedule
-      skills {
+      bio
+      companySize
+      foundedYear
+      hqCity
+      hqState
+      industry
+      name
+      profPic
+      specialties
+      tagline
+      website
+      jobs {
         _id
-        skillName
+        title
+        benefits
+        description
+        qualifications
+        responsibilities
+        salary
+        schedule
+        skills {
+          _id
+          skillName
+        }
+        applicants {
+          _id
+          firstName
+          lastName
+          profPic
+        }
       }
-      applicants {
+      admins {
         _id
-        firstName
-        lastName
-        profPic
       }
-    }
-    admins {
-      _id
-    }
-    posts {
-      _id
-      postBody
+      posts {
+        _id
+        postBody
+      }
     }
   }
-}
 `;
 
 export const SEARCH_QUERY = gql`
