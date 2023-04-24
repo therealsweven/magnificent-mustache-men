@@ -41,7 +41,13 @@ const resolvers = {
         "connections",
         "education",
         "experience",
-        "posts",
+          {
+      path: "posts",
+      populate: {
+        path: "comments",
+        match: { commentBody: { $ne: null } } // exclude comments with null commentBody
+      }
+    }
       ]);
     },
     companies: async () => {
@@ -129,10 +135,16 @@ const resolvers = {
 
       //console.log("Line 98", "entities", entities);
 
-      const posts = await Post.find({ entity: { $in: entities } }).populate(
-        "entity",
-        "user"
-      );
+      const posts = await Post.find({ entity: { $in: entities } })
+        .populate({
+          path: "entity",
+          populate: [
+            { path: "user" },
+            { path: "company" },
+            { path: "school" }
+          ]
+        });
+          
       //console.log(posts);
       const sortedPosts = posts.sort(function (a, b) {
         let x = a.updatedAt;
@@ -349,6 +361,7 @@ const resolvers = {
         { _id: entity.company },
         { $push: { jobs: job._id } }
       );
+      console.log(context)
       return job;
     },
     // create new post - good
