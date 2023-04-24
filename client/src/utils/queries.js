@@ -309,6 +309,7 @@ export const QUERY_USER = gql`
         }
         company {
           name
+          profPic
         }
       }
       education {

@@ -32,6 +32,10 @@ const resolvers = {
         "education",
         "experience",
         "posts",
+        {
+          path: "entitiesFollowed",
+          populate: [{ path: "user" }, { path: "company" }, { path: "school" }],
+        },
       ]);
     },
     me: async (parent, args, context) => {
@@ -39,8 +43,11 @@ const resolvers = {
         "skills",
         "groups",
         "connections",
-        "education",
-        "experience",
+        { path: "education", populate: { path: "school" } },
+        {
+          path: "experience",
+          populate: { path: "company" },
+        },
         {
           path: "posts",
           populate: [

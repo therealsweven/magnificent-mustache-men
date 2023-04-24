@@ -8,9 +8,8 @@ export default function CommentReactionForm({ commentId }) {
   const [createCommentReaction] = useMutation(CREATE_COMMENT_REACTION);
 
   const reactions = data?.reactions || [];
-  if (!loading) {
-    console.log(reactions);
-    console.log(reactions[0].icon);
+  if (loading) {
+    <h2>...loading</h2>
   }
 
   const handleReaction = async (e) => {
