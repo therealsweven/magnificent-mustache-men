@@ -310,7 +310,7 @@ const typeDefs = gql`
       private: Boolean!
       posts: [String]
       joinQuestion: String
-      profilePic: String
+      profPic: String
       bannerPic: String
     ): Group
     createSkill(skillName: String!): Skill
