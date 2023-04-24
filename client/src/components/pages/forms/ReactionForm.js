@@ -28,7 +28,7 @@ export default function ReactionForm({ postId }) {
   };
 
   return (
-    <div className="border rounded-lg px-1">
+    <div className="bg-base-300 rounded-lg p-1">
       {reactions.map((reaction) => (
         <button id={reaction._id} onClick={handleReaction}>
           {String.fromCodePoint(reaction.icon)}
