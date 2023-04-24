@@ -181,6 +181,24 @@ export const QUERY_FEED = gql`
       comments {
         _id
         commentBody
+        entity {
+          company {
+            _id
+            name
+            profPic
+          }
+          school {
+            _id
+            name
+            profPic
+          }
+          user {
+            _id
+            firstName
+            lastName
+            profPic
+          }
+        }
       }
       createdAt
       updatedAt
