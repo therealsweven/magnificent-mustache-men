@@ -349,6 +349,7 @@ const resolvers = {
         { _id: entity.company },
         { $push: { jobs: job._id } }
       );
+      console.log(context)
       return job;
     },
     // create new post - good
