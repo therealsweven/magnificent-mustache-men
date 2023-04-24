@@ -55,7 +55,7 @@ export default function NavBar() {
         <div className="flex-1">
           <img className=" mx-3 rounded h-11 " src={logo} />
           <Link
-            to="/profile"
+            to="/myDashboard"
             className="btn btn-ghost normal-case text-xl font-titilliumWeb"
           >
             enCoded
