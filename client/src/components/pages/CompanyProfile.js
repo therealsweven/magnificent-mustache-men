@@ -21,8 +21,6 @@ export default function CompanyProfile() {
 
   const company = data?.me || data?.company || {};
 
-  console.log(company.jobs);
-
   if (Auth.loggedIn() && Auth.getProfile().data._id === companyId) {
     return <Navigate to="/" />;
   }
@@ -57,6 +55,10 @@ export default function CompanyProfile() {
       console.error(err);
     }
   };
+
+  const hasAccessToAddJobModal =
+    Auth.loggedIn() && Auth.getProfile().data._id === company.admins[0]._id;
+ 
 
   return (
     <>
@@ -108,28 +110,36 @@ export default function CompanyProfile() {
             <h2 className="jobPosts font-bold text-4xl m-4">
               Current Job Openings
             </h2>
-            <label htmlFor="add-job-modal" className="btn font-bold text-2xl">
-              +
-            </label>
+            {hasAccessToAddJobModal && (
+              <label htmlFor="add-job-modal" className="btn font-bold text-2xl">
+                +
+              </label>
+            )}
             {company.jobs.map((jobs) => (
               <>
-              <div Key={jobs._id}>
-                <div className="card-body bg-base-200 rounded w-full p-4 my-2">
-                  <h2 className="card-title">{jobs.title}</h2>
-                  <p>{jobs.description}</p>
-                  <div className="card-actions justify-end">
-                    <label
-                      htmlFor={`modal-${jobs._id}`}
-                      className="drawer-button btn btn-primary"
-                    >
-                      Read More
-                    </label>
-                    <button className="btn btn-primary">One Click Apply</button>
+                <div Key={jobs._id}>
+                  <div className="card-body bg-base-200 rounded w-full p-4 my-2">
+                    <h2 className="card-title">{jobs.title}</h2>
+                    <p>{jobs.description}</p>
+                    <div className="card-actions justify-end">
+                      <label
+                        htmlFor={`modal-${jobs._id}`}
+                        className="drawer-button btn btn-primary"
+                      >
+                        Read More
+                      </label>
+                      <button className="btn btn-primary">
+                        One Click Apply
+                      </button>
+                    </div>
                   </div>
                 </div>
-              </div>
-              <input type="checkbox" id={`modal-${jobs._id}`} className="modal-toggle" />
-              <div className="modal">
+                <input
+                  type="checkbox"
+                  id={`modal-${jobs._id}`}
+                  className="modal-toggle"
+                />
+                <div className="modal">
                   <div className="modal-box relative max-w-5xl">
                     <label
                       htmlFor={`modal-${jobs._id}`}
@@ -137,21 +147,15 @@ export default function CompanyProfile() {
                     >
                       ✕
                     </label>
-                    <h3 className="p-5 m-4 font-bold text-5xl">
-                      {jobs.title}
-                    </h3>
+                    <h3 className="p-5 m-4 font-bold text-5xl">{jobs.title}</h3>
                     <div class="grid grid-cols-3 gap-4">
                       <ul className="p-3 m-5 shadow-xl ">
-                        <h3 className="font-bold text-3xl">
-                          Qualifications
-                        </h3>
+                        <h3 className="font-bold text-3xl">Qualifications</h3>
                         <li>{jobs.qualifications}</li>
                       </ul>
 
                       <div className="p-3 m-5 shadow-xl ">
-                        <h3 className="font-bold  text-3xl m-2">
-                          Description
-                        </h3>
+                        <h3 className="font-bold  text-3xl m-2">Description</h3>
                         <p>{jobs.description}</p>
                       </div>
                       <div className="p-3 m-5 shadow-xl ">
@@ -163,16 +167,12 @@ export default function CompanyProfile() {
                     </div>
                     <div class="grid grid-cols-2 gap-4 place-content-between">
                       <div className="p-3 m-5 shadow-xl ">
-                        <h2 className="font-bold text-4xl m-2">
-                          Salary
-                        </h2>
+                        <h2 className="font-bold text-4xl m-2">Salary</h2>
                         <p className="text-xl text-center ">{jobs.salary}K</p>
                       </div>
                       <div className="p-3 m-5 shadow-xl ">
                         <ul>
-                          <h2 className="font-bold text-4xl m-2">
-                            Benefits
-                          </h2>
+                          <h2 className="font-bold text-4xl m-2">Benefits</h2>
                           <li>{jobs.benefits}</li>
                         </ul>
                       </div>
@@ -184,11 +184,10 @@ export default function CompanyProfile() {
                         One Click Apply
                       </button>
                     </div>
-                    </div>
-                    </div>
+                  </div>
+                </div>
               </>
             ))}
-            
           </div>
           {/* Current Employess */}
           <div className="col-span-2 row-span-1 overflow-y-scroll bg-base-300 p-3 rounded max-h-72">
