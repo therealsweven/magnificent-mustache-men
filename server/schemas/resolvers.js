@@ -861,15 +861,14 @@ const resolvers = {
       throw new AuthenticationError("You need to be logged in");
     },
     //remove skill from user
-    removeSkill: async (parent, { skillId, userId }, context) => {
+    removeSkill: async (parent, skillId, context) => {
       if (context.user) {
-        return Skill.findOneAndUpdate(
-          { _id: userId },
+        return User.findOneAndUpdate(
+          { _id: context.user._id },
           {
             $pull: {
               skills: {
-                _id: skillId,
-                skillCreator: context.user._id,
+                _id: skillId.skillId,
               },
             },
           },
