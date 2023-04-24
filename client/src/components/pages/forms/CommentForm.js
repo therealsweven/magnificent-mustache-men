@@ -24,9 +24,8 @@ export default function CommentForm({ postId }) {
           postId: postId,
           commentBody: values.commentBody,
         },
-
       });
-      
+
       resetForm();
       console.log("comment posted");
     } catch (err) {
@@ -53,12 +52,15 @@ export default function CommentForm({ postId }) {
               as="textarea"
               name="commentBody"
             />
-            <ErrorMessage name="commentBody" component="div" className="error" />
+            <ErrorMessage
+              name="commentBody"
+              component="div"
+              className="error"
+            />
           </div>
-
           <div className="form-control mt-6">
             <button
-              className="btn btn-primary"
+              className="btn btn-primary btn-sm mx-auto"
               type="submit"
               disabled={isSubmitting}
             >

@@ -14,6 +14,7 @@ const typeDefs = gql`
     password: String
     city: String
     state: String
+    bio: String
     country: String
     education: [Education]
     experience: [Experience]
@@ -29,20 +30,19 @@ const typeDefs = gql`
 
   type Company {
     _id: ID!
-    entityId: ID
     name: String
     industry: String
     hqCity: String
     hqState: String
-    locations: [String]
     website: String
     tagline: String
     bio: String
+    locations: [Location]
     companySize: String
     foundedYear: Int
     specialties: String
-    followers: [String]
-    employees: [String]
+    followers: [User]
+    employees: [User]
     posts: [Post]
     jobs: [Job]
     admins: [User]
@@ -53,7 +53,7 @@ const typeDefs = gql`
 
   type Job {
     _id: ID!
-    company: [Company]
+    company: Company
     title: String
     description: String
     responsibilities: String
@@ -68,20 +68,23 @@ const typeDefs = gql`
   type Post {
     _id: ID!
     user: User
-    entity: Entity
+    entity: Entity!
     postBody: String
     reactions: [PostReaction]
-    comments: [Comment]
+    comments: [Comment!]!
+    updatedAt: String
+    createdAt: String
   }
 
   type Comment {
     _id: ID!
-    entity: [Entity]
+    entity: Entity
     commentBody: String
     reactions: [CommentReaction]
   }
 
   type Location {
+    _id: ID!
     city: String
     state: String
     size: String
@@ -101,6 +104,7 @@ const typeDefs = gql`
   }
 
   type Experience {
+    _id: ID!
     company: Company
     title: String
     jobDescription: String
@@ -113,6 +117,7 @@ const typeDefs = gql`
   }
 
   type Education {
+    _id: ID!
     school: School
     fieldOfStudy: String
     certificateType: String
@@ -132,7 +137,7 @@ const typeDefs = gql`
     members: [User]
     posts: [Post]
     joinQuestion: String
-    profilePic: String
+    profPic: String
     bannerPic: String
   }
 
@@ -174,6 +179,11 @@ const typeDefs = gql`
   type Auth {
     token: ID!
     user: User
+    entity: Entity
+  }
+
+  type SearchResult {
+    jobs: [Job!]!
   }
 
   type Query {
@@ -185,15 +195,17 @@ const typeDefs = gql`
     jobs: [Job]
     job(jobId: ID!): Job
     feed: [Post]
-    feedTest(type: String!, entity: ID!): [Post]
+    feedTest(entityId: ID!): [Post]
     profiles: [Entity]
     profilesByUser(userId: ID!): [Entity]
     post(postId: ID!): Post
     groups: [Group]
     group(groupId: ID!): Group
+    reactions: [Reaction]
     schools: [School]
     school(schoolId: ID!): School
     skills: [Skill]
+    search(query: String!): SearchResult!
   }
 
   type Mutation {
@@ -217,10 +229,21 @@ const typeDefs = gql`
     createExperience(
       company: String!
       title: String!
-      jobDescription: String
+      jobDescription: String!
       skills: [String]
-      startMonth: String
-      startYear: Int
+      startMonth: String!
+      startYear: Int!
+      current: Boolean
+      endMonth: String
+      endYear: Int
+    ): User
+    createExperienceTest(
+      company: String!
+      title: String!
+      jobDescription: String!
+      skills: [String]
+      startMonth: String!
+      startYear: Int!
       current: Boolean
       endMonth: String
       endYear: Int
@@ -232,11 +255,11 @@ const typeDefs = gql`
       password: String!
     ): User
     updateUser(
-      id: ID!
       firstName: String
       lastName: String
       email: String
       password: String
+      bio: String
       city: String
       state: String
       country: String
@@ -251,6 +274,12 @@ const typeDefs = gql`
       bannerPic: String
       entitiesFollowed: [String]
     ): User
+    updateUserTest(
+      city: String
+      state: String
+      country: String
+      bio: String
+    ): User
     createSchool(
       name: String!
       city: String!
@@ -264,27 +293,40 @@ const typeDefs = gql`
     ): School
     createCompany(
       name: String!
+      industry: String
       hqCity: String!
       hqState: String!
-      website: String
+      website: String!
       bio: String!
-      companySize: String
-      foundedYear: String
+      companySize: String!
+      foundedYear: Int!
+      specialties: String
     ): Company
     addConnection(connectionId: String!): User
-    followEntity(entityId: String!): User
-    joinGroup(groupID: String!): User
+    followEntity(companyId: String, schoolId: String): Entity
+    joinGroup(groupId: ID!): User
     createGroup(
       name: String!
       private: Boolean!
       posts: [String]
       joinQuestion: String
-      profilePic: String
+      profPic: String
       bannerPic: String
     ): Group
     createSkill(skillName: String!): Skill
-    addSkill(skillId: String!): User
+    addSkill(skillName: String!): User
     createJob(
+      title: String!
+      responsibilities: String!
+      qualifications: String!
+      description: String!
+      schedule: String
+      salary: Int
+      benefits: String
+      skills: [String]
+    ): Job
+    createJobTest(
+      company: ID!
       title: String!
       responsibilities: String!
       qualifications: String!
@@ -296,11 +338,10 @@ const typeDefs = gql`
     ): Job
     createPost(postBody: String!): Post
     createPostReaction(postId: String!, reactionId: String!): Post
-    createComment(postId: String!, commentBody: String!): Post
-    createCommentReaction(postId: String!, reactionId: String!): Comment
+    createComment(postId: ID!, commentBody: String!): Post
+    createCommentReaction(commentId: String!, reactionId: String!): Comment
     userLogin(email: String, username: String, password: String!): Auth
     updateCompany(
-      id: ID!
       name: String
       industry: String
       hqCity: String
@@ -327,7 +368,6 @@ const typeDefs = gql`
       phone: String
     ): Company
     updateSchool(
-      id: ID!
       name: String
       city: String
       state: String
@@ -340,24 +380,26 @@ const typeDefs = gql`
       posts: [String]
       entitiesFollowed: [String]
     ): School
-    updatePost(
-      id: ID!
-      user: String
-      entity: String
-      postBody: String
-      reactions: [String]
-      comments: [String]
-    ): Post
-    updateCommentReaction(entity: String, reactionId: String): Post
+    updatePost(postId: ID!, postBody: String!): Post
+    updateCommentReaction(comReactionId: ID!, reaction: String): Post
     updateComment(
-      id: ID!
-      entity: String
+      commentId: ID!
       commentBody: String
       reactions: [String]
     ): Post
-    updatePostReaction(entity: String, reactionId: String): Post
+    updatePostReaction(postReactionId: ID!, reaction: String): Post
     updateGroup(
-      id: ID!
+      name: String
+      admins: [String]
+      private: Boolean
+      members: [String]
+      posts: [String]
+      joinQuestion: String
+      profPic: String
+      bannerPic: String
+    ): Group
+    updateGroupTest(
+      groupId: String
       name: String
       admins: [String]
       private: Boolean
@@ -368,7 +410,6 @@ const typeDefs = gql`
       bannerPic: String
     ): Group
     updateJob(
-      id: ID!
       company: String
       title: String
       responsibilities: String
@@ -402,23 +443,23 @@ const typeDefs = gql`
       endYear: Int
     ): User
     removeUser: User
-    removeGroup: Group
+    removeGroup(groupId: ID!): Group
     removeComment(postId: ID!, commentId: ID!): Post
     removeCommentReaction(commentId: ID!, reactionId: ID!): Post
     removePost(postId: ID!): Post
-    removeCompany: Company
-    removeJob: Job
+    removeCompany(companyId: ID!): Company
+    removeJob(jobId: ID!): Job
     removeSchool: School
     removeReaction(reactionId: ID!): Reaction
     removePostReaction(postId: ID!, reactionId: ID!): Post
-    removeSkill(skillId: ID!, userId: ID!): Skill
+    removeSkill(skillId: ID!): User
     removeEntity(entityId: ID!): Entity
     removeConnection(connectionId: ID!): User
     unfollowEntity(entityId: ID!, userId: ID!): User
     leaveGroup(userId: ID!, groupId: ID!): Group
+    applyToJob(jobId: ID!): Job
+    applyToJobTest(userId: String!, jobId: String!): Job
   }
 `;
 
 module.exports = typeDefs;
-
-// applyToJob

@@ -1,4 +1,4 @@
-import React from "react";
+import { React, useState } from "react";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import { useMutation, useQuery } from "@apollo/client";
 import { CREATE_POST } from "../../../utils/mutations";
@@ -7,10 +7,10 @@ import * as Yup from "yup";
 
 export default function PostForm() {
   const [createPost] = useMutation(CREATE_POST);
-  const { loading, data } = useQuery(QUERY_FEED);
+  const { loading, data, refetch } = useQuery(QUERY_FEED);
   const posts = data?.posts || {};
   if (!loading) {
-    console.log(posts);
+    <h2>...loading</h2>;
   }
 
   const initialValues = {
@@ -30,6 +30,7 @@ export default function PostForm() {
         },
       });
       resetForm();
+      await refetch();
       console.log("post created");
     } catch (err) {
       console.error(err);
@@ -47,7 +48,7 @@ export default function PostForm() {
         <Form>
           <div className="form-control">
             <label className="label" htmlFor="postBody">
-              <span className="label-text">Post</span>
+              <span className="label-text text-3xl ">Post</span>
             </label>
             <Field
               className="input input-bordered"
@@ -60,7 +61,7 @@ export default function PostForm() {
 
           <div className="form-control mt-6">
             <button
-              className="btn btn-primary"
+              className="btn btn-sm btn-primary mx-auto"
               type="submit"
               disabled={isSubmitting}
             >

@@ -4,9 +4,11 @@ import { useMutation } from "@apollo/client";
 import { USER_LOGIN } from "../../../utils/mutations";
 import Auth from "../../../utils/auth";
 import * as Yup from "yup";
+import { useNavigate } from "react-router-dom";
 
 export default function LoginForm() {
   const [userLogin, { error, data }] = useMutation(USER_LOGIN);
+  const navigate = useNavigate();
 
   const validationSchema = Yup.object().shape({
     email: Yup.string()
@@ -28,12 +30,12 @@ export default function LoginForm() {
           password: values.password,
         },
       });
-      console.log(data.userLogin.userData);
+      // console.log(data);
       // verify token
       Auth.login(data.userLogin.token);
       //switch into user profile by default
-      // Auth.profileSwitch("user", data.userLogin.entityId);
-      console.log("login successful");
+      Auth.profileSwitch("user", data.userLogin.entity._id);
+      navigate("/myDashboard");
     } catch (err) {
       console.error(err);
     }

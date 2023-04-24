@@ -1,37 +1,138 @@
 import { gql } from "@apollo/client";
 
 export const QUERY_ME = gql`
-query Me {
-  me {
-    _id
-    entityId
-    firstName
-    lastName
-    email
-    password
-    city
-    state
-    country
-    experience
-    education
-    website
-    profPic
-    bannerPic
-    connections {
+  query Me {
+    me {
+      _id
+      entityId
       firstName
       lastName
-    }
-    groups {
-      name
-    }
-    posts {
-    postBody
-    }
-    skills {
-      skillName
+      email
+      password
+      city
+      state
+      country
+      bio
+      education {
+        school {
+          _id
+          name
+        }
+        fieldOfStudy
+        certificateType
+        skills {
+          skillName
+          _id
+        }
+        startMonth
+        startYear
+        current
+        endMonth
+        endYear
+      }
+      experience {
+        company {
+          name
+          _id
+        }
+        title
+        jobDescription
+        skills {
+          _id
+          skillName
+        }
+        startYear
+        startMonth
+        current
+        endMonth
+        endYear
+      }
+      skills {
+        _id
+        skillName
+      }
+      website
+      posts {
+        _id
+        createdAt
+        entity {
+          _id
+          company {
+            name
+          }
+          school {
+            name
+          }
+          user {
+            firstName
+            lastName
+          }
+        }
+        user {
+          firstName
+          lastName
+          _id
+        }
+        reactions {
+          _id
+          reactionId {
+            reactionName
+            _id
+            icon
+          }
+        }
+        comments {
+          _id
+          commentBody
+          entity {
+            company {
+              _id
+              name
+              profPic
+            }
+            school {
+              _id
+              name
+              profPic
+            }
+            user {
+              _id
+              firstName
+              lastName
+              profPic
+            }
+          }
+          reactions {
+            _id
+            reactionId {
+              icon
+              _id
+              reactionName
+            }
+          }
+        }
+        postBody
+      }
+      connections {
+        _id
+        firstName
+        lastName
+      }
+      groups {
+        _id
+        name
+        private
+        joinQuestion
+        profPic
+        bannerPic
+      }
+      profPic
+      bannerPic
+      entitiesFollowed {
+        _id
+      }
     }
   }
-}
 `;
 
 export const QUERY_PROFILES = gql`
@@ -76,24 +177,49 @@ export const QUERY_FEED = gql`
   query Feed {
     feed {
       _id
+      postBody
       entity {
-        _id
         company {
           _id
           name
+          profPic
         }
         school {
           _id
           name
+          profPic
         }
         user {
           _id
           firstName
           lastName
+          profPic
         }
       }
-      postBody
-      reactions
+      comments {
+        _id
+        commentBody
+        entity {
+          company {
+            _id
+            name
+            profPic
+          }
+          school {
+            _id
+            name
+            profPic
+          }
+          user {
+            _id
+            firstName
+            lastName
+            profPic
+          }
+        }
+      }
+      createdAt
+      updatedAt
     }
   }
 `;
@@ -109,8 +235,7 @@ export const QUERY_USER = gql`
       country
       website
       email
-      education
-      experience
+
       entitiesFollowed {
         _id
         company {
@@ -139,13 +264,60 @@ export const QUERY_USER = gql`
       groups {
         _id
         name
-        profilePic
+        profPic
       }
       posts {
         _id
         postBody
-        reactions
-        comments
+        createdAt
+        comments {
+          _id
+          commentBody
+          entity {
+            company {
+              _id
+              name
+              profPic
+            }
+            school {
+              _id
+              name
+              profPic
+            }
+            user {
+              _id
+              firstName
+              lastName
+              profPic
+            }
+          }
+        }
+      }
+      experience {
+        endMonth
+        current
+        endYear
+        jobDescription
+        startMonth
+        startYear
+        title
+        skills {
+          _id
+          skillName
+        }
+        company {
+          name
+        }
+      }
+      education {
+        school {
+          name
+        }
+        fieldOfStudy
+        certificateType
+        startMonth
+        startYear
+        current
       }
     }
   }
@@ -156,6 +328,154 @@ export const QUERY_SKILLS = gql`
     skills {
       _id
       skillName
+    }
+  }
+`;
+
+export const QUERY_COMPANIES = gql`
+  query Companies {
+    companies {
+      _id
+      bio
+      name
+      website
+      foundedYear
+      companySize
+      industry
+      hqCity
+      hqState
+      profPic
+    }
+  }
+`;
+
+export const QUERY_SINGLE_COMPANY = gql`
+query Query($companyId: ID!) {
+  company(companyId: $companyId) {
+    _id
+    bio
+    companySize
+    foundedYear
+    hqCity
+    hqState
+    industry
+    name
+    profPic
+    specialties
+    tagline
+    website
+    jobs {
+      _id
+      title
+      benefits
+      description
+      qualifications
+      responsibilities
+      salary
+      schedule
+      skills {
+        _id
+        skillName
+      }
+      applicants {
+        _id
+        firstName
+        lastName
+        profPic
+      }
+    }
+    admins {
+      _id
+    }
+    posts {
+      _id
+      postBody
+    }
+  }
+}
+`;
+
+export const SEARCH_QUERY = gql`
+  query Query($query: String!) {
+    search(query: $query) {
+      jobs {
+        title
+      }
+    }
+  }
+`;
+
+export const QUERY_SCHOOL = gql`
+  query Schools {
+    schools {
+      _id
+      name
+    }
+  }
+`;
+export const QUERY_ALL_USERS = gql`
+  query Query {
+    users {
+      firstName
+      lastName
+      _id
+      profPic
+    }
+  }
+`;
+export const QUERY_REACTIONS = gql`
+  query Reactions {
+    reactions {
+      _id
+      icon
+      reactionName
+    }
+  }
+`;
+
+export const QUERY_ALL_GROUPS = gql`
+  query Query {
+    groups {
+      _id
+      profPic
+      name
+    }
+  }
+`;
+
+export const QUERY_SINGLE_GROUP = gql`
+  query Query($groupId: ID!) {
+    group(groupId: $groupId) {
+      name
+      _id
+      profPic
+      bannerPic
+      admins {
+        firstName
+        lastName
+        profPic
+        _id
+      }
+      members {
+        firstName
+        lastName
+        profPic
+        _id
+      }
+      posts {
+        _id
+        postBody
+        updatedAt
+        reactions {
+          _id
+          reactionId {
+            _id
+            icon
+            reactionName
+          }
+        }
+      }
+      private
     }
   }
 `;

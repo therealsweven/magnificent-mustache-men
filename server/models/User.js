@@ -30,11 +30,9 @@ const experienceSchema = new Schema({
   },
   endMonth: {
     type: String,
-    required: true,
   },
   endYear: {
     type: Number,
-    required: true,
   },
 });
 
@@ -67,11 +65,9 @@ const educationSchema = new Schema({
   },
   endMonth: {
     type: String,
-    required: true,
   },
   endYear: {
     type: Number,
-    required: true,
   },
 });
 
@@ -106,6 +102,9 @@ const userSchema = new Schema(
       type: String,
     },
     country: {
+      type: String,
+    },
+    bio: {
       type: String,
     },
     education: [{ type: Schema.Types.ObjectId, ref: "Education" }],

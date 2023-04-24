@@ -3,25 +3,29 @@
     "name": "Alabama A & M University",
     "city": "Normal",
     "state": "AL",
-    "website": "www.aamu.edu/"
+    "website": "www.aamu.edu/",
+    "profPic": "https://cdn.shopify.com/s/files/1/2258/4823/products/5ee8d50c-01f1-5684-9db0-7af4bce58dbb_1024x1024.jpg?v=1502368015"
   },
   {
     "name": "University of Alabama at Birmingham",
     "city": "Birmingham",
     "state": "AL",
-    "website": "https://www.uab.edu/"
+    "website": "https://www.uab.edu/",
+    "profPic": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTmpHByP52U2bYedb-Eb90bTLw0s7OsSeffOTqj37zFZA&usqp=CAU&ec=48665698"
   },
   {
     "name": "Amridge University",
     "city": "Montgomery",
     "state": "AL",
-    "website": "www.amridgeuniversity.edu/"
+    "website": "www.amridgeuniversity.edu/",
+    "profPic": "https://res.cloudinary.com/crunchbase-production/image/upload/c_lpad,h_256,w_256,f_auto,q_auto:eco,dpr_1/e6d3fldoxxadpyuenv8y"
   },
   {
     "name": "University of Alabama in Huntsville",
     "city": "Huntsville",
     "state": "AL",
-    "website": "www.uah.edu/"
+    "website": "www.uah.edu/",
+    "profPic": "https://www.ncaa.com/sites/default/files/images/logos/schools/bgd/ala-huntsville.svg"
   },
   {
     "name": "Alabama State University",

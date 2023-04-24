@@ -15,6 +15,24 @@ export {
   CREATE_EDUCATION,
   CREATE_POST_REACTION,
   CREATE_COMMENT_REACTION,
+  CREATE_LOCATION,
+  APPLY_TO_JOB,
+  FOLLOW_ENTITY,
+  ADD_CONNECTION,
+  UPDATE_USER_TEST,
+  UPDATE_GROUP,
+  UPDATE_USER,
+  UPDATE_COMPANY,
+  UPDATE_SCHOOL,
+  UPDATE_JOB,
+  UPDATE_LOCATION,
+  UPDATE_EDUCATION,
+  UPDATE_EXPERIENCE,
+  JOIN_GROUP,
+  REMOVE_SKILL,
+  REMOVE_JOB,
+  REMOVE_GROUP,
+  REMOVE_USER,
 };
 
 const CREATE_USER = gql`
@@ -39,14 +57,14 @@ const CREATE_USER = gql`
 `;
 
 const USER_LOGIN = gql`
-  mutation userLogin($email: String!, $password: String!) {
+  mutation UserLogin($email: String, $password: String!) {
     userLogin(email: $email, password: $password) {
       token
       user {
         _id
-        email
-        firstName
-        lastName
+      }
+      entity {
+        _id
       }
     }
   }
@@ -58,10 +76,10 @@ const CREATE_COMPANY = gql`
     $industry: String!
     $hqCity: String!
     $hqState: String!
-    $website: String
+    $website: String!
     $bio: String!
     $companySize: String!
-    $foundedYear: String
+    $foundedYear: Int!
     $specialties: String
   ) {
     createCompany(
@@ -72,7 +90,7 @@ const CREATE_COMPANY = gql`
       website: $website
       bio: $bio
       companySize: $companySize
-      foundedYear: $foundedyear
+      foundedYear: $foundedYear
       specialties: $specialties
     ) {
       _id
@@ -81,7 +99,6 @@ const CREATE_COMPANY = gql`
       hqCity
       hqState
       website
-      tagline
       bio
       companySize
       foundedYear
@@ -90,8 +107,27 @@ const CREATE_COMPANY = gql`
   }
 `;
 
+const CREATE_LOCATION = gql`
+  mutation Mutation(
+    $city: String!
+    $state: String!
+    $size: String
+    $phone: String
+  ) {
+    createLocation(city: $city, state: $state, size: $size, phone: $phone) {
+      name
+      locations {
+        city
+        state
+        phone
+        size
+      }
+    }
+  }
+`;
+
 const CREATE_SCHOOL = gql`
-  mutation CreateSchool(
+  mutation createSchool(
     $name: String!
     $city: String!
     $state: String!
@@ -144,6 +180,7 @@ const CREATE_JOB = gql`
   mutation CreateJob(
     $title: String!
     $responsibilities: String!
+    $description: String!
     $qualifications: String!
     $schedule: String
     $salary: Int
@@ -154,6 +191,7 @@ const CREATE_JOB = gql`
       title: $title
       responsibilities: $responsibilities
       qualifications: $qualifications
+      description: $description
       schedule: $schedule
       salary: $salary
       benefits: $benefits
@@ -189,8 +227,8 @@ const CREATE_SKILL = gql`
 `;
 // add skill to user
 const ADD_SKILL = gql`
-  mutation AddSkill($skillId: String!) {
-    addSkill(skillId: $skillId) {
+  mutation AddSkill($skillName: String!) {
+    addSkill(skillName: $skillName) {
       _id
       firstName
       lastName
@@ -202,20 +240,12 @@ const ADD_SKILL = gql`
   }
 `;
 
-// const CREATE_POST_REACTION = gql``;
-
 const CREATE_COMMENT = gql`
-  mutation Mutation($postId: String!, $commentBody: String!) {
+  mutation CreateComment($postId: ID!, $commentBody: String!) {
     createComment(postId: $postId, commentBody: $commentBody) {
       _id
-      comments
-      postBody
-      reactions
-      user {
-        _id
-      }
-      entity {
-        _id
+      comments {
+        commentBody
       }
     }
   }
@@ -225,10 +255,10 @@ const CREATE_EXPERIENCE = gql`
   mutation CreateExperience(
     $company: String!
     $title: String!
-    $jobDescription: String
+    $jobDescription: String!
     $skills: [String]
-    $startMonth: String
-    $startYear: Int
+    $startMonth: String!
+    $startYear: Int!
     $current: Boolean
     $endMonth: String
     $endYear: Int
@@ -344,9 +374,10 @@ const CREATE_POST_REACTION = gql`
     }
   }
 `;
+
 const CREATE_COMMENT_REACTION = gql`
-  mutation CreateCommentReaction($postId: String!, $reactionId: String!) {
-    createCommentReaction(postId: $postId, reactionId: $reactionId) {
+  mutation CreateCommentReaction($commentId: String!, $reactionId: String!) {
+    createCommentReaction(commentId: $commentId, reactionId: $reactionId) {
       _id
       reactions {
         reactionId {
@@ -369,6 +400,460 @@ const CREATE_COMMENT_REACTION = gql`
           }
         }
       }
+    }
+  }
+`;
+
+const APPLY_TO_JOB = gql`
+  mutation ApplyToJob($jobId: ID!) {
+    applyToJob(jobId: $jobId) {
+      _id
+      company {
+        name
+      }
+      title
+      applicants {
+        _id
+        firstName
+        lastName
+      }
+    }
+  }
+`;
+
+const FOLLOW_ENTITY = gql`
+  mutation FollowEntity($companyId: String, $schoolId: String) {
+    followEntity(companyId: $companyId, schoolId: $schoolId) {
+      company {
+        entitiesFollowed {
+          _id
+          company {
+            _id
+          }
+          school {
+            _id
+          }
+          user {
+            _id
+          }
+        }
+      }
+      school {
+        entitiesFollowed {
+          _id
+          company {
+            _id
+          }
+          school {
+            _id
+          }
+          user {
+            _id
+          }
+        }
+      }
+      user {
+        entitiesFollowed {
+          _id
+          company {
+            _id
+          }
+          school {
+            _id
+          }
+          user {
+            _id
+          }
+        }
+      }
+    }
+  }
+`;
+
+const ADD_CONNECTION = gql`
+  mutation AddConnection($connectionId: String!) {
+    addConnection(connectionId: $connectionId) {
+      firstName
+      lastName
+      connections {
+        firstName
+        lastName
+      }
+    }
+  }
+`;
+const UPDATE_USER_TEST = gql`
+  mutation UpdateUserTest(
+    $city: String
+    $state: String
+    $country: String
+    $bio: String
+  ) {
+    updateUserTest(city: $city, state: $state, country: $country, bio: $bio) {
+      _id
+    }
+  }
+`;
+
+// update group
+
+const UPDATE_GROUP = gql`
+  mutation UpdateGroup(
+    $name: String
+    $admins: [String]
+    $private: Boolean
+    $members: [String]
+    $posts: [String]
+    $joinQuestion: String
+    $profPic: String
+    $bannerPic: String
+  ) {
+    updateGroup(
+      name: $name
+      admins: $admins
+      private: $private
+      members: $members
+      posts: $posts
+      joinQuestion: $joinQuestion
+      profPic: $profPic
+      bannerPic: $bannerPic
+    ) {
+      _id
+      name
+      joinQuestion
+      bannerPic
+      profilePic
+      members {
+        _id
+        firstName
+        lastName
+        email
+      }
+    }
+  }
+`;
+
+// update user
+
+const UPDATE_USER = gql`
+  mutation UpdateUser(
+    $firstName: String
+    $lastName: String
+    $email: String
+    $password: String
+    $city: String
+    $state: String
+    $country: String
+    $bio: String
+    $education: [String]
+    $experience: [String]
+    $skills: [String]
+    $website: String
+    $posts: [String]
+    $connections: [String]
+    $groups: [String]
+    $profPic: String
+    $bannerPic: String
+    $entitiesFollowed: [String]
+  ) {
+    updateUser(
+      firstName: $firstName
+      lastName: $lastName
+      email: $email
+      password: $password
+      city: $city
+      state: $state
+      country: $country
+      bio: $bio
+      education: $education
+      experience: $experience
+      skills: $skills
+      website: $website
+      posts: $posts
+      connections: $connections
+      groups: $groups
+      profPic: $profPic
+      bannerPic: $bannerPic
+      entitiesFollowed: $entitiesFollowed
+    ) {
+      _id
+      firstName
+      lastName
+      email
+      password
+    }
+  }
+`;
+
+// update company
+
+const UPDATE_COMPANY = gql`
+  mutation UpdateCompany(
+    $name: String
+    $industry: String
+    $hqCity: String
+    $hqState: String
+    $website: String
+    $tagline: String
+    $bio: String
+    $companySize: String
+    $foundedYear: Int
+    $specialties: String
+    $followers: [String]
+    $employees: [String]
+    $posts: [String]
+    $jobs: [String]
+    $admins: [String]
+    $profPic: String
+    $bannerPic: String
+    $entitiesFollowed: [String]
+  ) {
+    updateCompany(
+      name: $name
+      industry: $industry
+      hqCity: $hqCity
+      hqState: $hqState
+      website: $website
+      tagline: $tagline
+      bio: $bio
+      companySize: $companySize
+      foundedYear: $foundedYear
+      specialties: $specialties
+      followers: $followers
+      employees: $employees
+      posts: $posts
+      jobs: $jobs
+      admins: $admins
+      profPic: $profPic
+      bannerPic: $bannerPic
+      entitiesFollowed: $entitiesFollowed
+    ) {
+      _id
+      name
+      hqCity
+      hqState
+      jobs {
+        _id
+        description
+        qualifications
+        salary
+        title
+      }
+    }
+  }
+`;
+
+// update school
+
+const UPDATE_SCHOOL = gql`
+  mutation UpdateSchool(
+    $name: String
+    $city: String
+    $state: String
+    $bio: String
+    $foundedYear: Int
+    $studentBody: Int
+    $website: String
+    $profPic: String
+    $bannerPic: String
+    $posts: [String]
+    $entitiesFollowed: [String]
+  ) {
+    updateSchool(
+      name: $name
+      city: $city
+      state: $state
+      bio: $bio
+      foundedYear: $foundedYear
+      studentBody: $studentBody
+      website: $website
+      profPic: $profPic
+      bannerPic: $bannerPic
+      posts: $posts
+      entitiesFollowed: $entitiesFollowed
+    ) {
+      _id
+      city
+      bio
+      name
+      state
+      studentBody
+    }
+  }
+`;
+
+// update job
+
+const UPDATE_JOB = gql`
+  mutation UpdateJob(
+    $company: String
+    $title: String
+    $responsibilities: String
+    $qualifications: String
+    $schedule: String
+    $salary: String
+    $benefits: String
+    $applicants: [String]
+    $skills: [String]
+  ) {
+    updateJob(
+      company: $company
+      title: $title
+      responsibilities: $responsibilities
+      qualifications: $qualifications
+      schedule: $schedule
+      salary: $salary
+      benefits: $benefits
+      applicants: $applicants
+      skills: $skills
+    ) {
+      _id
+      description
+      qualifications
+      responsibilities
+      salary
+      schedule
+      company {
+        _id
+        name
+        hqCity
+        hqState
+      }
+    }
+  }
+`;
+
+// update location
+
+const UPDATE_LOCATION = gql`
+  mutation UpdateLocation(
+    $city: String
+    $state: String
+    $size: String
+    $phone: String
+  ) {
+    updateLocation(city: $city, state: $state, size: $size, phone: $phone) {
+      _id
+      hqCity
+      hqState
+      name
+    }
+  }
+`;
+
+// update education
+
+const UPDATE_EDUCATION = gql`
+  mutation UpdateLocation(
+    $city: String
+    $state: String
+    $size: String
+    $phone: String
+  ) {
+    updateLocation(city: $city, state: $state, size: $size, phone: $phone) {
+      _id
+      hqCity
+      hqState
+      name
+    }
+  }
+`;
+
+// update experience
+
+const UPDATE_EXPERIENCE = gql`
+  mutation UpdateExperience(
+    $company: String
+    $title: String
+    $jobDescription: String
+    $skills: [String]
+    $startMonth: String
+    $current: Boolean
+    $startYear: Int
+    $endMonth: String
+    $endYear: Int
+  ) {
+    updateExperience(
+      company: $company
+      title: $title
+      jobDescription: $jobDescription
+      skills: $skills
+      startMonth: $startMonth
+      current: $current
+      startYear: $startYear
+      endMonth: $endMonth
+      endYear: $endYear
+    ) {
+      _id
+      city
+      country
+      email
+      firstName
+      lastName
+    }
+  }
+`;
+
+
+const JOIN_GROUP = gql`
+  mutation JoinGroup($groupId: ID!) {
+    joinGroup(groupId: $groupId) {
+      _id
+      firstName
+      lastName
+    }
+  }
+`;
+
+// remove skill
+
+const REMOVE_SKILL = gql`
+  mutation RemoveSkill($skillId: ID!) {
+    removeSkill(skillId: $skillId) {
+      _id
+      skillName
+    }
+  }
+`;
+
+// remove job
+
+const REMOVE_JOB = gql`
+  mutation Mutation($jobId: ID!) {
+    removeJob(jobId: $jobId) {
+      _id
+      company {
+        _id
+        name
+      }
+      title
+    }
+  }
+`;
+
+// remove group
+
+const REMOVE_GROUP = gql`
+  mutation RemoveGroup($groupId: ID!) {
+    removeGroup(groupId: $groupId) {
+      _id
+      name
+      members {
+        firstName
+        lastName
+        _id
+        posts {
+          _id
+          postBody
+        }
+      }
+    }
+  }
+`;
+const REMOVE_USER = gql`
+  mutation RemoveUser {
+    removeUser {
+      _id
     }
   }
 `;

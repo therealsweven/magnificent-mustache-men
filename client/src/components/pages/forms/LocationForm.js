@@ -3,6 +3,10 @@ import { Formik, Field, Form, ErrorMessage } from "formik";
 import { useMutation } from "@apollo/client";
 import { CREATE_LOCATION } from "../../../utils/mutations";
 import * as Yup from "yup";
+import states from "../../../utils/statearray.json";
+
+const phoneRegExp =
+  /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
 
 export default function LocationForm() {
   const [createLocation] = useMutation(CREATE_LOCATION);
@@ -14,13 +18,13 @@ export default function LocationForm() {
     phone: "",
   };
 
-  const validationSchema = Yup.object.shape({
+  const validationSchema = Yup.object().shape({
     city: Yup.string().required("This field is required"),
     state: Yup.string().required("This field is required"),
     size: Yup.string().required("This field is required"),
-    phone: Yup.phone("US", "Please enter a valid phone number").required(
-      "This is a required field"
-    ),
+    phone: Yup.string()
+      .matches(phoneRegExp, "Please enter a valid phone number")
+      .required("This is a required field"),
   });
 
   const handleSubmit = async (values, { resetForm, setSubmitting }) => {
@@ -29,8 +33,8 @@ export default function LocationForm() {
         variables: {
           city: values.city,
           state: values.state,
-          size: values.email,
-          phone: values.password,
+          size: values.size,
+          phone: values.phone.toString(),
         },
       });
       resetForm();
@@ -59,8 +63,13 @@ export default function LocationForm() {
             <label className="label" htmlFor="state">
               <span className="label-text">State</span>
             </label>
-            <Field className="input input-bordered" as="select" type="text" name="state">
-            <option value="">Select an State</option>
+            <Field
+              className="input input-bordered"
+              as="select"
+              type="text"
+              name="state"
+            >
+              <option value="">Select an State</option>
               {states.map((state) => (
                 <option key={state.name} value={state.name}>
                   {state.name}

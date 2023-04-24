@@ -25,7 +25,6 @@ class AuthService {
 
   login(idToken) {
     localStorage.setItem("id_token", idToken);
-    window.location.assign("/profile");
   }
 
   logout() {
@@ -35,7 +34,7 @@ class AuthService {
   profileSwitch(type, entity) {
     localStorage.setItem("profType", type);
     localStorage.setItem("profEntity", entity);
-    window.location.reload();
+    // window.location.reload();
   }
 }
 

@@ -1,8 +1,10 @@
 import React from "react";
 import { Formik, Field, Form, ErrorMessage } from "formik";
-import { useMutation } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import { CREATE_EDUCATION } from "../../../utils/mutations";
 import * as Yup from "yup";
+import { QUERY_SCHOOL } from "../../../utils/queries";
+import months from "../../../utils/months.json"
 
 export default function EducationForm() {
   const [createEducation] = useMutation(CREATE_EDUCATION);
@@ -11,7 +13,6 @@ export default function EducationForm() {
     school: "",
     fieldOfStudy: "",
     certificateType: "",
-    skills: [],
     startMonth: "",
     startYear: "",
     current: false,
@@ -30,47 +31,79 @@ export default function EducationForm() {
     current: Yup.boolean().required("This is a required field"),
     endMonth: Yup.string().when("current", {
       is: false,
-      then: Yup.string().required("This is a required field"),
-      otherwise: Yup.string().notRequired,
+      then: () => Yup.string().required("This is a required field"),
+      otherwise: () => Yup.string(),
     }),
     endYear: Yup.number().when("current", {
       is: false,
-      then: Yup.number()
-        .typeError("This must be a number")
-        .required("This is a required field"),
-      otherwise: Yup.number().notRequired(),
+      then: () =>
+        Yup.number()
+          .typeError("This must be a number")
+          .required("This is a required field"),
+      otherwise: () => Yup.number(),
     }),
   });
 
-  const handleSubmit = async (values, { setSubmitting }) => {
+  const handleSubmit = async (values, { resetForm, setSubmitting }) => {
+    console.log(values);
     try {
+      let variables = {
+        school: values.school,
+        fieldOfStudy: values.fieldOfStudy,
+        certificateType: values.certificateType,
+        startMonth: values.startMonth,
+        startYear: values.startYear,
+        current: values.current,
+      };
+      if (!values.current) {
+        variables.endMonth = values.endMonth;
+        variables.endYear = values.endYear;
+      }
       await createEducation({
-        variables: {
-          input: values,
-        },
+        variables: variables,
       });
+      resetForm();
       console.log("education recorded");
-      setSubmitting(false);
     } catch (err) {
       console.error(err);
       setSubmitting(false);
     }
   };
+  const { loading, data } = useQuery(QUERY_SCHOOL);
+  const schools = [data];
 
+  if (loading) {
+    return <h2>...loading</h2>;
+  }
   return (
     <Formik
       initialValues={initialValues}
-      onSubmit={handleSubmit}
       validationSchema={validationSchema}
+      onSubmit={handleSubmit}
     >
-      {" "}
       {({ values, isSubmitting }) => (
         <Form>
           <div className="form-control">
             <label className="label" htmlFor="school">
               <span className="label-text">School</span>
             </label>
-            <Field className="input input-bordered" type="text" name="school" />
+            <Field
+              className="input input-bordered"
+              as="select"
+              type="text"
+              name="school"
+            >
+              <option value="">Select a school...</option>
+              {schools.map((schoolGroup, groupIndex) => (
+                <optgroup key={groupIndex} label={`Group ${groupIndex + 1}`}>
+                  {schoolGroup.schools.map((school, schoolIndex) => (
+                    <option key={schoolIndex} value={school._id}>
+                      {school.name}
+                    </option>
+                  ))}
+                </optgroup>
+              ))}
+            </Field>
             <ErrorMessage name="school" component="div" className="error" />
           </div>
           <div className="form-control">
@@ -95,10 +128,10 @@ export default function EducationForm() {
             <Field
               className="input input-bordered"
               type="text"
-              name="fieldofStudy"
+              name="certificateType"
             />
             <ErrorMessage
-              name="fieldofStudy"
+              name="certificateType"
               component="div"
               className="error"
             />
@@ -109,9 +142,13 @@ export default function EducationForm() {
             </label>
             <Field
               className="input input-bordered"
+              as="select"
               type="text"
               name="startMonth"
-            />
+            ><option>Select a Month</option>
+            {months.map((month) =>
+            <option key={month.name} value={month.name}>{month.name}</option>)}
+            </Field>
             <ErrorMessage name="startMonth" component="div" className="error" />
           </div>
           <div className="form-control">
@@ -121,9 +158,9 @@ export default function EducationForm() {
             <Field
               className="input input-bordered"
               type="number"
-              name="starYear"
+              name="startYear"
             />
-            <ErrorMessage name="starYear" component="div" className="error" />
+            <ErrorMessage name="startYear" component="div" className="error" />
           </div>
           <div className="form-control">
             <label className="label" htmlFor="current">
@@ -136,7 +173,6 @@ export default function EducationForm() {
             />
             <ErrorMessage name="current" />
           </div>
-
           {values.current ? (
             <>
               <div className="form-control">
@@ -144,11 +180,15 @@ export default function EducationForm() {
                   <span className="label-text">End Month</span>
                 </label>
                 <Field
-                  className="input input-bordered"
-                  type="text"
-                  name="endMonth"
-                  disabled
-                />
+              className="input input-bordered"
+              as="select"
+              type="text"
+              name="endMonth"
+              disabled
+            ><option>Select a Month</option>
+            {months.map((month) =>
+            <option key={month.name} value={month.name}>{month.name}</option>)}
+            </Field>
                 <ErrorMessage
                   name="endMonth"
                   component="div"
@@ -179,10 +219,14 @@ export default function EducationForm() {
                   <span className="label-text">End Month</span>
                 </label>
                 <Field
-                  className="input input-bordered"
-                  type="text"
-                  name="endMonth"
-                />
+              className="input input-bordered"
+              as="select"
+              type="text"
+              name="endMonth"
+            ><option>Select a Month</option>
+            {months.map((month) =>
+            <option key={month.name} value={month.name}>{month.name}</option>)}
+            </Field>
                 <ErrorMessage
                   name="endMonth"
                   component="div"
@@ -206,7 +250,6 @@ export default function EducationForm() {
               </div>
             </>
           )}
-
           <div className="form-control mt-6">
             <button
               className="btn btn-primary"
