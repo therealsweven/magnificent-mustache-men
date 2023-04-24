@@ -36,7 +36,7 @@ export default function NavBar() {
           type: "company",
           entityId: profile._id,
           name: profile.company.name,
-          profPic: profile.user.profPic || "https://png.pngtree.com/png-vector/20190221/ourlarge/pngtree-female-user-vector-avatar-icon-png-image_691506.jpg",
+          profPic: profile.company.profPic,
         };
         profDisplay.push(prof);
       }
@@ -70,7 +70,7 @@ export default function NavBar() {
                 <img
                   src={
                     profDisplay.length ? (
-                      profDisplay[0].profPic 
+                      profDisplay[0].profPic
                     ) : (
                       <h2>...loading</h2>
                     )

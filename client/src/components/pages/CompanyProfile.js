@@ -58,7 +58,7 @@ export default function CompanyProfile() {
           </div>
           <div className="col-span-1 row-span-1 bg-base-300 shadow-xl rounded ml-40">
             <img
-              src={company.profPic}
+              src={company.profPic || "https://png.pngtree.com/png-vector/20190221/ourlarge/pngtree-female-user-vector-avatar-icon-png-image_691506.jpg" }
               className="float-right m-5 max-w-xs max-h-72 rounded-lg shadow-2xl"
             />
           </div>
@@ -89,6 +89,7 @@ export default function CompanyProfile() {
               +
             </label>
 
+            
             <div className="card-body bg-base-200 rounded w-full p-4 my-2">
               <h2 className="card-title">Full-Stack Web Developer</h2>
               <p>
