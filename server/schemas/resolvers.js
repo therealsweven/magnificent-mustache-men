@@ -217,12 +217,20 @@ const resolvers = {
   Mutation: {
     // create a new user    - good
     createUser: async (parent, userInput) => {
+      if (!userInput.profPic) {
+        userInput.profPic =
+          "https://png.pngtree.com/png-vector/20190221/ourlarge/pngtree-female-user-vector-avatar-icon-png-image_691506.jpg";
+      }
       const user = await User.create(userInput);
       await Entity.create({ user: user._id });
       return user;
     },
     // create a new school    - good
     createSchool: async (parent, schoolInput, context) => {
+      if (!schoolInput.profPic) {
+        schoolInput.profPic =
+          "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80";
+      }
       schoolInput.admins = [context.user._id];
       const school = await School.create(schoolInput);
       await Entity.create({ school: school._id });
@@ -230,6 +238,10 @@ const resolvers = {
     },
     // create new company
     createCompany: async (parent, companyInput, context) => {
+      if (!companyInput.profPic) {
+        companyInput.profPic =
+          "https://images.unsplash.com/photo-1577071835592-d5d55ffef660?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80";
+      }
       companyInput.admins = [context.user._id];
       const company = await Company.create(companyInput);
       await Entity.create({ company: company._id });
@@ -249,6 +261,10 @@ const resolvers = {
     createGroup: async (parent, groupInput, context) => {
       groupInput.admins = [context.user._id];
       groupInput.members = [context.user._id];
+      if (!groupInput.profPic) {
+        groupInput.profPic =
+          "https://images.unsplash.com/photo-1455734729978-db1ae4f687fc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80";
+      }
       const group = await Group.create(groupInput);
       await User.findOneAndUpdate(
         { _id: context.user._id },
@@ -322,9 +338,11 @@ const resolvers = {
     // },
     // create new job
     createJob: async (parent, jobInput, context) => {
+      console.log("jobInput", jobInput);
       const entity = await Entity.findOne({
         _id: context.activeProfile.entity,
       });
+      console.log("entity", entity);
       jobInput.company = entity.company;
       const job = await Job.create(jobInput);
       await Company.findOneAndUpdate(

@@ -31,76 +31,79 @@ export default function Profile() {
   const profile = data?.me || {};
   console.log(profile);
 
-  if (loading && profile.length) {
+  if (loading) {
     return <h2>...loading</h2>;
   }
 
-  return (
-    <div className="container mx-auto grid-cols-3 bg-base-100">
-      <div className="container mx-auto rounded-lg">
-        <div className="h-15 bg-base-200 rounded-lg">
-          <div className="flex-col rounded-lg">
-            <img
-              src={profile.profPic}
-              className="float-right m-5 max-w-xs max-h-72 rounded-lg shadow-2xl"
-            />
-            <div className="mx-auto">
-              <h1 className="text-2xl text-right font-bold mx-auto">
-                {profile.firstName} {profile.lastName}
-              </h1>
-              <h1 className="text-xl text-right font-bold mx-auto">
-                {profile.city && profile.state && profile.country ? (
-                  <>
-                    {profile.city} {profile.state}
-                  </>
-                ) : (
-                  <>update your location in the about me section!</>
-                )}
-              </h1>
-              <h1 className="text-xl text-right font-bold mx-auto">
-                {profile.city && profile.state && profile.country ? (
-                  <>{profile.country}</>
-                ) : (
-                  <></>
-                )}
-              </h1>
-            </div>
-            <div className="container mx-auto rounded-lg">
-              <h1 className="text-5xl text-center font-bold mx-auto py-10">
-                Pants
-              </h1>
+  if (!loading) {
+    return (
+      <div className="container mx-auto grid-cols-3 bg-base-100">
+        <div className="container mx-auto rounded-lg">
+          <div className="h-15 bg-base-200 rounded-lg">
+            <div className="flex-col rounded-lg">
+              <img
+                src={profile.profPic}
+                className="float-right m-5 max-w-xs max-h-72 rounded-lg shadow-2xl"
+              />
+              <div className="mx-auto">
+                <h1 className="text-2xl text-right font-bold mx-auto">
+                  {profile.firstName} {profile.lastName}
+                </h1>
+                <h1 className="text-xl text-right font-bold mx-auto">
+                  {profile.city && profile.state && profile.country ? (
+                    <>
+                      {profile.city} {profile.state}
+                    </>
+                  ) : (
+                    <h1 className="text-xl text-right font-bold mx-auto">
+                      update your location in the about me section!
+                    </h1>
+                  )}
+                </h1>
+                <h1 className="text-xl text-right font-bold mx-auto">
+                  {profile.city && profile.state && profile.country ? (
+                    <>{profile.country}</>
+                  ) : (
+                    <></>
+                  )}
+                </h1>
+              </div>
+              <div className="container mx-auto rounded-lg">
+                <h1 className="text-5xl text-center font-bold mx-auto py-10">
+                  Pants
+                </h1>
+              </div>
             </div>
           </div>
-        </div>
-        <div className="container flex flex-row content-center bg-base-200 rounded-lg">
-          <div className="container flex flex-col rounded ">
-            <div className="container rounded">
-              <div className="tabs tabs-boxed mx-auto">
-                <a
-                  className={
-                    activeTab === "About Me" ? "tab tab-active" : "tab"
-                  }
-                  onClick={() => handleTabClick("About Me")}
-                >
-                  About Me
-                </a>
-                <a
-                  className={
-                    activeTab === "Experience" ? "tab tab-active" : "tab"
-                  }
-                  onClick={() => handleTabClick("Experience")}
-                >
-                  Experience
-                </a>
+          <div className="container flex flex-row content-center bg-base-200 rounded-lg">
+            <div className="container flex flex-col rounded ">
+              <div className="container rounded">
+                <div className="tabs tabs-boxed mx-auto">
+                  <a
+                    className={
+                      activeTab === "About Me" ? "tab tab-active" : "tab"
+                    }
+                    onClick={() => handleTabClick("About Me")}
+                  >
+                    About Me
+                  </a>
+                  <a
+                    className={
+                      activeTab === "Experience" ? "tab tab-active" : "tab"
+                    }
+                    onClick={() => handleTabClick("Experience")}
+                  >
+                    Experience
+                  </a>
 
-                <a
-                  className={
-                    activeTab === "Education" ? "tab tab-active" : "tab"
-                  }
-                  onClick={() => handleTabClick("Education")}
-                >
-                  Education
-                </a>
+                  <a
+                    className={
+                      activeTab === "Education" ? "tab tab-active" : "tab"
+                    }
+                    onClick={() => handleTabClick("Education")}
+                  >
+                    Education
+                  </a>
 
                 <a
                   className={activeTab === "Skills" ? "tab tab-active" : "tab"}
@@ -232,139 +235,141 @@ export default function Profile() {
                             Current: {exp.current === true ? "Yes" : "No"}
                           </div>
 
-                          {exp.current === false ? (
-                            <>
-                              <div className="text-xl">
-                                End Month: {exp.endMonth}
-                              </div>
-                              <div className="text-xl">
-                                End Year: {exp.endYear}
-                              </div>
-                            </>
-                          ) : (
-                            <></>
-                          )}
+                            {exp.current === false ? (
+                              <>
+                                <div className="text-xl">
+                                  End Month: {exp.endMonth}
+                                </div>
+                                <div className="text-xl">
+                                  End Year: {exp.endYear}
+                                </div>
+                              </>
+                            ) : (
+                              <></>
+                            )}
 
-                          <button
-                            onClick={() => handleEditClick(exp._id)}
-                            className="m-5 btn btn-success"
-                          >
-                            edit
-                          </button>
-
-                          <div
-                            className={
-                              isEditing === exp._id
-                                ? "rounded bg-base-300 border-2 border-slate-700"
-                                : "hidden"
-                            }
-                          >
-                            <EditExperienceForm
-                              initialValues={{
-                                company: exp.name,
-                                title: exp.title,
-                                jobDescription: exp.jobDescription,
-                                startMonth: exp.startMonth,
-                                startYear: exp.startYear,
-                                current: exp.current,
-                                endMonth: exp.endMonth,
-                                endYear: exp.endYear,
-                              }}
-                            />
                             <button
-                              onClick={() => handleEditClick("")}
+                              onClick={() => handleEditClick(exp._id)}
                               className="m-5 btn btn-success"
                             >
-                              close
+                              edit
                             </button>
-                          </div>
-                        </>
-                      ))}
-                      <button
-                        onClick={() => handleEditClick("ExperienceForm")}
-                        className="m-5 btn btn-success"
-                      >
-                        add
-                      </button>
-                      <div
-                        className={
-                          isEditing === "ExperienceForm"
-                            ? "rounded bg-base-300 border-2 border-slate-700"
-                            : "hidden"
-                        }
-                      >
-                        <ExperienceForm />
+
+                            <div
+                              className={
+                                isEditing === exp._id
+                                  ? "rounded bg-base-300 border-2 border-slate-700"
+                                  : "hidden"
+                              }
+                            >
+                              <EditExperienceForm
+                                initialValues={{
+                                  company: exp.name,
+                                  title: exp.title,
+                                  jobDescription: exp.jobDescription,
+                                  startMonth: exp.startMonth,
+                                  startYear: exp.startYear,
+                                  current: exp.current,
+                                  endMonth: exp.endMonth,
+                                  endYear: exp.endYear,
+                                }}
+                              />
+                              <button
+                                onClick={() => handleEditClick("")}
+                                className="m-5 btn btn-success"
+                              >
+                                close
+                              </button>
+                            </div>
+                          </>
+                        ))}
                         <button
-                          onClick={() => handleEditClick("")}
+                          onClick={() => handleEditClick("ExperienceForm")}
                           className="m-5 btn btn-success"
                         >
-                          close
+                          add
                         </button>
-                      </div>
-                    </>
-                  ) : (
-                    <>
-                      <button
-                        onClick={() => handleEditClick("ExperienceForm")}
-                        className="m-5 btn btn-success"
-                      >
-                        add
-                      </button>
-                      <div
-                        className={
-                          isEditing === "ExperienceForm"
-                            ? "rounded bg-base-300 border-2 border-slate-700"
-                            : "hidden"
-                        }
-                      >
-                        <ExperienceForm />
+                        <div
+                          className={
+                            isEditing === "ExperienceForm"
+                              ? "rounded bg-base-300 border-2 border-slate-700"
+                              : "hidden"
+                          }
+                        >
+                          <ExperienceForm />
+                          <button
+                            onClick={() => handleEditClick("")}
+                            className="m-5 btn btn-success"
+                          >
+                            close
+                          </button>
+                        </div>
+                      </>
+                    ) : (
+                      <>
                         <button
-                          onClick={() => handleEditClick("")}
+                          onClick={() => handleEditClick("ExperienceForm")}
                           className="m-5 btn btn-success"
                         >
-                          close
+                          add
                         </button>
-                      </div>
-                    </>
-                  )}
+                        <div
+                          className={
+                            isEditing === "ExperienceForm"
+                              ? "rounded bg-base-300 border-2 border-slate-700"
+                              : "hidden"
+                          }
+                        >
+                          <ExperienceForm />
+                          <button
+                            onClick={() => handleEditClick("")}
+                            className="m-5 btn btn-success"
+                          >
+                            close
+                          </button>
+                        </div>
+                      </>
+                    )}
+                  </div>
                 </div>
-              </div>
-              <div
-                id="Education"
-                className={
-                  activeTab === "Education"
-                    ? "rounded bg-base-300 border-2 border-slate-700"
-                    : "hidden"
-                }
-              >
-                <h1 className="text-xl text-center font-bold mx-auto py-6">
-                  Education:
-                </h1>
-                <div className="m-2">
-                  {profile.education && profile.education.length ? (
-                    <>
-                      {profile.education.map((edu) => (
-                        <>
-                          <div className="text-2xl text-center">
-                            {edu.name} {edu.school.name}
-                          </div>
-                          <div className="text-xl">
-                            Field of Study: {edu.fieldOfStudy}
-                          </div>
+                <div
+                  id="Education"
+                  className={
+                    activeTab === "Education"
+                   
+                      ? "rounded bg-base-300 border-2 border-slate-700"
+                   
+                      : "hidden"
+                  }
+                >
+                  <h1 className="text-xl text-center font-bold mx-auto py-6">
+                    Education:
+                  </h1>
+                  <div className="m-2">
+                    {profile.education && profile.education.length ? (
+                      <>
+                        {profile.education.map((edu) => (
+                          <>
+                            <div className="text-2xl text-center">
+                              {edu.name} {edu.school.name}
+                            </div>
+                            <div className="text-xl">
+                              Field of Study: {edu.fieldOfStudy}
+                            </div>
 
-                          <div className="text-xl">
-                            Certificate Type: {edu.certificateType}
-                          </div>
+                            <div className="text-xl">
+                              Certificate Type: {edu.certificateType}
+                            </div>
 
-                          <div className="text-xl">
-                            Start Month: {edu.startMonth}
-                          </div>
-                          <div className="text-xl">
-                            Start Year: {edu.startYear}
-                          </div>
-                          <div className="text-xl">
-                            Current: {edu.current === true ? "Yes" : "No"}
-                          </div>
+                            <div className="text-xl">
+                              Start Month: {edu.startMonth}
+                            </div>
+                            <div className="text-xl">
+                              Start Year: {edu.startYear}
+                            </div>
+                            <div className="text-xl">
+                              Current: {edu.current === true ? "Yes" : "No"}
+                            </div>
 
                           {edu.current === false ? (
                             <>

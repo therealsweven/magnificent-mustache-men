@@ -4,7 +4,7 @@ import { useMutation, useQuery } from "@apollo/client";
 import { CREATE_EXPERIENCE } from "../../../utils/mutations";
 import * as Yup from "yup";
 import { QUERY_COMPANIES } from "../../../utils/queries";
-import months from "../../../utils/months.json"
+import months from "../../../utils/months.json";
 
 export default function ExperienceForm() {
   const [createExperience] = useMutation(CREATE_EXPERIENCE);
@@ -74,185 +74,187 @@ export default function ExperienceForm() {
   };
 
   const { loading, data } = useQuery(QUERY_COMPANIES);
-  const companydata = [data];
+  let companydata = [];
+  console.log(companydata);
   if (loading) {
     return <h2>...loading</h2>;
   }
-  return (
-    <Formik
-      initialValues={initialValues}
-      onSubmit={handleSubmit}
-      validationSchema={validationSchema}
-    >
-      {({ values, isSubmitting }) => (
-        <Form>
-          <div className="form-control">
-            <label className="label" htmlFor="company">
-              <span className="label-text">Company</span>
-            </label>
-            <Field
-              className="input input-bordered"
-              as="select"
-              type="text"
-              name="company"
-            >
-              <option value="">Select a Company</option>
-              {companydata.map((company, index) => (
-                <optgroup key={index}>
-                  {company.companies.map((comp, compindex) => (
-                    <option key={compindex} value={comp._id}>
-                      {comp.name}
-                    </option>
-                  ))}
-                </optgroup>
-              ))}
-            </Field>
-            <ErrorMessage name="company" component="div" className="error" />
-          </div>
-          <div className="form-control">
-            <label className="label" htmlFor="title">
-              <span className="label-text">Title</span>
-            </label>
+    return (
+      <Formik
+        initialValues={initialValues}
+        onSubmit={handleSubmit}
+        validationSchema={validationSchema}
+      >
+        {({ values, isSubmitting }) => (
+          <Form>
+            <div className="form-control">
+              <label className="label" htmlFor="company">
+                <span className="label-text">Company</span>
+              </label>
+              <Field
+                className="input input-bordered"
+                as="select"
+                type="text"
+                name="company"
+              >
+                <option value="">Select a Company</option>
+                {companydata.map((company, index) => (
+                  <optgroup key={index}>
+                    {company.companies.map((comp, compindex) => (
+                      <option key={compindex} value={comp._id}>
+                        {comp.name}
+                      </option>
+                    ))}
+                  </optgroup>
+                ))}
+              </Field>
+              <ErrorMessage name="company" component="div" className="error" />
+            </div>
+            <div className="form-control">
+              <label className="label" htmlFor="title">
+                <span className="label-text">Title</span>
+              </label>
             <Field className="input input-bordered" type="text" name="title" />
-            <ErrorMessage name="title" component="div" className="error" />
-          </div>
-          <div className="form-control">
-            <label className="label" htmlFor="title">
-              <span className="label-text">Job Description</span>
-            </label>
-            <Field
-              className="input input-bordered"
-              type="text"
-              name="jobDescription"
-            />
-            <ErrorMessage
-              name="jobDescription"
-              component="div"
-              className="error"
-            />
-          </div>
-          <div className="form-control">
-            <label className="label" htmlFor="startMonth">
-              <span className="label-text">Start Month</span>
-            </label>
-            <Field
-              className="input input-bordered"
-              as="select"
-              type="text"
-              name="startMonth"
+              <ErrorMessage name="title" component="div" className="error" />
+            </div>
+            <div className="form-control">
+              <label className="label" htmlFor="title">
+                <span className="label-text">Job Description</span>
+              </label>
+              <Field
+                className="input input-bordered"
+                type="text"
+                name="jobDescription"
+              />
+              <ErrorMessage
+                name="jobDescription"
+                component="div"
+                className="error"
+              />
+            </div>
+            <div className="form-control">
+              <label className="label" htmlFor="startMonth">
+                <span className="label-text">Start Month</span>
+              </label>
+              <Field
+                className="input input-bordered"
+                as="select"
+                type="text"
+                name="startMonth"
             ><option>Select a Month</option>
             {months.map((month) =>
             <option key={month.name} value={month.name}>{month.name}</option>)}
-            </Field>
+              </Field>
             <ErrorMessage name="startMonth" component="div" className="error" />
-          </div>
-          <div className="form-control">
-            <label className="label" htmlFor="startYear">
-              <span className="label-text">Start Year</span>
-            </label>
-            <Field
-              className="input input-bordered"
-              type="number"
-              name="startYear"
-            />
+            </div>
+            <div className="form-control">
+              <label className="label" htmlFor="startYear">
+                <span className="label-text">Start Year</span>
+              </label>
+              <Field
+                className="input input-bordered"
+                type="number"
+                name="startYear"
+              />
             <ErrorMessage name="startYear" component="div" className="error" />
-          </div>
-          <div className="form-control">
-            <label className="label" htmlFor="current">
-              <span className="label-text">Current</span>
-            </label>
-            <Field
-              className="input input-bordered"
-              type="checkbox"
-              name="current"
-            />
-            <ErrorMessage name="current" />
-          </div>
+            </div>
+            <div className="form-control">
+              <label className="label" htmlFor="current">
+                <span className="label-text">Current</span>
+              </label>
+              <Field
+                className="input input-bordered"
+                type="checkbox"
+                name="current"
+              />
+              <ErrorMessage name="current" />
+            </div>
 
-          {values.current ? (
-            <>
-              <div className="form-control">
-                <label className="label" htmlFor="endMonth">
-                  <span className="label-text">End Month</span>
-                </label>
-                <Field
-              className="input input-bordered"
-              as="select"
-              type="text"
-              name="endMonth"
-              disabled
+            {values.current ? (
+              <>
+                <div className="form-control">
+                  <label className="label" htmlFor="endMonth">
+                    <span className="label-text">End Month</span>
+                  </label>
+                  <Field
+                    className="input input-bordered"
+                    as="select"
+                    type="text"
+                    name="endMonth"
+                    disabled
             ><option>Select a Month</option>
             {months.map((month) =>
             <option key={month.name} value={month.name}>{month.name}</option>)}
-            </Field>
-                <ErrorMessage
-                  name="endMonth"
-                  component="div"
-                  className="error"
-                />
-              </div>
-              <div className="form-control">
-                <label className="label" htmlFor="endYear">
-                  <span className="label-text">End Year</span>
-                </label>
-                <Field
-                  className="input input-bordered"
-                  type="number"
-                  name="endYear"
-                  disabled
-                />
-                <ErrorMessage
-                  name="endYear"
-                  component="div"
-                  className="error"
-                />
-              </div>
-            </>
-          ) : (
-            <>
-              <div className="form-control">
-                <label className="label" htmlFor="endMonth">
-                  <span className="label-text">End Month</span>
-                </label>
-                <Field
-              className="input input-bordered"
-              as="select"
-              type="text"
-              name="endMonth"
+                  </Field>
+                  <ErrorMessage
+                    name="endMonth"
+                    component="div"
+                    className="error"
+                  />
+                </div>
+                <div className="form-control">
+                  <label className="label" htmlFor="endYear">
+                    <span className="label-text">End Year</span>
+                  </label>
+                  <Field
+                    className="input input-bordered"
+                    type="number"
+                    name="endYear"
+                    disabled
+                  />
+                  <ErrorMessage
+                    name="endYear"
+                    component="div"
+                    className="error"
+                  />
+                </div>
+              </>
+            ) : (
+              <>
+                <div className="form-control">
+                  <label className="label" htmlFor="endMonth">
+                    <span className="label-text">End Month</span>
+                  </label>
+                  <Field
+                    className="input input-bordered"
+                    as="select"
+                    type="text"
+                    name="endMonth"
             ><option>Select a Month</option>
             {months.map((month) =>
             <option key={month.name} value={month.name}>{month.name}</option>)}
-            </Field>
-              </div>
-              <div className="form-control">
-                <label className="label" htmlFor="endYear">
-                  <span className="label-text">End Year</span>
-                </label>
-                <Field
-                  className="input input-bordered"
-                  type="number"
-                  name="endYear"
-                />
-                <ErrorMessage
-                  name="endYear"
-                  component="div"
-                  className="error"
-                />
-              </div>
-            </>
-          )}
+                  </Field>
+                </div>
+                <div className="form-control">
+                  <label className="label" htmlFor="endYear">
+                    <span className="label-text">End Year</span>
+                  </label>
+                  <Field
+                    className="input input-bordered"
+                    type="number"
+                    name="endYear"
+                  />
+                  <ErrorMessage
+                    name="endYear"
+                    component="div"
+                    className="error"
+                  />
+                </div>
+              </>
+            )}
 
-          <div className="form-control mt-6">
-            <button
-              className="btn btn-primary"
-              type="submit"
-              disabled={isSubmitting}
-            >
-              Submit
-            </button>
-          </div>
-        </Form>
-      )}
-    </Formik>
-  );
+            <div className="form-control mt-6">
+              <button
+                className="btn btn-primary"
+                type="submit"
+                disabled={isSubmitting}
+              >
+                Submit
+              </button>
+            </div>
+          </Form>
+        )}
+      </Formik>
+    );
+  }
 }
