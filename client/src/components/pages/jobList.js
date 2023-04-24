@@ -20,7 +20,7 @@ export default function JobList() {
           jobId: e.target.id,
         },
       });
-      console.log("applied to job");
+      console.log(e.target);
     } catch (err) {
       console.error(err);
     }

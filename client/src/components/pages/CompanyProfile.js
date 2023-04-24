@@ -7,6 +7,7 @@ import JobForm from "./forms/JobForm";
 import Auth from "../../utils/auth";
 import { APPLY_TO_JOB } from "../../utils/mutations";
 
+
 export default function CompanyProfile() {
   const { companyId } = useParams();
   const [followEntity] = useMutation(FOLLOW_ENTITY);
@@ -48,18 +49,24 @@ export default function CompanyProfile() {
     try {
       await applyToJob({
         variables: {
-          jobsId: e.target.id,
+          jobId: e.target.id,
         },
       });
-      console.log("applied to job");
+   
     } catch (err) {
       console.error(err);
     }
   };
 
-  const handleRemove = async () => {
-    console.log("hello");
-    await removeJob();
+  const handleRemove = async (e) => {
+    try {
+      await removeJob({
+        variables: {
+          jobId: e.target.id,
+        },
+      });
+      console.log(e.target.id);
+    } catch (err) {}
   };
 
   const hasAccessToAddJobModal =
@@ -123,19 +130,26 @@ export default function CompanyProfile() {
             {company.jobs.map((jobs) => (
               <>
                 <div Key={jobs._id}>
-                  <div className="card-body bg-base-200 rounded w-full p-4 my-2">
+                  <div
+                    className="card-body bg-base-200 rounded w-full p-4 my-2"
+                  >
                     <h2 className="card-title">{jobs.title}</h2>
                     <p>{jobs.description}</p>
                     <div className="card-actions justify-end">
+                      <button
+                      id={jobs._id}
+                        className="flex justify-center self-center shadow-3xl w-4 mx-4"
+                        onClick={handleRemove}
+                        
+                      >
+                        X
+                      </button>
                       <label
                         htmlFor={`modal-${jobs._id}`}
                         className="drawer-button btn btn-primary"
                       >
                         Read More
                       </label>
-                      <button className="btn btn-primary">
-                        One Click Apply
-                      </button>
                     </div>
                   </div>
                 </div>
