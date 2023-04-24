@@ -3,9 +3,11 @@ import { Formik, Field, Form, ErrorMessage } from "formik";
 import { useMutation } from "@apollo/client";
 import { CREATE_JOB } from "../../../utils/mutations";
 import * as Yup from "yup";
+import { useNavigate } from "react-router-dom";
 
 export default function JobForm() {
   const [createJob] = useMutation(CREATE_JOB);
+  const navigate = useNavigate();
 
   const initialValues = {
     title: "",
@@ -44,7 +46,7 @@ export default function JobForm() {
         },
       });
       resetForm();
-      console.log("job posted");
+      navigate("/jobPost");
     } catch (err) {
       console.error(err);
     }
