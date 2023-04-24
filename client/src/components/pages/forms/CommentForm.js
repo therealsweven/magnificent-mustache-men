@@ -60,7 +60,7 @@ export default function CommentForm({ postId }) {
           </div>
           <div className="form-control mt-6">
             <button
-              className="btn btn-primary"
+              className="btn btn-primary btn-sm mx-auto"
               type="submit"
               disabled={isSubmitting}
             >

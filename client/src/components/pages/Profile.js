@@ -336,9 +336,7 @@ export default function Profile() {
                   id="Education"
                   className={
                     activeTab === "Education"
-                   
                       ? "rounded bg-base-300 border-2 border-slate-700"
-                   
                       : "hidden"
                   }
                 >
@@ -635,40 +633,29 @@ export default function Profile() {
                 id="Posts"
                 className={
                   activeTab === "Posts"
-                    ? "rounded bg-base-300 border-2 border-slate-700"
+                    ? "rounded bg-base-300 border-2 border-slate-700 w-96"
                     : "hidden"
                 }
               >
                 <div className="m-2">
-                  <h1 className="text-xl text-center font-bold mx-auto py-6">
+                  <h1 className="text-xl text-center font-bold mx-auto py-6 border-2 border-slate-700">
                     Posts
                   </h1>
-                  <PostForm />
                   {profile.posts ? (
                     profile.posts.map((post) => (
-                      <div className="text-center font-bold" key={post._id}>
-                        {post.postBody} {post._id}
+                      <div className="text-center font-bold mx-auto py-6 border-2 border-slate-700" key={post._id}>
+                        {post.postBody}
                         <span className="label">Comments</span>
                         {post.comments.map((comment) => (
                           <div className="text-center" key={comment._id}>
                             {comment.commentBody}
                           </div>
                         ))}
-                        <button
-                          className="btn btn-secondary"
-                          onClick={() => handleEditClick("Comment")}
-                        >Comment</button>
-                        <div
-                          className={
-                            isEditing === "Comment"
-                              ? "btn btn-secondary"
-                              : "hidden"
-                          }
-                        >
+                        <div className="w-72 mx-auto">
                           <CommentForm postId={post._id} />
-                        </div>
+                          </div>
                         <button
-                          className="btn btn-secondary"
+                          className="btn btn-secondary btn-sm mx-auto"
                           onClick={() => handleEditClick("React")}
                         >React</button>
                         <div
@@ -680,6 +667,7 @@ export default function Profile() {
                         >
                           <ReactionForm postId={post._id} />
                         </div>
+                        <PostForm />
                       </div>
                     ))
                   ) : (
@@ -697,4 +685,5 @@ export default function Profile() {
       </div>
     </div>
   );
+}
 }
