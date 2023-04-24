@@ -1,6 +1,9 @@
 import { useQuery } from "@apollo/client";
 import { QUERY_JOBS, QUERY_FEED, QUERY_ME } from "../../utils/queries";
 import PostForm from "./forms/PostForm";
+import ReactionForm from "./forms/ReactionForm";
+import CommentForm from "./forms/CommentForm";
+import CommentReactionForm from "./forms/CommentReaction";
 
 export default function UserDashboard() {
   const { loading: jobLoading, data: jobData } = useQuery(QUERY_JOBS);
@@ -12,16 +15,20 @@ export default function UserDashboard() {
   const jobs = jobData?.jobs || [];
   const feed = feedData?.feed || [];
   const profile = data?.me || {};
- 
 
   if (!jobLoading) {
     console.log(jobs);
   }
+  if (!feedLoading && feed.length) {
+    console.log(feed);
+  }
 
   return (
     <>
-    <h1 className="text-5xl font-bold mx-8 mt-4">Hello {profile.firstName}! Welcome to Your DashBoard!</h1>
-    <div className="divider m-6 px-4"></div>
+      <h1 className="text-5xl font-bold mx-8 mt-4">
+        Hello {profile.firstName}! Welcome to Your DashBoard!
+      </h1>
+      <div className="divider m-6 px-4"></div>
       <div className="container grid grid-cols-6 grid-rows-8">
         <div className="box col-span-2 rounded overflow-scroll max-h-96 m-4 bg-slate-700">
           <h1 className="text-4xl text-white m-2 text-center rounded bg-slate-400 ">
@@ -112,16 +119,76 @@ export default function UserDashboard() {
                   <div className="w-12 rounded-full">
                     <img
                       src={
-                        "/images/stock/photo-1534528741775-53994a69daeb.jpg" ||
-                        "https://png.pngtree.com/png-vector/20190221/ourlarge/pngtree-female-user-vector-avatar-icon-png-image_691506.jpg"
+                        feed.entity.user
+                          ? feed.entity.user.profPic
+                          : feed.entity.company
+                          ? feed.entity.company.profPic
+                          : feed.entity.school
+                          ? feed.entity.school.profPic
+                          : "https://png.pngtree.com/png-vector/20190221/ourlarge/pngtree-female-user-vector-avatar-icon-png-image_691506.jpg"
                       }
                     />
                   </div>
-                  <h2 className="card-title text-center ml-5">Michael Mount</h2>
+                  <h2 className="card-title text-center ml-5">
+                    {feed.entity.user
+                      ? feed.entity.user.firstName +
+                        " " +
+                        feed.entity.user.lastName
+                      : feed.entity.company
+                      ? feed.entity.company.name
+                      : feed.entity.school
+                      ? feed.entity.school.name
+                      : "User Not Found"}
+                  </h2>
                 </div>
                 <p className="bg-black text-green-500 rounded p-5 my-2">
                   {feed.postBody}
                 </p>
+                <div>
+                  <ReactionForm postId={feed._id} />
+                </div>
+                <div>
+                  <h2>Comments:</h2>
+                  {feed.comments.map((comment) => (
+                    <div className="Card  bg-slate-700 shadow-xl p-5 m-4 rounded">
+                      <div className="avatar">
+                        <div className="w-12 rounded-full">
+                          <img
+                            src={
+                              comment.entity.user
+                                ? comment.entity.user.profPic
+                                : comment.entity.company
+                                ? comment.entity.company.profPic
+                                : comment.entity.school
+                                ? comment.entity.school.profPic
+                                : "https://png.pngtree.com/png-vector/20190221/ourlarge/pngtree-female-user-vector-avatar-icon-png-image_691506.jpg"
+                            }
+                          />
+                        </div>
+                        <h2 className="card-title text-center ml-5">
+                          {comment.entity.user
+                            ? comment.entity.user.firstName +
+                              " " +
+                              comment.entity.user.lastName
+                            : comment.entity.company
+                            ? comment.entity.company.name
+                            : comment.entity.school
+                            ? comment.entity.school.name
+                            : "User Not Found"}
+                        </h2>
+                      </div>
+                      <p className="bg-black text-green-500 rounded p-5 my-2">
+                        {comment.commentBody}
+                      </p>
+                      <div>
+                        <CommentReactionForm commentId={comment._id} />
+                      </div>
+                    </div>
+                  ))}
+                </div>
+                <div>
+                  <CommentForm postId={feed._id} />
+                </div>
               </div>
             ))}
           </div>
