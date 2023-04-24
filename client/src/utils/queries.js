@@ -284,16 +284,17 @@ export const QUERY_SINGLE_COMPANY = gql`
       website
       jobs {
         _id
+        title
         benefits
         description
         qualifications
         responsibilities
         salary
+        schedule
         skills {
           _id
           skillName
         }
-        title
         applicants {
           _id
           firstName

@@ -5,10 +5,12 @@ import { QUERY_SINGLE_COMPANY, QUERY_ME } from "../../utils/queries";
 import { FOLLOW_ENTITY } from "../../utils/mutations";
 import JobForm from "./forms/JobForm";
 import Auth from "../../utils/auth";
+import { APPLY_TO_JOB } from "../../utils/mutations";
 
 export default function CompanyProfile() {
   const { companyId } = useParams();
   const [followEntity] = useMutation(FOLLOW_ENTITY);
+  const [applyToJob] = useMutation(APPLY_TO_JOB);
 
   const { loading, data } = useQuery(
     companyId ? QUERY_SINGLE_COMPANY : QUERY_ME,
@@ -18,6 +20,8 @@ export default function CompanyProfile() {
   );
 
   const company = data?.me || data?.company || {};
+
+  console.log(company.jobs);
 
   if (Auth.loggedIn() && Auth.getProfile().data._id === companyId) {
     return <Navigate to="/" />;
@@ -40,15 +44,30 @@ export default function CompanyProfile() {
     console.log("Company Followed");
   };
 
+  const handleApply = async (e) => {
+    // console.log(e.target.id);
+    try {
+      await applyToJob({
+        variables: {
+          jobsId: e.target.id,
+        },
+      });
+      console.log("applied to job");
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   return (
     <>
       {/* Header */}
-      
+
       <div className="container-Header m-5 ">
         <div className="grid grid-cols-8 gird-rows-1 justify-items-center">
           <div className="col-span-4 row-span-1 shadow-xl bg-base-300 rounded ml-10 ">
             <h1 className="Name font-bold text-5xl m-4">{company.name}</h1>
             <p className="About text-xl m-5 pl-4">{company.bio}</p>
+
             <button
               id={company._id}
               className="btn btn-active"
@@ -59,7 +78,10 @@ export default function CompanyProfile() {
           </div>
           <div className="col-span-1 row-span-1 bg-base-300 shadow-xl rounded ml-40">
             <img
-              src={company.profPic || "https://png.pngtree.com/png-vector/20190221/ourlarge/pngtree-female-user-vector-avatar-icon-png-image_691506.jpg" }
+              src={
+                company.profPic ||
+                "https://png.pngtree.com/png-vector/20190221/ourlarge/pngtree-female-user-vector-avatar-icon-png-image_691506.jpg"
+              }
               className="float-right m-5 max-w-xs max-h-72 rounded-lg shadow-2xl"
             />
           </div>
@@ -89,34 +111,84 @@ export default function CompanyProfile() {
             <label htmlFor="add-job-modal" className="btn font-bold text-2xl">
               +
             </label>
-            
-            <div className="card-body bg-base-200 rounded w-full p-4 my-2">
-            
-              <h2 className="card-title">Full-Stack Web Developer</h2>
-              
-              <p>
-                We need someone who is good at things and stuff for web
-                Development.
-              </p>
-              <div className="badges justify-content align-items">
-                <span className="badge">JavaScript</span>
-                <span className="badge">React</span>
-                <span className="badge">C++</span>
-                <span className="badge">Java</span>
-                <span className="badge">Go</span>
-                <span className="badge">Junior</span>
+            {company.jobs.map((jobs) => (
+              <>
+              <div Key={jobs._id}>
+                <div className="card-body bg-base-200 rounded w-full p-4 my-2">
+                  <h2 className="card-title">{jobs.title}</h2>
+                  <p>{jobs.description}</p>
+                  <div className="card-actions justify-end">
+                    <label
+                      htmlFor={`modal-${jobs._id}`}
+                      className="drawer-button btn btn-primary"
+                    >
+                      Read More
+                    </label>
+                    <button className="btn btn-primary">One Click Apply</button>
+                  </div>
+                </div>
               </div>
+              <input type="checkbox" id={`modal-${jobs._id}`} className="modal-toggle" />
+              <div className="modal">
+                  <div className="modal-box relative max-w-5xl">
+                    <label
+                      htmlFor={`modal-${jobs._id}`}
+                      className="btn btn-sm btn-circle absolute left-2 top-2"
+                    >
+                      ✕
+                    </label>
+                    <h3 className="p-5 m-4 font-bold text-5xl">
+                      {jobs.title}
+                    </h3>
+                    <div class="grid grid-cols-3 gap-4">
+                      <ul className="p-3 m-5 shadow-xl ">
+                        <h3 className="font-bold text-3xl">
+                          Qualifications
+                        </h3>
+                        <li>{jobs.qualifications}</li>
+                      </ul>
 
-              <div className="card-actions justify-end">
-                <label
-                  htmlFor="modal-1"
-                  className="drawer-button btn btn-primary"
-                >
-                  Read More
-                </label>
-                <button className="btn btn-primary">One Click Apply</button>
-              </div>
-            </div>
+                      <div className="p-3 m-5 shadow-xl ">
+                        <h3 className="font-bold  text-3xl m-2">
+                          Description
+                        </h3>
+                        <p>{jobs.description}</p>
+                      </div>
+                      <div className="p-3 m-5 shadow-xl ">
+                        <h3 className="font-bold  text-3xl m-2">
+                          Responsibilities
+                        </h3>
+                        <p>{jobs.responsibilities}</p>
+                      </div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4 place-content-between">
+                      <div className="p-3 m-5 shadow-xl ">
+                        <h2 className="font-bold text-4xl m-2">
+                          Salary
+                        </h2>
+                        <p className="text-xl text-center ">{jobs.salary}K</p>
+                      </div>
+                      <div className="p-3 m-5 shadow-xl ">
+                        <ul>
+                          <h2 className="font-bold text-4xl m-2">
+                            Benefits
+                          </h2>
+                          <li>{jobs.benefits}</li>
+                        </ul>
+                      </div>
+                      <button
+                        id={jobs._id}
+                        className="btn btn-primary"
+                        onClick={handleApply}
+                      >
+                        One Click Apply
+                      </button>
+                    </div>
+                    </div>
+                    </div>
+              </>
+            ))}
+            
           </div>
           {/* Current Employess */}
           <div className="col-span-2 row-span-1 overflow-y-scroll bg-base-300 p-3 rounded max-h-72">
