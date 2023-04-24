@@ -43,13 +43,24 @@ const resolvers = {
         "experience",
           {
       path: "posts",
-      populate: {
+      populate: [
+        {
         path: "comments",
         match: { commentBody: { $ne: null } } // exclude comments with null commentBody
+      },
+      {
+        path: "entity",
+        populate: [
+          { path: "user" },
+          { path: "company" },
+          { path: "school" }
+        ]
       }
-    }
-      ]);
-    },
+    ]
+  }
+])
+},
+   
     companies: async () => {
       return await Company.find();
     },

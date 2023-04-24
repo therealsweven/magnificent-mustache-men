@@ -10,14 +10,11 @@ export default function ReactionForm({ postId }) {
 
   const reactions = data?.reactions || [];
   if (!loading) {
-    console.log(reactions);
-    console.log(reactions[0].icon);
   }
 
   const handleReaction = async (e) => {
     try {
-      console.log(e.target.id);
-      console.log(postId);
+
       await createPostReaction({
         variables: {
           reactionId: e.target.id,
