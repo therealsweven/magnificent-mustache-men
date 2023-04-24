@@ -105,137 +105,135 @@ export default function Profile() {
                     Education
                   </a>
 
-                  <a
-                    className={
-                      activeTab === "Skills" ? "tab tab-active" : "tab"
-                    }
-                    onClick={() => handleTabClick("Skills")}
-                  >
-                    Skills
-                  </a>
-                  <a
-                    className={
-                      activeTab === "Communites" ? "tab tab-active" : "tab"
-                    }
-                    onClick={() => handleTabClick("Communities")}
-                  >
-                    Communities
-                  </a>
-                  <a
-                    className={activeTab === "Posts" ? "tab tab-active" : "tab"}
-                    onClick={() => handleTabClick("Posts")}
-                  >
-                    Posts
-                  </a>
-                </div>
-                <div
-                  id="About Me"
-                  className={
-                    activeTab === "About Me"
-                      ? "rounded bg-base-300 border-2 border-slate-700"
-                      : "hidden"
-                  }
+                <a
+                  className={activeTab === "Skills" ? "tab tab-active" : "tab"}
+                  onClick={() => handleTabClick("Skills")}
                 >
-                  <h1 className="text-xl text-center font-bold mx-auto py-6">
-                    About Me
-                  </h1>
-                  {profile.bio ? (
-                    <>
-                      <p className="text-center font-bold">{profile.bio}</p>
+                  Skills
+                </a>
+                <a
+                  className={
+                    activeTab === "Communites" ? "tab tab-active" : "tab"
+                  }
+                  onClick={() => handleTabClick("Communities")}
+                >
+                  Communities
+                </a>
+                <a
+                  className={activeTab === "Posts" ? "tab tab-active" : "tab"}
+                  onClick={() => handleTabClick("Posts")}
+                >
+                  Posts
+                </a>
+              </div>
+              <div
+                id="About Me"
+                className={
+                  activeTab === "About Me"
+                    ? "rounded bg-base-300 border-2 border-slate-700"
+                    : "hidden"
+                }
+              >
+                <h1 className="text-xl text-center font-bold mx-auto py-6">
+                  About Me
+                </h1>
+                {profile.bio ? (
+                  <>
+                    <p className="text-center font-bold">{profile.bio}</p>
+                    <button
+                      onClick={() => handleEditClick("UserInfoForm")}
+                      className="m-5 btn btn-success"
+                    >
+                      edit
+                    </button>
+                    <div
+                      className={
+                        isEditing === "UserInfoForm"
+                          ? "rounded bg-base-300 border-2 border-slate-700"
+                          : "hidden"
+                      }
+                    >
+                      <UserInfoForm
+                        initialValues={{
+                          city: profile.city,
+                          state: profile.state,
+                          country: profile.country,
+                          bio: profile.bio,
+                        }}
+                      />
                       <button
-                        onClick={() => handleEditClick("UserInfoForm")}
+                        onClick={() => handleEditClick("")}
                         className="m-5 btn btn-success"
                       >
-                        edit
+                        close
                       </button>
-                      <div
-                        className={
-                          isEditing === "UserInfoForm"
-                            ? "rounded bg-base-300 border-2 border-slate-700"
-                            : "hidden"
-                        }
-                      >
-                        <UserInfoForm
-                          initialValues={{
-                            city: profile.city,
-                            state: profile.state,
-                            country: profile.country,
-                            bio: profile.bio,
-                          }}
-                        />
-                        <button
-                          onClick={() => handleEditClick("")}
-                          className="m-5 btn btn-success"
-                        >
-                          close
-                        </button>
-                      </div>
-                    </>
-                  ) : (
-                    <>
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <button
+                      onClick={() => handleEditClick("UserInfoForm")}
+                      className="m-5 btn btn-success"
+                    >
+                      edit
+                    </button>
+                    <div
+                      className={
+                        isEditing === "UserInfoForm"
+                          ? "rounded bg-base-300 border-2 border-slate-700"
+                          : "hidden"
+                      }
+                    >
+                      <UserInfoForm
+                        initialValues={{
+                          city: profile.city,
+                          state: profile.state,
+                          country: profile.country,
+                          bio: profile.bio,
+                        }}
+                      />
                       <button
-                        onClick={() => handleEditClick("UserInfoForm")}
+                        onClick={() => handleEditClick("")}
                         className="m-5 btn btn-success"
                       >
-                        edit
+                        close
                       </button>
-                      <div
-                        className={
-                          isEditing === "UserInfoForm"
-                            ? "rounded bg-base-300 border-2 border-slate-700"
-                            : "hidden"
-                        }
-                      >
-                        <UserInfoForm
-                          initialValues={{
-                            city: profile.city,
-                            state: profile.state,
-                            country: profile.country,
-                            bio: profile.bio,
-                          }}
-                        />
-                        <button
-                          onClick={() => handleEditClick("")}
-                          className="m-5 btn btn-success"
-                        >
-                          close
-                        </button>
-                      </div>
-                    </>
-                  )}
-                </div>
-                <div
-                  id="Experience"
-                  className={
-                    activeTab === "Experience"
-                      ? "rounded bg-base-300 border-2 border-slate-700"
-                      : "hidden"
-                  }
-                >
-                  <h1 className="text-xl text-center font-bold mx-auto py-6">
-                    Experience:
-                  </h1>
-                  <div className="m-2">
-                    {profile.experience && profile.experience.length ? (
-                      <>
-                        {profile.experience.map((exp) => (
-                          <>
-                            <div className="text-2xl text-center">
-                              {exp.name} {exp.company.name}
-                            </div>
-                            <div className="text-xl">Title: {exp.title}</div>
-                            <div className="text-xl">
-                              Description: {exp.jobDescription}
-                            </div>
-                            <div className="text-xl">
-                              Start Month: {exp.startMonth}
-                            </div>
-                            <div className="text-xl">
-                              Start Year: {exp.startYear}
-                            </div>
-                            <div className="text-xl">
-                              Current: {exp.current === true ? "Yes" : "No"}
-                            </div>
+                    </div>
+                  </>
+                )}
+              </div>
+              <div
+                id="Experience"
+                className={
+                  activeTab === "Experience"
+                    ? "rounded bg-base-300 border-2 border-slate-700"
+                    : "hidden"
+                }
+              >
+                <h1 className="text-xl text-center font-bold mx-auto py-6">
+                  Experience:
+                </h1>
+                <div className="m-2">
+                  {profile.experience && profile.experience.length ? (
+                    <>
+                      {profile.experience.map((exp) => (
+                        <>
+                          <div className="text-2xl text-center">
+                            {exp.name} {exp.company.name}
+                          </div>
+                          <div className="text-xl">Title: {exp.title}</div>
+                          <div className="text-xl">
+                            Description: {exp.jobDescription}
+                          </div>
+                          <div className="text-xl">
+                            Start Month: {exp.startMonth}
+                          </div>
+                          <div className="text-xl">
+                            Start Year: {exp.startYear}
+                          </div>
+                          <div className="text-xl">
+                            Current: {exp.current === true ? "Yes" : "No"}
+                          </div>
 
                             {exp.current === false ? (
                               <>
@@ -351,7 +349,7 @@ export default function Profile() {
                         {profile.education.map((edu) => (
                           <>
                             <div className="text-2xl text-center">
-                              {edu.school.name}
+                              {edu.name} {edu.school.name}
                             </div>
                             <div className="text-xl">
                               Field of Study: {edu.fieldOfStudy}
@@ -371,307 +369,321 @@ export default function Profile() {
                               Current: {edu.current === true ? "Yes" : "No"}
                             </div>
 
-                            {edu.current === false ? (
-                              <>
-                                <div className="text-xl">
-                                  End Month: {edu.endMonth}
-                                </div>
-                                <div className="text-xl">
-                                  End Year: {edu.endYear}
-                                </div>
-                              </>
-                            ) : (
-                              <></>
-                            )}
+                          {edu.current === false ? (
+                            <>
+                              <div className="text-xl">
+                                End Month: {edu.endMonth}
+                              </div>
+                              <div className="text-xl">
+                                End Year: {edu.endYear}
+                              </div>
+                            </>
+                          ) : (
+                            <></>
+                          )}
+                          <button
+                            onClick={() => handleEditClick(edu._id)}
+                            className="m-5 btn btn-success"
+                          >
+                            edit
+                          </button>
+                          <div
+                            className={
+                              isEditing === edu._id
+                                ? "rounded bg-base-300 border-2 border-slate-700"
+                                : "hidden"
+                            }
+                          >
+                            <EditEducationForm
+                              initialValues={{
+                                school: edu.school.name,
+                                fieldOfStudy: edu.fieldOfStudy,
+                                certificateType: edu.certificateType,
+                                startMonth: edu.startMonth,
+                                startYear: edu.startYear,
+                                current: edu.current,
+                                endMonth: edu.endMonth || "",
+                                endYear: edu.endYear || "",
+                              }}
+                            />
                             <button
-                              onClick={() => handleEditClick(edu._id)}
+                              onClick={() => handleEditClick("")}
+                              className="btn btn-success mx-auto"
+                            >
+                              close
+                            </button>
+                          </div>
+                        </>
+                      ))}
+                      <button
+                        onClick={() => handleEditClick("EducationForm")}
+                        className="m-5 btn btn-success"
+                      >
+                        add
+                      </button>
+                      <div
+                        className={
+                          isEditing === "EducationForm"
+                            ? "rounded bg-base-300 border-2 border-slate-700"
+                            : "hidden"
+                        }
+                      >
+                        <EducationForm />
+                        <button
+                          onClick={() => handleEditClick("")}
+                          className="m-5 btn btn-success"
+                        >
+                          close
+                        </button>
+                      </div>
+                    </>
+                  ) : (
+                    <>
+                      <button
+                        onClick={() => handleEditClick("EducationForm")}
+                        className="m-5 btn btn-success"
+                      >
+                        add
+                      </button>
+                      <div
+                        className={
+                          isEditing === "EducationForm"
+                            ? "rounded bg-base-300 border-2 border-slate-700"
+                            : "hidden"
+                        }
+                      >
+                        <EducationForm />
+                        <button
+                          onClick={() => handleEditClick("")}
+                          className="m-5 btn btn-success"
+                        >
+                          close
+                        </button>
+                      </div>
+                    </>
+                  )}
+                </div>
+              </div>
+              <div
+                id="Skills"
+                className={
+                  activeTab === "Skills"
+                    ? "rounded bg-base-300 border-2 border-slate-700 h-72"
+                    : "hidden"
+                }
+              >
+                <h1 className="text-xl text-center font-bold mx-auto py-6">
+                  Skills
+                </h1>
+                <div className="m-2">
+                  {profile.skills && profile.skills.length ? (
+                    <>
+                      {profile.skills.map((skill) => (
+                        <div className="btn btn-outline" key={skill._id}>
+                          {skill.skillName}
+                        </div>
+                      ))}
+                      <button
+                        onClick={() => handleEditClick("SkillForm")}
+                        className="m-5 btn btn-success"
+                      >
+                        add
+                      </button>
+                      <div
+                        className={
+                          isEditing === "SkillForm"
+                            ? "rounded bg-base-300 border-2 border-slate-700"
+                            : "hidden"
+                        }
+                      >
+                        <AddSkill />
+                        <button
+                          onClick={() => handleEditClick("")}
+                          className="m-5 btn btn-success"
+                        >
+                          close
+                        </button>
+                      </div>
+                    </>
+                  ) : (
+                    <>
+                      <button
+                        onClick={() => handleEditClick("AddSkill")}
+                        className="m-5 btn btn-success"
+                      >
+                        add
+                      </button>
+                      <div
+                        className={
+                          isEditing === "AddSkill"
+                            ? "rounded bg-base-300 border-2 border-slate-700"
+                            : "hidden"
+                        }
+                      >
+                        <AddSkill />
+                        <button
+                          onClick={() => handleEditClick("")}
+                          className="m-5 btn btn-success"
+                        >
+                          close
+                        </button>
+                      </div>
+                    </>
+                  )}
+                </div>
+              </div>
+              <div
+                id="Communities"
+                className={
+                  activeTab === "Communities"
+                    ? "rounded bg-base-300 border-2 border-slate-700"
+                    : "hidden"
+                }
+              >
+                <h1 className="text-xl text-center font-bold mx-auto py-6">
+                  Communities
+                </h1>
+                <div className="m-2">
+                  {profile.groups && profile.groups.length ? (
+                    <>
+                      {profile.groups.map((group) => (
+                        <>
+                          <div className="text-xl" key={group._id}>
+                            {group.name}
+                          </div>
+                          <button
+                            onClick={() => handleEditClick(group._id)}
+                            className="m-5 btn btn-success"
+                          >
+                            edit
+                          </button>
+                          <div
+                            className={
+                              isEditing === group._id
+                                ? "rounded bg-base-300 border-2 border-slate-700"
+                                : "hidden"
+                            }
+                          >
+                            <EditGroupForm
+                              initialValues={{
+                                name: group.name,
+                                private: group.private,
+                                joinQuestion: group.joinQuestion,
+                              }}
+                            />
+                            <button
+                              onClick={() => handleEditClick("")}
                               className="m-5 btn btn-success"
                             >
-                              edit
+                              close
                             </button>
-                            <div
-                              className={
-                                isEditing === edu._id
-                                  ? "rounded bg-base-300 border-2 border-slate-700"
-                                  : "hidden"
-                              }
-                            >
-                              <EditEducationForm
-                                initialValues={{
-                                  school: edu.school.name,
-                                  fieldOfStudy: edu.fieldOfStudy,
-                                  certificateType: edu.certificateType,
-                                  startMonth: edu.startMonth,
-                                  startYear: edu.startYear,
-                                  current: edu.current,
-                                  endMonth: edu.endMonth || "",
-                                  endYear: edu.endYear || "",
-                                }}
-                              />
-                              <button
-                                onClick={() => handleEditClick("")}
-                                className="btn btn-success mx-auto"
-                              >
-                                close
-                              </button>
-                            </div>
-                          </>
-                        ))}
+                          </div>
+                        </>
+                      ))}
+                      <button
+                        onClick={() => handleEditClick("GroupForm")}
+                        className="m-5 btn btn-success"
+                      >
+                        add
+                      </button>
+                      <div
+                        className={
+                          isEditing === "GroupForm"
+                            ? "rounded bg-base-300 border-2 border-slate-700"
+                            : "hidden"
+                        }
+                      >
+                        <GroupForm />
                         <button
-                          onClick={() => handleEditClick("EducationForm")}
+                          onClick={() => handleEditClick("")}
                           className="m-5 btn btn-success"
                         >
-                          add
+                          close
                         </button>
-                        <div
-                          className={
-                            isEditing === "EducationForm"
-                              ? "rounded bg-base-300 border-2 border-slate-700"
-                              : "hidden"
-                          }
-                        >
-                          <EducationForm />
-                          <button
-                            onClick={() => handleEditClick("")}
-                            className="m-5 btn btn-success"
-                          >
-                            close
-                          </button>
-                        </div>
-                      </>
-                    ) : (
-                      <>
+                      </div>
+                    </>
+                  ) : (
+                    <>
+                      <button
+                        onClick={() => handleEditClick("GroupForm")}
+                        className="m-5 btn btn-success"
+                      >
+                        add
+                      </button>
+                      <div
+                        className={
+                          isEditing === "GroupForm"
+                            ? "rounded bg-base-300 border-2 border-slate-700"
+                            : "hidden"
+                        }
+                      >
+                        <GroupForm />
                         <button
-                          onClick={() => handleEditClick("EducationForm")}
+                          onClick={() => handleEditClick("")}
                           className="m-5 btn btn-success"
                         >
-                          add
+                          close
                         </button>
-                        <div
-                          className={
-                            isEditing === "EducationForm"
-                              ? "rounded bg-base-300 border-2 border-slate-700"
-                              : "hidden"
-                          }
-                        >
-                          <button
-                            onClick={() => handleEditClick("")}
-                            className="m-5 btn btn-success"
-                          >
-                            close
-                          </button>
-                          <EducationForm />
-                        </div>
-                      </>
-                    )}
-                  </div>
+                      </div>
+                    </>
+                  )}
                 </div>
-                <div
-                  id="Skills"
-                  className={
-                    activeTab === "Skills"
-                      ? "rounded bg-base-300 border-2 border-slate-700 h-72"
-                      : "hidden"
-                  }
-                >
-                  <h1 className="text-xl text-center font-bold mx-auto py-6">
-                    Skills
+              </div>
+              <div
+                id="Posts"
+                className={
+                  activeTab === "Posts"
+                    ? "rounded bg-base-300 border-2 border-slate-700 w-96"
+                    : "hidden"
+                }
+              >
+                <div className="m-2">
+                  <h1 className="text-xl text-center font-bold mx-auto py-6 border-2 border-slate-700">
+                    Posts
                   </h1>
-                  <div className="m-2">
-                    {profile.skills && profile.skills.length ? (
-                      <>
-                        {profile.skills.map((skill) => (
-                          <div className="btn btn-outline" key={skill._id}>
-                            {skill.skillName}
+                  {profile.posts ? (
+                    profile.posts.map((post) => (
+                      <div className="text-center font-bold mx-auto py-6 border-2 border-slate-700" key={post._id}>
+                        {post.postBody}
+                        <span className="label">Comments</span>
+                        {post.comments.map((comment) => (
+                          <div className="text-center" key={comment._id}>
+                            {comment.commentBody}
                           </div>
                         ))}
-                        <button
-                          onClick={() => handleEditClick("SkillForm")}
-                          className="m-5 btn btn-success"
-                        >
-                          add
-                        </button>
-                        <div
-                          className={
-                            isEditing === "SkillForm"
-                              ? "rounded bg-base-300 border-2 border-slate-700"
-                              : "hidden"
-                          }
-                        >
-                          <AddSkill />
-                          <button
-                            onClick={() => handleEditClick("")}
-                            className="m-5 btn btn-success"
-                          >
-                            close
-                          </button>
-                        </div>
-                      </>
-                    ) : (
-                      <>
-                        <button
-                          onClick={() => handleEditClick("AddSkill")}
-                          className="m-5 btn btn-success"
-                        >
-                          add
-                        </button>
-                        <div
-                          className={
-                            isEditing === "AddSkill"
-                              ? "rounded bg-base-300 border-2 border-slate-700"
-                              : "hidden"
-                          }
-                        >
-                          <AddSkill />
-                          <button
-                            onClick={() => handleEditClick("")}
-                            className="m-5 btn btn-success"
-                          >
-                            close
-                          </button>
-                        </div>
-                      </>
-                    )}
-                  </div>
-                </div>
-                <div
-                  id="Communities"
-                  className={
-                    activeTab === "Communities"
-                      ? "rounded bg-base-300 border-2 border-slate-700"
-                      : "hidden"
-                  }
-                >
-                  <h1 className="text-xl text-center font-bold mx-auto py-6">
-                    Communities
-                  </h1>
-                  <div className="m-2">
-                    {profile.groups && profile.groups.length ? (
-                      <>
-                        {profile.groups.map((group) => (
-                          <>
-                            <div className="text-xl" key={group._id}>
-                              {group.name}
-                            </div>
-                            <button
-                              onClick={() => handleEditClick(group._id)}
-                              className="m-5 btn btn-success"
-                            >
-                              edit
-                            </button>
-                            <div
-                              className={
-                                isEditing === group._id
-                                  ? "rounded bg-base-300 border-2 border-slate-700"
-                                  : "hidden"
-                              }
-                            >
-                              <EditGroupForm
-                                initialValues={{
-                                  name: group.name,
-                                  private: group.private,
-                                  joinQuestion: group.joinQuestion,
-                                }}
-                              />
-                              <button
-                                onClick={() => handleEditClick("")}
-                                className="m-5 btn btn-success"
-                              >
-                                close
-                              </button>
-                            </div>
-                          </>
-                        ))}
-                        <button
-                          onClick={() => handleEditClick("GroupForm")}
-                          className="m-5 btn btn-success"
-                        >
-                          add
-                        </button>
-                        <div
-                          className={
-                            isEditing === "GroupForm"
-                              ? "rounded bg-base-300 border-2 border-slate-700"
-                              : "hidden"
-                          }
-                        >
-                          <GroupForm />
-                          <button
-                            onClick={() => handleEditClick("")}
-                            className="m-5 btn btn-success"
-                          >
-                            close
-                          </button>
-                        </div>
-                      </>
-                    ) : (
-                      <>
-                        <button
-                          onClick={() => handleEditClick("GroupForm")}
-                          className="m-5 btn btn-success"
-                        >
-                          add
-                        </button>
-                        <div
-                          className={
-                            isEditing === "GroupForm"
-                              ? "rounded bg-base-300 border-2 border-slate-700"
-                              : "hidden"
-                          }
-                        >
-                          <GroupForm />
-                          <button
-                            onClick={() => handleEditClick("")}
-                            className="m-5 btn btn-success"
-                          >
-                            close
-                          </button>
-                        </div>
-                      </>
-                    )}
-                  </div>
-                </div>
-                <div
-                  id="Posts"
-                  className={
-                    activeTab === "Posts"
-                      ? "rounded bg-base-300 border-2 border-slate-700"
-                      : "hidden"
-                  }
-                >
-                  <div className="m-2">
-                    <h1 className="text-xl text-center font-bold mx-auto py-6">
-                      Posts
-                    </h1>
-                    <PostForm />
-                    {profile.posts ? (
-                      profile.posts.map((post) => (
-                        <div className="text-center font-bold" key={post._id}>
-                          {post.postBody} {post._id}
-                          <span className="label">Comments</span>
-                          {post.comments.map((comment) => (
-                            <div className="text-center" key={comment._id}>
-                              {comment.commentBody}
-                            </div>
-                          ))}
+                        <div className="w-72 mx-auto">
                           <CommentForm postId={post._id} />
+                          </div>
+                        <button
+                          className="btn btn-secondary btn-sm mx-auto"
+                          onClick={() => handleEditClick("React")}
+                        >React</button>
+                        <div
+                          className={
+                            isEditing === "React"
+                              ? "btn btn-secondary"
+                              : "hidden"
+                          }
+                        >
                           <ReactionForm postId={post._id} />
                         </div>
-                      ))
-                    ) : (
-                      <button className="m-5 btn btn-success">add Posts</button>
-                    )}
-                  </div>
+                        <PostForm />
+                      </div>
+                    ))
+                  ) : (
+                    <button className="m-5 btn btn-success">add Posts</button>
+                  )}
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <div className=" grid w-full justify-items-center">
-          <button className="btn btn-accent m-5">View My Resume</button>
-          <button className="btn btn-accent m-5">Add as Friend</button>
-        </div>
       </div>
-    );
-  }
+      <div className=" grid w-full justify-items-center">
+        <button className="btn btn-accent m-5">View My Resume</button>
+        <button className="btn btn-accent m-5">Add as Friend</button>
+      </div>
+    </div>
+  );
+}
 }

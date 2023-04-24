@@ -60,7 +60,7 @@ export default function PostForm() {
 
           <div className="form-control mt-6">
             <button
-              className="btn btn-primary"
+              className="btn btn-sm btn-primary mx-auto"
               type="submit"
               disabled={isSubmitting}
             >

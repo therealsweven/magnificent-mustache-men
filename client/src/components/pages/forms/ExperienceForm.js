@@ -79,9 +79,6 @@ export default function ExperienceForm() {
   if (loading) {
     return <h2>...loading</h2>;
   }
-  if (!loading) {
-    companydata = [data];
-
     return (
       <Formik
         initialValues={initialValues}
@@ -117,11 +114,7 @@ export default function ExperienceForm() {
               <label className="label" htmlFor="title">
                 <span className="label-text">Title</span>
               </label>
-              <Field
-                className="input input-bordered"
-                type="text"
-                name="title"
-              />
+            <Field className="input input-bordered" type="text" name="title" />
               <ErrorMessage name="title" component="div" className="error" />
             </div>
             <div className="form-control">
@@ -148,19 +141,11 @@ export default function ExperienceForm() {
                 as="select"
                 type="text"
                 name="startMonth"
-              >
-                <option>Select a Month</option>
-                {months.map((month) => (
-                  <option key={month.name} value={month.name}>
-                    {month.name}
-                  </option>
-                ))}
+            ><option>Select a Month</option>
+            {months.map((month) =>
+            <option key={month.name} value={month.name}>{month.name}</option>)}
               </Field>
-              <ErrorMessage
-                name="startMonth"
-                component="div"
-                className="error"
-              />
+            <ErrorMessage name="startMonth" component="div" className="error" />
             </div>
             <div className="form-control">
               <label className="label" htmlFor="startYear">
@@ -171,11 +156,7 @@ export default function ExperienceForm() {
                 type="number"
                 name="startYear"
               />
-              <ErrorMessage
-                name="startYear"
-                component="div"
-                className="error"
-              />
+            <ErrorMessage name="startYear" component="div" className="error" />
             </div>
             <div className="form-control">
               <label className="label" htmlFor="current">
@@ -201,13 +182,9 @@ export default function ExperienceForm() {
                     type="text"
                     name="endMonth"
                     disabled
-                  >
-                    <option>Select a Month</option>
-                    {months.map((month) => (
-                      <option key={month.name} value={month.name}>
-                        {month.name}
-                      </option>
-                    ))}
+            ><option>Select a Month</option>
+            {months.map((month) =>
+            <option key={month.name} value={month.name}>{month.name}</option>)}
                   </Field>
                   <ErrorMessage
                     name="endMonth"
@@ -243,13 +220,9 @@ export default function ExperienceForm() {
                     as="select"
                     type="text"
                     name="endMonth"
-                  >
-                    <option>Select a Month</option>
-                    {months.map((month) => (
-                      <option key={month.name} value={month.name}>
-                        {month.name}
-                      </option>
-                    ))}
+            ><option>Select a Month</option>
+            {months.map((month) =>
+            <option key={month.name} value={month.name}>{month.name}</option>)}
                   </Field>
                 </div>
                 <div className="form-control">
@@ -284,4 +257,4 @@ export default function ExperienceForm() {
       </Formik>
     );
   }
-}
+

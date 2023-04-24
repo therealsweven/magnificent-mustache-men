@@ -54,6 +54,20 @@ export const QUERY_ME = gql`
       website
       posts {
         _id
+        createdAt
+        entity {
+          _id
+          company {
+            name
+          }
+          school {
+            name
+          }
+          user {
+            firstName
+            lastName
+          }
+        }
         user {
           firstName
           lastName
@@ -147,7 +161,16 @@ export const QUERY_FEED = gql`
       _id
       postBody
       entity {
-        _id
+        company {
+          _id
+          name
+          profPic
+        }
+        school {
+          _id
+          name
+          profPic
+        }
         user {
           _id
           firstName
