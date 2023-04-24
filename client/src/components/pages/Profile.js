@@ -635,29 +635,33 @@ export default function Profile() {
                   id="Posts"
                   className={
                     activeTab === "Posts"
-                      ? "flex justify-center rounded bg-base-300 border-2 border-slate-700"
+                      ? "flex justify-center container rounded bg-base-300 border-2 border-slate-700"
                       : "hidden"
                   }
                 >
                   
-                  <div className="m-2">
-                  <h1 className="text-xl text-center font-bold mx-auto py-6 border-2 border-slate-700 bg-primary">
+                  <div className="m-2 w-3/5">
+                  <h1 className="rounded text-xl text-center font-bold mx-auto py-6 border-2 border-slate-700 bg-primary">
                       Posts
                     </h1>
                     {profile.posts ? (
                       profile.posts.map((post) => (
                         <>
                           <div
-                            className="text-center mx-auto py-6 border-2 border-slate-700"
+                            className="rounded mx-auto py-6 border-2 border-slate-700"
                             key={post._id}
                           >
-                            {profile.firstName}{" "}{profile.lastName} on {new Date(parseInt(post.createdAt)).toLocaleString()}:{" "}{post.postBody}
-                            <span className="label border-b-2 border-slate-700">
+                              <span className="bg-base-100 label border-b-2 border-slate-700">
+                              {new Date(parseInt(post.createdAt)).toLocaleString()}
+                            </span>
+                            <div className="bg-base-300">
+                            {profile.firstName}{" "}{profile.lastName}:</div><div>{" "}{post.postBody}</div>
+                            <span className="bg-base-100 label border-b-2 border-slate-700">
                               Comments
                             </span>
                             {post.comments.map((comment) => (
                               <div
-                                className="text-center border-slate-700"
+                                className="rounded border-slate-700"
                                 key={comment._id}
                               >
                                 {post.entity.user ? (
@@ -678,7 +682,7 @@ export default function Profile() {
                                 {" "}{comment.commentBody}
                               </div>
                             ))}
-                            <div className="mx-auto border-slate-700 m-2">
+                            <div className="rounded mx-auto border-slate-700 m-2">
                               <CommentForm postId={post._id} />
                             </div>
                             <button
@@ -702,11 +706,11 @@ export default function Profile() {
                         </>
                       ))
                     ) : (
-                      <div className="flex flex-row rounded bg-base-300 border-2 border-slate-700 w-96">
+                      <div className="rounded bg-base-300 border-2 border-slate-700">
                         <PostForm />
                       </div>
                     )}
-                    <div className="flex flex-row rounded bg-base-300 border-2 border-slate-700 w-96">
+                    <div className="rounded bg-base-300 border-2 border-slate-700">
                       <PostForm />
                     </div>
                   </div>
